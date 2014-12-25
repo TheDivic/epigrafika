@@ -120,6 +120,8 @@ function posaljiPodatke(){
                             }
                     }
 					
-					function headerController($scope){
-					$scope.logged="true";}
+function headerController($scope)
+{
+	$scope.logged=true;
+}
                     

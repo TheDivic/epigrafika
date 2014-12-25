@@ -15,7 +15,8 @@
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">Epigrafika</a>
 				</div>
-				<div class="nav navbar-nav navbar-right" ng-hide="logged==true">
+				<!--
+				<div class="nav navbar-nav navbar-right" ng-hide=true >
 					<form class="navbar-form form-inline">
 						<div class="form-group">
 							<label class="sr-only" for="usr">Email:</label>
@@ -30,7 +31,8 @@
 						<a href="#" class="btn btn-link">Registracija</a>
 					</form>
 				</div>
-				<div class="nav navbar-nav navbar-right" ng-show='{{logged}}'>
+				-->
+				<div class="nav navbar-nav navbar-right" ng-show="logged">
 					<a href="#" class="btn btn-primary">Admin</a>
 					<a href="#" class="btn btn-danger">Logout</a>
 				</div>
