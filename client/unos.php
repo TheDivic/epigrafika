@@ -15,23 +15,23 @@
                                 Natpis: <textarea  rows="2"  name="natpis" /> </textarea>
 				<br/>
                                 Vrsta natpisa: <select name="vrstaNatpisa">
-                                    <option ng-repeat="natpis in vrsteNatpisa"> {{natpis.naziv}} </option>
+                                    <option ng-repeat="natpis in vrsteNatpisa  | orderBy:'naziv':false"> {{natpis.naziv}} </option>
                                 </select>
 				
 		</fieldset>
                 <fieldset>
                     <legend> Izvorno mesto nalaska </legend>
                     Provincija: <select name="provincija">
-                        <option ng-repeat="provincija in provincije"> {{ provincija.naziv }} </option>
+                        <option ng-repeat="provincija in provincije  | orderBy:'naziv':false"> {{ provincija.naziv }} </option>
                     </select>
                     <br/>
                     Grad: <select name="grad">
-                        <option ng-repeat="grad in gradovi"> {{grad.naziv}} </option>
+                        <option ng-repeat="grad in gradovi | orderBy:'naziv':false"> {{grad.naziv}} </option>
                     </select>
 				<br/>
                     Mesto: <input type="text" name="mestoNalaska" /><br/>
                     Moderno ime drzave: <select name="modernoImeDrzave">
-                        <option ng-repeat="drzava in drzave"> {{drzava.naziv}} </option>
+                        <option ng-repeat="drzava in drzave  | orderBy:'naziv':false"> {{drzava.naziv}} </option>
                     </select>
                 </fieldset>
                 Trenutna lokacija znamenitosti: <input type="text" name="trenutnaLokacijaZnamenitosti" />

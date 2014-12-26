@@ -20,13 +20,15 @@
                     <legend> Izvorno mesto nalaska </legend>
                             Provincija:
                             <select name="provincijaNalaska" ng-model="provincijaNalaska" >
-                                <option ng-repeat="provincija in provincije"> {{ provincija.naziv }} </option>
+                                    <option value="aaa"> AAAAAA </option>
+                                    <option value="bbbb"> BBBBBB </option>
                                 </select><br/>
                             Grad: <input type="text" name="gradNalaska" ng-model="gradNalaska"/> <br/>
                             Mesto: <input type="text" name="mestoNalaska" ng-model="mestoNalaska"/> <br/>
                             Moderno ime drzave:
                             <select name="modernoImeDrzave" ng-model="modernoImeDrzave">
-                                <option ng-repeat="drzava in drzave"> {{drzava.naziv}} </option>
+                                <option value="aaa"> AAAAAA </option>
+                                <option value="bbbb"> BBBBBB </option>
                             </select>
                 </fieldset>
                 <fieldset>

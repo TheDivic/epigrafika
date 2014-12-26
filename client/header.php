@@ -7,17 +7,22 @@
         <script src='script/angular.min.js' type='text/javascript' > </script>
 		<script src="script/forme.js" type='text/javascript'> </script>
         <script src="script/jquery-1.11.1.js" type='text/javascript'></script>
-		<script type='text/javascript' src="./script/KontroleriZaUnosIPretragu.js"></script>
+		<script src="script/KontroleriZaUnosIPretragu.js" type='text/javascript'></script>
+		<script src="script/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
     </head>
     <body>
 		<nav class="navbar navbar-default">
 			<div class="container-fluid" ng-controller='headerController' >
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Epigrafika</a>
+					<a class="navbar-brand" href="index.php">Epigrafika</a>
 				</div>
-				<!--
-				<div class="nav navbar-nav navbar-right" ng-hide=true >
+				<ul class="nav navbar-nav navbar-left">
+					<li><a href="index.php" class="btn btn-default"><span class="glyphicon glyphicon-home"></span></a></li> <!--Home-->
+				<!--	<li><a href="" class="btn btn-default"><span class="glyphicon glyphicon-search"></span>  </a></li> <!--search-->
+				</ul>
+				<div class="nav navbar-nav navbar-right" ng-hide="logged" >
 					<form class="navbar-form form-inline">
 						<div class="form-group">
 							<label class="sr-only" for="usr">Email:</label>
@@ -28,15 +33,15 @@
 							<input type="password" class="form-control" id="pwd" placeholder="Sifra" />
 						</div>
 						<button type="submit" class="btn btn-default">Login</button>
-						<a href="#" class="btn btn-link">Zaboravljenja sifra?</a>
-						<a href="#" class="btn btn-link">Registracija</a>
+						<a href="zaboravljena.php" class="btn btn-link">Zaboravljenja sifra?</a>
+						<a href="registracija.php" class="btn btn-link">Registracija</a>
 					</form>
 				</div>
-				-->
-				<div class="nav navbar-nav navbar-right" ng-show="logged">
-					<a href="#" class="btn btn-primary">Admin</a>
-					<a href="#" class="btn btn-danger">Logout</a>
-				</div>
+				
+				<ul class="nav navbar-nav navbar-right" ng-show="logged">
+					<li><a href="Admin/index.php" class="btn btn-default"><span class="glyphicon glyphicon-user"> </span> Admin</a></li>
+					<li><a href="#" class="btn btn-default">Logout </a></li>
+				</ul>
 			</div>
 		</nav>
 		

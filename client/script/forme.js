@@ -23,7 +23,7 @@
 
                         });
                     }
-                    
+ 
                     function formControllerRegistration($scope){
                         $scope.username='';
 						$scope.password='';
@@ -42,8 +42,15 @@
                             }
                     }
 					
+<<<<<<< HEAD
 					function headerController($scope)
 					{
 						$scope.logged=true;
 					}
+=======
+function headerController($scope)
+{
+	$scope.logged=false;
+}
+>>>>>>> origin/master
                     
