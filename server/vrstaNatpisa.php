@@ -3,7 +3,7 @@
 $result = new stdClass();
 try{
 
-    $db=new PDO('mysql:dbname=list_app; host=localhost', 'root', '',
+    $db=new PDO('mysql:dbname=mydb; host=localhost', 'root', '',
         array(PDO::ATTR_PERSISTENT=>true, PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
 
 
