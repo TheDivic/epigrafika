@@ -5,10 +5,11 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1"/>
         <script src='script/angular.min.js' type='text/javascript' > </script>
-		<script src="script/forme.js" type='text/javascript'> </script>
+		<script src="script/slanjePodatakaServeru.js" type='text/javascript'> </script>
+		<script src="script/header.js" type='text/javascript'> </script>
+		<script src="script/kontroleriZaRegistraciju.js" type='text/javascript'> </script>
 		<script src="script/KontroleriZaUnosIPretragu.js" type='text/javascript'> </script>		
         <script src="script/jquery-1.11.1.js" type='text/javascript'></script>
-		<script src="script/KontroleriZaUnosIPretragu.js" type='text/javascript'></script>
 		<script src="script/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">

@@ -1,4 +1,4 @@
-					function posaljiPodatke(){
+function posaljiPodatke(){
                         var fields = $("#myForm").serializeArray();
                         var podaci = new Object();
                         jQuery.each( fields, function(i, field ) {
@@ -23,34 +23,3 @@
 
                         });
                     }
- 
-                    function formControllerRegistration($scope){
-                        $scope.username='';
-						$scope.password='';
-						$scope.passwordR='';
-						$scope.email='';
-						$scope.info='';
-						$scope.sameR='false';
-						$scope.same=function(){
-                            if($scope.password==$scope.passwordR)
-                                {
-								$scope.sameR='false';
-                                }
-                            else{
-								$scope.sameR='true';
-                                }
-                            }
-                    }
-					
-<<<<<<< HEAD
-					function headerController($scope)
-					{
-						$scope.logged=true;
-					}
-=======
-function headerController($scope)
-{
-	$scope.logged=false;
-}
->>>>>>> origin/master
-                    
