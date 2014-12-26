@@ -1,6 +1,7 @@
 <?php include 'header.php'; ?>
         <div ng-controller='formControllerPretraga'>
-	<form action=""  name='formPretraga' id="myForm" method="post" enctype='multipart/form-data'>
+            <p ng-click="prikazi=!prikazi"> Pretraga </p>
+            <form action=""  name='formPretraga' ng-init="prikazi=true" id="myForm" method="post" enctype='multipart/form-data' ng-show="prikazi">
 		<fieldset>
                     <legend> Osnovne informacije </legend>
                     Oznaka **: <input type="text" name="oznaka" ng-maxlength="15" ng-model="oznaka" ng-required='true'/>  
@@ -19,16 +20,14 @@
                 <fieldset>
                     <legend> Izvorno mesto nalaska </legend>
                             Provincija:
-                            <select name="provincijaNalaska" ng-model="provincijaNalaska" >
-                                    <option value="aaa"> AAAAAA </option>
-                                    <option value="bbbb"> BBBBBB </option>
+                            <select name="provincijaNalaska"  >
+                                <option ng-repeat="provincija in provincije | orderBy:'naziv':false"> {{ provincija.naziv }} </option>
                                 </select><br/>
                             Grad: <input type="text" name="gradNalaska" ng-model="gradNalaska"/> <br/>
                             Mesto: <input type="text" name="mestoNalaska" ng-model="mestoNalaska"/> <br/>
                             Moderno ime drzave:
-                            <select name="modernoImeDrzave" ng-model="modernoImeDrzave">
-                                <option value="aaa"> AAAAAA </option>
-                                <option value="bbbb"> BBBBBB </option>
+                            <select name="modernoImeDrzave" >
+                                <option ng-repeat="drzava in drzave | orderBy:'naziv':false"> {{drzava.naziv}} </option>
                             </select>
                 </fieldset>
                 <fieldset>
@@ -47,8 +46,15 @@
                     <input type="radio" name="sortiranje" value="poMestuNalaska"/> mestu nalaska <br/>
                     <input type="radio" name="sortiranje" value="poVrstiNatpisa"/> vrsti natpisa <br/>
                 </fieldset>
-            <input type="submit" value="Zapocni pretragu" onclick="posaljiPodatke()" ng-disabled='!formPretraga.$valid'  />
+            <input type="submit" value="Zapocni pretragu" ng-click="posaljiPodatke()" ng-disabled='!formPretraga.$valid'  />
             <input type="reset" value="Obrisi podatke" />
         </form>
+        <div id="rezultati">
+            <div ng-repeat="rezultat in rezultatiPretrage">
+                {{rezultat}} 
+            </div>
+        </div>
       </div>
+
+
     <?php include 'footer.php'; ?>
