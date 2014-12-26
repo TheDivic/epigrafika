@@ -23,8 +23,7 @@ function posaljiPodatke(){
 
                         });
                     }
-                 </script>
-                <script type='text/javascript'>
+ 
                     function formControllerPretraga($scope){
                         $scope.oznaka='';
                         $scope.modernoImeDrzave="";
@@ -122,6 +121,6 @@ function posaljiPodatke(){
 					
 function headerController($scope)
 {
-	$scope.logged=true;
+	$scope.logged=false;
 }
                     
