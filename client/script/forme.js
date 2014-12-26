@@ -1,4 +1,4 @@
-function posaljiPodatke(){
+					function posaljiPodatke(){
                         var fields = $("#myForm").serializeArray();
                         var podaci = new Object();
                         jQuery.each( fields, function(i, field ) {
@@ -8,7 +8,7 @@ function posaljiPodatke(){
                         alert("hahahahah");
                         
                         $.ajax({
-                            url: "http://localhost:8080/PhpProject1/server.php",
+                            url: "../server/server.php",
                             type: "get",
                             dataType: "json",
                             data: formData,
@@ -26,24 +26,24 @@ function posaljiPodatke(){
                     
                     function formControllerRegistration($scope){
                         $scope.username='';
-			$scope.password='';
-			$scope.passwordR='';
-			$scope.email='';
-			$scope.info='';
-			$scope.sameR='false';
-			$scope.same=function(){
+						$scope.password='';
+						$scope.passwordR='';
+						$scope.email='';
+						$scope.info='';
+						$scope.sameR='false';
+						$scope.same=function(){
                             if($scope.password==$scope.passwordR)
                                 {
-				$scope.sameR='false';
+								$scope.sameR='false';
                                 }
                             else{
-				$scope.sameR='true';
+								$scope.sameR='true';
                                 }
                             }
                     }
 					
-function headerController($scope)
-{
-	$scope.logged=true;
-}
+					function headerController($scope)
+					{
+						$scope.logged=true;
+					}
                     
