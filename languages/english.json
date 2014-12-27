@@ -1,0 +1,8 @@
+{
+"pretraga": "Search",
+"osnovne_informacije": "Basic info",
+"oznaka": "Label",
+"oznaka_error_length": "Too long! Must be 15 characters or less.",
+"natpis": "Inscription",
+"ignorisi_zagrade" : "Ignore brackets"
+}
