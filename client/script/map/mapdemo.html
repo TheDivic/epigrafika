@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title> Map demo </title>
+        <style type="text/css">
+            #map-canvas
+            {
+                margin: 0;
+                padding: 0;
+                width: 600px;
+                height: 400px;
+                background-color: gray;
+            }
+            #content
+            {
+                padding: 10px;
+                width: 600px;
+                height: 100%;
+                margin-left: auto;
+                margin-right: auto;
+                background-color: azure;
+            }
+        </style>
+        <!-- Google Maps API -->
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBArTJ-mPtJuBsGghbM2LHu-FAJpehXJLg"></script>
+        <!-- jQuery API -->
+        <script type="text/javascript" src="jquery-2.1.1.min.js"></script>
+        <!-- Google Maps Wrapper -->
+        <script type="text/javascript" src="gmaps.js"></script>
+    </head>
+    <body>
+        <div id = "content">
+            <div id = "map-canvas">
+            Google Maps Canvas
+            </div>
+            <select id="cities" onchange="mapGoToLocation($(this).val())">
+				<option value="Beograd">Beograd</option>
+				<option value="Subotica">Subotica</option>
+				<option value="Novi Sad">Novi Sad</option>
+                <option value="Valjevo">Valjevo</option>
+                <option value="Nis">Nis</option>
+                <option value="Kragujevac">Kragujevac</option>
+            </select>
+            <button type="button" onclick="mapPlaceMarker(map.getCenter().lat(), map.getCenter().lng())">Place Marker</button>
+            <button type="button" onclick="mapClearAll()">Clear All</button>
+			<br/>
+			<br/>
+			<input type="range" name="Radius" min="1" max="100" oninput="mapDrawRadiusCircle(markers[markers.length-1].getPosition(),$(this).val()*1000)">
+			<button type="button" onclick="mapDoRadiusSearch()">Refresh Map</button>
+        </div>
+    </body>
+</html>
