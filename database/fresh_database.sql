@@ -579,7 +579,7 @@ INSERT INTO `mydb`.`podesavanja` (`id`, `naziv`, `tip`,`vrednost`) VALUES ('1', 
 
 INSERT INTO `mydb`.`poligon` (`id`) VALUES ('3'), ('4');
 
-INSERT INTO `mydb`.`tacka` (`id`, `latituda`, `longituda`) VALUES ('101', '32.80','86.10'), ('102', '31.90','92.10');
+INSERT INTO `mydb`.`tacka` (`id`, `latituda`, `longituda`) VALUES ('101', '44.7866','20.4489'), ('102', '45.2671','19.8335');
 
 INSERT INTO `mydb`.`tackepoligona` (`poligon`, `rednibroj`, `koordinata`) VALUES ('3', '1','101'), ('4', '2','102');
 
