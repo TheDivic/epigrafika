@@ -4,5 +4,21 @@
 "oznaka": "Label",
 "oznaka_error_length": "Too long! Must be 15 characters or less.",
 "natpis": "Inscription",
-"ignorisi_zagrade" : "Ignore brackets"
+"ignorisi_zagrade" : "Ignore brackets",
+"izvorno_mesto_nastanka" : "Place of origin",
+"provincija" : "Province" ,
+"grad": "Town",
+"mesto" : "Place",
+"moderno_ime_drzave" : "Country name(modern)",
+"vreme": "Period",
+"vek":"Century",
+"prva_polovina":" first half",
+"druga_polovina":" second half",
+"prikazi_nedatovane_natpise":"Show undated data",
+"sortiraj_rezultate_po":"Sort results by",
+"vremenu":"data",
+"mestu_nalaska":"finding place",
+"vrsti_natpisa":"type",
+"zapocni_pretragu":"Search",
+"resetuj_podatke":"Reset form"
 }

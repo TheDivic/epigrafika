@@ -23,36 +23,36 @@
 
     </fieldset>
     <fieldset>
-        <legend> Izvorno mesto nalaska </legend>
-        Provincija:
+        <legend> {{ tr.izvorno_mesto_nastanka }} </legend>
+        {{tr.provincija}}:
         <select name="provincijaNalaska"  >
             <option ng-repeat="provincija in provincije | orderBy:'naziv':false"> {{ provincija.naziv }} </option>
         </select><br/>
-        Grad: <input type="text" name="gradNalaska" ng-model="gradNalaska"/> <br/>
-        Mesto: <input type="text" name="mestoNalaska" ng-model="mestoNalaska"/> <br/>
-        Moderno ime drzave:
+        {{tr.grad}}: <input type="text" name="gradNalaska" ng-model="gradNalaska"/> <br/>
+        {{tr.mesto}}: <input type="text" name="mestoNalaska" ng-model="mestoNalaska"/> <br/>
+        {{tr.moderno_ime_drzave}}:
         <select name="modernoImeDrzave" >
             <option ng-repeat="drzava in drzave | orderBy:'naziv':false"> {{drzava.naziv}} </option>
         </select>
     </fieldset>
     <fieldset>
-        <legend> Vreme </legend>
-        Vek: <input type="text" name="vek" ng-model="vek"/>
+        <legend> {{tr.vreme}} </legend>
+        {{tr.vek}}: <input type="text" name="vek" ng-model="vek"/>
         <br/>
-        <input type="radio" name="periodVeka" value="prvaPolovinaVeka"/> prva polovina  <br/>
-        <input type="radio" name="periodVeka" value="drugaPolovinaVeka"/>  druga polovina
+        <input type="radio" name="periodVeka" value="prvaPolovinaVeka"/> {{tr.prva_polovina}}  <br/>
+        <input type="radio" name="periodVeka" value="drugaPolovinaVeka"/>  {{tr.druga_polovina}}
         <br/>
-        <input type="checkbox" name="" value="prikaziNedatovaneNatpise"> Prikazi i nedatovane natpise
+        <input type="checkbox" name="" value="prikaziNedatovaneNatpise"> {{tr.prikazi_nedatovane_natpise}}
         <br/>
     </fieldset>
     <fieldset>
-        <legend> Sortiranje rezultata po jednoj od sledecih kategorija </legend>
-        <input type="radio" name="sortiranje" value="poVremenu"/> vremenu <br/>
-        <input type="radio" name="sortiranje" value="poMestuNalaska"/> mestu nalaska <br/>
-        <input type="radio" name="sortiranje" value="poVrstiNatpisa"/> vrsti natpisa <br/>
+        <legend> {{tr.sortiraj_rezultate_po}} </legend>
+        <input type="radio" name="sortiranje" value="poVremenu"/> {{tr.vremenu}} <br/>
+        <input type="radio" name="sortiranje" value="poMestuNalaska"/> {{tr.mestu_nalaska}} <br/>
+        <input type="radio" name="sortiranje" value="poVrstiNatpisa"/> {{tr.vrsti_natpisa}} <br/>
     </fieldset>
-    <input type="submit" value="Zapocni pretragu" ng-click="posaljiPodatke()" ng-disabled='!formPretraga.$valid'  />
-    <input type="reset" value="Obrisi podatke" />
+    <input type="submit" value={{tr.zapocni_pretragu}} ng-click="posaljiPodatke()" ng-disabled='!formPretraga.$valid'  />
+    <input type="reset" value={{tr.resetuj_podatke}} />
 </form>
 <div id="rezultati">
     <div ng-repeat="rezultat in rezultatiPretrage">

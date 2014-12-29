@@ -4,5 +4,21 @@
 "oznaka": "Oznaka",
 "oznaka_error_length": "Polje mora biti krace od 15 karaktera!",
 "natpis": "Natpis",
-"ignorisi_zagrade" : "Rezim ignorisanja zagrada"
+"ignorisi_zagrade" : "Rezim ignorisanja zagrada",
+"izvorno_mesto_nastanka" : "Izvorno mesto nalaska",
+"provincija" : "Provincija",
+"grad" : "Grad",
+"mesto" : "Mesto",
+"moderno_ime_drzave" : "Moderno ime drzave",
+"vreme":"Vreme",
+"vek":"Vek",
+"prva_polovina":" prva polovina",
+"druga_polovina":" druga polovina",
+"prikazi_nedatovane_natpise":"Prikazi i nedatovane natpise",
+"sortiraj_rezultate_po":"Sortiranje rezultata po jednoj od sledecih kategorija",
+"vremenu":"vremenu",
+"mestu_nalaska":"mestu nalaska",
+"vrsti_natpisa":"vrsti natpisa",
+"zapocni_pretragu":"Zapocni pretragu",
+"resetuj_podatke":"Obrisi podatke"
 }
