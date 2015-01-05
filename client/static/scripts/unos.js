@@ -1,23 +1,4 @@
-function izracunajVek(godina){
-  if(godina < 100)
-  {
-    return 1;
-}
-var vek;
-vek = Math.floor(godina/100);
 
-if(godina%100 == 0)
-    return vek;
-else 
-    return vek+ 1;
-}
-
-function izracunajPeriodVeka(godina){
-   if(godina%100 > 49)
-     return "druga polovina ";
- else  return "prva polovina ";
-
-}
 
 angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http', function ($scope, $http){
     $scope.oznaka='';
@@ -26,6 +7,28 @@ angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http
     $scope.gradovi=null;
     $scope.vrsteNatpisa=null;
 
+	function izracunajVek(godina){
+	  if(godina < 100)
+	  {
+		return 1;
+	}
+	var vek;
+	vek = Math.floor(godina/100);
+
+	if(godina%100 == 0)
+		return vek;
+	else 
+		return vek+ 1;
+	}
+
+	function izracunajPeriodVeka(godina){
+	   if(godina%100 > 49)
+		 return {{tr.druga_polovina}};
+	 else  return {{tr.prva_polovina}};
+
+	}
+	
+	
     $http.get('../server/provincije.php', {responseType: 'JSON'}).
     success(function(data, status, headers, config){
         if(data!=="null")

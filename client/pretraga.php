@@ -19,7 +19,7 @@
             <option value="andNot" ng-value="true"> AND NOT </option>
         </select>
         <input type="text" name="natpis2" ng-show="natpisArguments" /> <br/>
-        <input type="checkbox" name="" value="rezimIgnorisanjaZagrada"> {{ tr.ignorisi_zagrade }}
+        <input type="checkbox" name="rezimIgnorisanjaZagrada" value="rezimIgnorisanjaZagrada"> {{ tr.ignorisi_zagrade }}
 
     </fieldset>
     <fieldset>
@@ -30,11 +30,21 @@
         </select><br/>
         {{tr.grad}}: <input type="text" name="gradNalaska" ng-model="gradNalaska"/> <br/>
         {{tr.mesto}}: <input type="text" name="mestoNalaska" ng-model="mestoNalaska"/> <br/>
-        {{tr.moderno_ime_drzave}}:
+		<input type="checkbox" name="prikaziNelokalizovanePodatke" value="prikaziNelokalizovanePodatke"> {{ tr.prikazi_nelokalizovane_podatke}} <br/>
+    </fieldset>
+	{{tr.moderno_ime_drzave}}:
         <select name="modernoImeDrzave" >
             <option ng-repeat="drzava in drzave | orderBy:'naziv':false"> {{drzava.naziv}} </option>
         </select>
-    </fieldset>
+		<br/>
+		{{tr.moderno_mesto}}
+		<select name="modernoMesto" >
+            <option ng-repeat="mesto in mesta | orderBy:'naziv':false"> {{mesto.naziv}} </option>
+        </select> //TODO <br/>
+		{{tr.pleme}}
+		<select name="pleme" >
+            <option ng-repeat="p in plemena | orderBy:'naziv':false"> {{p.naziv}} </option>
+        </select> //TODO
     <fieldset>
         <legend> {{tr.vreme}} </legend>
         {{tr.vek}}: <input type="text" name="vek" ng-model="vek"/>

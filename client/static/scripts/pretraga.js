@@ -5,6 +5,8 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
     $scope.natpisArguments=false;
     $scope.provincije= null;
     $scope.drzave=null;
+	$scope.plemena=null;
+	$scope.mesta=null;
 
     $http.get('../server/provincije.php', {responseType: 'JSON'}).
     success(function(data, status, headers, config){
