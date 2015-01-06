@@ -42,8 +42,8 @@
 "visina":"Visina",
 "duzina":"Dužina",
 "dodatne_informacije":"Dodatne informacije",
-"biografsko_poreklo":"Biografsko poreklo",
-"skracenica_biografskog_porekla":"Skraćenica biografskog porekla",
+"bibliografsko_poreklo":"Bibliografsko poreklo",
+"skracenica_bibliografskog_porekla":"Skraćenica bibliografskog porekla",
 "komentar":"Komentar",
 "dodaj_fotografiju":"Dodaj fotografiju",
 "trenutna_faza_unosa":"Trenutna faza unosa",
@@ -69,5 +69,7 @@
 "ponovljena_sifra":"Ponovite šifru",
 "dodatne_info":"Dodatne informacije",
 "registruj_se":"Registruj se",
-"info_max":"Dozvoljeno je manje od 45 karaktera"
+"info_max":"Dozvoljeno je manje od 45 karaktera",
+"pattern_error_cifre":"Dozvoljen je samo unos cifara!",
+"godina":"Godina"
 }

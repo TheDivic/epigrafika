@@ -3,20 +3,20 @@
 <!-- ucitavanje kontrolera -->
 <script src="static/scripts/unos.js"></script>
 
-<div ng-controller='unosController'>
+<div ng-controller='unosController' ng-cloak>
     <form action=""  name='formUnos' method="post" enctype='multipart/form-data'>
         <fieldset>
             <legend> {{tr.osnovne_informacije}} </legend>
-            {{tr.oznaka}}: <input type="text" name="oznaka" ng-maxlength="15" ng-model="oznaka" ng-required='true'/>
+            {{tr.oznaka}} *: <input type="text" name="oznaka" ng-maxlength="15" ng-model="oznaka" ng-required='true'/>
             <span ng-show='formUnos.oznaka.$error.maxlength'>
                 {{tr.oznaka_error_length}}
             </span>
             <br/>
-            <input type="radio" name="jezikUpisa" value="latinski" checked/> {{tr.latinski}}  <br/>
+            <input type="radio" name="jezikUpisa" value="latinski" checked /> {{tr.latinski}}  <br/>
             <input type="radio" name="jezikUpisa" value="grcki"/>  {{tr.grcki}}
 
             <br/>
-            {{tr.natpis}}: <textarea  rows="2"  name="natpis" /> </textarea>
+            {{tr.natpis}} *: <textarea  rows="2"  name="natpis" ng-required='true'/> </textarea>
             <br/>
             {{tr.vrsta_natpisa}}: 
             <select name="vrstaNatpisa">
@@ -50,23 +50,29 @@
 
 <fieldset>
     <legend> {{tr.vreme}} </legend>
-    <input type="radio" name="vreme" ng-model="vreme" value="nedatovan" checked/> {{tr.nedatovan_natpis}} <br/>
+    <input type="radio" name="vreme" ng-model="vreme" value="nedatovan" checked /> {{tr.nedatovan_natpis}} <br/>
     <input type="radio" name="vreme" ng-model="vreme" value="godina"/> {{tr.unesite_godinu}} : <br/>
     <fieldset ng-show="vreme=='godina'"> 
-        <input type="text" ng-model="godinaPronalaska" ng-change="unetaGodina()"/> <br/>
+        {{tr.godina}}* <input type="text" name="godinaPronalaska" ng-model="godinaPronalaska" ng-change="unetaGodina()" ng-required='vreme=="godina"' ng-pattern="/[0-9]+/"/>
+		<span ng-show='formUnos.godinaPronalaska.$error.pattern'>
+                {{tr.pattern_error_cifre}}
+        </span>		<br/>
         {{tr.vek}} :  {{vekIzracunat}} <br/>
         {{tr.vreme}}: {{periodVekaIzracunat}}
     </fieldset>
     
     <input type="radio" name="vreme" ng-model="vreme" value="unosVeka"/> {{tr.unesite_vek}}: <br/>
     <fieldset ng-show="vreme=='unosVeka'"> 
-        <input type="text" ng-model="vekPronalaska"/> <br/>
+        {{tr.vek}} * <input type="text" name="vekPronalaska" ng-model="vekPronalaska" ng-required='vreme=="unosVeka"' ng-pattern="/[0-9]+/"/> 
+		<span ng-show='formUnos.vekPronalaska.$error.pattern'>
+                {{tr.pattern_error_cifre}}
+            </span><br/>
         <input type="radio" name="periodVeka" value="prvaPolovinaVeka"/> {{tr.prva_polovina}}  <br/>
         <input type="radio" name="periodVeka" value="drugaPolovinaVeka"/>  {{tr.druga_polovina}}
     </fieldset>
     <input type="radio" name="vreme" ng-model="vreme" value="unosPeriodaOdDo"/> {{tr.unesite_period}}:
     <fieldset ng-show="vreme=='unosPeriodaOdDo'"> 
-        {{tr.od}}: <input type="text" ng-model="pocetakPerioda" ng-change="unetPocetakPerioda()"/>  {{tr.do}}: <input type="text" ng-model="krajPerioda" ng-change="unetKrajPerioda()"/> <br/>
+        {{tr.od}}: <input type="text" ng-model="pocetakPerioda" ng-change="unetPocetakPerioda()" ng-required='vreme=="unosPeriodaOdDo"'/>  {{tr.do}}: <input type="text" ng-model="krajPerioda" ng-change="unetKrajPerioda()" ng-required='vreme=="unosPeriodaOdDo"'/> <br/>
         {{periodVekaPocetkaIzracunat}} {{vekPocetkaIzracunat}}  <br/>
         {{periodVekaKrajaIzracunat}} {{vekKrajaIzracunat}}  
     </fieldset>
@@ -82,8 +88,8 @@
 
 <fieldset>
     <legend> {{tr.dodatne_informacije}}</legend>
-    {{tr.biografsko_poreklo}}: <input type="text" ng-model="biografskoPoreklo"/>//TODO <br/> 
-    {{tr.skracenica_biografskog_porekla}}: <input type="text" ng-model="biografskoPorekloSkracenica"/> // TODO <br/>
+    {{tr.bibliografsko_poreklo}}: <input type="text" ng-model="biografskoPoreklo"/>//TODO <br/> 
+    {{tr.skracenica_bibliografskog_porekla}}: <input type="text" ng-model="biografskoPorekloSkracenica"/> // TODO upload pdf <br/>
     {{tr.komentar}}: <textarea  rows="2"  name="natpis" /> </textarea><br/>
     {{tr.dodaj_fotografiju}} // TODO <br/>
     {{tr.trenutna_faza_unosa}}:<br/>
@@ -95,7 +101,7 @@
 
 
 
-<input type="submit" value={{tr.unesi_podatke}} />
+<input type="submit" value={{tr.unesi_podatke}} ng-disabled='!formUnos.$valid'/>
 <input type="reset" value={{tr.resetuj_podatke}} />
 </form>
 </div>
