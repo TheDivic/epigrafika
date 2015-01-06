@@ -31,17 +31,15 @@
                 <div class="nav navbar-nav navbar-right" ng-hide="logged">
 					<form class="navbar-form form-inline" id="loginForm" method="post" action="" enctype='multipart/form-data'>
 						<div class="form-group">
-							<label class="sr-only" for="usr">Email:</label>
-							<input type="text" class="form-control " id="usr" placeholder="Korisnicko ime" />
+							<input type="text" class="form-control " id="usr" placeholder={{tr.korisnicko_ime}} />
 						</div>
 						<div class="form-group">
-							<label class="sr-only" for="pwd">Password:</label>
-							<input type="password" class="form-control" id="pwd" placeholder="Sifra" />
+							<input type="password" class="form-control" id="pwd" placeholder={{tr.sifra}} />
 						</div>
 						<button type="submit" class="btn btn-primary" >Login</button>
-						<a href="zaboravljena.php" class="btn btn-link">Zaboravljenja sifra?</a>
-						<a href="registracija.php" class="btn btn-link">Registracija</a>
-						<a href="#" class="btn btn-link dropdown dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Jezici <b class="caret"></b></a>
+						<a href="zaboravljena.php" class="btn btn-link">{{tr.zaboravljena}}</a>
+						<a href="registracija.php" class="btn btn-link">{{tr.registracija}}</a>
+						<a href="#" class="btn btn-link dropdown dropdown-toggle" data-toggle="dropdown" aria-expanded="true">{{tr.jezici}} <b class="caret"></b></a>
 						<div class="dropdown-menu">
 							<button ng-click="changeTo('serbian')" type="button" class="btn btn-link"> <img src="static/img/rs.png" class="btn btn-link" alt="Srpski" title="Srpski"> Srpski </button><br/>
 							<button ng-click="changeTo('english')" type="button" class="btn btn-link"> <img src="static/img/gb.png" class="btn btn-link" alt="English" title="English"> English </button>
@@ -51,9 +49,9 @@
 				<!-- meni koji se prikazuje ako je korisnik ulogovan -->
 				<div class="nav navbar-nav navbar-right vertical-center" style="padding-top:10px;" ng-show="logged">
 					<a href="admin.php" class="btn btn-primary"><span class="glyphicon glyphicon-user"> </span> Admin</a>
-					<a href="unos.php" class="btn btn-info">Unesi objekat</a>
+					<a href="unos.php" class="btn btn-info">{{tr.unesi_objekat}}</a>
 					<a href="#" class="btn btn-danger">Logout </a>
-					<a href="#" class="btn btn-warning dropdown open dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Jezici <b class="caret"></b></a>
+					<a href="#" class="btn btn-warning dropdown open dropdown-toggle" data-toggle="dropdown" aria-expanded="true">{{tr.jezici}} <b class="caret"></b></a>
 						<div class="dropdown-menu">
 							<button ng-click="changeTo('serbian')" type="button" class="btn btn-link"> <img src="static/img/rs.png" class="btn btn-link" alt="Srpski" title="Srpski"> Srpski </button><br/>
 							<button ng-click="changeTo('english')" type="button" class="btn btn-link"> <img src="static/img/gb.png" class="btn btn-link" alt="English" title="English"> English </button>

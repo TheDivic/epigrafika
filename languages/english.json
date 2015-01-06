@@ -1,4 +1,7 @@
 {
+"unesi_objekat":"Add an item",
+"jezici":"Languages",
+"zaboravljena":"Forgotten password?",
 "pretraga": "Search",
 "osnovne_informacije": "Basic info",
 "oznaka": "Label",
@@ -51,5 +54,21 @@
 "prikazi_nelokalizovane_podatke":"Show non localized data",
 "moderno_mesto":"Modern place",
 "pleme":"Tribe",
-"lokalizovan_podatak":"Localized"
+"lokalizovan_podatak":"Localized",
+"registracija":"Registration",
+"polje_zvezda":"Fields with * are required",
+"ime_prezime":"First and last name",
+"pera_peric":"John Doe",
+"obavezno_polje":"Field is required!",
+"email_format":"Expected format is example@email.com",
+"institucija":"Institution",
+"korisnicko_ime":"Username",
+"korisnicko_max":"username (max 20 letters)",
+"dozvoljeni": "Characters , ; and = are not allowed",
+"sifra":"Password",
+"ponovljena_sifra":"Re-enter password",
+"dodatne_info":"Additional informations",
+"registruj_se":"Sing up",
+"info_max":"Only 45 characters allowed"
+
 }

@@ -3,7 +3,7 @@
 var glavniModul = angular.module('epigrafikaModul', ['translationModule']);
 
 glavniModul.controller('headerController', ['$scope', function ($scope){
-    $scope.logged=true;
+    $scope.logged=false;
 
 }]);
 console.info("Inicijalizovan headerController.");
@@ -26,15 +26,3 @@ glavniModul.controller('rootController', ['$scope', 'getTranslation', function($
     $scope.changeTo('serbian');
 }]);
 console.info("Inicijalizovan rootController.");
-
-glavniModul.filter('getById', function() {
-  return function(input, id) {
-    var i=0, len=input.length;
-    for (; i<len; i++) {
-      if (+input[i].id == +id) {
-        return input[i];
-      }
-    }
-    return null;
-  }
-});
