@@ -19,11 +19,12 @@ try
         else if($_GET['type'] === 'radiusSearch')
         {	
             //Pretraga preko mape
-
+            
+            $epsilon = 1e-4;
             $latMin = floatval($_GET['latMin']);
             $latMax = floatval($_GET['latMax']);
             $lngMin = floatval($_GET['lngMin']);
-            $lngMax = floatval($_GET['lngMax']);
+            $lngMax = floatval($_GET['lngMax']); 
 
             //Trazimo samo objekte cije tacke poligona
             //upadaju u opseg prosledjen GET parametrom
@@ -33,17 +34,19 @@ try
                                     join poligon p on g.poligon = p.id
                                     join tackepoligona tp on tp.poligon = p.id
                                     join tacka t on tp.koordinata = t.id
-                                    where t.latituda >= ? and t.latituda <= ?
-                                    and t.longituda >= ? and t.longituda <= ?
+                                    where t.latituda between $latMin-$epsilon and $latMax+$epsilon
+                                    and t.longituda between $lngMin-$epsilon and $lngMax+$epsilon
                                     group by o.id");
                                     
-            $query->bindParam(1, $latMin, PDO::PARAM_STR);
-            $query->bindParam(2, $latMax, PDO::PARAM_STR);
-            $query->bindParam(3, $lngMin, PDO::PARAM_STR);
-            $query->bindParam(4, $lngMax, PDO::PARAM_STR);
+            //$query->bindParam(1, $latMin, PDO::PARAM_STR);
+            //$query->bindParam(2, $latMax, PDO::PARAM_STR);
+            //$query->bindParam(3, $lngMin, PDO::PARAM_STR);
+            //$query->bindParam(4, $lngMax, PDO::PARAM_STR);
 
             $query->execute();
-            $result = $query->fetchAll(PDO::FETCH_OBJ);
+            
+            $result->error_status = false;
+            $result->data = $query->fetchAll(PDO::FETCH_OBJ);
         }
     }
     else if ($method === 'POST')
