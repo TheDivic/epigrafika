@@ -69,7 +69,7 @@
     <input type="reset" value={{tr.resetuj_podatke}} />
 </form>
 <div id="rezultati">
-    <div ng-repeat="rezultat in rezultatiPretrage">
+    <div ng-repeat="rezultat in rezultatPretrage">
         {{rezultat}} 
     </div>
 </div>

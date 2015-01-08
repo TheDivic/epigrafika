@@ -16,11 +16,11 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
 	$scope.prikaziNedatovaneNatpise=false;
 	$scope.sortiranje='poVremenu';
 	
-    $scope.natpisArgumenti=[" ", "AND", "OR", "AND NOT" ];
     $scope.provincije= null;
     $scope.drzave=null;
 	$scope.plemena=null;
 	$scope.mesta=null;
+	$scope.razultatPretrage=null;
 
     $http.get('../server/provincije.php', {responseType: 'JSON'}).
     success(function(data, status, headers, config){
@@ -90,7 +90,7 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
 	$http.get('../server/objekat.php?podaci='+jsonData, {responseType: 'JSON'}).
         success(function(data, status, headers, config){
             if(data!=="null")
-                $scope.mesta=data.data;
+                $scope.rezultatPretrage=data.data;
         }).
         error(function(data, status, headers, config){
 
