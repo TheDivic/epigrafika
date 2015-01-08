@@ -72,6 +72,6 @@
 "info_max":"Dozvoljeno je manje od 45 karaktera",
 "pattern_error_cifre":"Dozvoljen je samo unos cifara!",
 "godina":"Godina",
-"format_error_slova":"Dozvoljena su samo mala i velika slova i blanko!"
-
+"format_error_slova":"Dozvoljena su samo mala i velika slova i razmak!",
+"format_error_slova_cifre_tacka":"Dozvoljena su samo mala i velika slova, cifre, razmak i tačka!"
 }

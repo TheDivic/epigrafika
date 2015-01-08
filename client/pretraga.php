@@ -9,7 +9,7 @@
     <form action=""  name='formPretraga' ng-init="prikazi=true" id="myForm" method="post" enctype='multipart/form-data' ng-show="prikazi">
       <fieldset>
         <legend> {{ tr.osnovne_informacije }} </legend>
-        {{ tr.oznaka }} **: <input type="text" name="oznaka" ng-maxlength="15" ng-model="oznaka" ng-required='true'/>  
+        {{ tr.oznaka }} *: <input type="text" name="oznaka" ng-maxlength="15" ng-model="oznaka" ng-required='true'/>  
         <span ng-show='formPretraga.oznaka.$error.maxlength'> {{ tr.oznaka_error_length }}</span><br/> 
         {{ tr.natpis }}: <input type="text" name="natpis" ng-model="natpis"/> 
         <select name="natpisArg" ng-model="natpisArg" >
@@ -46,14 +46,14 @@
 		{{tr.moderno_mesto}}
 		<select name="modernoMesto" ng-model="modernoMesto">
             <option ng-repeat="mesto in mesta | orderBy:'naziv':false"> {{mesto.naziv}} </option>
-        </select> //TODO <br/>
+        </select>  <br/>
 		{{tr.pleme}}
 		<select name="pleme" ng-model="pleme">
             <option ng-repeat="p in plemena | orderBy:'naziv':false"> {{p.naziv}} </option>
-        </select> //TODO
+        </select> 
     <fieldset>
         <legend> {{tr.vreme}} </legend>
-        {{tr.vek}}: <input type="text" name="vek" ng-model="vek" ng-pattern="/[0-9]+/"/>
+        {{tr.vek}}: <input type="text" name="vek" ng-model="vek" ng-pattern="/[0-9]+$/"/>
         <span ng-show='formPretraga.vek.$error.pattern'>
                 {{tr.pattern_error_cifre}}
         </span>		<br/>

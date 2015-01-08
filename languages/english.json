@@ -72,6 +72,7 @@
 "info_max":"Only 45 characters allowed",
 "pattern_error_cifre":"Only digits are allowed!",
 "godina":"Year",
-"format_error_slova":"Only letters and spaces are allowed!"
+"format_error_slova":"Only letters and spaces are allowed!",
+"format_error_slova_cifre_tacka":"Only letters, digits, spaces and dots are allowed!"
 
 }
