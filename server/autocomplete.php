@@ -1,5 +1,29 @@
 <?php
 include 'konekcija.php';
+
+
+/* Funkcija koja preko php input streama cita POST zahtev sa json-om, parsira ga i salje funkciji trazi_deo_reci, potom rezultat koji sadrzi niz reci ponovo vraca u json
+
+*/
+function trazi_deo_reci_u_json()
+{
+$json = file_get_contents('php://input',true);
+$string =  json_decode($json);
+$niska = current($string);
+
+$array = traziDeoReci($niska);
+if($array != null)
+{
+$out = array_values($array);
+$result = json_encode($out);
+//echo $result;
+return $result;
+}
+}
+
+
+
+
 /* Funkcija koja prima string( rec ili deo reci) i vraca top 5 reci iz recnika koje pocinju sa tim stringom, 
 npr ako je input ST funkcija vraca STo, STolica, STanje, STepen,... */
 
@@ -81,8 +105,8 @@ catch(Exception $e){
 
 
 <?php
-$array = array("Beograd","Karaburma","Aleksandrovac");
-unesi_rec($array);
+//$array = array("Beograd","Karaburma","Aleksandrovac");
+//unesi_rec($array);
 
 ?>
 
