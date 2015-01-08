@@ -72,14 +72,11 @@
 "info_max":"Dozvoljeno je manje od 45 karaktera",
 "pattern_error_cifre":"Dozvoljen je samo unos cifara!",
 "godina":"Godina",
-<<<<<<< HEAD
 "format_error_slova":"Dozvoljena su samo mala i velika slova i blanko!",
 "sakrij":"Sakrij",
 "prikazi":"Prikaži",
 "mapa":"Mapa",
-"rezultati_pretrage":"Rezultati pretrage"
-=======
+"rezultati_pretrage":"Rezultati pretrage",
 "format_error_slova":"Dozvoljena su samo mala i velika slova i razmak!",
 "format_error_slova_cifre_tacka":"Dozvoljena su samo mala i velika slova, cifre, razmak i tačka!"
->>>>>>> 5abe52d94bdc3ae7fdd64a2ccc57e186ce25a4fa
 }

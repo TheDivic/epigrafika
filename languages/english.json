@@ -73,13 +73,9 @@
 "pattern_error_cifre":"Only digits are allowed!",
 "godina":"Year",
 "format_error_slova":"Only letters and spaces are allowed!",
-<<<<<<< HEAD
 "prikazi":"Show",
 "sakrij":"Hide",
 "mapa":"Map",
-"rezultati_pretrage":"Search results"
-=======
+"rezultati_pretrage":"Search results",
 "format_error_slova_cifre_tacka":"Only letters, digits, spaces and dots are allowed!"
->>>>>>> 5abe52d94bdc3ae7fdd64a2ccc57e186ce25a4fa
-
 }
