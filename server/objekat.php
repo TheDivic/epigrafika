@@ -9,13 +9,13 @@ try
     $method = $_SERVER['REQUEST_METHOD'];
 	
     if($method === 'GET')
-	{
+    {
         //Dostava podataka
 		
         if($_GET['type'] === 'search')
-		{
-			//Standardna pretraga po nekim kljucnim recima
-		}
+        {
+            //Standardna pretraga po nekim kljucnim recima
+        }
         else if($_GET['type'] === 'radiusSearch')
         {	
             //Pretraga preko mape
@@ -45,7 +45,7 @@ try
             $query->execute();
             $result = $query->fetchAll(PDO::FETCH_OBJ);
         }
-	}
+    }
     else if ($method === 'POST')
     {
         //Upis novih podataka
