@@ -20,7 +20,35 @@ function izracunajPeriodVeka(godina){
 }
 
 angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http', function ($scope, $http){
-    $scope.oznaka='';
+    $scope.oznaka=null;
+	$scope.jezikUpisa='latinski';
+	$scope.natpis=null;
+	$scope.vrstaNatpisa=null;
+	$scope.LokalizovanPodatak=true;
+	$scope.provincija=null;
+	$scope.grad=null;
+	$scope.mestoNalaska=null;
+	$scope.modernoImeDrzave=null;
+	$scope.trenutnaLokacijaZnamenitosti=null;
+	$scope.pleme=null;
+	$scope.vreme="nedatovan";
+	$scope.godinaPronalaska=null;
+	$scope.vekPronalaska=null;
+	$scope.periodVeka=null;
+	$scope.pocetakPerioda=null;
+	$scope.krajPerioda=null;
+	$scope.tipZnamenitosti=null;
+	$scope.materijalZnamenitosti=null;
+	$scope.sirina=null;
+	$scope.visina=null;
+	$scope.duzina=null;
+	$scope.bibliografskoPoreklo=null;
+	$scope.bibliografskoPorekloSkracenica=null;
+	$scope.komentar=null;
+	$scope.fotografije=null;
+	$scope.fazaUnosa=null;
+	
+	
     $scope.provincije= null;
     $scope.drzave=null;
     $scope.gradovi=null;
@@ -105,5 +133,70 @@ $scope.unetKrajPerioda = function(){
   var vek = izracunajVek(godina);
   $scope.vekKrajaIzracunat =vek+ ". veka.";
 };
+
+$scope.posalji_podatke=function(){
+		if($scope.LokalizovanPodatak==false){
+			$scope.mestoNalaska=null;
+			$scope.grad=null;
+			$scope.provincija=null;
+		}
+		
+		if($scope.vreme=='nedatovan'){
+			$scope.godinaPronalaska=null;
+			$scope.vekPronalaska=null;
+			$scope.periodVeka=null;
+			$scope.pocetakPerioda=null;
+			$scope.krajPerioda=null;
+		}
+		else if($scope.vreme =="godina"){
+			$scope.vekPronalaska=null;
+			$scope.periodVeka=null;
+			$scope.pocetakPerioda=null;
+			$scope.krajPerioda=null;
+		}
+		else if($scope.vreme =="unosVeka"){
+			$scope.godinaPronalaska=null;
+			$scope.pocetakPerioda=null;
+			$scope.krajPerioda=null;
+		}
+		else if($scope.vreme =="unosPeriodaOdDo"){
+			$scope.godinaPronalaska=null;
+			$scope.vekPronalaska=null;
+			$scope.periodVeka=null;
+		}
+
+	    var formData = {
+			oznaka : $scope.oznaka,
+			jezikUpisa : $scope.jezikUpisa,
+			natpis : $scope.natpis,
+			vrstaNatpisa : $scope.vrstaNatpisa,
+			LokalizovanPodatak : $scope.LokalizovanPodatak,
+			provincija : $scope.provincija,
+			grad : $scope.grad,
+			mestoNalaska : $scope.mestoNalaska,
+			modernoImeDrzave : $scope.modernoImeDrzave,
+			trenutnaLokacijaZnamenitosti : $scope.trenutnaLokacijaZnamenitosti,
+			pleme : $scope.pleme,
+			vreme : $scope.vreme,
+			godinaPronalaska : $scope.godinaPronalaska,
+			vekPronalaska : $scope.vekPronalaska,
+			periodVeka : $scope.periodVeka,
+			pocetakPerioda : $scope.pocetakPerioda,
+			krajPerioda : $scope.krajPerioda,
+			tipZnamenitosti : $scope.tipZnamenitosti,
+			materijalZnamenitosti : $scope.materijalZnamenitosti,
+			sirina : $scope.sirina,
+			visina : $scope.visina,
+			duzina : $scope.duzina,
+			bibliografskoPoreklo: $scope.bibliografskoPoreklo,
+			bibliografskoPorekloSkracenica: $scope.bibliografskoPorekloSkracenica,
+			komentar: $scope.komentar,
+			fotografije: $scope.fotografije,
+			fazaUnosa:$scope.fazaUnosa
+	 }
+	 
+	var jsonData = angular.toJson(formData);
+	alert(jsonData);
+	}
 }]);
 console.info("Inicijalizovan unosController");
