@@ -9,6 +9,7 @@
         <script src='static/scripts/libs/angular.min.js' type='text/javascript' > </script>
         <script src="static/scripts/libs/jquery-1.11.1.js" type='text/javascript'></script>
         <script src="static/scripts/libs/bootstrap.js"></script>
+        <script src="static/scripts/libs/cookies.js"></script>
         
         <!-- ucitavanje kontrolera -->
         <script src="static/scripts/translation.js" type="text/javascript"></script>
