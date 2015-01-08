@@ -34,7 +34,7 @@
 				</ul>
 				
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="pretraga.php" class="btn btn-link">Sajt</a></li>
+					<li><a href="index.php" class="btn btn-link">Sajt</a></li>
 					<li><a href="#" class="btn btn-link">Logout </a></li>
 					<li><a href="config.php" class="btn btn-link"><span class="glyphicon glyphicon-cog"></span></a></li>
 				</ul> 
