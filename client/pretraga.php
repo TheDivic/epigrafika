@@ -57,7 +57,7 @@
         <span ng-show='formPretraga.vek.$error.pattern'>
                 {{tr.pattern_error_cifre}}
         </span>		<br/>
-		<div ng-show="!formPretraga.vek.$error.pattern && vek!=null">
+		<div ng-show="!formPretraga.vek.$error.pattern && vek!=null && vek!=''">
         <input type="radio" name="periodVeka" ng-model="periodVeka" value="prvaPolovinaVeka"/> {{tr.prva_polovina}}  <br/>
         <input type="radio" name="periodVeka" ng-model="periodVeka" value="drugaPolovinaVeka"/>  {{tr.druga_polovina}}
         </div>
