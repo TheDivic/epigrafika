@@ -4,63 +4,63 @@ include 'konekcija.php';
 $result = new stdClass();
 try
 {
-	$db=konekcija::getConnectionInstance();
+    $db=konekcija::getConnectionInstance();
 
-	$method = $_SERVER['REQUEST_METHOD'];
+    $method = $_SERVER['REQUEST_METHOD'];
 	
-	if($method === 'GET')
+    if($method === 'GET')
 	{
-		//Dostava podataka
+        //Dostava podataka
 		
-		if($_GET['type'] === 'search')
+        if($_GET['type'] === 'search')
 		{
 			//Standardna pretraga po nekim kljucnim recima
 		}
-		else if($_GET['type'] === 'radiusSearch')
-		{	
-			//Pretraga preko mape
-			
-			$latMin = floatval($_GET['latMin']);
-			$latMax = floatval($_GET['latMax']);
-			$lngMin = floatval($_GET['lngMin']);
-			$lngMax = floatval($_GET['lngMax']);
-			
-			//Trazimo samo objekte cije tacke poligona
-			//upadaju u opseg prosledjen GET parametrom
-			$query = $db->prepare(	"select * from objekat o 
-									join modernomesto m on o.modernoMesto = m.id 
-									join geomesto g on g.mesto = m.id 
-									join poligon p on g.poligon = p.id
-									join tackepoligona tp on tp.poligon = p.id
-									join tacka t on tp.koordinata = t.id
-									where t.latituda >= ? and t.latituda <= ?
-									and t.longituda >= ? and t.longituda <= ?
-									group by o.id");
-									
-			$query->bindParam(1, $latMin, PDO::PARAM_STR);
-			$query->bindParam(2, $latMax, PDO::PARAM_STR);
-			$query->bindParam(3, $lngMin, PDO::PARAM_STR);
-			$query->bindParam(4, $lngMax, PDO::PARAM_STR);
-			
-			$query->execute();
-			$result = $query->fetchAll(PDO::FETCH_OBJ);
-		}
+        else if($_GET['type'] === 'radiusSearch')
+        {	
+            //Pretraga preko mape
+
+            $latMin = floatval($_GET['latMin']);
+            $latMax = floatval($_GET['latMax']);
+            $lngMin = floatval($_GET['lngMin']);
+            $lngMax = floatval($_GET['lngMax']);
+
+            //Trazimo samo objekte cije tacke poligona
+            //upadaju u opseg prosledjen GET parametrom
+            $query = $db->prepare(  "select * from objekat o 
+                                    join modernomesto m on o.modernoMesto = m.id 
+                                    join geomesto g on g.mesto = m.id 
+                                    join poligon p on g.poligon = p.id
+                                    join tackepoligona tp on tp.poligon = p.id
+                                    join tacka t on tp.koordinata = t.id
+                                    where t.latituda >= ? and t.latituda <= ?
+                                    and t.longituda >= ? and t.longituda <= ?
+                                    group by o.id");
+                                    
+            $query->bindParam(1, $latMin, PDO::PARAM_STR);
+            $query->bindParam(2, $latMax, PDO::PARAM_STR);
+            $query->bindParam(3, $lngMin, PDO::PARAM_STR);
+            $query->bindParam(4, $lngMax, PDO::PARAM_STR);
+
+            $query->execute();
+            $result = $query->fetchAll(PDO::FETCH_OBJ);
+        }
 	}
-	else if ($method === 'POST')
-	{
-		//Upis novih podataka
-		//Admin only?
-	}
-	else if ($method === 'UPDATE')
-	{
-		//Azuriranje
-		//Admin only?
-	}
-	else if ($method === 'DELETE')
-	{
-		//Brisanje
-		//Admin only?
-	}
+    else if ($method === 'POST')
+    {
+        //Upis novih podataka
+        //Admin only?
+    }
+    else if ($method === 'UPDATE')
+    {
+        //Azuriranje
+        //Admin only?
+    }
+    else if ($method === 'DELETE')
+    {
+        //Brisanje
+        //Admin only?
+    }
 }
 catch(Exception $e)
 {
