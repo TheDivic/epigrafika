@@ -3,7 +3,8 @@
 var glavniModul = angular.module('epigrafikaModul', ['translationModule', 'ngCookies']);
 
 glavniModul.controller('headerController', ['$scope', function ($scope){
-    $scope.logged=false;
+    $scope.logged=true;
+
 }]);
 console.info("Inicijalizovan headerController.");
 

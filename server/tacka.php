@@ -1,11 +1,10 @@
 <?php
+include 'konekcija.php';
 
 $result = new stdClass();
 try{
 
-    $db=new PDO('mysql:dbname=mydb; host=localhost', 'root', '',
-        array(PDO::ATTR_PERSISTENT=>true, PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
-
+    $db=konekcija::getConnectionInstance();
     $query="select * from mydb.tacka";
 
     $stmt = $db->prepare($query);
