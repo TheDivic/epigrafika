@@ -71,5 +71,7 @@
 "registruj_se":"Registruj se",
 "info_max":"Dozvoljeno je manje od 45 karaktera",
 "pattern_error_cifre":"Dozvoljen je samo unos cifara!",
-"godina":"Godina"
+"godina":"Godina",
+"format_error_slova":"Dozvoljena su samo mala i velika slova i blanko!"
+
 }

@@ -28,8 +28,14 @@
         <select name="provincijaNalaska" ng-model="provincijaNalaska" >
             <option ng-repeat="provincija in provincije | orderBy:'naziv':false"> {{ provincija.naziv }} </option>
         </select><br/>
-        {{tr.grad}}: <input type="text" name="gradNalaska" ng-model="gradNalaska"/> <br/>
-        {{tr.mesto}}: <input type="text" name="mestoNalaska" ng-model="mestoNalaska"/> <br/>
+        {{tr.grad}}: <input type="text" name="gradNalaska" ng-model="gradNalaska" ng-pattern="/^[a-zA-Z ]+$/"/> 
+		<span ng-show='formPretraga.gradNalaska.$error.pattern '> 
+							{{tr.format_error_slova}}</span>
+		</td><br/>
+        {{tr.mesto}}: <input type="text" name="mestoNalaska" ng-model="mestoNalaska" ng-pattern="/^[a-zA-Z ]+$/"/> 
+		<span ng-show='formPretraga.mestoNalaska.$error.pattern '> 
+							{{tr.format_error_slova}}</span>
+		</td><br/>
 		<input type="checkbox" name="prikaziNelokalizovanePodatke" ng-model="prikaziNelokalizovanePodatke" value="prikaziNelokalizovanePodatke"> {{ tr.prikazi_nelokalizovane_podatke}} <br/>
     </fieldset>
 	{{tr.moderno_ime_drzave}}:
