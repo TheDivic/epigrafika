@@ -61,7 +61,10 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
 	
 	    if($scope.natpisArg == 'prazno')
 		    $scope.natpis2=null;
-		
+		if($scope.natpis2==null || $scope.natpis2=="")
+			$scope.natpisArg = 'prazno';
+		if($scope.natpis2=="")
+			$scope.natpis2=null;
 	    if(	$scope.vek=="")
 			$scope.vek=null;
 		if(	$scope.vek==null)
