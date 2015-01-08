@@ -72,6 +72,10 @@
 "info_max":"Only 45 characters allowed",
 "pattern_error_cifre":"Only digits are allowed!",
 "godina":"Year",
-"format_error_slova":"Only letters and spaces are allowed!"
+"format_error_slova":"Only letters and spaces are allowed!",
+"prikazi":"Show",
+"sakrij":"Hide",
+"mapa":"Map",
+"rezultati_pretrage":"Search results"
 
 }

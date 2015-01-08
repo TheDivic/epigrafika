@@ -23,17 +23,20 @@
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="index.php">Epigrafika Admin</a>
+					<a class="navbar-brand" href="admin.php">Epigrafika Admin</a>
 				</div>
 				<ul class="nav navbar-nav navbar-left">
 					<li><a href="admin.php" class="btn btn-link"><span class="glyphicon glyphicon-home"></span></a></li> <!--Home-->
 					<li><a href="korisnici.php" class="btn btn-link">Korisnici</a></li>
-					<li><a href="lokacije.php" class="btn btn-link">Lokacije</a> <li>
+					<li><a href="provincije.php" class="btn btn-link">Provincije</a> <li>
+					<li><a href="natpisi.php" class="btn btn-link">Natpisi</a> <li>
+					<li><a href="gradovi.php" class="btn btn-link">Gradovi</a> <li>
 				</ul>
 				
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="registracija.php" class="btn btn-link">Sajt</a></li>
+					<li><a href="pretraga.php" class="btn btn-link">Sajt</a></li>
 					<li><a href="#" class="btn btn-link">Logout </a></li>
+					<li><a href="config.php" class="btn btn-link"><span class="glyphicon glyphicon-cog"></span></a></li>
 				</ul> 
 			</div>
 		</nav>

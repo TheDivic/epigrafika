@@ -15,6 +15,7 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
 	$scope.periodVeka=null;
 	$scope.prikaziNedatovaneNatpise=false;
 	$scope.sortiranje='poVremenu';
+	$scope.prikazi=true;
 	
     $scope.provincije= null;
     $scope.drzave=null;

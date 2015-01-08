@@ -72,6 +72,9 @@
 "info_max":"Dozvoljeno je manje od 45 karaktera",
 "pattern_error_cifre":"Dozvoljen je samo unos cifara!",
 "godina":"Godina",
-"format_error_slova":"Dozvoljena su samo mala i velika slova i blanko!"
-
+"format_error_slova":"Dozvoljena su samo mala i velika slova i blanko!",
+"sakrij":"Sakrij",
+"prikazi":"Prikaži",
+"mapa":"Mapa",
+"rezultati_pretrage":"Rezultati pretrage"
 }

@@ -25,4 +25,13 @@
 {
 	color:#2c3e50 !important;
 }
+.fieldset_border
+{
+	border:solid 1px #2c3e50 !important;
+	padding:5px;
+}
+
+.border_transparent{
+	border:solid 2px transparent;
+	}
 
