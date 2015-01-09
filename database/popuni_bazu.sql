@@ -82,11 +82,24 @@ INSERT INTO `mydb`.`TackePoligona`(`poligon`, `redniBroj`, `koordinata`) VALUES(
 
 
 
+/* moderna mesta */
+INSERT INTO  `mydb`.`ModernoMesto`(`id`,`naziv`,`modernaDrzava`) VALUES(1,'Beograd',1);
+INSERT INTO  `mydb`.`ModernoMesto`(`id`,`naziv`,`modernaDrzava`) VALUES(2,'Aleksandrovac',1);
+INSERT INTO  `mydb`.`ModernoMesto`(`id`,`naziv`,`modernaDrzava`) VALUES(3,'Kraljevo',1);
+INSERT INTO  `mydb`.`ModernoMesto`(`id`,`naziv`,`modernaDrzava`) VALUES(4,'Cacak',1);
+INSERT INTO  `mydb`.`ModernoMesto`(`id`,`naziv`,`modernaDrzava`) VALUES(5,'Valjevo',1);
 
 /* geoloska mesta*/
-INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(1,3);
-INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(2,3);
-INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(3,3)
-INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(4,3);
-INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(5,2);
+INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(1,1);
+INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(2,1);
+INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(3,1;
+INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(4,1);
+INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(5,3);
+
+/*geoloska drzava*/
+INSERT INTO `mydb`.`GeoDrzava`(`poligon`, `drzava`) VALUES(1,1);
+INSERT INTO `mydb`.`GeoDrzava`(`poligon`, `drzava`) VALUES(2,1);
+INSERT INTO `mydb`.`GeoDrzava`(`poligon`, `drzava`) VALUES(3,1);
+INSERT INTO `mydb`.`GeoDrzava`(`poligon`, `drzava`) VALUES(4,1);
+INSERT INTO `mydb`.`GeoDrzava`(`poligon`, `drzava`) VALUES(5,1);
 
