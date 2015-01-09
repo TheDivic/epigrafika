@@ -1,3 +1,4 @@
+
 INSERT INTO `mydb`.`grad` (`id`, `naziv`) VALUES ('1', 'Aleksandrovac'), ('2', 'Kraljevo'),
 ('3', 'Beograd'), ('4', 'Cacak'), ('5', 'Valjevo');
 
@@ -11,6 +12,17 @@ INSERT INTO `mydb`.`vrstanatpisa` (`id`, `naziv`) VALUES ('1', 'Natpis1'), ('2',
 
 INSERT INTO `mydb`.`Mesto`(`id`,`naziv`)  VALUES (1, 'Aleksandrovac'), (2, 'Kraljevo'),
 (3, 'Beograd'), (4, 'Cacak'), (5, 'Valjevo');
+
+INSERT INTO `mydb`.`Pleme`(`id`,`naziv`) VALUES(1,'Zupani'), (2,'Varvari'), (3,'Autarijati'), (4,'Singi'), (5,'Varvari'),(7,'Iliri'), (8,'Tracani'), (9,'Grci');
+
+INSERT INTO `mydb`.`VrstaNatpisa`(`id`, `naziv`) VALUES(4,'Natpis na kamenu'), (5,'Rimski natpis'), (6, 'Natpis u pecini'), (7, 'Natpis na papiru'), (8,'Turski natpis');
+
+INSERT INTO `mydb`.`Jezik`(`id`,`naziv`,`kod`) VALUES(1,'Srpski',''), (2,'Staroslovenski',''),(3,'Makedonski',''),(4,'Grcki','');
+
+INSERT INTO `mydb`.`Ustanova`( `id`,`naziv`,`modernoMesto`) VALUES(1,'Arheoloski Muzej', 1), (2,'Narodni Muzej',1), (3,'Prirodnjacki Muzej Kalemegdan',1),(4,'Narodni Muzej',3);
+
+
+
 
 /*poligon 1*/
 INSERT INTO `mydb`.`POLIGON`(`id`) VALUES(1);
