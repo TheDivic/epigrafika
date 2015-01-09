@@ -7,7 +7,17 @@ angular.module('epigrafikaModul').controller('adminProvincije', ['$scope', '$htt
 	
 	//funkcija koja salje zahtev za brisanje provincije iz baze, sa prosledjenim id-em provincije
 	$scope.obrisiProvinciju=function($pid){
-		 $window.alert("TODO: Brisanje!!!");
+
+		$http.delete('../server/provincije.php?id='+$pid)
+        .success(function (data, status, headers, config)
+        {
+			alert(data.poruka);
+        })
+        .error(function (data, status, headers, config)
+        {
+          
+        });
+		
 		}
 	
 	//funkcija koja salje zahtev da azurira odgovarajuci red u bazi
