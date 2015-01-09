@@ -9,6 +9,8 @@ INSERT INTO `mydb`.`modernadrzava` (`id`, `naziv`) VALUES ('1', 'Srbija'),
 
 INSERT INTO `mydb`.`vrstanatpisa` (`id`, `naziv`) VALUES ('1', 'Natpis1'), ('2', 'Natpis2'), ('3', 'Natpis3');
 
+INSERT INTO `mydb`.`Mesto`(`id`,`naziv`)  VALUES (1, 'Aleksandrovac'), (2, 'Kraljevo'),
+(3, 'Beograd'), (4, 'Cacak'), (5, 'Valjevo');
 
 /*poligon 1*/
 INSERT INTO `mydb`.`POLIGON`(`id`) VALUES(1);
@@ -92,7 +94,7 @@ INSERT INTO  `mydb`.`ModernoMesto`(`id`,`naziv`,`modernaDrzava`) VALUES(5,'Valje
 /* geoloska mesta*/
 INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(1,1);
 INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(2,1);
-INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(3,1;
+INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(3,1);
 INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(4,1);
 INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(5,3);
 
