@@ -64,5 +64,29 @@ INSERT INTO `mydb`.`TackePoligona`(`poligon`, `redniBroj`, `koordinata`) VALUES(
 INSERT INTO `mydb`.`TackePoligona`(`poligon`, `redniBroj`, `koordinata`) VALUES(4,16,16);
 INSERT INTO `mydb`.`TackePoligona`(`poligon`, `redniBroj`, `koordinata`) VALUES(4,17,17);
 
+/*poligon 5*/
+INSERT INTO `mydb`.`POLIGON`(`id`) VALUES(5);
 
+INSERT INTO `mydb`.`tacka`(`id`, `latituda`, `longituda`) VALUES(18,43.695321, 20.641763);
+INSERT INTO `mydb`.`tacka`(`id`, `latituda`, `longituda`)VALUES(19,43.693242, 20.644552);
+INSERT INTO `mydb`.`tacka`(`id`, `latituda`, `longituda`) VALUES(20,43.695135, 20.648544);
+INSERT INTO `mydb`.`tacka`(`id`, `latituda`, `longituda`)VALUES(21,43.700471, 20.644295);
+INSERT INTO `mydb`.`tacka`(`id`, `latituda`, `longituda`)VALUES(22,43.699354, 20.641076);
+
+INSERT INTO `mydb`.`TackePoligona`(`poligon`, `redniBroj`, `koordinata`) VALUES(5,18,18);
+INSERT INTO `mydb`.`TackePoligona`(`poligon`, `redniBroj`, `koordinata`) VALUES(5,19,19);
+INSERT INTO `mydb`.`TackePoligona`(`poligon`, `redniBroj`, `koordinata`) VALUES(5,20,20);
+INSERT INTO `mydb`.`TackePoligona`(`poligon`, `redniBroj`, `koordinata`) VALUES(5,21,21);
+INSERT INTO `mydb`.`TackePoligona`(`poligon`, `redniBroj`, `koordinata`) VALUES(5,22,22);
+
+
+
+
+
+/* geoloska mesta*/
+INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(1,3);
+INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(2,3);
+INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(3,3)
+INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(4,3);
+INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(5,2);
 
