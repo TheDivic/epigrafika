@@ -1,33 +1,51 @@
 angular.module('epigrafikaModul').controller('adminProvincije', ['$scope', '$http','$window', function ($scope, $http,$window){
     
     $scope.provincije= null;
-	$scope.izmeni = [];
-	$scope.tmp=null;//pomocna za ponistavanje
-	$scope.one=false; //moze da se edituje samo jedna provoncija
+    $scope.izmeni = [];
+    $scope.tmp=null;//pomocna za ponistavanje
+    $scope.one=false; //moze da se edituje samo jedna provoncija
 	
 	//funkcija koja salje zahtev za brisanje provincije iz baze, sa prosledjenim id-em provincije
-	$scope.obrisiProvinciju=function($pid){
-
-		$http.delete('../server/provincije.php?id='+$pid)
+    $scope.obrisiProvinciju=function($pid)
+    {
+        $http.delete('../server/provincije.php?id='+$pid)
         .success(function (data, status, headers, config)
         {
-			alert(data.poruka);
+            alert(data.poruka);
         })
         .error(function (data, status, headers, config)
         {
           
         });
 		
-		}
+    }
 	
 	//funkcija koja salje zahtev da azurira odgovarajuci red u bazi
-	$scope.sacuvajIzmene=function($pid){
-		if($scope.one==true){
-		 $window.alert("TODO: Azuriranje!!!");
-		 $scope.izmeni[$pid]=false;
-		 $scope.one=false;
-		} 
-		}
+    $scope.sacuvajIzmene=function($pid, $naziv, $pocetak, $kraj)
+    {
+	if($scope.one==true){
+	var params = {
+	    naziv: $naziv,
+	    pocetak: $pocetak,
+	    kraj: $kraj
+	};
+	var data = angular.toJson(params);
+	$http.put('../server/provincije.php?id='+$pid, data )
+	.success(function (data, status, headers, config)
+	{
+            if(data.error_status==false)
+                alert("Objekat je uspesno ažuriran.");
+	    else
+                alert("Greška! Objekat nije ažuriran.");
+	})
+	.error(function (data, status, headers, config)
+	{
+          
+	});
+	$scope.izmeni[$pid]=false;
+	$scope.one=false;
+	} 
+    }
 	
 	$scope.izmeniIkona=function($pid){
 		if($scope.one==false){
