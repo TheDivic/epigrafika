@@ -26,7 +26,7 @@ angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http
 	$scope.komentar=null;
 	$scope.fotografije=null;
 	$scope.fazaUnosa=null;
-	
+	$scope.greska="";
 	
     $scope.provincije= null;
     $scope.drzave=null;
@@ -218,5 +218,22 @@ $scope.posalji_podatke=function(){
 	var jsonData = angular.toJson(formData);
 	alert(jsonData);
 	}
+	
+$scope.proveri_jedinstvenost = function(){
+	var oznaka = $scope.oznaka;
+	$http.get('../server/objekat.php?type=jedinstena_oznaka&oznaka="'+oznaka+'"', {responseType: 'JSON'}).
+    success(function(data, status, headers, config){
+        if(data!=="null"){
+			if(data.isEmpty==false){
+				$scope.greska = $scope.tr.greska_jedinstvena_oznaka;
+				}
+			else 
+				$scope.greska="";
+			}
+	}).
+    error(function(data, status, headers, config){
+
+    });
+}	
 }]);
 console.info("Inicijalizovan unosController");

@@ -7,10 +7,13 @@
     <form action=""  name='formUnos' method="post" enctype='multipart/form-data'>
         <fieldset>
             <legend> {{tr.osnovne_informacije}} </legend>
-            {{tr.oznaka}} *: <input type="text" name="oznaka" ng-maxlength="15" ng-model="oznaka" ng-required='true'/> //to do (mora biti jedinstvena!!!)
+            {{tr.oznaka}} *: <input type="text" name="oznaka" ng-maxlength="15" ng-model="oznaka" ng-change="proveri_jedinstvenost()" ng-pattern="/^[a-zA-Z0-9]+$/" ng-required='true'/> 
             <span ng-show='formUnos.oznaka.$error.maxlength'>
                 {{tr.oznaka_error_length}}
-            </span>
+            </span> 
+			<span ng-show='formUnos.oznaka.$error.pattern'>
+                {{tr.format_error_slova_cifre}}
+            </span><span>{{greska}}</span>
             <br/>
             <input type="radio" name="jezikUpisa" ng-model="jezikUpisa" value="latinski" checked /> {{tr.latinski}}  <br/>
             <input type="radio" name="jezikUpisa" ng-model="jezikUpisa" value="grcki"/>  {{tr.grcki}}

@@ -83,5 +83,8 @@
 "sakrij":"Hide",
 "mapa":"Map",
 "rezultati_pretrage":"Search results",
-"format_error_slova_cifre_tacka":"Only letters, digits, spaces and dots are allowed!"
+"format_error_slova_cifre_tacka":"Only letters, digits, spaces and dots are allowed!",
+"greska_jedinstvena_oznaka":"This label already exists in database. Choose another one!",
+"format_error_slova_cifre":"Only letters and digits are allowed!"
+
 }
