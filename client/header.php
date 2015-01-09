@@ -13,20 +13,20 @@
         
         <!-- ucitavanje kontrolera -->
         <script src="static/scripts/translation.js" type="text/javascript"></script>
-        <script src="static/scripts/header.js" type='text/javascript'> </script>  
-        
+        <script src="static/scripts/header.js" type='text/javascript'> </script>
+		
         <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="static/css/bootstrap-theme.css">
 		<link rel="stylesheet" type="text/css" href="static/css/style.css" />
     </head>
-    <body ng-controller='rootController'>
+    <body ng-controller='rootController' ng-cloack>
         <nav class="navbar navbar-default">
             <div class="container-fluid" ng-controller='headerController' >
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="pretraga.php">Epigrafika</a>
+                    <a class="navbar-brand" href="index.php">Epigrafika</a>
                 </div>
                 <ul class="nav navbar-nav navbar-left">
-                    <li><a href="pretraga.php" class="btn btn-link"><span class="glyphicon glyphicon-home"></span></a></li> <!--Home-->
+                    <li><a href="index.php" class="btn btn-link"><span class="glyphicon glyphicon-home"></span></a></li> <!--Home-->
                 </ul>
 				<!-- meni koji se prikazuje ako korisnik nije ulogovan -->
                 <div class="nav navbar-nav navbar-right" ng-hide="logged">

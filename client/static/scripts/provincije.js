@@ -1,12 +1,16 @@
-angular.module('epigrafikaModul').controller('adminProvincijeLista', ['$scope', '$http','$window', function ($scope, $http,$window){
+angular.module('epigrafikaModul').controller('adminProvincije', ['$scope', '$http','$window', function ($scope, $http,$window){
     
     $scope.provincije= null;
 	$scope.izmeni = [];
 	$scope.tmp=null;//pomocna za ponistavanje
 	$scope.one=false; //moze da se edituje samo jedna provoncija
+	
+	//funkcija koja salje zahtev za brisanje provincije iz baze, sa prosledjenim id-em provincije
 	$scope.obrisiProvinciju=function($pid){
 		 $window.alert("TODO: Brisanje!!!");
 		}
+	
+	//funkcija koja salje zahtev da azurira odgovarajuci red u bazi
 	$scope.sacuvajIzmene=function($pid){
 		if($scope.one==true){
 		 $window.alert("TODO: Azuriranje!!!");
@@ -59,19 +63,4 @@ angular.module('epigrafikaModul').controller('adminProvincijeLista', ['$scope', 
 	
 
 }]);
-console.info("Inicijalizovan pretragaController.");
-
-angular.module('epigrafikaModul').controller('adminProvincijeNova', ['$scope', '$http', function ($scope, $http){
-    
-    $scope.provincije= null;
- 
-	//trazi se lista svih provincija od servera
-    $http.get('../server/provincije.php', {responseType: 'JSON'}).
-    success(function(data, status, headers, config){
-        if(data!=="null")
-        $scope.provincije=data.data;
-    }).
-    error(function(data, status, headers, config){
-    });
-
-}]);
+console.info("Inicijalizovan adminProvincije.");

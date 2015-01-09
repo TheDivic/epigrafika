@@ -4,7 +4,6 @@
 <script src="static/scripts/pretraga.js"></script>
 <script src="static/scripts/slanjePodatakaServeru.js"></script>
 
-<<<<<<< HEAD
 <div class="container" ng-controller='pretragaController' ng-cloak>
 
 <!-- Tab menu -->
@@ -107,65 +106,6 @@
 								</div>
 							</div>
        
-=======
-<div ng-controller='pretragaController' ng-cloak>
-    <p ng-click="prikazi=!prikazi"> {{ tr.pretraga }} </p>
-    <form action=""  name='formPretraga' ng-init="prikazi=true" id="myForm" method="post" enctype='multipart/form-data' ng-show="prikazi">
-      <fieldset>
-        <legend> {{ tr.osnovne_informacije }} </legend>
-        {{ tr.oznaka }} *: <input type="text" name="oznaka" ng-maxlength="15" ng-model="oznaka" ng-required='true'/>  
-        <span ng-show='formPretraga.oznaka.$error.maxlength'> {{ tr.oznaka_error_length }}</span><br/> 
-        {{ tr.natpis }}: <input type="text" name="natpis" ng-model="natpis"/> 
-        <select name="natpisArg" ng-model="natpisArg" >
-            <option value="prazno" ng-value="prazno"> </option>
-            <option value="and" ng-value="and"> AND </option>
-            <option value="or" ng-value="or"> OR </option>
-            <option value="andNot" ng-value="andNot"> AND NOT </option>
-        </select>
-        <input type="text" name="natpis2" ng-model="natpis2" ng-show="natpisArg!='prazno'" /> <br/>
-        <input type="checkbox" ng-model="rezimIgnorisanjaZagrada" name="rezimIgnorisanjaZagrada" value="rezimIgnorisanjaZagrada"> {{ tr.ignorisi_zagrade }}
-
-    </fieldset>
-    <fieldset>
-        <legend> {{ tr.izvorno_mesto_nastanka }} </legend>
-        {{tr.provincija}}:
-        <select name="provincijaNalaska" ng-model="provincijaNalaska" >
-            <option ng-repeat="provincija in provincije | orderBy:'naziv':false"> {{ provincija.naziv }} </option>
-        </select><br/>
-        {{tr.grad}}: <input type="text" name="gradNalaska" ng-model="gradNalaska" ng-pattern="/^[a-zA-Z ]+$/"/> 
-		<span ng-show='formPretraga.gradNalaska.$error.pattern '> 
-							{{tr.format_error_slova}}</span>
-		</td><br/>
-        {{tr.mesto}}: <input type="text" name="mestoNalaska" ng-model="mestoNalaska" ng-pattern="/^[a-zA-Z ]+$/"/> 
-		<span ng-show='formPretraga.mestoNalaska.$error.pattern '> 
-							{{tr.format_error_slova}}</span>
-		</td><br/>
-		<input type="checkbox" name="prikaziNelokalizovanePodatke" ng-model="prikaziNelokalizovanePodatke" value="prikaziNelokalizovanePodatke"> {{ tr.prikazi_nelokalizovane_podatke}} <br/>
-    </fieldset>
-	{{tr.moderno_ime_drzave}}:
-        <select name="modernoImeDrzave" ng-model="modernoImeDrzave">
-            <option ng-repeat="drzava in drzave | orderBy:'naziv':false"> {{drzava.naziv}} </option>
-        </select>
-		<br/>
-		{{tr.moderno_mesto}}
-		<select name="modernoMesto" ng-model="modernoMesto">
-            <option ng-repeat="mesto in mesta | orderBy:'naziv':false"> {{mesto.naziv}} </option>
-        </select>  <br/>
-		{{tr.pleme}}
-		<select name="pleme" ng-model="pleme">
-            <option ng-repeat="p in plemena | orderBy:'naziv':false"> {{p.naziv}} </option>
-        </select> 
-    <fieldset>
-        <legend> {{tr.vreme}} </legend>
-        {{tr.vek}}: <input type="text" name="vek" ng-model="vek" ng-pattern="/[0-9]+$/"/>
-        <span ng-show='formPretraga.vek.$error.pattern'>
-                {{tr.pattern_error_cifre}}
-        </span>		<br/>
-		<div ng-show="!formPretraga.vek.$error.pattern && vek!=null && vek!=''">
-        <input type="radio" name="periodVeka" ng-model="periodVeka" value="prvaPolovinaVeka"/> {{tr.prva_polovina}}  <br/>
-        <input type="radio" name="periodVeka" ng-model="periodVeka" value="drugaPolovinaVeka"/>  {{tr.druga_polovina}}
-        </div>
->>>>>>> 5abe52d94bdc3ae7fdd64a2ccc57e186ce25a4fa
 		
     
 						</div>
