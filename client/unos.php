@@ -64,7 +64,7 @@
     <input type="radio" name="vreme" ng-model="vreme" value="nedatovan" checked /> {{tr.nedatovan_natpis}} <br/>
     <input type="radio" name="vreme" ng-model="vreme" value="godina"/> {{tr.unesite_godinu}} : <br/>
     <fieldset ng-show="vreme=='godina'"> 
-        {{tr.godina}}* <input type="text" name="godinaPronalaska" ng-model="godinaPronalaska" ng-change="unetaGodina()" ng-required='vreme=="godina"' ng-pattern="/[0-9]+/"/>
+        {{tr.godina}}* <input type="text" name="godinaPronalaska" ng-model="godinaPronalaska" ng-change="unetaGodina()" ng-required='vreme=="godina"' ng-pattern="/^\d+$/"/>
 		<span ng-show='formUnos.godinaPronalaska.$error.pattern'>
                 {{tr.pattern_error_cifre}}
         </span>		<br/>
@@ -74,7 +74,7 @@
     
     <input type="radio" name="vreme" ng-model="vreme" value="unosVeka"/> {{tr.unesite_vek}}: <br/>
     <fieldset ng-show="vreme=='unosVeka'"> 
-        {{tr.vek}} * <input type="text" name="vekPronalaska" ng-model="vekPronalaska" ng-required='vreme=="unosVeka"' ng-pattern="/[0-9]+/"/> 
+        {{tr.vek}} * <input type="text" name="vekPronalaska" ng-model="vekPronalaska" ng-required='vreme=="unosVeka"' ng-pattern="/^\d+$/"/> 
 		<span ng-show='formUnos.vekPronalaska.$error.pattern'>
                 {{tr.pattern_error_cifre}}
             </span><br/>
@@ -83,9 +83,17 @@
     </fieldset>
     <input type="radio" name="vreme" ng-model="vreme" value="unosPeriodaOdDo"/> {{tr.unesite_period}}:
     <fieldset ng-show="vreme=='unosPeriodaOdDo'"> 
-        {{tr.od}} *: <input type="text" ng-model="pocetakPerioda" ng-change="unetPocetakPerioda()" ng-required='vreme=="unosPeriodaOdDo"'/>  {{tr.do}} *: <input type="text" ng-model="krajPerioda" ng-change="unetKrajPerioda()" ng-required='vreme=="unosPeriodaOdDo"'/> <br/>
-        {{periodVekaPocetkaIzracunat}} {{vekPocetkaIzracunat}}  <br/>
-        {{periodVekaKrajaIzracunat}} {{vekKrajaIzracunat}}  
+        {{tr.od}} *: <input type="text" ng-model="pocetakPerioda" name="pocetakPerioda" ng-change="unetPocetakPerioda()" ng-required='vreme=="unosPeriodaOdDo" ng-pattern="/^\d+$/"'/>
+				
+		{{tr.do}} *: <input type="text" ng-model="krajPerioda" name="krajPerioda" ng-change="unetKrajPerioda()" ng-required='vreme=="unosPeriodaOdDo" ng-pattern="/^\d+$/"'/> <br/>
+		<span ng-show='formUnos.pocetakPerioda.$error.pattern'>
+            {{tr.pattern_error_cifre}}
+        </span><br/>
+		<span ng-show='formUnos.krajPerioda.$error.pattern'>
+                {{tr.pattern_error_cifre}}
+        </span><br/>
+        {{periodVekaPocetkaIzracunat}}   <br/>
+        {{periodVekaKrajaIzracunat}} 
     </fieldset>
 </fieldset>
 <fieldset>

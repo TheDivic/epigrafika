@@ -73,6 +73,11 @@
 "pattern_error_cifre":"Only digits are allowed!",
 "godina":"Year",
 "format_error_slova":"Only letters and spaces are allowed!",
-"format_error_slova_cifre_tacka":"Only letters, digits, spaces and dots are allowed!"
+"format_error_slova_cifre_tacka":"Only letters, digits, spaces and dots are allowed!",
+"prva_polovina":"first half",
+"druga_polovina":"second half",
+"pocetak_perioda":"Period start: ",
+"kraj_perioda":"Period end: ",
+"greska_period":"Ending year of period must be after period begining!"
 
 }

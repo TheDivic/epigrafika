@@ -1,23 +1,4 @@
-function izracunajVek(godina){
-  if(godina < 100)
-  {
-    return 1;
-}
-var vek;
-vek = Math.floor(godina/100);
 
-if(godina%100 == 0)
-    return vek;
-else 
-    return vek+ 1;
-}
-
-function izracunajPeriodVeka(godina){
-   if(godina%100 > 49)
-     return "druga polovina ";
- else  return "prva polovina ";
-
-}
 
 angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http', function ($scope, $http){
     $scope.oznaka=null;
@@ -53,6 +34,26 @@ angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http
     $scope.drzave=null;
     $scope.gradovi=null;
     $scope.vrsteNatpisa=null;
+	
+	function izracunajVek(godina){
+	  if(godina < 100)
+	  {
+		return 1;
+	}
+	var vek;
+	vek = Math.floor(godina/100);
+
+	if(godina%100 == 0)
+		return vek;
+	else 
+		return vek+ 1;
+	}
+
+	function izracunajPeriodVeka(godina){
+	   if(godina%100 > 49)
+		 return $scope.tr.druga_polovina;
+	 else  return $scope.tr.prva_polovina;
+	}
 
     $http.get('../server/provincije.php', {responseType: 'JSON'}).
     success(function(data, status, headers, config){
@@ -114,10 +115,8 @@ angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http
   }
   var godina = parseInt($scope.pocetakPerioda);
   var periodVeka = izracunajPeriodVeka(godina);
-  $scope.periodVekaPocetkaIzracunat ="Pocetak perioda je " + periodVeka;
   var vek = izracunajVek(godina);
-  $scope.vekPocetkaIzracunat =vek+ ". veka.";
-
+  $scope.periodVekaPocetkaIzracunat =$scope.tr.pocetak_perioda + vek +". " + $scope.tr.vek +", "+ periodVeka + ".";
 };
 
 $scope.unetKrajPerioda = function(){
@@ -129,9 +128,8 @@ $scope.unetKrajPerioda = function(){
   }
   var godina = parseInt($scope.krajPerioda);
   var periodVeka = izracunajPeriodVeka(godina);
-  $scope.periodVekaKrajaIzracunat ="Kraj perioda je " + periodVeka;
   var vek = izracunajVek(godina);
-  $scope.vekKrajaIzracunat =vek+ ". veka.";
+  $scope.periodVekaKrajaIzracunat =$scope.tr.kraj_perioda + vek +". " + $scope.tr.vek +", "+ periodVeka + ".";
 };
 
 $scope.posalji_podatke=function(){
