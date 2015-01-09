@@ -1,5 +1,3 @@
-
-
 angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http', function ($scope, $http){
     $scope.oznaka=null;
 	$scope.jezikUpisa='latinski';
@@ -64,7 +62,7 @@ angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http
 
     });
 
-    $http.get('../server/modernaDrzava.php', {responseType: 'JSON'}).
+    $http.get('../server/moderna_drzava.php', {responseType: 'JSON'}).
     success(function(data, status, headers, config){
         if(data!=="null")
           $scope.drzave=data.data;
@@ -82,7 +80,7 @@ angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http
 
     });
 
-    $http.get('../server/vrstaNatpisa.php', {responseType: 'JSON'}).
+    $http.get('../server/vrsta_natpisa.php', {responseType: 'JSON'}).
     success(function(data, status, headers, config){
         if(data!=="null")
           $scope.vrsteNatpisa=data.data;

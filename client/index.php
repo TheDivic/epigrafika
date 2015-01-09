@@ -46,7 +46,11 @@
 							<label for="natpis" class="control-label">{{ tr.natpis }}: </label>
 						</div>
 						<div class="col-sm-3">
-							<input class="form-control" id="natpis" type="text" name="natpis" ng-model="natpis"/> 
+							<input class="form-control" id="natpis" type="text" name="natpis" ng-change="autocompleteNatpis()" ng-model="natpis"/>
+							<!-- Dropdown za autocomplete -->
+							<ul id="divic-natpis-dropdown" ng-show="show_natpis_autocomplete" role="menu">
+								<a ng-repeat="predlog in natpisPredlozi" ng-click="upisiPredlog($event)"><li>{{ predlog }}</li></a>
+							</ul>
 						</div>
 						<div class="col-sm-3">
 							<select class="form-control" name="natpisArg" ng-model="natpisArg" >
