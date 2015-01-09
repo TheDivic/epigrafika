@@ -66,8 +66,8 @@
 #map-container
 {
     padding: 10px;
-    width: 600px;
-    height: 400px;
+    width: 100%;
+    height: 700px;
     margin-left: auto;
     margin-right: auto;
     background-color: azure;
@@ -78,9 +78,14 @@
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 100%;
+    height: 600px;
     background-color: gray;
 }
-
+#map-slider{
+    width: 100%;
+}
+#map-slider .slider-selection {
+	background: #BABABA;
+}
 
 

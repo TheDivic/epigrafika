@@ -4,6 +4,10 @@
 <script src="static/scripts/pretraga.js"></script>
 <script src="static/scripts/slanjePodatakaServeru.js"></script>
 
+<!-- Bootstrap slider -->
+<link rel="stylesheet" type="text/css" href="static/css/bootstrap-slider.css">
+<script src="static/scripts/libs/bootstrap-slider.js"></script>
+
 <div class="container" ng-controller='pretragaController' ng-cloak>
 
 <!-- Tab menu -->
@@ -213,10 +217,22 @@
 
 		</div>
 		<!-- tab mapa -->
-		 <div class="tab-pane fade" id="mapa">
+		 <div class="tab-pane fade" id="mapa" ng-controller='mapSearchController'>
 			<h1>Mapa</h1>
             <div id="map-container">
                 <div id="map-canvas"></div>
+                <br/>
+                <div class="row">
+                  <div class="col-md-2">
+                    <select class="form-control input-sm" ng-model='center' ng-options="mesto.naziv as mesto.naziv for mesto in mesta | orderBy:'naziv':false">
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                    <input ng-model="radius" id="radius" data-slider-id='map-slider' type="text" data-slider-min="1" data-slider-max="100" data-slider-step="0.1" data-slider-value="10"/>
+                  </div>
+                </div>
             </div>
         </div>
 	<!-- rezultati -->
@@ -243,6 +259,6 @@
 <!-- Sve skripte vezane za mapu -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBArTJ-mPtJuBsGghbM2LHu-FAJpehXJLg"></script> <!-- Google Maps API -->
 <script type="text/javascript" src="static/scripts/map/gmaps.js"></script> <!-- Google Maps Wrapper -->
-<script type="text/javascript" src="static/scripts/map/controllers/pretraga.js"></script> <!-- Map Search Controller -->
+<script type="text/javascript" src="static/scripts/map/pretraga.js"></script> <!-- Map Search Controller -->
 
 <?php include 'footer.php'; ?>
