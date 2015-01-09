@@ -11,9 +11,6 @@ var map;
 var radiusCircle;
 var markers = new Array();
 
-//Register map init. on page load
-google.maps.event.addDomListener(window,'load', mapInit);
-
 function mapInit()
 {
 	var mapOptions = { center: { lat: 0, lng: 0 }, zoom: 8 };
@@ -263,3 +260,6 @@ name: "Arheoloski objekat 1",
 desc: "Neki opis, nesto nesto.",
 polygon: [{latitude: 44.7866,longitude: 20.4489},{latitude: 44.8,longitude: 20.5},{latitude: 44.75,longitude: 20.43}]
 }
+
+//Register map init. on page load
+google.maps.event.addDomListener(window,'load', mapInit);

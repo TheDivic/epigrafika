@@ -9,10 +9,10 @@
 <!-- Tab menu -->
 	<ul id="myTab" class="nav nav-tabs">
         <li class="active">
-			<a href="#pretraga" data-toggle="tab">{{tr.pretraga}} &nbsp; <span class="glyphicon glyphicon-search"></span> </a>
+			<a id="tab-btn-pretraga" href="#pretraga" data-toggle="tab">{{tr.pretraga}} &nbsp; <span class="glyphicon glyphicon-search"></span> </a>
         </li>
         <li>
-			<a href="#mapa" data-toggle="tab">{{tr.mapa}} </a>
+			<a id="tab-btn-mapa" href="#mapa" data-toggle="tab">{{tr.mapa}} </a>
         </li>
 		 <li  class="nav navbar-right search_hide"> 
 			<span ng-click="prikazi=!prikazi" ng-show="prikazi"> {{tr.sakrij}} &nbsp; <b class="caret-up"></b></span><span ng-click="prikazi=!prikazi" ng-hide="prikazi"> {{tr.prikazi}} &nbsp; <b class="caret"></b></span>
@@ -214,9 +214,11 @@
 		</div>
 		<!-- tab mapa -->
 		 <div class="tab-pane fade" id="mapa">
-			<h1> Mesto za mapu </h1>
-	
-	</div>
+			<h1>Mapa</h1>
+            <div id="map-container">
+                <div id="map-canvas"></div>
+            </div>
+        </div>
 	<!-- rezultati -->
 	<br/> <br/>
 	<div id="rezultati">
@@ -238,5 +240,9 @@
 	</div>
 </div>
 
+<!-- Sve skripte vezane za mapu -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBArTJ-mPtJuBsGghbM2LHu-FAJpehXJLg"></script> <!-- Google Maps API -->
+<script type="text/javascript" src="static/scripts/map/gmaps.js"></script> <!-- Google Maps Wrapper -->
+<script type="text/javascript" src="static/scripts/map/controllers/pretraga.js"></script> <!-- Map Search Controller -->
 
 <?php include 'footer.php'; ?>
