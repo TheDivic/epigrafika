@@ -14,7 +14,7 @@
         </li>
     </ul>
 <!-- Sadrzaj tabova-->
-	<div id="myTabContent" class="tab-content" ng-controller="adminProvincije">
+	<div id="myTabContent" class="tab-content" ng-controller="adminProvincije" ng-cloak>
 		<!--Pregled tab -->
         <div class="tab-pane fade in active col-sm-12" id="pregled"><br/><br/>
 		<form class="form" id="izmenaForm" name="izmenaForm" method="get" action="">
@@ -33,9 +33,9 @@
                     <tr ng-repeat="provincija in provincije" ng-class-even="'success'" class="row">
 						<td class="col-sm-1"><p>{{ provincija.id }}</p></td>
 						<td class="col-sm-3"><input class="izmenaInput" ng-show="izmeni[provincija.id]" form="izmenaForm" type="text" name="naziv" ng-model="provincija.naziv" id="naziv" ng-required="true" required /><p ng-hide="izmeni[provincija.id]" >{{ provincija.naziv }}</p></td>
-						<td class="col-sm-3"><input ng-show="izmeni[provincija.id]" form="izmenaForm" type="text" name="naziv" ng-model="provincija.pocetak"id="naziv" ng-required="true" required /><p ng-hide="izmeni[provincija.id]">{{ provincija.pocetak }}</p></td>
-						<td class="col-sm-3"><input ng-show="izmeni[provincija.id]" form="izmenaForm" type="text" name="naziv" ng-model="provincija.kraj"id="naziv" ng-required="true" required /><p ng-hide="izmeni[provincija.id]">{{ provincija.kraj }}</p></td>
-						<td class="col-sm-1 text-center" ><span ng-click="izmeniIkona(provincija.id)" ng-hide="izmeni[provincija.id]" class="glyphicon glyphicon-pencil"></span><span ng-click="sacuvajIzmene(provincija.id)" ng-show="izmeni[provincija.id]" class="glyphicon glyphicon-ok-sign"></span></td>
+						<td class="col-sm-3"><input ng-show="izmeni[provincija.id]" form="izmenaForm" type="text" name="naziv" ng-model="provincija.pocetak" id="naziv" ng-required="true" required /><p ng-hide="izmeni[provincija.id]">{{ provincija.pocetak }}</p></td>
+						<td class="col-sm-3"><input ng-show="izmeni[provincija.id]" form="izmenaForm" type="text" name="naziv" ng-model="provincija.kraj" id="naziv" ng-required="true" required /><p ng-hide="izmeni[provincija.id]">{{ provincija.kraj }}</p></td>
+						<td class="col-sm-1 text-center" ><span ng-click="izmeniIkona(provincija.id)" ng-hide="izmeni[provincija.id]" class="glyphicon glyphicon-pencil"></span><span ng-click="sacuvajIzmene(provincija.id, provincija.naziv, provincija.pocetak, provincija.kraj)" ng-show="izmeni[provincija.id]" class="glyphicon glyphicon-ok-sign"></span></td>
 						<td class="col-sm-1 text-center"><span ng-click="obrisiProvinciju(provincija.id)" ng-hide="izmeni[provincija.id]" class="glyphicon glyphicon-remove"></span><span ng-click="ponistiIzmenu(provincija.id)" ng-show="izmeni[provincija.id]" class="glyphicon glyphicon-remove-sign"></span></td>
 					</tr>
                 </tbody>
