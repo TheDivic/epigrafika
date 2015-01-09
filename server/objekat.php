@@ -48,6 +48,18 @@ try
             $result->error_status = false;
             $result->data = $query->fetchAll(PDO::FETCH_OBJ);
         }
+		else if($_GET['type'] === 'jedinstena_oznaka'){
+			$oznaka = $_GET['oznaka']; 
+			$query = $db->prepare("select * from mydb.objekat where oznaka=$oznaka" );
+			$query->execute();
+            
+            $result->error_status = false;
+            $result->data = $query->fetchAll();
+			if(count($result->data) == 0)
+				$result->isEmpty = true;
+			else
+				$result->isEmpty = false;
+		}
     }
     else if ($method === 'POST')
     {

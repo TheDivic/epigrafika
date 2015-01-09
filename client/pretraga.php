@@ -157,7 +157,7 @@
         </select> 
     <fieldset>
         <legend> {{tr.vreme}} </legend>
-        {{tr.vek}}: <input type="text" name="vek" ng-model="vek" ng-pattern="/[0-9]+$/"/>
+        {{tr.vek}}: <input type="text" name="vek" ng-model="vek" ng-pattern="/^\d+$/"/>
         <span ng-show='formPretraga.vek.$error.pattern'>
                 {{tr.pattern_error_cifre}}
         </span>		<br/>

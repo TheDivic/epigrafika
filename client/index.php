@@ -159,7 +159,7 @@
 								<label class="control-label" for="vek">{{tr.vek}}:</label>
 							</div>
 							<div class="col-sm-3">
-								<input id="vek" class="form-control" type="text" name="vek" ng-model="vek" ng-pattern="/[0-9]+/"/>
+								<input id="vek" class="form-control" type="text" name="vek" ng-model="vek" ng-pattern="/^\d+$/"/>
 								<span class="text-transparent" ng-class="{textred:formPretraga.vek.$error.pattern &&formPretraga.vek.$dirty}">
 										{{tr.pattern_error_cifre}}
 								</span>	
