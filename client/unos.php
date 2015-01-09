@@ -83,17 +83,14 @@
     </fieldset>
     <input type="radio" name="vreme" ng-model="vreme" value="unosPeriodaOdDo"/> {{tr.unesite_period}}:
     <fieldset ng-show="vreme=='unosPeriodaOdDo'"> 
-        {{tr.od}} *: <input type="text" ng-model="pocetakPerioda" name="pocetakPerioda" ng-change="unetPocetakPerioda()" ng-required='vreme=="unosPeriodaOdDo" ng-pattern="/^\d+$/"'/>
+        {{tr.od}} *: <input type="text" ng-model="pocetakPerioda" name="pocetakPerioda" ng-change="unetPocetakPerioda()" ng-required='vreme=="unosPeriodaOdDo"' ng-pattern="/^\d+$/"/>
 				
-		{{tr.do}} *: <input type="text" ng-model="krajPerioda" name="krajPerioda" ng-change="unetKrajPerioda()" ng-required='vreme=="unosPeriodaOdDo" ng-pattern="/^\d+$/"'/> <br/>
-		<span ng-show='formUnos.pocetakPerioda.$error.pattern'>
+		{{tr.do}} *: <input type="text" ng-model="krajPerioda" name="krajPerioda" ng-change="unetKrajPerioda()" ng-required='vreme=="unosPeriodaOdDo"' ng-pattern="/^\d+$/"/> 
+		<span ng-show='formUnos.pocetakPerioda.$error.pattern || formUnos.krajPerioda.$error.pattern'>
             {{tr.pattern_error_cifre}}
-        </span><br/>
-		<span ng-show='formUnos.krajPerioda.$error.pattern'>
-                {{tr.pattern_error_cifre}}
-        </span><br/>
-        {{periodVekaPocetkaIzracunat}}   <br/>
-        {{periodVekaKrajaIzracunat}} 
+        </span> <br/>
+        {{pocetakPeriodaPoruka}}   <br/>
+        {{krajPeriodaPoruka}} 
     </fieldset>
 </fieldset>
 <fieldset>

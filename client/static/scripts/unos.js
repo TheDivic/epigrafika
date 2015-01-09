@@ -36,23 +36,23 @@ angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http
     $scope.vrsteNatpisa=null;
 	
 	function izracunajVek(godina){
-	  if(godina < 100)
-	  {
-		return 1;
-	}
-	var vek;
-	vek = Math.floor(godina/100);
+		if(godina < 100)
+		{
+			return 1;
+		}
+		var vek;
+		vek = Math.floor(godina/100);
 
-	if(godina%100 == 0)
-		return vek;
-	else 
-		return vek+ 1;
+		if(godina%100 == 0)
+			return vek;
+		else 
+			return vek+ 1;
 	}
 
 	function izracunajPeriodVeka(godina){
-	   if(godina%100 > 49)
-		 return $scope.tr.druga_polovina;
-	 else  return $scope.tr.prva_polovina;
+	    if(godina%100 > 49)
+			return $scope.tr.druga_polovina;
+		else  return $scope.tr.prva_polovina;
 	}
 
     $http.get('../server/provincije.php', {responseType: 'JSON'}).
@@ -101,35 +101,59 @@ angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http
       }
       var godina = parseInt($scope.godinaPronalaska);
       var periodVeka = izracunajPeriodVeka(godina);
+	  
+	  if( periodVeka==""){
+			$scope.periodVekaIzracunat="";
+			$scope.vekIzracunat="";
+			return;
+	  }
+		
       $scope.periodVekaIzracunat =periodVeka;
       var vek = izracunajVek(godina);
       $scope.vekIzracunat =vek+ ".";
   };
 
-  $scope.unetPocetakPerioda = function(){
+$scope.unetPocetakPerioda = function(){
     if($scope.pocetakPerioda == "")
     {
-      $scope.vekPocetkaIzracunat = "";
-      $scope.periodVekaPocetkaIzracunat = "";
-      return;
-  }
-  var godina = parseInt($scope.pocetakPerioda);
-  var periodVeka = izracunajPeriodVeka(godina);
-  var vek = izracunajVek(godina);
-  $scope.periodVekaPocetkaIzracunat =$scope.tr.pocetak_perioda + vek +". " + $scope.tr.vek +", "+ periodVeka + ".";
+		$scope.pocetakPeriodaPoruka = "";
+		return;
+	}
+	var godina = parseInt($scope.pocetakPerioda);
+	if(isNaN(godina))
+	{
+		$scope.pocetakPeriodaPoruka  = "";
+		return;
+	}
+	var periodVeka = izracunajPeriodVeka(godina);
+	var vek = izracunajVek(godina);
+	$scope.pocetakPeriodaPoruka =$scope.tr.pocetak_perioda + vek +". " + $scope.tr.vek +", "+ periodVeka + ".";
 };
 
 $scope.unetKrajPerioda = function(){
     if($scope.krajPerioda == "")
     {
-      $scope.vekKrajaIzracunat = "";
-      $scope.periodVekaKrajaIzracunat = "";
+      $scope.krajPeriodaPoruka = "";
       return;
-  }
-  var godina = parseInt($scope.krajPerioda);
-  var periodVeka = izracunajPeriodVeka(godina);
-  var vek = izracunajVek(godina);
-  $scope.periodVekaKrajaIzracunat =$scope.tr.kraj_perioda + vek +". " + $scope.tr.vek +", "+ periodVeka + ".";
+	}
+	var godina = parseInt($scope.krajPerioda);
+	if(isNaN(godina))
+	{
+		$scope.krajPeriodaPoruka = "";
+		return;
+	}
+	var periodVeka = izracunajPeriodVeka(godina);
+	var vek = izracunajVek(godina);
+	
+	var godina1 = parseInt($scope.pocetakPerioda);
+	if(!isNaN(godina1)){
+		if(godina1>godina){
+			$scope.krajPeriodaPoruka = $scope.tr.greska_period;
+			return;
+			}
+	}
+	
+	$scope.krajPeriodaPoruka =$scope.tr.kraj_perioda + vek +". " + $scope.tr.vek +", "+ periodVeka + ".";
 };
 
 $scope.posalji_podatke=function(){
