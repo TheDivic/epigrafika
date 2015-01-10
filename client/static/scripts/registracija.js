@@ -9,10 +9,10 @@ angular.module('epigrafikaModul').controller('registracijaController', ['$scope'
 	}
 	$scope.jedinstven=function ()
 	{	var user = $scope.user;
-		$http.get('../server/objekat.php?type=jedinstenost&user="'+user+'"', {responseType: 'JSON'}).
+		$http.get('../server/korisnik.php?type=jedinsten_username&user="'+user+'"', {responseType: 'JSON'}).
 			success(function(data, status, headers, config){
 				if(data!=="null"){
-					if(data.isEmpty){
+					if(data.isEmpty)
 						$scope.greska = false;
 					else 
 						$scope.greska=true;

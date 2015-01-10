@@ -11,7 +11,7 @@ try
     if($method === 'GET')
     {
         //Dostava podataka
-			if($_GET['type'] === 'jedinstvenost'){
+		if($_GET['type'] === 'jedinsten_username'){
 				$ime = $_GET['user']; 
 				$query = $db->prepare("select * from mydb.korisnik where korisnickoIme=$ime" );
 				$query->execute();

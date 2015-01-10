@@ -39,7 +39,7 @@
 						<input type="text" name="user" ng-model="user" ng-change="jedinstven()"ng-pattern="/^[A-Za-z0-9_-]{3,20}$/" ng-required="true" class="form-control" id="user" placeholder={{tr.korisnicko_max}}>
 						<span class="text-transparent" ng-class="{textred:registrationForm.user.$dirty && (registrationForm.user.$error.required || registrationForm.user.$error.pattern)}">
 							{{tr.obavezno_polje}} {{tr.dozvoljeni}} 
-						</span><span ng-show="greska" style="color:red" class="glyphicon glyphicon-remove"></span>
+						</span><span ng-show="greska" style="color:red" class="glyphicon glyphicon-remove">{{tr.greska_jedinstven_username}}</span>
 					</div>
 					<div class="form-group">
 						<label for="pwd" class="control-label">{{tr.sifra}}:<span style="color:red">*</span></label>
