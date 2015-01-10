@@ -10,14 +10,14 @@
         <script src="static/scripts/libs/jquery-1.11.1.js" type='text/javascript'></script>
         <script src="static/scripts/libs/bootstrap.js"></script>
         <script src="static/scripts/libs/cookies.js"></script>
-        
+        <script src="static/scripts/libs/ui-bootstrap-tpls-0.9.0.min.js"></script>
         <!-- ucitavanje kontrolera -->
         <script src="static/scripts/translation.js" type="text/javascript"></script>
         <script src="static/scripts/header.js" type='text/javascript'> </script>  
         
         <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="static/css/bootstrap-theme-admin.css">
-		<link rel="stylesheet" type="text/css" href="static/css/style.css">
+        <link rel="stylesheet" type="text/css" href="static/css/style.css">
     </head>
     <body>
 		<nav class="navbar navbar-default">

@@ -1,6 +1,6 @@
 // epigrafikaModul glavni modul
 // JEDINI MODUL koji se koristi u okviru ng-app direktive
-var glavniModul = angular.module('epigrafikaModul', ['translationModule', 'ngCookies']);
+var glavniModul = angular.module('epigrafikaModul', ['translationModule', 'ngCookies', 'ui.bootstrap']);
 
 // Root controller sadrzi stvari koje zelimo da delimo izmedju kontrolera
 // npr objekat sa prevodima
