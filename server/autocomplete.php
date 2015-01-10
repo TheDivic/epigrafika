@@ -51,6 +51,44 @@ function searchDictionary($string)
     }
 }
 
+function getCities($key){
+    $result = new stdClass();
+    try{
+        $db=konekcija::getConnectionInstance();
+        $query= "SELECT naziv FROM grad WHERE naziv LIKE '" . $key . "%' LIMIT 5;";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $result->error_status=false;
+        $result->data = $stmt->fetchAll();
+
+        return $result->data;
+    }
+    catch(Exception $e){
+        $result->error_status=true;
+        $result->error_message = $e->getMessage();
+    }
+}
+
+function getPlaces($key){
+    $result = new stdClass();
+    try{
+        $db=konekcija::getConnectionInstance();
+        $query= "SELECT naziv FROM mesto WHERE naziv LIKE '" . $key . "%' LIMIT 5;";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $result->error_status=false;
+        $result->data = $stmt->fetchAll();
+
+        return $result->data;
+    }
+    catch(Exception $e){
+        $result->error_status=true;
+        $result->error_message = $e->getMessage();
+    }
+}
+
 /* Funkcija prima listu reci, i za svaku rec radi:
 -ukoliko rec ne postoji u tabeli, dodaje je u tabelu i postavlja broj pojavljivanja na 1 
 -ukoliko rec postoji, inkrementira broj pojavljanja te reci */
@@ -98,8 +136,40 @@ function insertWordsIntoDictionary($array){
 
 
 <?php
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    echo autocompleteInscription();
+$result = [];
+
+if($_SERVER['REQUEST_METHOD'] === 'GET'){
+    if(isset($_GET['type']) && isset($_GET['key'])) {
+        if($_GET['type'] === "inscription"){
+            $query_result = searchDictionary($_GET['key']);
+            if($query_result != null)
+            {
+                foreach(array_values($query_result) as $temp){
+                    $result['words'][] = $temp['rec'];
+                }
+            }
+        }
+        elseif($_GET['type'] === 'city'){
+            $query_result = getCities($_GET['key']);
+            if($query_result != null)
+            {
+                foreach(array_values($query_result) as $temp){
+                    $result['words'][] = $temp['naziv'];
+                }
+            }
+        }
+        elseif($_GET['type'] === 'place'){
+            $query_result = getPlaces($_GET['key']);
+            if($query_result != null)
+            {
+                foreach(array_values($query_result) as $temp){
+                    $result['words'][] = $temp['naziv'];
+                }
+            }
+        }
+    }
 }
+
+echo json_encode($result);
 ?>
 
