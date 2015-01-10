@@ -232,13 +232,10 @@
                 <br/>
                 <div class="row">
                   <div class="col-md-2">
-                    <select class="form-control input-sm" ng-model='center' ng-options="mesto.naziv as mesto.naziv for mesto in mesta | orderBy:'naziv':false">
-                    </select>
+                    <select class="form-control input-sm" ng-model="city" ng-options="city.naziv as city.naziv for city in cities | orderBy:'naziv':false"></select>
                   </div>
-                </div>
-                <div class="row">
                   <div class="col-md-2">
-                    <input ng-model="radius" id="radius" data-slider-id='map-slider' type="text" data-slider-min="1" data-slider-max="100" data-slider-step="0.1" data-slider-value="10"/>
+                    <input type="text" id="radius" data-slider-id="map-slider" data-slider-min="1" data-slider-max="100" data-slider-step="0.1" data-slider-value="10"></input>
                   </div>
                 </div>
 			</div>

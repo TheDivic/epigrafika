@@ -1,7 +1,3 @@
-//Strings to be localized
-var errorInGeoRequestString = "Error while processing geo request!";
-var locationNotFoundString = "Location not found!";
-
 //Map settings
 var canvasId = "#map-canvas";
 var googleApiKey = "AIzaSyBArTJ-mPtJuBsGghbM2LHu-FAJpehXJLg";
@@ -10,13 +6,14 @@ var googleApiKey = "AIzaSyBArTJ-mPtJuBsGghbM2LHu-FAJpehXJLg";
 var map;
 var radiusCircle;
 var markers = new Array();
+var coordinatesCache = {};
 
+//Inicijalizacija mape
 function mapInit()
 {
-	var mapOptions = { center: { lat: 0, lng: 0 }, zoom: 8 };
+	var mapOptions = { center: mapGetCoordinatesByName("Beograd"), zoom: 8 };
 	var canvas = $(canvasId)[0];
 	map = new google.maps.Map(canvas, mapOptions);
-    mapGoToLocation("Beograd");
 }
 
 //Predstavlja jedan arheoloski objekat na mapi
@@ -75,42 +72,97 @@ ArchObject.prototype.clearObject = function (){
 	this.infoWindow = null;
 };
 
-function mapGoToLocation(location)
-{
-    jQuery.ajax({
-        type: "GET",
-		async: true,
-        url: "https://maps.googleapis.com/maps/api/geocode/json",
-        data: {address: location, key: googleApiKey},
-		dataType: "json",
-        success:function(data,statusText,jqxhr){
-            if(data.status == 'OK')
-            {
-                //found at least one geo location
-
-                var lat = data.results[0].geometry.location.lat;
-                var lng = data.results[0].geometry.location.lng;
-				
-				mapClearAllMarkers();
-                mapGoToCoordinates(lat,lng);
-                mapPlaceMarker(lat,lng);
-            }
-            else
-            {
-                window.alert(locationNotFoundString);
-            }
-        },
-        error:function(jqxhr,statusText){
-            console.error(statusText);
-            window.alert(errorInGeoRequestString);
+//Singleton koji upravlja pretragom preko mape
+var RadiusSearchManager = (function () {
+    var instance;
+    
+    function RadiusSearch()
+    {
+        this.graphics = {};
+        
+        var circleOptions = {
+            center: { lat: 0, lng: 0 },
+            radius: 0,
+            fillColor: "blue",
+            fillOpacity: 0.25,
+            strokeColor: "black",
+            strokeWeight: 1,
+            strokeOpacity: 1.0,
+            map: map
         }
+        this.graphics.circle = new google.maps.Circle(circleOptions);
+        this.graphics.marker = new google.maps.Marker();
+    }
+    
+    RadiusSearch.prototype.setCenter = function(center)
+    {
+        if(map)
+            map.panTo(center);
+        this.graphics.circle.setCenter(center);
+        this.graphics.marker.setPosition(center);
+    }
+    
+    RadiusSearch.prototype.setRadius = function(radius)
+    {
+        this.graphics.circle.setRadius(radius);
+    }
+    
+    RadiusSearch.prototype.refreshGraphics = function()
+    {
+        this.graphics.circle.setMap(map);
+        this.graphics.marker.setMap(map);
+    }
+    
+    function createInstance() {
+        var object = new RadiusSearch();
+        return object;
+    }
+ 
+    return {
+        getInstance: function () {
+            if (!instance) {
+                instance = createInstance();
+            }
+            return instance;
+        }
+    };
+})();
 
-    });
-}
-
-function mapGoToCoordinates(lat, lng)
+//Utility metoda koja vraca koordinate na osnovu tekstualnog opisa mesta
+function mapGetCoordinatesByName(locationName)
 {
-    map.panTo({ lat: lat, lng: lng });
+    //Check cache first
+    if(coordinatesCache.hasOwnProperty(locationName))
+        return coordinatesCache[locationName];
+        
+    var result = null;
+    
+    if(locationName)
+    {
+        jQuery.ajax({
+            type: "GET",
+            async: false,
+            url: "https://maps.googleapis.com/maps/api/geocode/json",
+            data: {address: locationName, key: googleApiKey},
+            dataType: "json",
+            success:function(data,statusText,jqxhr){
+                if(data.status == 'OK')
+                {
+                    //found at least one geo location
+                    var lat = data.results[0].geometry.location.lat;
+                    var lng = data.results[0].geometry.location.lng;
+                    
+                    result = {lat: lat, lng: lng};
+                    coordinatesCache[locationName] = result;
+                }
+            },
+            error:function(jqxhr,statusText){
+                console.error(statusText);
+            }
+        });
+    }
+    
+    return result;
 }
 
 function mapPlaceMarker(lat, lng)
@@ -133,30 +185,6 @@ function mapClearAllMarkers()
         markers[i] = null;
     }
     markers = [];
-}
-
-function mapDrawRadiusCircle(center, radius)
-{
-	if(radiusCircle == null)
-	{
-		var circleOptions = {
-			center: center,
-			radius: radius,
-			fillColor: "blue",
-			fillOpacity: 0.5,
-			strokeColor: "black",
-			strokeWeight: 2,
-			strokeOpacity: 1.0,
-			map: map
-		}
-		
-		radiusCircle = new google.maps.Circle(circleOptions);
-	}
-	else
-	{
-		radiusCircle.setCenter(center);
-		radiusCircle.setRadius(radius);
-	}
 }
 
 function mapDoRadiusSearch()
