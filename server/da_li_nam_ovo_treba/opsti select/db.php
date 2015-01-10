@@ -141,7 +141,7 @@ class DB{
 
         }
 
-        else{
+        else if(strcmp($vreme, "godina")==0){
             $datovano = true;
             $pocetakGodina = null;
             $pocetakVek = null;
@@ -149,6 +149,14 @@ class DB{
             $krajGodina = null;
             $krajVek = null;
             $krajOdrednica = null;
+
+        }
+
+        else if(strcmp($vreme, "unosVeka")==0){
+
+        }
+
+        else if(strcmp($vreme, "unosPeriodaOdDo")==0){
 
         }
 
@@ -162,6 +170,8 @@ class DB{
 
         //tip i ostalo
         $tip = $data->tipZnamenitosti;
+        $materijal = $data->materijalZnamenitosti;
+        $komentar = $data->komentar;
 
 
 
