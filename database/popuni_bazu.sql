@@ -17,15 +17,29 @@ INSERT INTO `mydb`.`provincija` (`id`, `naziv`, `pocetak`, `kraj`) VALUES ('1', 
 INSERT INTO `mydb`.`vrstanatpisa` (`id`, `naziv`) VALUES ('1', 'Natpis1'), ('2', 'Natpis2'), ('3', 'Natpis3');
 
 INSERT INTO `mydb`.`Mesto`(`id`,`naziv`)  VALUES (1, 'Aleksandrovac'), (2, 'Kraljevo'),
-(3, 'Beograd'), (4, 'Cacak'), (5, 'Valjevo');
+(3, 'Beograd'), (4, 'Cacak'), (5, 'Valjevo'),('21', 'Vojvodina'), ('31', 'Kosovo');
 
-INSERT INTO `mydb`.`Pleme`(`id`,`naziv`) VALUES(1,'Zupani'), (2,'Varvari'), (3,'Autarijati'), (4,'Singi'), (5,'Varvari'),(7,'Iliri'), (8,'Tracani'), (9,'Grci');
+INSERT INTO `mydb`.`Pleme`(`id`,`naziv`) VALUES(1,'Zupani'), (2,'Varvari'), (3,'Autarijati'), (4,'Singi'), (5,'Varvari'),(7,'Iliri'), (8,'Tracani'), (9,'Grci'),('11', 'Apace'), ('12', 'Sijukas');
 
 INSERT INTO `mydb`.`VrstaNatpisa`(`id`, `naziv`) VALUES(4,'Natpis na kamenu'), (5,'Rimski natpis'), (6, 'Natpis u pecini'), (7, 'Natpis na papiru'), (8,'Turski natpis');
 
-INSERT INTO `mydb`.`Jezik`(`id`,`naziv`,`kod`) VALUES(1,'Srpski',''), (2,'Staroslovenski',''),(3,'Makedonski',''),(4,'Grcki','');
+INSERT INTO `mydb`.`Jezik`(`id`,`naziv`,`kod`) VALUES(1,'Srpski','s'), (2,'Staroslovenski','ss'),(3,'Makedonski','m'),(4,'Grcki','g'),(5, 'latinski','l2');
 
 INSERT INTO `mydb`.`Ustanova`( `id`,`naziv`,`modernoMesto`) VALUES(1,'Arheoloski Muzej', 1), (2,'Narodni Muzej',1), (3,'Prirodnjacki Muzej Kalemegdan',1),(4,'Narodni Muzej',3);
+
+INSERT INTO `mydb`.`korisnik` (`korisnickoIme`, `sifra`, `ime`,`prezime`,`email`,`institucija`,`dodatneInformacije`,`mod`,`datumRegistrovanja`,`status`) VALUES 
+('Mirko','pr10','Mirko','Ivic','mivic@hotmail.com','ibm','prazno','l3','12-12-2014','0');
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -99,13 +113,39 @@ INSERT INTO `mydb`.`TackePoligona`(`poligon`, `redniBroj`, `koordinata`) VALUES(
 INSERT INTO `mydb`.`TackePoligona`(`poligon`, `redniBroj`, `koordinata`) VALUES(5,21,21);
 INSERT INTO `mydb`.`TackePoligona`(`poligon`, `redniBroj`, `koordinata`) VALUES(5,22,22);
 
+/*poligon 6*/
+INSERT INTO `mydb`.`POLIGON`(`id`) VALUES(6);
+INSERT INTO `mydb`.`tacka` (`id`, `latituda`, `longituda`) VALUES ('101', '44.7866','20.4489'), ('102', '45.2671','19.8335');
+INSERT INTO `mydb`.`tackepoligona` (`poligon`, `rednibroj`, `koordinata`) VALUES ('6', '101','101'), ('6', '102','102');
+
 /*objekat 1*/
 
-INSERT INTO `mydb`.`Objekat`(`id`,`oznaka`,`tekstNatpisa`,`vrstaNatpisa`,`jezik`,`provincija`,`grad`,`mesto`,`pleme`,`modernaDrzava`,`modernoMesto`,
-  `ustanova`,`pocetakGodina`, `pocetakVek`,`pocetakOdrednica`,`krajGodina`,`krajVek`,`krajOdrednica`,`tip` ,`materijal`,`dimenzije`,`komentar`,
-  `faza`,`korisnickoIme`,`datumKreiranja`,`datumPoslednjeIzmene`,`datovano`,`lokalizovano`)
-  VALUES(1,
+INSERT INTO `mydb`.`objekat` (`id`, `oznaka`, `tekstNatpisa`,`vrstaNatpisa`,`jezik`,`provincija`,`grad`,`mesto`,`pleme`,`modernaDrzava`,`modernoMesto`,`ustanova`,`korisnickoIme`,
+`faza`, `datumKreiranja`, `datumPoslednjeIzmene`, `datovano`, `lokalizovano`) 
+VALUES ('1','O2','Natpis','1','2','1','1','21','11','1','1','3','Mirko', 'faza1', '12-12-2013', '12-12-2013', 'true', 'true');
+INSERT INTO `mydb`.`dodatniopis` (`id`, `objekat`) VALUES ('1', '1');
+INSERT INTO `mydb`.`bog` (`id`, `ime`) VALUES ('1', 'zevs');
+INSERT INTO `mydb`.`bibliografskipodatak` (`id`, `skracenica`, `naslov`,`putanja`) VALUES ('1', 'skr','naslov','path');
+INSERT INTO `mydb`.`izvodbibliografskogpodatka` (`objekat`, `bibliografskiPodatak`, `strana`,`putanja`) VALUES ('1', '1','3','path');
+INSERT INTO `mydb`.`osoba` (`id`, `name`, `praenomen`,`nomen`,`cognomen`,`agnomen`,`tribus`,`origo`) VALUES ('1','herkul','zeus','alkmena','nema','nema','nema','ne');
+INSERT INTO `mydb`.`vojnajedinica` (`id`, `legija`, `pomocniOdred`) VALUES ('1', 'f2','nema');
+INSERT INTO `mydb`.`fotografija` VALUES ('1','SL','img','1');
+INSERT INTO `mydb`.`podesavanja` (`id`, `naziv`, `tip`,`vrednost`) VALUES ('1', 'pod1','tip1','vr100'),('2', 'pod2','tip2','vr101');
 
+ /*objekat 2*/
+INSERT INTO `mydb`.`objekat` (`id`, `oznaka`, `tekstNatpisa`,`vrstaNatpisa`,`jezik`,`provincija`,`grad`,`mesto`,`pleme`,`modernaDrzava`,`modernoMesto`,`ustanova`,`korisnickoIme`,
+`faza`, `datumKreiranja`, `datumPoslednjeIzmene`, `datovano`, `lokalizovano`) 
+VALUES ('2','O2','Natpis','4','4','2','3','5','1','1','3','3','Mirko', 'faza1', '12-01-2015', '12-01-2015', 'true', 'true');
+INSERT INTO `mydb`.`dodatniopis` (`id`, `objekat`) VALUES ('2', '2');
+INSERT INTO `mydb`.`bog` (`id`, `ime`) VALUES ('2', 'atina');
+INSERT INTO `mydb`.`osoba` (`id`, `name`, `praenomen`,`nomen`,`cognomen`,`agnomen`,`tribus`,`origo`) VALUES ('2','herkul','atina','alkmena','nema','nema','nema','ne');
+/*objekat 3*/
+INSERT INTO `mydb`.`objekat` (`id`, `oznaka`, `tekstNatpisa`,`vrstaNatpisa`,`jezik`,`provincija`,`grad`,`mesto`,`pleme`,`modernaDrzava`,`modernoMesto`,`ustanova`,`korisnickoIme`,
+`faza`, `datumKreiranja`, `datumPoslednjeIzmene`, `datovano`, `lokalizovano`) 
+VALUES ('3','O3','Natpis2','7','1','1','2','2','1','1','3','4','Mirko', 'faza1', '12-01-2015', '12-01-2015', 'true', 'true');
+INSERT INTO `mydb`.`dodatniopis` (`id`, `objekat`) VALUES ('3', '3');
+INSERT INTO `mydb`.`bog` (`id`, `ime`) VALUES ('3', 'atina');
+INSERT INTO `mydb`.`osoba` (`id`, `name`, `praenomen`,`nomen`,`cognomen`,`agnomen`,`tribus`,`origo`) VALUES ('3','herkul','atina','alkmena','nema','nema','nema','ne');
 
 
 /* geoloska mesta*/
@@ -114,6 +154,8 @@ INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(2,1);
 INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(3,1);
 INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(4,1);
 INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(5,3);
+INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(6,1);
+
 
 /*geoloska drzava*/
 INSERT INTO `mydb`.`GeoDrzava`(`poligon`, `drzava`) VALUES(1,1);
@@ -121,68 +163,27 @@ INSERT INTO `mydb`.`GeoDrzava`(`poligon`, `drzava`) VALUES(2,1);
 INSERT INTO `mydb`.`GeoDrzava`(`poligon`, `drzava`) VALUES(3,1);
 INSERT INTO `mydb`.`GeoDrzava`(`poligon`, `drzava`) VALUES(4,1);
 INSERT INTO `mydb`.`GeoDrzava`(`poligon`, `drzava`) VALUES(5,1);
+INSERT INTO `mydb`.`geodrzava` (`poligon`, `drzava`) VALUES ('6','1');
 
 
-
-INSERT INTO `mydb`.`provincija` (`id`, `naziv`, `pocetak`, `kraj`) VALUES ('1', 'Thracia', '1. vek n.e.', '3. vek n.e'),
-('2', 'Macedonia', '2. vek n.e.', '3. vek n.e'), ('3', 'Dalmatia', '2. vek p.n.e.', '5. vek n.e');
-
-INSERT INTO `mydb`.`grad` (`id`, `naziv`) VALUES ('1', 'Aleksandrovac'), ('2', 'Kraljevo'),
-('3', 'Beograd'), ('4', 'Cacak'), ('5', 'Valjevo');
-
-INSERT INTO `mydb`.`mesto` (`id`, `naziv`) VALUES ('11', 'Beograd'), ('21', 'Vojvodina'), ('31', 'Kosovo');
-
-
-INSERT INTO `mydb`.`pleme` (`id`, `naziv`) VALUES ('11', 'Apace'), ('12', 'Sijukas');
-
-INSERT INTO `mydb`.`vrstanatpisa` (`id`, `naziv`) VALUES ('1', 'Natpis1'), ('2', 'Natpis2'), ('3', 'Natpis3'); 
-
-INSERT INTO `mydb`.`jezik` (`id`, `naziv`, `kod`) VALUES ('1', 'srpski','s1'), ('2', 'latinski','l2');
-
-INSERT INTO `mydb`.`modernadrzava` (`id`, `naziv`) VALUES ('1', 'Srbija'),
-('2', 'Makedonija'), ('3', 'Hrvatska');
-
-INSERT INTO `mydb`.`modernomesto` (`id`, `naziv`, `modernaDrzava`) VALUES ('14', 'Beograd','1'), ('15', 'Novi Sad','3');
-
-INSERT INTO `mydb`.`ustanova` (`id`, `naziv`, `modernomesto`) VALUES ('3', 'ustanova1','14'), ('4', 'ustanova2','15');
-
-INSERT INTO `mydb`.`korisnik` (`korisnickoIme`, `sifra`, `ime`,`prezime`,`email`,`institucija`,`dodatneInformacije`,`mod`,`datumRegistrovanja`,`status`) VALUES 
-('Mirko','pr10','Mirko','Ivic','mivic@hotmail.com','ibm','prazno','l3','12-12-2014','0');
-
-
-INSERT INTO `mydb`.`objekat` (`id`, `oznaka`, `tekstNatpisa`,`vrstaNatpisa`,`jezik`,`provincija`,`grad`,`mesto`,`pleme`,`modernaDrzava`,`modernoMesto`,`ustanova`,`korisnickoIme`,
-`faza`, `datumKreiranja`, `datumPoslednjeIzmene`, `datovano`, `lokalizovano`) 
-VALUES ('1','O1','N','1','2','1','1','21','11','1','14','3','Mirko', 'faza1', '12-12-2013', '12-12-2013', 'true', 'true');
-
-INSERT INTO `mydb`.`bibliografskipodatak` (`id`, `skracenica`, `naslov`,`putanja`) VALUES ('1', 'skr','naslov','path');
-
-
-INSERT INTO `mydb`.`izvodbibliografskogpodatka` (`objekat`, `bibliografskiPodatak`, `strana`,`putanja`) VALUES ('1', '1','3','path');
-
-INSERT INTO `mydb`.`dodatniopis` (`id`, `objekat`) VALUES ('105', '1');
-
-INSERT INTO `mydb`.`bog` (`id`, `ime`) VALUES ('105', 'zevs');
-
-
-INSERT INTO `mydb`.`osoba` (`id`, `name`, `praenomen`,`nomen`,`cognomen`,`agnomen`,`tribus`,`origo`) VALUES ('105','herkul','zeus','alkmena','nema','nema','nema','ne');
-
-INSERT INTO `mydb`.`vojnajedinica` (`id`, `legija`, `pomocniOdred`) VALUES ('105', 'f2','nema');
-
-INSERT INTO `mydb`.`fotografija` VALUES ('103','SL','img','1');
-
-INSERT INTO `mydb`.`podesavanja` (`id`, `naziv`, `tip`,`vrednost`) VALUES ('1', 'pod1','tip1','vr100'),('2', 'pod2','tip2','vr101');
-
-INSERT INTO `mydb`.`poligon` (`id`) VALUES ('3'), ('4');
-
-INSERT INTO `mydb`.`tacka` (`id`, `latituda`, `longituda`) VALUES ('101', '44.7866','20.4489'), ('102', '45.2671','19.8335');
-
-INSERT INTO `mydb`.`tackepoligona` (`poligon`, `rednibroj`, `koordinata`) VALUES ('3', '1','101'), ('4', '2','102');
-
-INSERT INTO `mydb`.`geomesto` (`poligon`, `mesto`) VALUES ('3','14'), ('4','15');
-
-INSERT INTO `mydb`.`geodrzava` (`poligon`, `drzava`) VALUES ('3','1'), ('4','3');
 
 INSERT INTO `mydb`.`geoustanova` (`tacka`,`ustanova`) VALUES ('101', '3'), ('102', '4');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
