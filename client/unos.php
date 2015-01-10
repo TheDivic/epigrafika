@@ -2,148 +2,279 @@
 
 <!-- ucitavanje kontrolera -->
 <script src="static/scripts/unos.js"></script>
-
-<div ng-controller='unosController' ng-cloak>
-    <form action=""  name='formUnos' method="post" enctype='multipart/form-data'>
-        <fieldset>
+<div class="container" ng-controller='unosController' ng-cloak>
+	<form action=""  name='formUnos' method="post" enctype='multipart/form-data' class="form-horizontal">
+	<div class="fieldset_border">
+		<fieldset>
             <legend> {{tr.osnovne_informacije}} </legend>
-            {{tr.oznaka}} *: <input type="text" name="oznaka" ng-maxlength="15" ng-model="oznaka" ng-change="proveri_jedinstvenost()" ng-pattern="/^[a-zA-Z0-9]+$/" ng-required='true'/> 
-            <span ng-show='formUnos.oznaka.$error.maxlength'>
-                {{tr.oznaka_error_length}}
-            </span> 
-			<span ng-show='formUnos.oznaka.$error.pattern'>
-                {{tr.format_error_slova_cifre}}
-            </span><span>{{greska}}</span>
-            <br/>
-            <input type="radio" name="jezikUpisa" ng-model="jezikUpisa" value="latinski" checked /> {{tr.latinski}}  <br/>
-            <input type="radio" name="jezikUpisa" ng-model="jezikUpisa" value="grcki"/>  {{tr.grcki}}
-
-            <br/>
-            {{tr.natpis}} *: <textarea  rows="2" ng-model="natpis" name="natpis" ng-required='true'/> </textarea>
-            <br/>
-            {{tr.vrsta_natpisa}}: 
-            <select name="vrstaNatpisa" ng-model="vrstaNatpisa">
-                <option ng-repeat="natpis in vrsteNatpisa  | orderBy:'naziv':false"> {{natpis.naziv}} </option>
-            </select>
+			<div class="row form-group">
+				<label for="oznaka" class="col-sm-2 control-label">{{tr.oznaka}}  <span style="color:red">*</span>:</label>
+				<div class="col-sm-3">
+					<input class="form-control" id="oznaka"type="text" name="oznaka" ng-maxlength="15" ng-model="oznaka" ng-change="proveri_jedinstvenost()" ng-pattern="/^[a-zA-Z0-9]+$/" ng-required="true"/>				
+				</div>
+				<div class="col-sm-3">
+					<label class="checkbox-inline">
+						<input type="radio" name="jezikUpisa" ng-model="jezikUpisa" value="latinski" checked /> {{tr.latinski}}
+					</label>
+				</div>
+				<div class="col-sm-3">
+					<label class="checkbox-inline" >
+						<input type="radio" name="jezikUpisa" ng-model="jezikUpisa" value="grcki"/>  {{tr.grcki}}
+					</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-offset-2 col-sm-12">
+					<span class="text-transparent" ng-class="{textred:formUnos.oznaka.$dirty && (formUnos.oznaka.$error.required||formUnos.oznaka.$error.pattern||formUnos.oznaka.$error.maxlenght)}">
+						{{tr.oznaka_error_length}} {{tr.format_error_slova_cifre}} {{tr.obavezno_polje}}
+					</span>
+					<span>
+						{{greska}}
+					</span>	
+				</div>
+			</div>
+			<div class="row form-group">
+				<label for="natpis" class="col-sm-2 control-label">{{tr.natpis}}  <span style="color:red">*</span>:</label>
+				<div class="col-sm-9">
+					<textarea  class="form-control textarea_unos" rows="2" id="natpis" ng-model="natpis" name="natpis" ng-required='true'/> </textarea>	
+					<span class="text-transparent" ng-class="{textred:formUnos.natpis.$dirty && formUnos.natpis.$error.required}">
+						{{tr.obavezno_polje}}
+					</span>
+				</div>
+			</div>
+			<div class="row form-group">
+				<label for="vrstaNatpisa" class="col-sm-2 control-label">{{tr.vrsta_natpisa}}:</label>
+				<div class="col-sm-9">
+					<select class="form-control" id="vrstaNatpisa" name="vrstaNatpisa" ng-model="vrstaNatpisa">
+						<option ng-repeat="natpis in vrsteNatpisa  | orderBy:'naziv':false"> {{natpis.naziv}} </option>
+					</select>
+				</div>
+			</div>
         </fieldset>
-    <fieldset>
-        <legend> {{tr.izvorno_mesto_nastanka}} </legend>
-		<div ng-init="lokalizovan=true" ng-show="lokalizovan">
-        {{tr.provincija}}: 
-		<select name="provincija" ng-model="provincija">
-			<option ng-repeat="p in provincije  | orderBy:'naziv':false"> {{ p.naziv }} </option>
-		</select>
+	</div> <br/>
+	<div class="fieldset_border">
+		<fieldset>
+			<legend> {{tr.izvorno_mesto_nastanka}} </legend>
+			<label ng-init="lokalizovan=true"> <input type="checkbox" name="LokalizovanPodatak" ng-model="LokalizovanPodatak" value="LokalizovanPodatak" ng-click="lokalizovan=!lokalizovan"  checked/> {{ tr.lokalizovan_podatak}} </label>
+			<div class="row form-group" ng-show="lokalizovan">
+				<label for="provincija" class="col-sm-1 control-label">{{tr.provincija}}:</label>
+				<div class="col-sm-3">
+					<select name="provincija" id="provincija" class="form-control" ng-model="provincija">
+						<option ng-repeat="p in provincije  | orderBy:'naziv':false"> {{ p.naziv }} </option>
+					</select>
+				</div>
+				<label for="grad" class="col-sm-1 control-label">{{tr.grad}}:</label>
+				<div class="col-sm-3">
+					<select id="grad" class="form-control" name="grad" ng-model="grad">
+						<option ng-repeat="grad in gradovi | orderBy:'naziv':false"> {{grad.naziv}} </option>
+					</select>
+				</div>
+				<label for="mestoNalaska" class="col-sm-1 control-label">{{tr.mesto}}:</label>
+				<div class="col-sm-3 clirfix">
+					<input id="mestoNalaska" class="form-control" type="text" name="mestoNalaska" ng-model="mestoNalaska" ng-pattern="/^[a-zA-Z ]+$/"/>
+					<span class="text-transparent" ng-class="{textred: formUnos.mestoNalaska.$error.pattern && formUnos.mestoNalaska.$dirty}"> 
+						{{tr.format_error_slova}}
+					</span>
+				</div>
+			</div>
+			<div class="row form-group">
+				<label for="modernoImeDrzave" class="col-sm-1 control-label">{{tr.moderno_ime_drzave}}:</label>
+				<div class="col-sm-3">
+					<select id="modernoImeDrzave" class="form-control" name="modernoImeDrzave" ng-model="modernoImeDrzave">
+						<option ng-repeat="drzava in drzave  | orderBy:'naziv':false"> {{drzava.naziv}} </option>
+					</select>
+				</div>
+				<label for="modernoMesto" class="col-sm-1 control-label">{{tr.moderno_mesto}}:</label>
+				<div class="col-sm-3">
+					<select id="modernoMesto" class="form-control" name="modernoMesto" ng-model="modernoMesto">
+						<option ng-repeat="mesto in mesta | orderBy:'naziv':false"> {{mesto.naziv}} </option>
+					</select>
+				</div>
+			</div>	
+		</fieldset>
+	</div> <!-- end of fieldset-->
+	<br/>
+	<div class="fieldset_border">
 		<br/>
-		{{tr.grad}}: 
-		<select name="grad" ng-model="grad">
-			<option ng-repeat="grad in gradovi | orderBy:'naziv':false"> {{grad.naziv}} </option>
-		</select>
-		<br/>
-		{{tr.mesto}}: 
-		<input type="text" name="mestoNalaska" ng-model="mestoNalaska" ng-pattern="/^[a-zA-Z ]+$/"/>
-		<span ng-show='formUnos.mestoNalaska.$error.pattern '> 
-			{{tr.format_error_slova}}
-		</span>
-		</td><br/>
-		</div>
-		<input type="checkbox" name="LokalizovanPodatak" ng-model="LokalizovanPodatak" value="LokalizovanPodatak" ng-click="lokalizovan=!lokalizovan"  checked/> {{ tr.lokalizovan_podatak}} <br/>
-																				
-{{tr.moderno_ime_drzave}}:
-<select name="modernoImeDrzave" ng-model="modernoImeDrzave">
-	<option ng-repeat="drzava in drzave  | orderBy:'naziv':false"> {{drzava.naziv}} </option>
-</select> <br/>
-{{tr.moderno_mesto}}
-<select id="modernoMesto"  name="modernoMesto" ng-model="modernoMesto">
-	<option ng-repeat="mesto in mesta | orderBy:'naziv':false"> {{mesto.naziv}} </option>
-</select> 
-</fieldset>
-{{tr.trenutna_lokacija_znamenitosti}}: <input type="text" name="trenutnaLokacijaZnamenitosti" ng-model="trenutnaLokacijaZnamenitosti" ng-pattern="/^[a-zA-Z ]+$/"/>
-	<span ng-show='formUnos.trenutnaLokacijaZnamenitosti.$error.pattern '> 
-			{{tr.format_error_slova}}
-	</span>
- <br/>
-{{tr.pleme}}: <input type="text" name="pleme" ng-model="pleme" ng-pattern="/^[a-zA-Z ]+$/"/>
-<span ng-show='formUnos.pleme.$error.pattern '> 
-			{{tr.format_error_slova}}
-</span>
-<fieldset>
-    <legend> {{tr.vreme}} </legend>
-    <input type="radio" name="vreme" ng-model="vreme" value="nedatovan" checked /> {{tr.nedatovan_natpis}} <br/>
-    <input type="radio" name="vreme" ng-model="vreme" value="godina"/> {{tr.unesite_godinu}} : <br/>
-    <fieldset ng-show="vreme=='godina'"> 
-        {{tr.godina}}* <input type="text" name="godinaPronalaska" ng-model="godinaPronalaska" ng-change="unetaGodina()" ng-required='vreme=="godina"' ng-pattern="/^\d+$/"/>
-		<span ng-show='formUnos.godinaPronalaska.$error.pattern'>
-                {{tr.pattern_error_cifre}}
-        </span>		<br/>
-        {{tr.vek}} :  {{vekIzracunat}} <br/>
-        {{tr.vreme}}: {{periodVekaIzracunat}}
-    </fieldset>
-    
-    <input type="radio" name="vreme" ng-model="vreme" value="unosVeka"/> {{tr.unesite_vek}}: <br/>
-    <fieldset ng-show="vreme=='unosVeka'"> 
-        {{tr.vek}} * <input type="text" name="vekPronalaska" ng-model="vekPronalaska" ng-required='vreme=="unosVeka"' ng-pattern="/^\d+$/"/> 
-		<span ng-show='formUnos.vekPronalaska.$error.pattern'>
-                {{tr.pattern_error_cifre}}
-            </span><br/>
-        <input type="radio" name="periodVeka" ng-model="periodVeka" value="prvaPolovinaVeka"/> {{tr.prva_polovina}}  <br/>
-        <input type="radio" name="periodVeka" ng-model="periodVeka" value="drugaPolovinaVeka"/>  {{tr.druga_polovina}}
-    </fieldset>
-    <input type="radio" name="vreme" ng-model="vreme" value="unosPeriodaOdDo"/> {{tr.unesite_period}}:
-    <fieldset ng-show="vreme=='unosPeriodaOdDo'"> 
-        {{tr.od}} *: <input type="text" ng-model="pocetakGodina" name="pocetakGodina" ng-change="unetPocetakPerioda()" ng-required='vreme=="unosPeriodaOdDo"' ng-pattern="/^\d+$/"/>
+		<div class="row form-group">
+				<label for="trenutnaLokacijaZnamenitosti" class="col-sm-2 control-label">{{tr.trenutna_lokacija_znamenitosti}}:</label>
+				<div class="col-sm-4">
+					<input type="text" id="trenutnaLokacijaZnamenitosti" class="form-control" name="trenutnaLokacijaZnamenitosti" ng-model="trenutnaLokacijaZnamenitosti" ng-pattern="/^[a-zA-Z ]+$/"/>
+					<span class="text-transparent" ng-class="{textred:formUnos.trenutnaLokacijaZnamenitosti.$dirty && formUnos.trenutnaLokacijaZnamenitosti.$error.pattern}"> 
+						{{tr.format_error_slova}}
+					</span>
+				</div>
+				<label for="pleme" class="col-sm-2 control-label">{{tr.pleme}}:</label>
+				<div class="col-sm-4">
+					<input type="text" id="pleme" class="form-control" name="pleme" ng-model="pleme" ng-pattern="/^[a-zA-Z ]+$/"/>
+					<span class="text-transparent" ng-class="{textred:formUnos.pleme.$dirty && formUnos.pleme.$error.pattern}"> 
+						{{tr.format_error_slova}}
+					</span>
+				</div>
+			</div>
+	</div> <!--end of fieldset -->
+	<br/>
+	<div class="fieldset_border">
+		<fieldset>
+			<legend> {{tr.vreme}} </legend>
+			<div class="row">
+				<label class="col-sm-2"> <input type="radio" name="vreme" ng-model="vreme" value="nedatovan" checked /> {{tr.nedatovan_natpis}}: </label>
+			</div>
+			<div class="row">
+				<label class="col-sm-2"><input type="radio" name="vreme" ng-model="vreme" value="godina"/> {{tr.unesite_godinu}} : </label>
+				<div class="form-group" ng-show="vreme=='godina'">
+					<label for="godinaPronalaska" class="col-sm-1 control-label">{{tr.godina}}*:</label>
+					<div class="col-sm-3">
+						<input id="godinaPronalaska" type="text" class="form-control" name="godinaPronalaska" ng-model="godinaPronalaska" ng-change="unetaGodina()" ng-required='vreme=="godina"' ng-pattern="/^\d+$/"/>
+						<span class="text-transparent" ng-class="{textred: formUnos.godinaPronalaska.$error.pattern &&formUnos.godinaPronalaska.$dirty}">
+							{{tr.pattern_error_cifre}}
+						</span>
+					</div>
+					<label class="control-label col-sm-2">{{tr.vek}} :  {{vekIzracunat}} </label>
+					<label class="control-label col-sm-2">{{tr.vreme}}: {{periodVekaIzracunat}} </label>
+				</div>
+			</div>
+			
+			<div class="row">
+				<label class="col-sm-2"> <input type="radio" name="vreme" ng-model="vreme" value="unosVeka"/> {{tr.unesite_vek}}:</label>
+				<div class="form-group" ng-show="vreme=='unosVeka'">
+					<label for="godinaPronalaska" class="col-sm-1 control-label">{{tr.vek}} *</label>
+					<div class="col-sm-3">
+						<input class="form-control" type="text" name="vekPronalaska" ng-model="vekPronalaska" ng-required='vreme=="unosVeka"' ng-pattern="/^\d+$/"/> 
+						<span class="text-transparent" ng-class="{textred: formUnos.vekPronalaska.$error.pattern &&formUnos.vekPronalaska.$dirty}">
+							{{tr.pattern_error_cifre}}
+						</span>
+					</div>
+					<label class="radio-inline col-sm-2"><input type="radio" name="periodVeka" ng-model="periodVeka" value="prvaPolovinaVeka"/> {{tr.prva_polovina}} </label>
+					<label class="radio-inline col-sm-2"> <input type="radio" name="periodVeka" ng-model="periodVeka" value="drugaPolovinaVeka"/>  {{tr.druga_polovina}} </label>
+				</div>
+			</div>
+			<div class="row clearfix">
+				<label class="col-sm-2"><input type="radio" name="vreme" ng-model="vreme" value="unosPeriodaOdDo"/> {{tr.unesite_period}}: </label>
+				<div class="form-group" ng-show="vreme=='unosPeriodaOdDo'">
+					<label for="pocetakGodina" class="col-sm-1 control-label">{{tr.od}} *:</label>
+					<div class="col-sm-3">
+						<input class="form-control" id="pocetakGodina" type="text" ng-model="pocetakGodina" name="pocetakGodina" ng-change="unetPocetakPerioda()" ng-required='vreme=="unosPeriodaOdDo"' ng-pattern="/^\d+$/"/>
+					</div>
+					<label for="krajGodina" class="col-sm-1 control-label">{{tr.od}} *:</label>
+					<div class="col-sm-3">
+						<input type="text" id="krajGodina" class="form-control" ng-model="krajGodina" name="krajGodina" ng-change="unetKrajPerioda()" ng-required='vreme=="unosPeriodaOdDo"' ng-pattern="/^\d+$/"/> 
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<span class="text-transparent col-sm-3" ng-class="{textred:(formUnos.pocetakGodina.$error.pattern || formUnos.krajGodina.$error.pattern) && (formUnos.pocetakGodina.$dirty || formUnos.krajGodina.$dirty)}">
+					{{tr.pattern_error_cifre}}
+				</span>
+				<span class="col-sm-4">
+					{{pocetakPeriodaPoruka}}
+				</span>
+				<span class="col-sm-4">
+					{{krajPeriodaPoruka}} 
+				</span>
+			</div>
+			
+		</fieldset>
+	</div> <!-- end of filedset-->
+	<br/>
+	<div class="fieldset_border">
+		<fieldset>
+			<legend>{{tr.informacije_o_znamenitosti}}</legend>
+			<div class="row form-group">
+				<label for="tipZnamenitosti" class="col-sm-2 control-label">{{tr.tip}}:</label>
+				<div class="col-sm-6">
+					<input id="tipZnamenitosti" class="form-control" type="text" name="tipZnamenitosti" ng-model="tipZnamenitosti" ng-pattern="/^[a-zA-Z ]+$/"/>
+				</div>
+				<span class="text-transparent col-sm-3" ng-class="{textred:formUnos.tipZnamenitosti.$dirty && formUnos.tipZnamenitosti.$error.pattern }"> 
+					{{tr.format_error_slova}}
+				</span>	
+			</div>
+			<div class="row form-group">
+				<label for="materijalZnamenitosti" class="col-sm-2 control-label">{{tr.materijal}}: </label>
+				<div class="col-sm-6">
+					<input id="materijalZnamenitosti" class="form-control"type="text" name="materijalZnamenitosti" ng-model="materijalZnamenitosti" ng-pattern="/^[a-zA-Z ]+$/"/>
+				</div>
+				<span class="text-transparent col-sm-3" ng-class="{textred:formUnos.materijalZnamenitosti.$dirty  && formUnos.materijalZnamenitosti.$error.pattern  }"> 
+					{{tr.format_error_slova}}
+				</span>	
+			</div>
+			<div class="row form-group">
+				<label for="sirina" class="col-sm-2 control-label">{{tr.sirina}}: </label>
+				<div class="col-sm-6">
+					 <input id="sirina" class="form-control" type="text" ng-model="sirina" name="sirina" ng-pattern="/^\d+(\.)?(\d{1,9})?$/"/> 
+				</div>
+				<span class="text-transparent col-sm-3" ng-class="{textred:formUnos.sirina.$dirty  && formUnos.sirina.$error.pattern}"> 
+					{{tr.pattern_error_cifre}}
+				</span>	
+			</div>
+			<div class="row form-group">
+				<label for="visina" class="col-sm-2 control-label">{{tr.visina}}: </label>
+				<div class="col-sm-6">
+					 <input id="visina" class="form-control" type="text" ng-model="visina" name="visina" ng-pattern="/^\d+(\.)?(\d{1,9})?$/"/>  
+				</div>
+				<span class="text-transparent col-sm-3" ng-class="{textred:formUnos.visina.$dirty  && formUnos.visina.$error.pattern}"> 
+					{{tr.pattern_error_cifre}}
+				</span>	
+			</div>
+			<div class="row form-group">
+				<label for="duzina" class="col-sm-2 control-label">{{tr.duzina}}: </label>
+				<div class="col-sm-6">
+					<input id="duzina" class="form-control" type="text" ng-model="duzina" name="duzina" ng-pattern="/^\d+(\.)?(\d{1,9})?$/"/>  
+				</div>
+				<span class="text-transparent col-sm-3" ng-class="{textred:formUnos.duzina.$dirty  && formUnos.duzina.$error.pattern}"> 
+					{{tr.pattern_error_cifre}}
+				</span>	
+			</div>
+		</fieldset>
+	</div>
+	<br/>	<!-- fieldset end -->
+	<div class="fieldset_border">
+		<fieldset>
+			<legend> {{tr.dodatne_informacije}}</legend>
+			<div class="row form-group">
+				<label for="bibliografskoPoreklo" class="col-sm-2 control-label">{{tr.bibliografsko_poreklo}}:</label>
+				<div class="col-sm-2">
+					<input id="bibliografskoPoreklo" class="form-control" type="text" ng-model="bibliografskoPoreklo"/>
+				</div>
+				<label for="bibliografskoPorekloSkracenica" class="col-sm-3 control-label">{{tr.skracenica_bibliografskog_porekla}}:</label>
+				<div class="col-sm-3">
+					<input id="bibliografskoPorekloSkracenica" class="form-control" type="file" ng-model="bibliografskoPorekloSkracenica"/> TODO
+				</div>
+			</div>
+			<div class="row form-group">
+				<label for="komentar" class="col-sm-2 control-label">{{tr.komentar}}:</label>
+				<div class="col-sm-8">
+					<textarea  rows="2" id="komentar" class="form-control textarea_unos" name="komentar" ng-model="komentar" ng-pattern="/^[a-zA-Z0-9 \. ]+$/"/> </textarea>
+					<span class="text-transparent" ng-show="{textred: formUnos.komentar.$error.pattern && formUnos.komentar.$dirty }"> 
+						{{tr.format_error_slova_cifre_tacka}}
+					</span>
+				</div>
 				
-		{{tr.do}} *: <input type="text" ng-model="krajGodina" name="krajGodina" ng-change="unetKrajPerioda()" ng-required='vreme=="unosPeriodaOdDo"' ng-pattern="/^\d+$/"/> 
-		<span ng-show='formUnos.pocetakGodina.$error.pattern || formUnos.krajGodina.$error.pattern'>
-            {{tr.pattern_error_cifre}}
-        </span> <br/>
-        {{pocetakPeriodaPoruka}}   <br/>
-        {{krajPeriodaPoruka}} 
-    </fieldset>
-</fieldset>
-<fieldset>
-    <legend>{{tr.informacije_o_znamenitosti}}</legend>
-    {{tr.tip}}: <input type="text" name="tipZnamenitosti" ng-model="tipZnamenitosti" ng-pattern="/^[a-zA-Z ]+$/"/> 
-	<span ng-show='formUnos.tipZnamenitosti.$error.pattern '> 
-		{{tr.format_error_slova}}
-	</span>	<br/>
-    {{tr.materijal}}: <input type="text" name="materijalZnamenitosti" ng-model="materijalZnamenitosti" ng-pattern="/^[a-zA-Z ]+$/"/> 
-	<span ng-show='formUnos.materijalZnamenitosti.$error.pattern '> 
-		{{tr.format_error_slova}}
-	</span><br/>
-    {{tr.sirina}}: <input type="text" ng-model="sirina" name="sirina" ng-pattern="/^\d+(\.)?(\d{1,9})?$/"/> 
-	    <span ng-show='formUnos.sirina.$error.pattern'>
-                {{tr.pattern_error_cifre}}
-		</span>		<br/>
-    {{tr.visina}}: <input type="text" ng-model="visina" name="visina" ng-pattern="/^\d+(\.)?(\d{1,9})?$/"/> 
-		<span ng-show='formUnos.visina.$error.pattern'>
-                {{tr.pattern_error_cifre}}
-		</span>		<br/>
-    {{tr.duzina}}: <input type="text" ng-model="duzina" name="duzina" ng-pattern="/^\d+(\.)?(\d{1,9})?$/"/>
-		<span ng-show='formUnos.duzina.$error.pattern'>
-                {{tr.pattern_error_cifre}}
-		</span>		<br/>
-</fieldset>
-
-<fieldset>
-    <legend> {{tr.dodatne_informacije}}</legend>
-    {{tr.bibliografsko_poreklo}}: <input type="text" ng-model="bibliografskoPoreklo"/>//TODO <br/> 
-    {{tr.skracenica_bibliografskog_porekla}}: <input type="text" ng-model="bibliografskoPorekloSkracenica"/> // TODO upload pdf <br/>
-    {{tr.komentar}}: <textarea  rows="2"  name="komentar" ng-model="komentar" ng-pattern="/^[a-zA-Z0-9 \. ]+$/"/> </textarea>
-	<span ng-show='formUnos.komentar.$error.pattern '> 
-		{{tr.format_error_slova_cifre_tacka}}
-	</span><br/>
-    {{tr.dodaj_fotografiju}} // TODO <br/>
-    {{tr.trenutna_faza_unosa}}:<br/>
-    <input type="radio" name="fazaUnosa" ng-model="fazaUnosa" value="nekompletno"/> {{tr.nekompletno}} <br/>
-    <input type="radio" name="fazaUnosa" ng-model="fazaUnosa" value="zaKontrolu"/> {{tr.za_kontrolu}} <br/>
-    <input type="radio" name="fazaUnosa" ng-model="fazaUnosa" value="objavljivanje"/> {{tr.objavljivanje}} <br/>
-
-</fieldset>
-
-
-
-<input type="submit" value={{tr.unesi_podatke}} ng-disabled='!formUnos.$valid' ng-click="posalji_podatke()"/>
-<input type="reset" value={{tr.resetuj_podatke}} />
+			</div>
+			<div class="row form-group">
+				<label for="foto" class="col-sm-2 control-label">{{tr.dodaj_fotografiju}}:</label>
+				<div class="col-sm-8">
+					<input type="file"  rows="2" id="foto" class="form-control" name="foto" ng-model="foto" /> TODO
+				</div>
+			</div>
+			<div class="row form-group">
+				<label for="foto" class="col-sm-2 control-label">{{tr.trenutna_faza_unosa}}:</label>
+				<div class="col-sm-8">
+					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="fazaUnosa" value="nekompletno"/> {{tr.nekompletno}}</label>
+					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="fazaUnosa" value="zaKontrolu"/> {{tr.za_kontrolu}} </label>
+					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="fazaUnosa" value="objavljivanje"/> {{tr.objavljivanje}}</label>
+				</div>
+			</div>
+		</fieldset>
+	</div> <br/><!-- fieldset end -->
+	<div class="row">
+		<div class="col-sm-4 col-sm-offset-2">
+			<button type="submit" class="btn btn-success btn-block" ng-class="{'disabled':!formUnos.$valid}" ng-click="posalji_podatke()" ng-enabled='formUnos.$valid'> {{tr.unesi_podatke}}  </button>
+		</div>
+		<div class="col-sm-4 ">
+			<button type="reset" class="btn btn-primary btn-block">{{tr.resetuj_podatke}}</button>
+		</div>
+	</div>
 </form>
-</div>
+</div> <!-- end of container -->
 <?php include 'footer.php'; ?>

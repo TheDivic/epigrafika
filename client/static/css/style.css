@@ -36,6 +36,11 @@
 	background-color:transparent !important;
 	cursor:default !important;
 }
+.textarea_unos
+{
+	max-width:100%;
+	min-height:70px;
+}
 
 .autocomplete-dropdown {
     position: absolute;
