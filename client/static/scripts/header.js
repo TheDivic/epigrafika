@@ -1,6 +1,6 @@
 // epigrafikaModul glavni modul
 // JEDINI MODUL koji se koristi u okviru ng-app direktive
-var glavniModul = angular.module('epigrafikaModul', ['translationModule', 'ngCookies']);
+var glavniModul = angular.module('epigrafikaModul', ['translationModule', 'ngCookies', 'ui.bootstrap']);
 
 glavniModul.controller('headerController', ['$scope', function ($scope){
     $scope.logged=true;
