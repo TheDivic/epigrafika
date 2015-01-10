@@ -4,9 +4,9 @@ $(document).ready(function() {
     //tako da se pribegava jQuery-u
     var radiusCtrl = $('#radius');
     radiusCtrl.slider()
-    .on('slide', function(e){
-        RadiusSearchManager.getInstance().setRadius(e.value*1000);
-    });
+        .on('slide', function(e){
+            RadiusSearchManager.getInstance().setRadius(e.value*1000);
+        });
     radiusCtrl.slider({
         formatter: function(value) {
             return 'Radius: ' + value + 'km';
@@ -52,6 +52,10 @@ angular.module('epigrafikaModul').
                 error(function(data, status, headers, config){
                     console.error(status);
                 });
+                
+                $scope.radiusSearch = function(){
+                    RadiusSearchManager.getInstance().doRadiusSearch();
+                }
                 
                 $scope.$watch("city", function(newValue, oldValue){
                     $scope.center = mapGetCoordinatesByName($scope.city);

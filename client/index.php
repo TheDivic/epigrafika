@@ -234,8 +234,11 @@
                   <div class="col-md-2">
                     <select class="form-control input-sm" ng-model="city" ng-options="city.naziv as city.naziv for city in cities | orderBy:'naziv':false"></select>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-4">
                     <input type="text" id="radius" data-slider-id="map-slider" data-slider-min="1" data-slider-max="100" data-slider-step="0.1" data-slider-value="10"></input>
+                  </div>
+                  <div class="col-md-2">
+                    <button type="button" class="btn btn-success btn-block" ng-click="radiusSearch()">{{tr.zapocni_pretragu}}</button>
                   </div>
                 </div>
 			</div>

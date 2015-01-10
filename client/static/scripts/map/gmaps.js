@@ -27,9 +27,9 @@ function ArchObject(name, description, polygon)
 	var coords = new Array();
 	for(var i = 0; i < polygon.length; i++)
 	{
-		latMid += polygon[i].latitude;
-		lngMid += polygon[i].longitude;
-		coords.push({lat: polygon[i].latitude, lng: polygon[i].longitude});
+		latMid += polygon[i].lat;
+		lngMid += polygon[i].lng;
+		coords.push({lat: polygon[i].lat, lng: polygon[i].lng});
 	}
 	
 	latMid /= polygon.length;
@@ -41,15 +41,16 @@ function ArchObject(name, description, polygon)
 		title: this.name
     });
 	
-	this.polygon = new google.maps.Polygon({
-		paths: coords,
-		map: map,
-		strokeColor: '#FF0000',
-		strokeOpacity: 0.8,
-		strokeWeight: 2,
-		fillColor: '#FF0000',
-		fillOpacity: 0.35
-	});
+
+    this.polygon = new google.maps.Polygon({
+        paths: coords,
+        map: map,
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35
+    });
 	
 	this.infoWindow = new google.maps.InfoWindow({
 		content: "<p>"+this.name+"</p><p>"+this.description+"</p>"
@@ -84,14 +85,28 @@ var RadiusSearchManager = (function () {
             center: { lat: 0, lng: 0 },
             radius: 0,
             fillColor: "blue",
-            fillOpacity: 0.25,
+            fillOpacity: 0.10,
             strokeColor: "black",
             strokeWeight: 1,
             strokeOpacity: 1.0,
+            clickable: false,
             map: map
         }
+        var markerOptions = {
+            map: map,
+            clickable: false,
+            icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                strokeColor: "blue",
+                strokeWeight: 5,
+                scale: 5
+            }
+        }
+            
         this.graphics.circle = new google.maps.Circle(circleOptions);
-        this.graphics.marker = new google.maps.Marker();
+        this.graphics.marker = new google.maps.Marker(markerOptions);
+        
+        this.objects = null;
     }
     
     RadiusSearch.prototype.setCenter = function(center)
@@ -113,6 +128,82 @@ var RadiusSearchManager = (function () {
         this.graphics.marker.setMap(map);
     }
     
+    RadiusSearch.prototype.getInboundPoints = function()
+    {
+        var points = new Array();
+        var center = this.graphics.circle.getCenter();
+        var radius = this.graphics.circle.getRadius();
+        
+        //Trazimo od servera da nam vrati sve tacke u bazi (par id->Lat,Lng)
+		jQuery.ajax({
+            type: "GET",
+            async: false,
+            url: "http://localhost/epigrafika/server/tacka.php",
+            dataType: "json",
+            success:function(result,statusText,jqxhr){
+                if(result.error_status == false)
+                {
+                    //Ukoliko je zahtev prosao, listamo tacke i pamtimo
+                    //samo one koje upadaju u radius pretrage
+                    for(var i = 0; i<result.data.length; i++)
+                    {
+                        var lat = parseFloat(result.data[i].latituda);
+                        var lng = parseFloat(result.data[i].longituda);
+                        
+                        var latLng = new google.maps.LatLng(lat,lng);
+                        
+                        var distance = google.maps.geometry.spherical.computeDistanceBetween(center, latLng);
+                        
+                        if(distance <= radius)
+                            points.push({lat: lat, lng: lng});
+                    }
+                    
+                    /*var latMin = 9999;
+                    var latMax = -9999;
+                    var lngMin = 9999;
+                    var lngMax = -9999;
+                    
+                    for(var i = 0; i < dots.length; i++)
+                    {
+                        if(dots[i].lat < latMin)
+                            latMin = dots[i].lat;
+                        if(dots[i].lat > latMax)
+                            latMax = dots[i].lat;
+                        if(dots[i].lng < lngMin)
+                            lngMin = dots[i].lng;
+                        if(dots[i].lng > lngMax)
+                            lngMax = dots[i].lng;
+                    }*/
+                }
+                else
+                    console.error(result.error_message);
+            },
+            error:function(jqxhr,statusText){
+                console.error(statusText);
+            }
+        });
+        
+        return points;
+    }
+    
+    RadiusSearch.prototype.doRadiusSearch = function()
+    {
+        //Cistimo prethodni rezultat
+        if(this.objects)
+            for(var i = 0; i < this.objects.length; i++)
+                this.objects[i].clearObject();
+                
+        var points = this.getInboundPoints();
+        
+        //TODO: Upit ka serveru za spisak objekata
+        
+        //Test podaci       
+        this.objects = new Array();
+        for(var i = 0; i < points.length; i++)
+            this.objects.push(new ArchObject("Arheoloski objekat "+i,"Genericki opis",[points[i]]));
+    }
+    
+    //Singleton pattern
     function createInstance() {
         var object = new RadiusSearch();
         return object;
@@ -163,87 +254,6 @@ function mapGetCoordinatesByName(locationName)
     }
     
     return result;
-}
-
-function mapPlaceMarker(lat, lng)
-{
-    var markerOptions = {
-        //animation: google.maps.Animation.DROP,
-        position: {lat: lat,lng: lng},
-        map: map
-    };
-    var marker = new google.maps.Marker(markerOptions);
-    markers.push(marker);
-	return marker;
-}
-
-function mapClearAllMarkers()
-{
-    for(var i = 0; i < markers.length; i++)
-    {
-        markers[i].setMap(null);
-        markers[i] = null;
-    }
-    markers = [];
-}
-
-function mapDoRadiusSearch()
-{
-	if(radiusCircle != null)
-	{
-		//Trazimo od servera da nam vrati sve tacke u bazi (par id->Lat,Lng)
-		jQuery.ajax({
-        type: "GET",
-		async: true,
-        url: "http://localhost/epigrafika/server/tacka.php",
-		dataType: "json",
-        success:function(result,statusText,jqxhr){
-            if(result.error_status == false)
-            {
-				//Ukoliko je zahtev prosao, listamo tacke i pamtimo
-				//samo one koje upadaju u radius pretrage
-				var bounds = radiusCircle.getBounds();
-				var dots = new Array();
-				for(var i = 0; i<result.data.length; i++)
-				{
-					var lat = parseFloat(result.data[i].latituda);
-					var lng = parseFloat(result.data[i].longituda);
-					
-					if(bounds.contains(new google.maps.LatLng(lat,lng)))
-						dots.push({lat: lat, lng: lng});
-				}
-				
-				//Oznaci tacke koje su upale u radius pretrage
-				//for(var i = 0; i < dots.length; i++)
-					//mapPlaceMarker(dots[i].position.lat(),dots[i].position.lng());
-				
-				var latMin = 9999;
-				var latMax = -9999;
-				var lngMin = 9999;
-				var lngMax = -9999;
-				
-				for(var i = 0; i < dots.length; i++)
-				{
-					if(dots[i].lat < latMin)
-						latMin = dots[i].lat;
-					if(dots[i].lat > latMax)
-						latMax = dots[i].lat;
-					if(dots[i].lng < lngMin)
-						lngMin = dots[i].lng;
-					if(dots[i].lng > lngMax)
-						lngMax = dots[i].lng;
-				}
-                
-                mapSearch(latMin,latMax,lngMin,lngMax);
-            }
-            else
-                console.error(result.error_message);
-        },
-        error:function(jqxhr,statusText){
-            console.error(statusText);
-        }
-    }); 
-	}
 }
 
 function mapSearch(latMin,latMax,lngMin,lngMax)
