@@ -71,6 +71,7 @@ try{
                 if($id!=-1){
                     $status=201;
                     $status_text = "Artefakt uspesno dodat";
+                    $response->status_text = "Artefakt uspesno dodat";
 //                    promeniti
 /*                    $new_link_description=array(
                         "link"=>"http://localhost/rest/server/server.php/books/$id"
@@ -81,6 +82,7 @@ try{
                     $status=400;
 
                     $status_text="Artefakt nije dodat!";
+                    $response->status_text ="Artefakt nije dodat!";
                 }
 
             break;

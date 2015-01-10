@@ -247,6 +247,18 @@ $scope.posalji_podatke=function(){
 	 
 	var jsonData = angular.toJson(formData);
 	alert(jsonData);
+        
+        $http.post('../server/da_li_nam_ovo_treba/opsti_select/server.php', jsonData, 
+            {responseType:'JSON',headers: {'content-type': 'application/json'}
+        }).
+        success(function(data, status, headers, config){
+            if(data!=="null")
+                alert(data.status_text);
+                //$scope.poruka=data.error_message;
+        }).
+        error(function(data, status, headers, config){
+
+        });
 	}
 	
 $scope.proveri_jedinstvenost = function(){

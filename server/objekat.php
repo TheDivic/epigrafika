@@ -34,32 +34,33 @@ try
                                     join poligon p on g.poligon = p.id
                                     join tackepoligona tp on tp.poligon = p.id
                                     join tacka t on tp.koordinata = t.id
-                                    where t.latituda between $latMin-$epsilon and $latMax+$epsilon
-                                    and t.longituda between $lngMin-$epsilon and $lngMax+$epsilon
+                                    where t.latituda between ? and ?
+                                    and t.longituda between ? and ?
                                     group by o.id");
                                     
-            //$query->bindParam(1, $latMin, PDO::PARAM_STR);
-            //$query->bindParam(2, $latMax, PDO::PARAM_STR);
-            //$query->bindParam(3, $lngMin, PDO::PARAM_STR);
-            //$query->bindParam(4, $lngMax, PDO::PARAM_STR);
+            $query->bindParam(1, $latMin-$epsilon, PDO::PARAM_STR);
+            $query->bindParam(2, $latMax+$epsilon, PDO::PARAM_STR);
+            $query->bindParam(3, $lngMin-$epsilon, PDO::PARAM_STR);
+            $query->bindParam(4, $lngMax+$epsilon, PDO::PARAM_STR);
 
             $query->execute();
             
             $result->error_status = false;
             $result->data = $query->fetchAll(PDO::FETCH_OBJ);
         }
-	else if($_GET['type'] === 'jedinstena_oznaka'){
+        else if($_GET['type'] === 'jedinstena_oznaka')
+        {
             $oznaka = $_GET['oznaka']; 
             $query = $db->prepare("select * from mydb.objekat where oznaka=$oznaka" );
             $query->execute();
             
             $result->error_status = false;
             $result->data = $query->fetchAll();
-                if(count($result->data) == 0)
-                    $result->isEmpty = true;
-		else
-                    $result->isEmpty = false;
-	}
+            if(count($result->data) == 0)
+                $result->isEmpty = true;
+            else
+                $result->isEmpty = false;
+        }
     }
     else if ($method === 'POST')
     {
