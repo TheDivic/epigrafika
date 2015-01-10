@@ -140,12 +140,13 @@ class DB{
             $krajOdrednica = null;
 
         }
+        //velika mogucnost greske
 
         else if(strcmp($vreme, "godina")==0){
             $datovano = true;
-            $pocetakGodina = null;
-            $pocetakVek = null;
-            $pocetakOdrednica = null;
+            $pocetakGodina = $data->godinaPronalaska;
+            $pocetakVek = $data->vekGodine;
+            $pocetakOdrednica = $data->periodVekGodine;
             $krajGodina = null;
             $krajVek = null;
             $krajOdrednica = null;
@@ -154,9 +155,24 @@ class DB{
 
         else if(strcmp($vreme, "unosVeka")==0){
 
+            $datovano = true;
+            $pocetakGodina = null;
+            $pocetakVek = $data->vekPronalaska;
+            $pocetakOdrednica = $data->periodVekGodine;
+            $krajGodina = null;
+            $krajVek = null;
+            $krajOdrednica = null;
+
         }
 
         else if(strcmp($vreme, "unosPeriodaOdDo")==0){
+            $datovano = true;
+            $pocetakGodina = $data->pocetakGodina;
+            $pocetakVek = $data->pocetakVek;
+            $pocetakOdrednica = $data->pocetakPeriodVeka;
+            $krajGodina = $data->krajGodina;
+            $krajVek = $data->krajVek;
+            $krajOdrednica = $data->krajPeriodVeka;
 
         }
 
@@ -181,7 +197,14 @@ class DB{
         $dimenzije.=$data->duzina;
 
 
-
+        $query="INSERT INTO `objekat` (oznaka, jezik, tekstNatpisa, vrstaNatpisa, provincija,
+        grad, mesto, modernaDrzava,modernoMesto, tip, materijal, dimenzije, komentar, datumKreiranja,
+        datumPoslednjeIzmene, faza, pleme, ustanova, korisnickoIme)
+         VALUES ($oznaka, $jezikUpisa, $natpis, $vrstaNatpisa, $provincija,
+         $grad, $mestoNalaska, $modernoImeDrzave,$modernoMesto, $tip, $materijal, $dimenzije, $komentar, $datumKreiranja,
+         $datumPoslednjeIzmene, $fazaUnosa, $pleme, $trenutnaLokacijaZnamenitosti, 'Mirko')";
+        $stmt = self::$connection->prepare($query);
+        $stmt->execute();
 
 
 
