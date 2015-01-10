@@ -24,12 +24,80 @@ class DB{
     }
 
 // bibliografski podaci je niz
-    public function unesi($oznaka, $jezik, $natpis, $vrsta_natpisa, IzvornoMestoNalaska $izvorno_mesto_nalaska,
-    $moderno_ime_drzave, $trenutna_lokacija_znamenitosti, Vreme $vreme,
-    InformacijeOZnamenitosti $informacije_o_znamenitosti,
-    ArrayObject $bibliografski_podaci, $komentar, ArrayObject $fotografije_i_nazivi, $faza_unosa){
+    public function unesi($data){
 
-$objekat = $_GET['drzava'];
+        $podaci = json_decode($data);
+
+        $oznaka = $podaci->oznaka;
+        $natpis = $podaci->natpis;
+
+        /*dobijamo ime jezika pa spajamo sa bazom da bismo dobili id */
+        $jezik = $podaci->jezik;
+        $query="SELECT id FROM `jezik` WHERE naziv=:jezik";
+        $stmt = self::$connection->prepare($query);
+        $stmt->bindParam(":jezik", $jezik, PDO::PARAM_STR);
+        $stmt->execute();
+        $o=$stmt->fetchAll();
+        $jezik= $o[0][0];
+
+
+        //Potrebno je odrediti id vrsteNatpisa
+        $vrstaNatpisa = $podaci->vrstaNatpisa;
+        $query="SELECT id FROM `vrstanatpisa` WHERE naziv=:vrstaNatpisa";
+        $stmt = self::$connection->prepare($query);
+        $stmt->bindParam(":vrstaNatpisa", $vrstaNatpisa, PDO::PARAM_STR);
+        $stmt->execute();
+        $o=$stmt->fetchAll();
+        $vrstaNatpisa=$o[0][0];
+
+        $lokalizovano = $podaci->lokalizovano;
+        if($lokalizovano==true){
+            //Potrebno je odrediti id provincije
+            $query="SELECT id FROM `provincija` WHERE naziv=:provincija";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(":provincija", $provincija, PDO::PARAM_STR);
+            $stmt->execute();
+            $o=$stmt->fetchAll();
+            $provincija=$o[0][0];
+            echo "<br>Id provincije: ".$o[0][0];
+            //Potrebno je odrediti id grada
+            $query="SELECT id FROM `grad` WHERE naziv=:grad";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(":grad", $grad, PDO::PARAM_STR);
+            $stmt->execute();
+            $o=$stmt->fetchAll();
+            $grad=$o[0][0];
+            echo "<br>Id grada: ".$o[0][0];
+            //Potrebno je odrediti id Mesta
+            $query="SELECT id FROM `mesto` WHERE naziv=:mesto";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(":mesto", $mesto, PDO::PARAM_STR);
+            $stmt->execute();
+            $o=$stmt->fetchAll();
+            $mesto=$o[0][0];
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 public function podTabela($data, $tabela, $osobina)

@@ -59,37 +59,32 @@ try{
                     $status=400;
                     $status_text="Bad request!";
   */
-/*
+
 
         case 'post':
 
 
-            if($number_of_url_elements==1 and $url_elements[1]=='artefakt'){
                 //citamo podatke
-//                dogovoriti se oko url-a
-                $data=json_decode(file_get_contents('php://input'));
-                $id=$db->unesi($date->oznaka, $data->jezik, $data->natpis, $data->vrsta_natpisa,
-                    $data->izvorno_mesto_nalaska, $data->moderno_ime_drzave,
-                    $data->trenutna_lokacija_znamenitosti,  $data->vreme,
-                    $data->informacije_o_znamenitosti,
-                    $data->bibliografski_podaci, $data->komentar,
-                    $data->fotografije_i_nazivi, $data->faza_unosa);
+//                $data=json_decode(file_get_contents('php://input'));
+               $data = file_get_contents('php://input');
+                $id=$db->unesi($data);
                 if($id!=-1){
                     $status=201;
+                    $status_text = "Artefakt uspesno dodat";
 //                    promeniti
-                    $new_link_description=array(
+/*                    $new_link_description=array(
                         "link"=>"http://localhost/rest/server/server.php/books/$id"
                     );
-                    $data=json_encode($new_link_description);
+                    $data=json_encode($new_link_description); */
                 }
                 else{
                     $status=400;
 
-                    $status_text="Book is not added!";
+                    $status_text="Artefakt nije dodat!";
                 }
-            }
-            break;
 
+            break;
+/*
         case 'put':
             if($number_of_url_elements==1 and $url_elements[1]=='books'){
                 //citamo podatke
