@@ -65,6 +65,31 @@ try{
 	}
 	}
     }
+	else if($method==='POST')
+	{
+		$result->message = "Primljen zahtev za unos objekta";
+		$data=json_decode(file_get_contents('php://input'));
+		$result->ulazniPodaci = $data;
+		if(property_exists($data, "naziv"))
+            $naziv = $data->naziv;
+		if(property_exists($data, "pocetak"))
+            $pocetak= $data->pocetak;
+		if(property_exists($data, "kraj"))
+            $kraj = $data->kraj;
+		
+		$query = $db->prepare("insert into mydb.provincija(naziv,pocetak,kraj) values('$naziv','$pocetak','$kraj')");
+		$query->execute();
+            
+		$broj_redova = $query->rowCount();
+		if($broj_redova==1)
+		{
+            $result->error_status = false;
+		}
+		else
+		{
+            $result->error_status = true;
+		}
+	}
 
 }
 catch(Exception $e){

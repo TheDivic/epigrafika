@@ -6,17 +6,23 @@ angular.module('epigrafikaModul').controller('adminProvincije', ['$scope', '$htt
     $scope.one=false; //moze da se edituje samo jedna provoncija
 	
 	//funkcija koja salje zahtev za brisanje provincije iz baze, sa prosledjenim id-em provincije
-    $scope.obrisiProvinciju=function($pid)
-    {
-        $http.delete('../server/provincije.php?id='+$pid)
+    $scope.obrisiProvinciju=function($pid){
+		if($window.confirm('Da li ste sigurni da želite da obrišete provinciju?')) {
+		$http.delete('../server/provincije.php?id='+$pid)
         .success(function (data, status, headers, config)
-        {
-            alert(data.poruka);
+        {	
+			$window.location.reload();
+            $window.alert(data.poruka);
+			
         })
         .error(function (data, status, headers, config)
         {
           
         });
+        
+      } else {
+      }
+        
 		
     }
 	
@@ -34,9 +40,9 @@ angular.module('epigrafikaModul').controller('adminProvincije', ['$scope', '$htt
 	.success(function (data, status, headers, config)
 	{
             if(data.error_status==false)
-                alert("Objekat je uspesno ažuriran.");
+                $window.alert("Objekat je uspesno ažuriran.");
 	    else
-                alert("Greška! Objekat nije ažuriran.");
+                $window.alert("Greška! Objekat nije ažuriran.");
 	})
 	.error(function (data, status, headers, config)
 	{
@@ -44,36 +50,61 @@ angular.module('epigrafikaModul').controller('adminProvincije', ['$scope', '$htt
 	});
 	$scope.izmeni[$pid]=false;
 	$scope.one=false;
+	$scope.tmp=null;
+	$route.reload();
 	} 
     }
-	
-	$scope.izmeniIkona=function($pid){
+	//funkcija koja cuva vrednosti polja pre izmene
+	$scope.izmeniIkona=function($pid, $naziv, $pocetak, $kraj){
 		if($scope.one==false){
-		 $scope.izmeni[$pid]=true;
-		 $scope.one=true;
-		 /*
-		 foreach(p in $scope.provincije){
-			if(p.id==$pid)
-				$scope.tmp=angular.copy(p);
-		 }  */
+		$scope.tmp={	naziv: $naziv,
+						pocetak: $pocetak,
+						kraj: $kraj
+					};
+			$scope.izmeni[$pid]=true;
+			$scope.one=true;
+		
 		}
 		
 	}
-		
-	$scope.ponistiIzmenu=function($pid){
-		if($scope.one==true){
-			$window.alert("TODO: Ponisti izmenu!!!");
+	//funkcija koja ponistava izmene	
+	$scope.ponistiIzmenu=function($pid,$naziv, $pocetak, $kraj){
+		if($scope.one==true && $scope.tmp!=null){
+			for(var i=0;i<$scope.provincije.length;i++){
+				if($scope.provincije[i].id==$pid){
+					$scope.provincije[i].naziv=$scope.tmp.naziv;
+					$scope.provincije[i].pocetak=$scope.tmp.pocetak;
+					$scope.provincije[i].kraj=$scope.tmp.kraj;}}
 			$scope.izmeni[$pid]=false;
 			$scope.one=false;
-			/*
-			foreach(p in $scope.provincije){
-				if(p.id==$pid)
-				$scope.provincija=angular.copy($scope.tmp);
-		 }	
-			$scope.tmp=null; */
+			$scope.tmp=null;
+			
 			
 		}
 	}
+	
+	//submit funkcija koja ubacuje novu provinciju u bazu
+	$scope.submit= function($naziv, $pocetak,$kraj){
+	var params = {
+	    naziv: $naziv,
+	    pocetak: $pocetak,
+	    kraj: $kraj
+	};
+	var data = angular.toJson(params);
+	$http.post('../server/provincije.php', data )
+	.success(function (data, status, headers, config)
+	{
+            if(data.error_status==false){
+				$window.location.reload();
+                $window.alert("Objekat uspesno unesen.");
+			}
+			else
+                $window.alert("Greška! Objekat nije ažuriran.");
+	})
+	.error(function (data, status, headers, config)
+	{
+          
+	});}
  
 	//trazi se lista svih provincija od servera
     $http.get('../server/provincije.php', {responseType: 'JSON'}).
