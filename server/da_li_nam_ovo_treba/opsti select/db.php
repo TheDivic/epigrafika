@@ -32,13 +32,13 @@ class DB{
         $natpis = $podaci->natpis;
 
         /*dobijamo ime jezika pa spajamo sa bazom da bismo dobili id */
-        $jezik = $podaci->jezik;
+        $jezikUpisa = $podaci->jezikUpisa;
         $query="SELECT id FROM `jezik` WHERE naziv=:jezik";
         $stmt = self::$connection->prepare($query);
-        $stmt->bindParam(":jezik", $jezik, PDO::PARAM_STR);
+        $stmt->bindParam(":jezik", $jezikUpisa, PDO::PARAM_STR);
         $stmt->execute();
         $o=$stmt->fetchAll();
-        $jezik= $o[0][0];
+        $jezikUpisa= $o[0][0];
 
 
         //Potrebno je odrediti id vrsteNatpisa
@@ -50,34 +50,118 @@ class DB{
         $o=$stmt->fetchAll();
         $vrstaNatpisa=$o[0][0];
 
-        $lokalizovano = $podaci->lokalizovano;
-        if($lokalizovano==true){
+        //u vezi null-a ako nece da prodje prosledjen null, mozemo da stavimo if(null) stavljamo 0
+
+        $lokalizovanPodatak = $podaci->lokalizovanPodatak;
+        if($lokalizovanPodatak==true){
+            $provincija = $data->provincija;
+            $grad = $data->grad;
+            $mestoNalaska = $data->mestoNalaska;
             //Potrebno je odrediti id provincije
             $query="SELECT id FROM `provincija` WHERE naziv=:provincija";
-            $stmt = $db->prepare($query);
+            $stmt = self::$connection->prepare($query);
             $stmt->bindParam(":provincija", $provincija, PDO::PARAM_STR);
             $stmt->execute();
             $o=$stmt->fetchAll();
             $provincija=$o[0][0];
-            echo "<br>Id provincije: ".$o[0][0];
             //Potrebno je odrediti id grada
             $query="SELECT id FROM `grad` WHERE naziv=:grad";
-            $stmt = $db->prepare($query);
+            $stmt = self::$connection->prepare($query);
             $stmt->bindParam(":grad", $grad, PDO::PARAM_STR);
             $stmt->execute();
             $o=$stmt->fetchAll();
             $grad=$o[0][0];
-            echo "<br>Id grada: ".$o[0][0];
+//            echo "<br>Id grada: ".$o[0][0];
             //Potrebno je odrediti id Mesta
             $query="SELECT id FROM `mesto` WHERE naziv=:mesto";
-            $stmt = $db->prepare($query);
-            $stmt->bindParam(":mesto", $mesto, PDO::PARAM_STR);
+            $stmt = self::$connection->prepare($query);
+            $stmt->bindParam(":mesto", $mestoNalaska, PDO::PARAM_STR);
             $stmt->execute();
             $o=$stmt->fetchAll();
-            $mesto=$o[0][0];
+            $mestoNalaska=$o[0][0];
+
+
+        }
+        else{
+            $provincija = 0;
+            $grad = 0;
+            $mestoNalaska = 0;
 
         }
 
+        $modernoImeDrzave = $data->modernoImeDrzave;
+        //Potrebno je odrediti id moderneDrzave
+        $query="SELECT id FROM `modernaDrzava` WHERE naziv=:modernaDrzava";
+        $stmt = self::$connection->prepare($query);
+        $stmt->bindParam(":modernaDrzava", $modernoImeDrzave, PDO::PARAM_STR);
+        $stmt->execute();
+        $o=$stmt->fetchAll();
+        $modernoImeDrzave=$o[0][0];
+//        echo "<br>Id moderne Drzave: ".$o[0][0];
+        //Potrebno je odrediti id modernogMesta
+        $modernoMesto = $data->modernoMesto;
+        $query="SELECT id FROM `modernoMesto` WHERE naziv=:modernoMesto";
+        $stmt = self::$connection->prepare($query);
+        $stmt->bindParam(":modernoMesto", $modernoMesto, PDO::PARAM_STR);
+        $stmt->execute();
+        $o=$stmt->fetchAll();
+        $modernoMesto =$o[0][0];
+//        echo "<br>Id modernog mesta: ".$o[0][0];
+
+        $trenutnaLokacijaZnamenitosti = $data->trenutnaLokacijaZnamenitosti;
+        $query="SELECT id FROM `Ustanova` WHERE naziv=:trenutnaLokacijaZnamenitosti";
+        $stmt = self::$connection->prepare($query);
+        $stmt->bindParam(":trenutnaLokacijaZnamenitosti", $trenutnaLokacijaZnamenitosti, PDO::PARAM_STR);
+        $stmt->execute();
+        $o=$stmt->fetchAll();
+        $trenutnaLokacijaZnamenitosti=$o[0][0];
+
+//Potrebno je odrediti id plemena
+        $pleme = $data->pleme;
+        $query="SELECT id FROM `pleme` WHERE naziv=:pleme";
+        $stmt = self::$connection->prepare($query);
+        $stmt->bindParam(":pleme", $pleme, PDO::PARAM_STR);
+        $stmt->execute();
+        $o=$stmt->fetchAll();
+        $pleme=$o[0][0];
+//        echo "<br>Id plemena: ".$o[0][0];
+
+//        radimo sa vremenom, dovrsiti
+        $vreme = $data->vreme;
+
+        if(strcmp($vreme, "nedatovan")==0){
+            $datovano = false;
+
+            $pocetakGodina = null;
+            $pocetakVek = null;
+            $pocetakOdrednica = null;
+            $krajGodina = null;
+            $krajVek = null;
+            $krajOdrednica = null;
+
+        }
+
+        else{
+            $datovano = true;
+            $pocetakGodina = null;
+            $pocetakVek = null;
+            $pocetakOdrednica = null;
+            $krajGodina = null;
+            $krajVek = null;
+            $krajOdrednica = null;
+
+        }
+
+// datum kreiranja, datum poslednje izmene
+
+        $datumKreiranja=date("Y-m-d");
+        $datumPoslednjeIzmene=date("Y-m-d");
+
+//       faza unosa
+        $fazaUnosa = $data->fazaUnosa;
+
+        //tip i ostalo
+        $tip = $data->tipZnamenitosti;
 
 
 
@@ -95,10 +179,7 @@ class DB{
 
 
 
-
-
-
-}
+    }
 
 public function podTabela($data, $tabela, $osobina)
 {
