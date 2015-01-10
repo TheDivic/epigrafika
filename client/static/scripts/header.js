@@ -8,6 +8,11 @@ glavniModul.controller('rootController', ['$scope', 'getTranslation', '$cookies'
 	$scope.admin=false;
 	$scope.logged=false;
 	$scope.active=false;
+	
+	if($cookies.admin=='admin') $scope.admin=true; else $scope.admin=false;
+	if($cookies.logged=='logged') $scope.logged=true; else $scope.logged=false;
+	if($cookies.active=='active') $scope.active=true; else $scope.active=false;
+	
     $scope.changeTo = function(language){
         var promise = getTranslation(language); 
         
@@ -35,15 +40,15 @@ glavniModul.controller('rootController', ['$scope', 'getTranslation', '$cookies'
 		success(function(data, status, headers, config){
         if(data!=="null"){
 			if(data.isEmpty==false){
-				$scope.logged=true;
+				$scope.logged=true; $cookies.logged='logged';
 				console.log("logged");
 				}
 			if(data.data[0].mod=="admin"){
-				$scope.admin=true;
+				$scope.admin=true; $cookies.admin='admin';
 				console.log("admin");
 			}
 			if(data.data[0].status=="aktivan"){
-				$scope.active=true;
+				$scope.active=true; $cookies.active='active';
 				console.log("active");
 			}
 			}
@@ -54,9 +59,9 @@ glavniModul.controller('rootController', ['$scope', 'getTranslation', '$cookies'
 	}
 	
 		$scope.logout=function(){
-		$scope.logged=false;
-		$scope.admin=false;
-		$scope.active=false;
+		$scope.logged=false; $cookies.logged='no';
+		$scope.admin=false; $cookies.admin='korisnik';
+		$scope.active=false; $cookies.active='nekativan';
 		}
 	
 }]);
