@@ -101,29 +101,21 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
         });
 	};
 
-    var openDropdown = function(){
-        $scope.show_natpis_autocomplete = true;
-    }
-
-    var closeDropdown = function(){
-        $scope.show_natpis_autocomplete = false;
-    }
-
     $scope.autocompleteNatpis = function() {
         if($scope.natpis){
             var lastWord = $scope.natpis.split(/[\s,.!?]+/).pop();
 
-            $http.post('../server/autocomplete.php', {"word":lastWord}).
+            $http.get('../server/autocomplete.php?type=inscription&key=' + lastWord).
                 success(function(data){
                     var response = angular.fromJson(data);
 
                     if(response.words){
                         $scope.natpisPredlozi = response.words;
-                        openDropdown();
+                        $scope.show_natpis_autocomplete = true;
                     }
                     else {
                         $scope.natpisPredlozi = [];
-                        closeDropdown();
+                        $scope.show_natpis_autocomplete = false;
                     }
                 }).
                 error(function(data){
@@ -131,7 +123,7 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
                 });
         }
         else {
-            closeDropdown();
+            $scope.show_natpis_autocomplete = false;
         }
     };
 
@@ -139,12 +131,41 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
     // Tekst tekst *tek(st)* 
     // treba da se izvrsi autocomplete za rec *tek* da se doda sufiks *(st)*
     // potrebno je tek zameniti sa st u tekstu
-    $scope.upisiPredlog = function($event){
+    $scope.upisiPredlogNatpis = function($event){
         var lastWord = $scope.natpis.split(/[\s,.!?]+/).pop();
         var index = $scope.natpis.lastIndexOf(lastWord);
         var new_natpis = $scope.natpis.substring(0, index) + $event.target.innerHTML;
         $scope.natpis = new_natpis;
-        closeDropdown();
+        $scope.show_natpis_autocomplete = false;
+    };
+
+    $scope.autocompleteGrad = function() {
+        if($scope.gradNalaska){
+            $http.get('../server/autocomplete.php?type=city&key=' + $scope.gradNalaska).
+                success(function(data){
+                    var response = angular.fromJson(data);
+
+                    if(response.words){
+                        $scope.gradPredlozi = response.words;
+                        $scope.show_grad_autocomplete = true;
+                    }
+                    else {
+                        $scope.gradPredlozi = [];
+                        $scope.show_grad_autocomplete = false;
+                    }
+                }).
+                error(function(data){
+                    console.log("Error");
+                });
+        }
+        else {
+            $scope.show_grad_autocomplete = false;
+        }
+    }
+
+    $scope.upisiPredlogGrad = function($event){
+        $scope.gradNalaska = $event.target.innerHTML;
+        $scope.show_grad_autocomplete = false;
     };
 }]);
 console.info("Inicijalizovan pretragaController.");

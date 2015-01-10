@@ -52,8 +52,8 @@
 						<div class="col-sm-3">
 							<input class="form-control" id="natpis" type="text" name="natpis" ng-change="autocompleteNatpis()" ng-model="natpis"/>
 							<!-- Dropdown za autocomplete -->
-							<ul id="divic-natpis-dropdown" ng-show="show_natpis_autocomplete" role="menu">
-								<a ng-repeat="predlog in natpisPredlozi" ng-click="upisiPredlog($event)"><li>{{ predlog }}</li></a>
+							<ul class="autocomplete-dropdown" ng-show="show_natpis_autocomplete" role="menu">
+								<a ng-repeat="predlog in natpisPredlozi" ng-click="upisiPredlogNatpis($event)"><li>{{ predlog }}</li></a>
 							</ul>
 						</div>
 						<div class="col-sm-3">
@@ -96,7 +96,11 @@
 									<label for="gradNalaska" class="control-label">{{tr.grad}}: </label>
 								</div>
 								<div class="col-sm-8">
-									<input class="form-control" type="text" name="gradNalaska" ng-model="gradNalaska" ng-pattern="/^[a-zA-Z ]+$/"/>
+									<input class="form-control" type="text" name="gradNalaska" ng-model="gradNalaska" ng-change="autocompleteGrad()" ng-pattern="/^[a-zA-Z ]+$/"/>
+									<!-- Dropdown za autocomplete -->
+									<ul class="autocomplete-dropdown" ng-show="show_grad_autocomplete" role="menu">
+										<a ng-repeat="predlog in gradPredlozi" ng-click="upisiPredlogGrad($event)"><li>{{ predlog }}</li></a>
+									</ul>
 									<span class="text-transparent" ng-class="{textred:formPretraga.gradNalaska.$dirty &&formPretraga.gradNalaska.$error.pattern}"> 
 												{{tr.format_error_slova}}
 									</span>

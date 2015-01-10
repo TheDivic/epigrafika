@@ -22,7 +22,7 @@
     </head>
     <body ng-controller='rootController' ng-cloack>
         <nav class="navbar navbar-default">
-            <div class="container-fluid" ng-controller='headerController' >
+            <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.php">Epigrafika</a>
                 </div>
@@ -33,12 +33,12 @@
                 <div class="nav navbar-nav navbar-right" ng-hide="logged">
 					<form class="navbar-form form-inline" id="loginForm" method="post" action="" enctype='multipart/form-data'>
 						<div class="form-group">
-							<input type="text" class="form-control " id="usr" placeholder={{tr.korisnicko_ime}} />
+							<input name="usr" ng-model="usr" type="text" class="form-control " id="usr" placeholder={{tr.korisnicko_ime}} />
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control" id="pwd" placeholder={{tr.sifra}} />
+							<input name="pwd" ng-model="pwd" type="password" class="form-control" id="pwd" placeholder={{tr.sifra}} />
 						</div>
-						<button type="submit" class="btn btn-primary" >Login</button>
+						<button type="submit" ng-click="login(usr,pwd)"class="btn btn-default" >Login</button>
 						<a href="zaboravljena.php" class="btn btn-link">{{tr.zaboravljena}}</a>
 						<a href="registracija.php" class="btn btn-link">{{tr.registracija}}</a>
 						<a href="#" class="btn btn-link dropdown dropdown-toggle" data-toggle="dropdown" aria-expanded="true">{{tr.jezici}} <b class="caret"></b></a>
@@ -50,9 +50,9 @@
 				</div>
 				<!-- meni koji se prikazuje ako je korisnik ulogovan -->
 				<div class="nav navbar-nav navbar-right vertical-center" style="padding-top:10px;" ng-show="logged">
-					<a href="admin.php" class="btn btn-success"><span class="glyphicon glyphicon-user"> </span> Admin</a>
-					<a href="unos.php" class="btn btn-info">{{tr.unesi_objekat}}</a>
-					<a href="#" class="btn btn-danger">Logout </a>
+					<a href="admin.php" ng-show="admin"class="btn btn-success"><span class="glyphicon glyphicon-user"> </span> Admin</a>
+					<a href="unos.php" ng-show="active" class="btn btn-info">{{tr.unesi_objekat}}</a>
+					<a href="#" ng-click="logout()" class="btn btn-danger">Logout </a>
 					<a href="#" class="btn btn-warning dropdown open dropdown-toggle" data-toggle="dropdown" aria-expanded="true">{{tr.jezici}} <b class="caret"></b></a>
 						<div class="dropdown-menu">
 							<button ng-click="changeTo('serbian')" type="button" class="btn btn-link menu-black"> <img src="static/img/rs.png" class="btn btn-link" alt="Srpski" title="Srpski"> Srpski </button><br/>

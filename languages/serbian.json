@@ -63,8 +63,8 @@
 "email_format":"Očekivan format je primer@email.com",
 "institucija":"Institucija",
 "korisnicko_ime":"Korisničko ime",
-"korisnicko_max":"korisnickoIme (max 20 karaktera)",
-"dozvoljeni": "Dozvoljeni su svi karakteri sem razmaka,; i =.",
+"korisnicko_max":"korisnickoIme (min 3 max 20 karaktera)",
+"dozvoljeni": "Dozvoljeni su slova, brojevi i _",
 "sifra":"Šifra",
 "ponovljena_sifra":"Ponovite šifru",
 "dodatne_info":"Dodatne informacije",
@@ -85,5 +85,6 @@
 "kraj_perioda":"Kraj perioda: ",
 "greska_period":"Kraj period mora biti posle početka perioda!",
 "greska_jedinstvena_oznaka":"Ova oznaka je zauzeta, izaberite drugu!",
-"format_error_slova_cifre":"Dozvoljena su samo mala, velika slova i cifre!"
+"format_error_slova_cifre":"Dozvoljena su samo mala, velika slova i cifre!",
+"razlicite_sifre":"Šifre se ne poklapaju"
 }
