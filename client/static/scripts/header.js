@@ -41,6 +41,7 @@ glavniModul.controller('rootController', ['$scope', 'getTranslation', '$cookies'
         if(data!=="null"){
 			if(data.isEmpty==false){
 				$scope.logged=true; $cookies.logged='logged';
+				$cookies.user=data.data[0].korisnickoIme;
 				console.log("logged");
 				if(data.data[0].mod=="admin"){
 				$scope.admin=true; $cookies.admin='admin';
@@ -48,7 +49,7 @@ glavniModul.controller('rootController', ['$scope', 'getTranslation', '$cookies'
 				}
 				if(data.data[0].status=="aktivan"){
 				$scope.active=true; $cookies.active='active';
-				console.log("active");
+				console.log("aktivan");
 				}
 			}
 			else{
@@ -65,6 +66,7 @@ glavniModul.controller('rootController', ['$scope', 'getTranslation', '$cookies'
 		$scope.logged=false; $cookies.logged='no';
 		$scope.admin=false; $cookies.admin='korisnik';
 		$scope.active=false; $cookies.active='nekativan';
+		$cookies.user="";
 		}
 	
 }]);

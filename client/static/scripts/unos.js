@@ -1,4 +1,4 @@
-angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http', function ($scope, $http){
+angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http','$cookies', function ($scope, $http,$cookies){
     $scope.oznaka=null;
 	$scope.jezikUpisa='latinski';
 	$scope.natpis=null;
@@ -28,7 +28,7 @@ angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http
 	$scope.fotografije=null;
 	$scope.fazaUnosa=null;
 	$scope.greska="";
-	
+	$scope.korisnik=$cookies.user;
         $scope.provincije= null;
         $scope.drzave=null;
         $scope.gradovi=null;
@@ -224,8 +224,11 @@ $scope.posalji_podatke=function(){
 			bibliografskoPorekloSkracenica: $scope.bibliografskoPorekloSkracenica,
 			komentar: $scope.komentar,
 			fotografije: $scope.fotografije,
-			fazaUnosa:$scope.fazaUnosa
+			fazaUnosa:$scope.fazaUnosa,
+			korisnickoIme:$scope.korisnik
 	 }
+	 
+	 console.log($cookies.user);
 	 
 	var jsonData = angular.toJson(formData);
 	alert(jsonData);
