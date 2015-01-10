@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <script src="./klijent_files/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("button").click(function(){
+                var objekat= {oznaka: "oznaka1", natpis:"natpis1"};
+
+                var json_objekat = JSON.stringify(objekat);
+
+                /*
+                 $.ajax({
+                 url: "demo_test_post.asp",
+                 //data: data,
+
+                 //dataType: dataType,
+                 success: success
+                 });*/
+                $.get( "probaZaKlijent2.php", json_objekat, function( data ) {
+                    alert( "Data Loaded: " + data );
+                });
+
+            });
+        });
+
+    </script>
+</head>
+<body>
+<input type="text" id="oznaka">
+<input type="text" id="natpis">
+<br>
+<button>Send an HTTP GET request to a page and get the result back</button>
+
+
+
+</body></html>
