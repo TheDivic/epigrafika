@@ -36,9 +36,9 @@
 							<input name="usr" ng-model="usr" type="text" class="form-control " id="usr" placeholder={{tr.korisnicko_ime}} />
 						</div>
 						<div class="form-group">
-							<input name="pwd" ng-model="pwd" type="password" class="form-control" id="pwd" placeholder={{tr.sifra}} />
+							<input name="pswd" ng-model="pswd" type="password" class="form-control" id="pswd" placeholder={{tr.sifra}} />
 						</div>
-						<button type="submit" ng-click="login(usr,pwd)"class="btn btn-default" >Login</button>
+						<button type="submit" ng-click="login(usr,pswd)"class="btn btn-default" >Login</button>
 						<a href="zaboravljena.php" class="btn btn-link">{{tr.zaboravljena}}</a>
 						<a href="registracija.php" class="btn btn-link">{{tr.registracija}}</a>
 						<a href="#" class="btn btn-link dropdown dropdown-toggle" data-toggle="dropdown" aria-expanded="true">{{tr.jezici}} <b class="caret"></b></a>
