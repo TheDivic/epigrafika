@@ -4,7 +4,7 @@ var glavniModul = angular.module('epigrafikaModul', ['translationModule', 'ngCoo
 
 // Root controller sadrzi stvari koje zelimo da delimo izmedju kontrolera
 // npr objekat sa prevodima
-glavniModul.controller('rootController', ['$scope', 'getTranslation', '$cookies','$http', function($scope, getTranslation, $cookies,$http){
+glavniModul.controller('rootController', ['$scope', 'getTranslation', '$cookies','$http', '$window',function($scope, getTranslation, $cookies,$http,$window){
 	$scope.admin=false;
 	$scope.logged=false;
 	$scope.active=false;
@@ -67,6 +67,7 @@ glavniModul.controller('rootController', ['$scope', 'getTranslation', '$cookies'
 		$scope.admin=false; $cookies.admin='korisnik';
 		$scope.active=false; $cookies.active='nekativan';
 		$cookies.user="";
+		$window.location.href="index.php";
 		}
 	
 }]);
