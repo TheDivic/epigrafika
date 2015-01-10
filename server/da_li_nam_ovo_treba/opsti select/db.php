@@ -173,6 +173,17 @@ class DB{
         $materijal = $data->materijalZnamenitosti;
         $komentar = $data->komentar;
 
+        //dimenzije objekta, trenutno nemamo format, prepraviti
+        $dimenzije = $data->sirina;
+        $dimenzije.= ':';
+        $dimenzije.=$data->visina;
+        $dimenzije.= ':';
+        $dimenzije.=$data->duzina;
+
+
+
+
+
 
 
 
