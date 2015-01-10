@@ -65,7 +65,7 @@
 							</select>
 						</div>
 						<div class="col-sm-3">
-							<input class="form-control" type="text" name="natpis2" ng-model="natpis2" ng-class="{border_transparent:!(natpisArg!='prazno')}" /> <br/>
+							<input class="form-control" type="text" name="natpis2" ng-model="natpis2" ng-disabled="!(natpisArg!='prazno')" ng-class="{border_transparent:!(natpisArg!='prazno')}" /> <br/>
 						</div>
 					</div>
 					<div class="row">
@@ -219,7 +219,7 @@
 		<!-- tab mapa -->
 		 <div class="tab-pane fade" id="mapa" ng-controller='mapSearchController'>
 			<h1>Mapa</h1>
-            <div id="map-container">
+            <div id="map-container" ng-show="prikazi">
                 <div id="map-canvas"></div>
                 <br/>
                 <div class="row">
@@ -233,10 +233,11 @@
                     <input ng-model="radius" id="radius" data-slider-id='map-slider' type="text" data-slider-min="1" data-slider-max="100" data-slider-step="0.1" data-slider-value="10"/>
                   </div>
                 </div>
-            </div>
+			</div>
         </div>
+	
+	</div>
 	<!-- rezultati -->
-	<br/> <br/>
 	<div id="rezultati">
 		<h1> {{tr.rezultati_pretrage}}</h1>
 		<div class="row" ng-repeat="rezultat in rezultatPretrage">
