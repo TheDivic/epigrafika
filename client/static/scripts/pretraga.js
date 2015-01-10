@@ -167,5 +167,34 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
         $scope.gradNalaska = $event.target.innerHTML;
         $scope.show_grad_autocomplete = false;
     };
+
+    $scope.autocompleteMesto = function() {
+        if($scope.mestoNalaska){
+            $http.get('../server/autocomplete.php?type=place&key=' + $scope.mestoNalaska).
+                success(function(data){
+                    var response = angular.fromJson(data);
+
+                    if(response.words){
+                        $scope.mestoPredlozi = response.words;
+                        $scope.show_mesto_autocomplete = true;
+                    }
+                    else {
+                        $scope.mestoPredlozi = [];
+                        $scope.show_mesto_autocomplete = false;
+                    }
+                }).
+                error(function(data){
+                    console.log("Error");
+                });
+        }
+        else {
+            $scope.show_mesto_autocomplete = false;
+        }
+    }
+
+    $scope.upisiPredlogMesto = function($event){
+        $scope.mestoNalaska = $event.target.innerHTML;
+        $scope.show_mesto_autocomplete = false;
+    };
 }]);
 console.info("Inicijalizovan pretragaController.");

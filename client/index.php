@@ -111,7 +111,11 @@
 									<label for="mestoNalaska" class="control-label"> {{tr.mesto}}: </label>
 								</div>
 								<div class="col-sm-8">
-									 <input class="form-control" type="text" name="mestoNalaska" ng-model="mestoNalaska" ng-pattern="/^[a-zA-Z ]+$/"/>
+									 <input class="form-control" type="text" name="mestoNalaska" ng-model="mestoNalaska" ng-change="autocompleteMesto()" ng-pattern="/^[a-zA-Z ]+$/"/>
+									 <!-- Dropdown za autocomplete -->
+									<ul class="autocomplete-dropdown" ng-show="show_mesto_autocomplete" role="menu">
+										<a ng-repeat="predlog in mestoPredlozi" ng-click="upisiPredlogMesto($event)"><li>{{ predlog }}</li></a>
+									</ul>
 									<span class="text-transparent" ng-class="{textred:formPretraga.mestoNalaska.$dirty &&formPretraga.mestoNalaska.$error.pattern}"> 
 												{{tr.format_error_slova}}
 									</span>
