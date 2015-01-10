@@ -8,6 +8,8 @@ glavniModul.controller('rootController', ['$scope', 'getTranslation', '$cookies'
 	$scope.admin=false;
 	$scope.logged=false;
 	$scope.active=false;
+
+    //Funkcija koja menja jezik interfejsa
     $scope.changeTo = function(language){
         var promise = getTranslation(language); 
         
@@ -21,44 +23,43 @@ glavniModul.controller('rootController', ['$scope', 'getTranslation', '$cookies'
         });
     };
 
+    $scope.login=function($u,$p){
+        console.log("login");
+        $http.get('../server/korisnik.php?type=login&user="'+$u+'"&pass="'+$p+'"', {responseType: 'JSON'})
+        .success(function(data, status, headers, config){
+            if(data!=="null"){
+               if(data.isEmpty==false){
+                $scope.logged=true;
+                console.log("logged");
+            }
+            if(data.data[0].mod=="admin"){
+                $scope.admin=true;
+                console.log("admin");
+            }
+            if(data.data[0].status=="aktivan"){
+                $scope.active=true;
+                console.log("active");
+            }
+        }
+        }).
+        error(function(data, status, headers, config){
+
+        }); 
+    };
+
+    $scope.logout=function(){
+        $scope.logged=false;
+        $scope.admin=false;
+        $scope.active=false;
+    };
+
+    // ON PAGE LOAD
     if($cookies.language){
         $scope.changeTo($cookies.language);
     }
     else {
         $scope.changeTo('serbian');
-    }
-	
-	
-	$scope.login=function($u,$p){
-		console.log("login");
-		$http.get('../server/korisnik.php?type=login&user="'+$u+'"&pass="'+$p+'"', {responseType: 'JSON'}).
-		success(function(data, status, headers, config){
-        if(data!=="null"){
-			if(data.isEmpty==false){
-				$scope.logged=true;
-				console.log("logged");
-				}
-			if(data.data[0].mod=="admin"){
-				$scope.admin=true;
-				console.log("admin");
-			}
-			if(data.data[0].status=="aktivan"){
-				$scope.active=true;
-				console.log("active");
-			}
-			}
-	}).
-    error(function(data, status, headers, config){
-
-    }); 
-	}
-	
-		$scope.logout=function(){
-		$scope.logged=false;
-		$scope.admin=false;
-		$scope.active=false;
-		}
-	
+    }	
 }]);
 
 console.info("Inicijalizovan rootController.");
