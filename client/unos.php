@@ -51,7 +51,11 @@
 {{tr.moderno_ime_drzave}}:
 <select name="modernoImeDrzave" ng-model="modernoImeDrzave">
 	<option ng-repeat="drzava in drzave  | orderBy:'naziv':false"> {{drzava.naziv}} </option>
-</select>
+</select> <br/>
+{{tr.moderno_mesto}}
+<select id="modernoMesto"  name="modernoMesto" ng-model="modernoMesto">
+	<option ng-repeat="mesto in mesta | orderBy:'naziv':false"> {{mesto.naziv}} </option>
+</select> 
 </fieldset>
 {{tr.trenutna_lokacija_znamenitosti}}: <input type="text" name="trenutnaLokacijaZnamenitosti" ng-model="trenutnaLokacijaZnamenitosti" ng-pattern="/^[a-zA-Z ]+$/"/>
 	<span ng-show='formUnos.trenutnaLokacijaZnamenitosti.$error.pattern '> 

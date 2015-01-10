@@ -8,6 +8,7 @@ angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http
 	$scope.grad=null;
 	$scope.mestoNalaska=null;
 	$scope.modernoImeDrzave=null;
+	$scope.modernoMesto=null;
 	$scope.trenutnaLokacijaZnamenitosti=null;
 	$scope.pleme=null;
 	$scope.vreme="nedatovan";
@@ -28,10 +29,11 @@ angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http
 	$scope.fazaUnosa=null;
 	$scope.greska="";
 	
-    $scope.provincije= null;
-    $scope.drzave=null;
-    $scope.gradovi=null;
-    $scope.vrsteNatpisa=null;
+        $scope.provincije= null;
+        $scope.drzave=null;
+        $scope.gradovi=null;
+        $scope.vrsteNatpisa=null;
+	$scope.mesta=null;
 	
 	function izracunajVek(godina){
 		if(godina < 100)
@@ -67,6 +69,15 @@ angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http
         if(data!=="null")
           $scope.drzave=data.data;
   }).
+    error(function(data, status, headers, config){
+
+    });
+    
+    $http.get('../server/moderno_mesto.php', {responseType: 'JSON'}).
+    success(function(data, status, headers, config){
+        if(data!=="null")
+            $scope.mesta=data.data;
+    }).
     error(function(data, status, headers, config){
 
     });
@@ -195,6 +206,7 @@ $scope.posalji_podatke=function(){
 			grad : $scope.grad,
 			mestoNalaska : $scope.mestoNalaska,
 			modernoImeDrzave : $scope.modernoImeDrzave,
+                        modernoMesto: $scope.modernoMesto,
 			trenutnaLokacijaZnamenitosti : $scope.trenutnaLokacijaZnamenitosti,
 			pleme : $scope.pleme,
 			vreme : $scope.vreme,
