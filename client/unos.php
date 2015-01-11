@@ -238,7 +238,11 @@
 				</div>
 				<label for="bibliografskoPorekloSkracenica" class="col-sm-3 control-label">{{tr.skracenica_bibliografskog_porekla}}:</label>
 				<div class="col-sm-3">
-					<input id="bibliografskoPorekloSkracenica" class="form-control" type="text" ng-model="bibliografskoPorekloSkracenica"/>
+					<input id="bibliografskoPorekloSkracenica" class="form-control" type="text" ng-change="autocompleteBibliografskiPodatak()" ng-model="bibliografskoPorekloSkracenica"/>
+					<!-- Dropdown za autocomplete -->
+					<ul class="autocomplete-dropdown" ng-show="show_biblio_autocomplete" role="menu">
+						<a ng-repeat="predlog in biblioSkracenicaPredlozi" ng-click="upisiPredlogBibliografskiPodatak($event)"><li>{{ predlog }}</li></a>
+					</ul>
 				</div>
 			</div>
 			<div class="row form-group">
@@ -251,9 +255,9 @@
 				<label for="komentar" class="col-sm-2 control-label">{{tr.komentar}}:</label>
 				<div class="col-sm-8">
 					<textarea  rows="2" id="komentar" class="form-control textarea_unos" name="komentar" ng-model="komentar" ng-pattern="/^[a-zA-Z0-9 \. ]+$/"/> </textarea>
-					<span class="text-transparent" ng-show="{textred: formUnos.komentar.$error.pattern && formUnos.komentar.$dirty }"> 
+					<!-- <span class="text-transparent" ng-show="{textred: formUnos.komentar.$error.pattern && formUnos.komentar.$dirty }"> 
 						{{tr.format_error_slova_cifre_tacka}}
-					</span>
+					</span> -->
 				</div>
 				
 			</div>

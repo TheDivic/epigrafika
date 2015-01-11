@@ -1,29 +1,6 @@
 <?php
 include 'konekcija.php';
 
-// Prihvata JSON koji sadrzi rec
-// vraca JSON sa ponudjenim recima za autocomplete
-function autocompleteInscription()
-{
-    $json = file_get_contents('php://input',true);
-    $string =  json_decode($json);
-    $niska = current($string);
-
-    $query_result = searchDictionary($niska);
-
-    if($query_result != null)
-    {
-        foreach(array_values($query_result) as $temp){
-            $out['words'][] = $temp['rec'];
-        }
-        $result = json_encode($out);
-        return $result;
-    }
-    else {
-        return json_encode([]);
-    }
-}
-
 /* Funkcija koja prima string( rec ili deo reci) i vraca top 5 reci iz recnika koje pocinju sa tim stringom, 
 npr ako je input ST funkcija vraca STo, STolica, STanje, STepen,... */
 function searchDictionary($string)
@@ -75,6 +52,25 @@ function getPlaces($key){
     try{
         $db=konekcija::getConnectionInstance();
         $query= "SELECT naziv FROM mesto WHERE naziv LIKE '" . $key . "%' LIMIT 5;";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $result->error_status=false;
+        $result->data = $stmt->fetchAll();
+
+        return $result->data;
+    }
+    catch(Exception $e){
+        $result->error_status=true;
+        $result->error_message = $e->getMessage();
+    }
+}
+
+function autocompleteBiblio($key){
+    $result = new stdClass();
+    try{
+        $db=konekcija::getConnectionInstance();
+        $query= "SELECT skracenica,naslov FROM BibliografskiPodatak WHERE skracenica LIKE '" . $key . "%' LIMIT 5;";
         $stmt = $db->prepare($query);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -164,6 +160,16 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
             {
                 foreach(array_values($query_result) as $temp){
                     $result['words'][] = $temp['naziv'];
+                }
+            }
+        }
+        elseif($_GET['type'] === 'biblio'){
+            $query_result = autocompleteBiblio($_GET['key']);
+            if($query_result != null)
+            {
+                foreach(array_values($query_result) as $temp){
+                    $result['words'][] = $temp['skracenica'];
+                    $result['fullbiblio'][] = $temp['naslov'];
                 }
             }
         }
