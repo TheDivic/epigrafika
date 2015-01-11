@@ -241,7 +241,7 @@ $scope.posalji_podatke=function(){
      fotografije: $scope.fotografije,
      fazaUnosa:$scope.fazaUnosa,
      korisnickoIme:$scope.korisnik
- }
+ };
 
  console.log($cookies.user);
 
@@ -259,7 +259,7 @@ $scope.posalji_podatke=function(){
  error(function(data, status, headers, config){
 
  });
-}
+};
 
 $scope.proveri_jedinstvenost = function(){
 	var oznaka = $scope.oznaka;
@@ -276,7 +276,7 @@ $scope.proveri_jedinstvenost = function(){
     error(function(data, status, headers, config){
 
     });
-}	
+};	
 
      $scope.autocompleteBibliografskiPodatak = function() {
         if($scope.bibliografskoPorekloSkracenica){
@@ -306,7 +306,7 @@ $scope.proveri_jedinstvenost = function(){
         else {
             $scope.show_biblio_autocomplete = false;
         }
-    }
+    };
 
     $scope.upisiPredlogBibliografskiPodatak = function($event){
         $scope.bibliografskoPorekloSkracenica = $event.target.innerHTML;
