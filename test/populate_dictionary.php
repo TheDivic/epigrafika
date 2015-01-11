@@ -1,6 +1,6 @@
 <?php
 
-include '../server/autocomplete.php';
+include 'autocomplete.php';
 
 $text = " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget est sem. 
 Proin posuere lobortis rutrum. Interdum et malesuada fames ac ante ipsum primis in faucibus. 

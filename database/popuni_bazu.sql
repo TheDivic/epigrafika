@@ -30,20 +30,6 @@ INSERT INTO `mydb`.`Ustanova`( `id`,`naziv`,`modernoMesto`) VALUES(1,'Arheoloski
 INSERT INTO `mydb`.`korisnik` (`korisnickoIme`, `sifra`, `ime`,`prezime`,`email`,`institucija`,`dodatneInformacije`,`mod`,`datumRegistrovanja`,`status`) VALUES 
 ('Mirko','pr10','Mirko','Ivic','mivic@hotmail.com','ibm','prazno','l3','12-12-2014','0');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*poligon 1*/
 INSERT INTO `mydb`.`POLIGON`(`id`) VALUES(1);
 
@@ -165,11 +151,10 @@ INSERT INTO `mydb`.`GeoDrzava`(`poligon`, `drzava`) VALUES(4,1);
 INSERT INTO `mydb`.`GeoDrzava`(`poligon`, `drzava`) VALUES(5,1);
 INSERT INTO `mydb`.`geodrzava` (`poligon`, `drzava`) VALUES ('6','1');
 
-
-
 INSERT INTO `mydb`.`geoustanova` (`tacka`,`ustanova`) VALUES ('101', '3'), ('102', '4');
 
-
+LOCK TABLES `mydb`.`recnik` WRITE;
+INSERT INTO `mydb`.`recnik` VALUES ('a',2),('ac',3),('accumsan',1),('adipiscing',1),('aliquam',2),('amet',3),('ante',2),('arcu',1),('auctor',1),('augue',2),('bibendum',3),('blandit',1),('condimentum',1),('consectetur',2),('consequat',1),('Cras',1),('Curabitur',1),('dapibus',1),('diam',1),('dictum',1),('dignissim',1),('dolor',4),('Donec',1),('Duis',1),('efficitur',2),('eget',4),('eleifend',2),('elit',2),('enim',1),('erat',2),('est',1),('et',4),('eu',1),('facilisi',1),('facilisis',1),('fames',1),('faucibus',2),('felis',2),('feugiat',2),('fringilla',4),('Fusce',2),('hendrerit',2),('id',3),('in',2),('Integer',2),('Interdum',1),('ipsum',2),('justo',1),('leo',2),('libero',3),('lobortis',2),('Lorem',2),('luctus',2),('magna',1),('malesuada',3),('massa',1),('mattis',1),('Mauris',3),('maximus',2),('molestie',1),('mollis',1),('nec',1),('neque',1),('nibh',1),('nisi',1),('nisl',1),('non',2),('Nulla',3),('Nullam',1),('nunc',2),('odio',2),('pharetra',2),('Phasellus',1),('porta',2),('posuere',4),('Praesent',1),('primis',1),('Proin',5),('pulvinar',2),('purus',2),('quis',3),('Quisque',1),('rhoncus',1),('risus',3),('rutrum',2),('sagittis',3),('sapien',1),('sed',8),('sem',1),('sit',3),('sodales',1),('suscipit',2),('Suspendisse',2),('tellus',2),('tempor',2),('tincidunt',2),('turpis',1),('ultrices',1),('ultricies',1),('urna',3),('ut',2),('varius',1),('vehicula',1),('vel',5),('velit',1),('venenatis',1),('vestibulum',1),('vitae',2),('Vivamus',3),('volutpat',1),('vulputate',1);
 
 
 
