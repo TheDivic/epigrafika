@@ -1,5 +1,6 @@
 <?php
 include 'konekcija.php';
+include 'dodavanje.php';
 
 $result = new stdClass();
 try
@@ -48,6 +49,13 @@ try
     {
         //Upis novih podataka
         //Admin only?
+        $data = file_get_contents('php://input');
+        try {
+            $result = unesi($data, $db);
+        }catch (Exception $e){
+        $result = $e->getMessage();
+    }
+
     }
     else if ($method === 'UPDATE')
     {
