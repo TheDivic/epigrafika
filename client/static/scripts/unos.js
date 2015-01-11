@@ -267,7 +267,7 @@ $scope.proveri_jedinstvenost = function(){
     success(function(data, status, headers, config){
         if(data!=="null"){
 			if(data.isEmpty==false){
-				$scope.greska = $scope.tr.greska_jedinstvena_oznaka;
+				$scope.greska = "<span class='glyphicon glyphicon-remove'></span>"+$scope.tr.greska_jedinstvena_oznaka;
 				}
 			else 
 				$scope.greska="";

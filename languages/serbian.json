@@ -86,5 +86,6 @@
 "greska_jedinstvena_oznaka":"Ova oznaka je zauzeta, izaberite drugu!",
 "greska_jedinstven_username":"Korsnicko ime je zauzeto!",
 "format_error_slova_cifre":"Dozvoljena su samo mala, velika slova i cifre!",
-"razlicite_sifre":"Šifre se ne poklapaju"
+"razlicite_sifre":"Šifre se ne poklapaju",
+"dodaj_pdf":"Dodaj pdf-ove"
 }

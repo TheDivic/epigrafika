@@ -25,11 +25,11 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-offset-2 col-sm-12">
-					<span class="text-transparent" ng-class="{textred:formUnos.oznaka.$dirty && (formUnos.oznaka.$error.required||formUnos.oznaka.$error.pattern||formUnos.oznaka.$error.maxlenght)}">
+					<span ng-show="formUnos.oznaka.$dirty && (formUnos.oznaka.$error.required||formUnos.oznaka.$error.pattern||formUnos.oznaka.$error.maxlenght)">
 						{{tr.oznaka_error_length}} {{tr.format_error_slova_cifre}} {{tr.obavezno_polje}}
 					</span>
 					<span>
-						{{greska}}
+					{{greska}}
 					</span>	
 				</div>
 			</div>
@@ -166,10 +166,10 @@
 				<span class="text-transparent col-sm-3" ng-class="{textred:(formUnos.pocetakGodina.$error.pattern || formUnos.krajGodina.$error.pattern) && (formUnos.pocetakGodina.$dirty || formUnos.krajGodina.$dirty)}">
 					{{tr.pattern_error_cifre}}
 				</span>
-				<span class="col-sm-4">
+				<span class="col-sm-4" ng-show="vreme=='unosPeriodaOdDo'">
 					{{pocetakPeriodaPoruka}}
 				</span>
-				<span class="col-sm-4">
+				<span class="col-sm-4" ng-show="vreme=='unosPeriodaOdDo'">
 					{{krajPeriodaPoruka}} 
 				</span>
 			</div>
@@ -238,7 +238,13 @@
 				</div>
 				<label for="bibliografskoPorekloSkracenica" class="col-sm-3 control-label">{{tr.skracenica_bibliografskog_porekla}}:</label>
 				<div class="col-sm-3">
-					<input id="bibliografskoPorekloSkracenica" class="form-control" type="file" ng-model="bibliografskoPorekloSkracenica"/> TODO
+					<input id="bibliografskoPorekloSkracenica" class="form-control" type="text" ng-model="bibliografskoPorekloSkracenica"/>
+				</div>
+			</div>
+			<div class="row form-group">
+				<label for="bibl" class="col-sm-2 control-label">{{tr.dodaj_pdf}}:</label>
+				<div class="col-sm-8">
+					<input type="file" id="bibl" class="form-control" name="bibl" ng-model="bibl" /> TODO
 				</div>
 			</div>
 			<div class="row form-group">
@@ -254,7 +260,7 @@
 			<div class="row form-group">
 				<label for="foto" class="col-sm-2 control-label">{{tr.dodaj_fotografiju}}:</label>
 				<div class="col-sm-8">
-					<input type="file"  rows="2" id="foto" class="form-control" name="foto" ng-model="foto" /> TODO
+					<input type="file" id="foto" class="form-control" name="foto" ng-model="foto" /> TODO
 				</div>
 			</div>
 			<div class="row form-group">
