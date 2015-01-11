@@ -241,6 +241,7 @@
                     <button type="button" class="btn btn-success btn-block" ng-click="radiusSearch()">{{tr.zapocni_pretragu}}</button>
                   </div>
                 </div>
+                <p>{{tr.rezultati_pretrage}}: {{found}}</p>
 			</div>
         </div>
 	

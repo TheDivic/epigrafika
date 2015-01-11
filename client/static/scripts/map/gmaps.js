@@ -4,8 +4,6 @@ var googleApiKey = "AIzaSyBArTJ-mPtJuBsGghbM2LHu-FAJpehXJLg";
 
 //Global vars
 var map;
-var radiusCircle;
-var markers = new Array();
 var coordinatesCache = {};
 
 //Inicijalizacija mape
@@ -17,10 +15,10 @@ function mapInit()
 }
 
 //Predstavlja jedan arheoloski objekat na mapi
-function ArchObject(name, description, polygon)
+function ArchObject(id, name, preview, polygon)
 {
 	this.name = name;
-	this.description = description;
+	this.preview = preview;
 	
 	var latMid = 0;
 	var lngMid = 0;
@@ -53,7 +51,7 @@ function ArchObject(name, description, polygon)
     });
 	
 	this.infoWindow = new google.maps.InfoWindow({
-		content: "<p>"+this.name+"</p><p>"+this.description+"</p>"
+		content: "<p>"+this.name+"</p><p>"+this.preview+"</p>"
 	});
 	
 	var obj = this;
@@ -73,8 +71,51 @@ ArchObject.prototype.clearObject = function (){
 	this.infoWindow = null;
 };
 
+function QueryResultNode(location, objects)
+{
+    this.locationId = location.id;
+    this.locationName = location.naziv;
+    this.marker = null;
+    
+    var coords = mapGetCoordinatesByName(this.locationName);
+    
+    if(coords)
+    {
+        var content = "";
+        for(var i = 0; i < objects.length; i++)
+        {
+            content += "<p>"+objects[i].oznaka+" "+objects[i].tekstNatpisa+"</p>";
+        }
+        
+        this.infoWindow = new google.maps.InfoWindow({
+            content: content
+        });
+        
+        this.marker = new google.maps.Marker({
+            position: {lat: coords.lat, lng: coords.lng},
+            map: map,
+            title: this.locationName
+        });
+        
+        var obj = this;
+        google.maps.event.addListener(this.marker, 'click', function(){
+            obj.infoWindow.open(map,obj.marker);
+        });
+    }
+}
+
+QueryResultNode.prototype.clearNode = function()
+{
+    this.locationId = null;
+    this.locationName = null;
+    this.infoWindow = null;
+    this.marker.setMap(null);
+    this.marker = null;
+}
+
 //Singleton koji upravlja pretragom preko mape
 var RadiusSearchManager = (function () {
+    
     var instance;
     
     function RadiusSearch()
@@ -95,6 +136,8 @@ var RadiusSearchManager = (function () {
         var markerOptions = {
             map: map,
             clickable: false,
+            draggable: true,
+            title: "Center",
             icon: {
                 path: google.maps.SymbolPath.CIRCLE,
                 strokeColor: "blue",
@@ -106,7 +149,12 @@ var RadiusSearchManager = (function () {
         this.graphics.circle = new google.maps.Circle(circleOptions);
         this.graphics.marker = new google.maps.Marker(markerOptions);
         
-        this.objects = null;
+        var obj = this;
+        google.maps.event.addListener(this.graphics.marker,'drag',function(e){
+            obj.graphics.circle.setCenter(e.latLng);
+        });
+        
+        this.nodes = null;
     }
     
     RadiusSearch.prototype.setCenter = function(center)
@@ -128,6 +176,7 @@ var RadiusSearchManager = (function () {
         this.graphics.marker.setMap(map);
     }
     
+    //Ne koristi se u trenutnoj verziji
     RadiusSearch.prototype.getInboundPoints = function()
     {
         var points = new Array();
@@ -138,7 +187,7 @@ var RadiusSearchManager = (function () {
 		jQuery.ajax({
             type: "GET",
             async: false,
-            url: "http://localhost/epigrafika/server/tacka.php",
+            url: "../server/tacka.php",
             dataType: "json",
             success:function(result,statusText,jqxhr){
                 if(result.error_status == false)
@@ -157,23 +206,6 @@ var RadiusSearchManager = (function () {
                         if(distance <= radius)
                             points.push({lat: lat, lng: lng});
                     }
-                    
-                    /*var latMin = 9999;
-                    var latMax = -9999;
-                    var lngMin = 9999;
-                    var lngMax = -9999;
-                    
-                    for(var i = 0; i < dots.length; i++)
-                    {
-                        if(dots[i].lat < latMin)
-                            latMin = dots[i].lat;
-                        if(dots[i].lat > latMax)
-                            latMax = dots[i].lat;
-                        if(dots[i].lng < lngMin)
-                            lngMin = dots[i].lng;
-                        if(dots[i].lng > lngMax)
-                            lngMax = dots[i].lng;
-                    }*/
                 }
                 else
                     console.error(result.error_message);
@@ -186,21 +218,84 @@ var RadiusSearchManager = (function () {
         return points;
     }
     
+    RadiusSearch.prototype.getInboundLocations = function()
+    {
+        var locations = new Array();
+        var center = this.graphics.circle.getCenter();
+        var radius = this.graphics.circle.getRadius();
+        
+        //Trazimo od servera da nam vrati sva moderna mesta u bazi
+		jQuery.ajax({
+            type: "GET",
+            async: false,
+            url: "../server/moderno_mesto.php",
+            dataType: "json",
+            success:function(result,statusText,jqxhr){
+                if(result.error_status == false)
+                {
+                    //Ukoliko je zahtev prosao, listamo tacke i pamtimo
+                    //samo one koje upadaju u radius pretrage
+                    for(var i = 0; i<result.data.length; i++)
+                    {
+                        var coords = mapGetCoordinatesByName(result.data[i].naziv);
+                        if(coords)
+                        {            
+                            var lat = coords.lat;
+                            var lng = coords.lng;
+                            
+                            var latLng = new google.maps.LatLng(lat,lng);
+                            
+                            var distance = google.maps.geometry.spherical.computeDistanceBetween(center, latLng);
+                            
+                            if(distance <= radius)
+                                locations.push({id: result.data[i].id,naziv: result.data[i].naziv});
+                        }
+                    }
+                }
+                else
+                    console.error(result.error_message);
+            },
+            error:function(jqxhr,statusText){
+                console.error(statusText);
+            }
+        });
+        
+        return locations;
+    }
+    
     RadiusSearch.prototype.doRadiusSearch = function()
     {
         //Cistimo prethodni rezultat
-        if(this.objects)
-            for(var i = 0; i < this.objects.length; i++)
-                this.objects[i].clearObject();
-                
-        var points = this.getInboundPoints();
+        if(this.nodes)
+            for(var i = 0; i < this.nodes.length; i++)
+                this.nodes[i].clearNode();
         
-        //TODO: Upit ka serveru za spisak objekata
+        var locations = this.getInboundLocations();
         
-        //Test podaci       
-        this.objects = new Array();
-        for(var i = 0; i < points.length; i++)
-            this.objects.push(new ArchObject("Arheoloski objekat "+i,"Genericki opis",[points[i]]));
+        var resultNodes = new Array();
+        for(var i = 0; i < locations.length; i++)
+        {
+            jQuery.ajax({
+                type: "GET",
+                async: false,
+                url: "../server/objekat.php",
+                data: { type: "byLocation", locationId: locations[i].id},
+                dataType: "json",
+                success:function(result,statusText,jqxhr){
+                    if(result.error_status == false && result.data.length >= 1)
+                        resultNodes.push(new QueryResultNode(locations[i], result.data));
+                    else
+                        console.error(result.error_message);
+                },
+                error:function(jqxhr,statusText){
+                    console.error(statusText);
+                }
+            });
+        }
+        
+        this.nodes = resultNodes;
+        
+        return this.nodes.length;
     }
     
     //Singleton pattern
@@ -254,49 +349,6 @@ function mapGetCoordinatesByName(locationName)
     }
     
     return result;
-}
-
-function mapSearch(latMin,latMax,lngMin,lngMax)
-{
-    jQuery.ajax({
-        type: "GET",
-        async: true,
-        url: "http://localhost/epigrafika/server/objekat.php",
-        data: { type: "radiusSearch", latMin: latMin, latMax: latMax, lngMin: lngMin, lngMax: lngMax },
-        dataType: "json",
-        success: function(result,statusText,jqxhr){
-            if(result.error_status == false)
-            {
-                console.log(JSON.stringify(result.data));
-            }
-            else
-                console.error(result.error_message);
-        },
-        error:function(jqxhr,statusText){
-            console.error(statusText);
-        }     
-    });
-}
-
-function mapClearAll()
-{
-	mapClearAllMarkers();
-	if(radiusCircle != null)
-	{
-		radiusCircle.setMap(null);
-		radiusCircle = null;
-	}
-}
-
-function mapCreateDemoObject()
-{
-	var archObject = new ArchObject(demoObject.name, demoObject.desc, demoObject.polygon);
-}
-
-var demoObject = {
-name: "Arheoloski objekat 1",
-desc: "Neki opis, nesto nesto.",
-polygon: [{latitude: 44.7866,longitude: 20.4489},{latitude: 44.8,longitude: 20.5},{latitude: 44.75,longitude: 20.43}]
 }
 
 //Register map init. on page load

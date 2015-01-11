@@ -16,32 +16,14 @@ try
         {
             //Standardna pretraga po nekim kljucnim recima
         }
-        else if($_GET['type'] === 'radiusSearch')
+        else if($_GET['type'] === 'byLocation')
         {	
-            //Pretraga preko mape
-            
-            $epsilon = 1e-4;
-            $latMin = floatval($_GET['latMin']);
-            $latMax = floatval($_GET['latMax']);
-            $lngMin = floatval($_GET['lngMin']);
-            $lngMax = floatval($_GET['lngMax']); 
+            $locationId = $_GET['locationId'];
 
-            //Trazimo samo objekte cije tacke poligona
-            //upadaju u opseg prosledjen GET parametrom
-            $query = $db->prepare(  "select * from objekat o 
-                                    join modernomesto m on o.modernoMesto = m.id 
-                                    join geomesto g on g.mesto = m.id 
-                                    join poligon p on g.poligon = p.id
-                                    join tackepoligona tp on tp.poligon = p.id
-                                    join tacka t on tp.koordinata = t.id
-                                    where t.latituda between ? and ?
-                                    and t.longituda between ? and ?
-                                    group by o.id");
-                                    
-            $query->bindParam(1, $latMin-$epsilon, PDO::PARAM_STR);
-            $query->bindParam(2, $latMax+$epsilon, PDO::PARAM_STR);
-            $query->bindParam(3, $lngMin-$epsilon, PDO::PARAM_STR);
-            $query->bindParam(4, $lngMax+$epsilon, PDO::PARAM_STR);
+            $query = $db->prepare( "select o.id,o.oznaka,o.tekstNatpisa
+                                    from objekat o 
+                                    join modernomesto m on o.modernoMesto = m.id
+                                    where m.id = $locationId");
 
             $query->execute();
             

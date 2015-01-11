@@ -38,6 +38,7 @@ angular.module('epigrafikaModul').
                 $scope.cities = null;
                 $scope.city = null;
                 $scope.center = null;
+                $scope.found = 0;
                 
                 $http.get('../server/moderno_mesto.php', {responseType: 'JSON'}).
                 success(function(data, status, headers, config){
@@ -54,7 +55,7 @@ angular.module('epigrafikaModul').
                 });
                 
                 $scope.radiusSearch = function(){
-                    RadiusSearchManager.getInstance().doRadiusSearch();
+                    $scope.found = RadiusSearchManager.getInstance().doRadiusSearch();
                 }
                 
                 $scope.$watch("city", function(newValue, oldValue){
