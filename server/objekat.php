@@ -68,7 +68,7 @@ try
         //Upis novih podataka
         //Admin only?
         $data = file_get_contents('php://input');
-        $result = $db->unesi($data, $db);
+        $result = unesi($data, $db);
 
     }
     else if ($method === 'UPDATE')
