@@ -36,9 +36,9 @@
 			<div class="row form-group">
 				<label for="natpis" class="col-sm-2 control-label">{{tr.natpis}}  <span style="color:red">*</span>:</label>
 				<div class="col-sm-9">
-					<textarea  class="form-control textarea_unos" rows="2" id="natpis" ng-model="natpis" name="natpis" ng-required='true'/> </textarea>	
-					<span class="text-transparent" ng-class="{textred:formUnos.natpis.$dirty && formUnos.natpis.$error.required}">
-						{{tr.obavezno_polje}}
+					<textarea  class="form-control textarea_unos" rows="2" id="natpis" ng-model="natpis" name="natpis" ng-required='true' ng-pattern="/^[a-zA-Z0-9 \. ]+$/"/> </textarea>	
+					<span class="text-transparent" ng-class="{textred:formUnos.natpis.$dirty && (formUnos.natpis.$error.required || formUnos.natpis.$error.pattern)}">
+						{{tr.obavezno_polje}} {{tr.format_error_slova_cifre_tacka}}
 					</span>
 				</div>
 			</div>
@@ -248,23 +248,24 @@
 			<div class="row form-group">
 				<label for="bibl" class="col-sm-2 control-label">{{tr.dodaj_pdf}}:</label>
 				<div class="col-sm-8">
-					<input type="file" id="bibl" class="form-control" name="bibl" ng-model="bibl" /> TODO
-				</div>
+                                    <input type="file" id="bibl" accept="application/pdf"  name="bibl" ng-model="bibl" multiple  />
+                                    TODO
+                                </div>
 			</div>
 			<div class="row form-group">
 				<label for="komentar" class="col-sm-2 control-label">{{tr.komentar}}:</label>
 				<div class="col-sm-8">
 					<textarea  rows="2" id="komentar" class="form-control textarea_unos" name="komentar" ng-model="komentar" ng-pattern="/^[a-zA-Z0-9 \. ]+$/"/> </textarea>
-					<!-- <span class="text-transparent" ng-show="{textred: formUnos.komentar.$error.pattern && formUnos.komentar.$dirty }"> 
+					 <span class="text-transparent" ng-class="{textred: formUnos.komentar.$error.pattern && formUnos.komentar.$dirty}"> 
 						{{tr.format_error_slova_cifre_tacka}}
-					</span> -->
+					</span> 
 				</div>
 				
 			</div>
 			<div class="row form-group">
 				<label for="foto" class="col-sm-2 control-label">{{tr.dodaj_fotografiju}}:</label>
 				<div class="col-sm-8">
-					<input type="file" id="foto" class="form-control" name="foto" ng-model="foto" /> TODO
+					<input type="file" id="foto" accept="image/*"  name="foto" ng-model="foto" multiple /> TODO
 				</div>
 			</div>
 			<div class="row form-group">
