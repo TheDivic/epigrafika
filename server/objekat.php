@@ -68,7 +68,11 @@ try
         //Upis novih podataka
         //Admin only?
         $data = file_get_contents('php://input');
-        $result = unesi($data, $db);
+        try {
+            $result = unesi($data, $db);
+        }catch (Exception $e){
+        $result = $e->getMessage();
+    }
 
     }
     else if ($method === 'UPDATE')
