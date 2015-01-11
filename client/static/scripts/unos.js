@@ -40,6 +40,7 @@ angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http
     $scope.vrsteNatpisa=null;
     $scope.mesta=null;
     $scope.korisnik=$cookies.user;
+    $scope.pdfLinkovi = [];
 
     function izracunajVek(godina){
       if(godina < 100)
@@ -305,6 +306,7 @@ $scope.proveri_jedinstvenost = function(){
         }
         else {
             $scope.show_biblio_autocomplete = false;
+            $scope.bibliografskoPoreklo = "";
         }
     };
 
@@ -312,6 +314,35 @@ $scope.proveri_jedinstvenost = function(){
         $scope.bibliografskoPorekloSkracenica = $event.target.innerHTML;
         $scope.bibliografskoPoreklo = $scope.biblioRecnik[$event.target.innerHTML];
         $scope.show_biblio_autocomplete = false;
+    };
+
+
+    var uploadPdf = function(file) {
+        var reader = new FileReader();
+
+        reader.onload = function(evt) {
+            var fd = new FormData();
+            fd.append('biblioPdf', file);
+
+            $http.post("../server/upload.php", fd, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            })
+            .success(function(link){
+                $scope.pdfLinkovi.push(link);
+            })
+            .error(function(error){
+                console.error(error);
+            });
+        }
+
+        reader.readAsBinaryString(file);
+    };
+
+    $scope.handlePdfUpload = function(files){
+        for(var i = 0; i < files.length; i++){
+            uploadPdf(files[i]);
+        }
     };
 }]);
 console.info("Inicijalizovan unosController");
