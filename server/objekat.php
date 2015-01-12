@@ -20,8 +20,8 @@ try
             //Standardna pretraga po nekim kljucnim recima
             $sl = selektovanje::getSelektor();
              $data = $_GET['podaci'];
-            $result->data = $data;
-            //$result->data = $sl->selektuj($data);
+            //$result->data = $data;
+            $result->data = $sl->selektuj($data);
 
 
         }

@@ -215,8 +215,8 @@ class selektovanje {
         ;
 
 
-        echo $upit;
-        echo "\n";
+       // echo $upit;
+       // echo "\n";
 
         $stmt=konekcija::getConnectionInstance()->prepare($upit);
 
