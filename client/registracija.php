@@ -11,13 +11,20 @@
 		<form class="form" name="registrationForm" method="get" action="">
 			<div class="row">
 				<div class="col-sm-6">
-					<div class="form-group">
-						<label for="imeprezime" class="control-label">{{tr.ime_prezime}}: <span style="color:red">*</span></label>
-						<input type="text" name="imeprezime" ng-model="imeprezime" class="form-control" id="imeprezime" ng-required="true" placeholder={{tr.pera_peric}} required />
-						<span class="text-transparent" ng-class="{textred:registrationForm.imeprezime.$error.required && registrationForm.imeprezime.$dirty}">
+					<div  class="col-sm-6">
+						<label for="ime" class="control-label">{{tr.ime}}: <span style="color:red">*</span></label>
+						<input type="text" name="ime" ng-model="ime" class="form-control" id="ime" ng-required="true" placeholder={{tr.pera_peric}} />
+						<span class="text-transparent" ng-class="{textred:registrationForm.ime.$error.required && registrationForm.ime.$dirty}">
 							{{tr.obavezno_polje}}
 						</span>
 					</div>
+                                        <div  class="col-sm-6">
+						<label for="prezime" class="control-label">{{tr.prezime}}: <span style="color:red">*</span></label>
+						<input type="text" name="prezime" ng-model="prezime" class="form-control" id="prezime" ng-required="true" placeholder={{tr.pera_peric}} />
+						<span class="text-transparent" ng-class="{textred:registrationForm.prezime.$error.required && registrationForm.prezime.$dirty}">
+							{{tr.obavezno_polje}}
+						</span>
+					</div> 
 					<div class="form-group">
 						<label for="email" class="control-label">Email:<span style="color:red">*</span></label>
 						<input type="email" ng-model="email" name="email" ng-required="true" class="form-control" id="email" placeholder="primer@email.com">
@@ -61,7 +68,7 @@
 				<div class="col-sm-12">
 					<div class="form-group">
 						<label for="info" class="control-label">{{tr.dodatne_info}}:</label>
-						<textarea style="max-width:100%;" name="info" ng-maxLenght="45" class="form-control" rows="3" id="info"></textarea>
+                                                <textarea style="max-width:100%;" name="info" ng-model="info" ng-maxLenght="45" class="form-control" rows="3" id="info"></textarea>
 					`	<span class="text-transparent" ng-class="{textred:registrationForm.info.$dirty && registrationForm.info.$error.maxLenght}">
 							{{tr.info_max}}
 						</span>
@@ -71,7 +78,7 @@
 			
 			<div class="row">
 				<div class="col-sm-8 col-sm-offset-2">
-					<button type="submit" class="btn btn-primary btn-block" ng-class="{'disabled':!registrationForm.$valid && sameR}" ng-enabled="!sameR && registrationForm.$valid">{{tr.registruj_se}}</button>
+                                    <button type="submit" ng-click="posaljiPodatke()" class="btn btn-primary btn-block" ng-class="{'disabled':!registrationForm.$valid && sameR}" ng-enabled="!sameR && registrationForm.$valid">{{tr.registruj_se}}</button>
 				</div>
 			</div>
 		</form>

@@ -11,14 +11,14 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
 	$scope.modernoImeDrzave=null;
 	$scope.modernoMesto=null;
 	$scope.pleme=null;
-    $scope.vek=null;
+        $scope.vek=null;
 	$scope.periodVeka=null;
 	$scope.prikaziNedatovaneNatpise=false;
 	$scope.sortiranje='poVremenu';
 	$scope.prikazi=true;
 	
-    $scope.provincije= null;
-    $scope.drzave=null;
+        $scope.provincije= null;
+        $scope.drzave=null;
 	$scope.plemena=null;
 	$scope.mesta=null;
 	$scope.razultatPretrage=null;
@@ -99,6 +99,9 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
         error(function(data, status, headers, config){
 
         });
+
+        //var myResetBtn = document.getElementById('reset');
+        //angular.element(myResetBtn).triggerHandler('click');
 	};
 
     $scope.autocompleteNatpis = function() {

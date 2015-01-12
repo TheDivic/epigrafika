@@ -5,8 +5,9 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1"/>
         
-        <!-- eksterne biblioteke -->
-        <script src='static/scripts/libs/angular.min.js' type='text/javascript' > </script>
+        <!-- eksterne biblioteke-->
+        <script src='static/scripts/libs/angular.min.js' type='text/javascript' > </script> 
+        <!-- <script type="text/javascript" src="https://code.angularjs.org/1.1.1/angular.js"></script> -->
         <script src="static/scripts/libs/jquery-1.11.1.js" type='text/javascript'></script>
         <script src="static/scripts/libs/bootstrap.js"></script>
         <script src="static/scripts/libs/cookies.js"></script>
