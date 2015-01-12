@@ -21,7 +21,7 @@
         <link rel="stylesheet" type="text/css" href="static/css/bootstrap-theme.css">
 		<link rel="stylesheet" type="text/css" href="static/css/style.css" />
     </head>
-    <body ng-controller='rootController' ng-cloack>
+    <body ng-controller='rootController' ng-cloak>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">

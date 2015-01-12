@@ -85,8 +85,8 @@ try
 	if($method === 'POST')
     {
         $result->message = "Primljen zahtev za unos korisnika.";
-	$data=json_decode(file_get_contents('php://input'));
-	$result->ulazniPodaci = $data;
+		$data=json_decode(file_get_contents('php://input'));
+		$result->ulazniPodaci = $data;
         if(property_exists($data, "ime"))
             $ime = $data->ime;
         if(property_exists($data, "prezime"))
@@ -101,19 +101,20 @@ try
             $password = $data->password;
         if(property_exists($data, "info"))
             $info = $data->info;
-        
-        $mod = "korisnik";
+		if(property_exists($data, "status"))
+            $status = $data->status;
+		if(property_exists($data, "mod"))
+            $mod = $data->mod;
         $datum=date("Y-d-m");
-        $status="aktivan";
         
         $query = $db->prepare("INSERT INTO `mydb`.`korisnik` (`korisnickoIme`, `sifra`, `ime`,`prezime`,`email`,`institucija`,`dodatneInformacije`,`mod`,`datumRegistrovanja`,`status`) VALUES ('$username','$password', '$ime', '$prezime', '$email', '$institucija', '$info', '$mod', $datum, '$status' )");
-	$query->execute();  
+		$query->execute();  
         $broj_redova = $query->rowCount();
-	if($broj_redova==1) 
+		if($broj_redova==1) 
             $result->error_status = false;
-	else 
+		else 
             $result->error_status = true;
-    }
+		}
 	if($method === 'DELETE')
 		{
 			$result->message = "Primljen zahtev za brisanje";
