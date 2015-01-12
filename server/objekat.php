@@ -2,11 +2,9 @@
 include 'konekcija.php';
 include 'dodavanje.php';
 include 'azuriranje.php';
-<<<<<<< HEAD
 include 'obrisi.php';
-=======
 include 'selektovanje.php';
->>>>>>> origin/master
+
 
 $result = new stdClass();
 try
