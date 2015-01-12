@@ -25,11 +25,12 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-offset-2 col-sm-12">
-					<span ng-show="formUnos.oznaka.$dirty && (formUnos.oznaka.$error.required||formUnos.oznaka.$error.pattern||formUnos.oznaka.$error.maxlenght)">
+					<span class="text-transparent" ng-class="{textred:formUnos.oznaka.$dirty && (formUnos.oznaka.$error.required||formUnos.oznaka.$error.pattern||formUnos.oznaka.$error.maxlenght)}">
 						{{tr.oznaka_error_length}} {{tr.format_error_slova_cifre}} {{tr.obavezno_polje}}
-					</span>
-					<span>
-					{{greska}}
+                                        </span>
+					<span class="text-transparent" ng-class="{textred:greska}">
+					<span class='glyphicon glyphicon-remove'></span> 
+                                        {{tr.greska_jedinstvena_oznaka}}
 					</span>	
 				</div>
 			</div>
@@ -43,9 +44,9 @@
 				</div>
 			</div>
 			<div class="row form-group">
-				<label for="vrstaNatpisa" class="col-sm-2 control-label">{{tr.vrsta_natpisa}}:</label>
+				<label for="vrstaNatpisa" class="col-sm-2 control-label">{{tr.vrsta_natpisa}}  <span style="color:red">*</span>:</label>
 				<div class="col-sm-9">
-					<select class="form-control" id="vrstaNatpisa" name="vrstaNatpisa" ng-model="vrstaNatpisa">
+					<select class="form-control" id="vrstaNatpisa" name="vrstaNatpisa" ng-model="vrstaNatpisa" ng-required='true'>
 						<option ng-repeat="natpis in vrsteNatpisa  | orderBy:'naziv':false"> {{natpis.naziv}} </option>
 					</select>
 				</div>
@@ -57,36 +58,36 @@
 			<legend> {{tr.izvorno_mesto_nastanka}} </legend>
 			<label ng-init="lokalizovan=true"> <input type="checkbox" name="LokalizovanPodatak" ng-model="LokalizovanPodatak" value="LokalizovanPodatak" ng-click="lokalizovan=!lokalizovan"  checked/> {{ tr.lokalizovan_podatak}} </label>
 			<div class="row form-group" ng-show="lokalizovan">
-				<label for="provincija" class="col-sm-1 control-label">{{tr.provincija}}:</label>
+				<label for="provincija" class="col-sm-1 control-label">{{tr.provincija}}<span style="color:red">*</span></label>
 				<div class="col-sm-3">
-					<select name="provincija" id="provincija" class="form-control" ng-model="provincija">
+					<select name="provincija" id="provincija" class="form-control" ng-model="provincija" ng-required="lokalizovan">
 						<option ng-repeat="p in provincije  | orderBy:'naziv':false"> {{ p.naziv }} </option>
 					</select>
 				</div>
-				<label for="grad" class="col-sm-1 control-label">{{tr.grad}}:</label>
+				<label for="grad" class="col-sm-1 control-label">{{tr.grad}} <span style="color:red">*</span>:</label>
 				<div class="col-sm-3">
-					<select id="grad" class="form-control" name="grad" ng-model="grad">
+					<select id="grad" class="form-control" name="grad" ng-model="grad" ng-required="lokalizovan">
 						<option ng-repeat="grad in gradovi | orderBy:'naziv':false"> {{grad.naziv}} </option>
 					</select>
 				</div>
-				<label for="mestoNalaska" class="col-sm-1 control-label">{{tr.mesto}}:</label>
+				<label for="mestoNalaska" class="col-sm-1 control-label">{{tr.mesto}} <span style="color:red">*</span>:</label>
 				<div class="col-sm-3 clirfix">
-					<input id="mestoNalaska" class="form-control" type="text" name="mestoNalaska" ng-model="mestoNalaska" ng-pattern="/^[a-zA-Z ]+$/"/>
-					<span class="text-transparent" ng-class="{textred: formUnos.mestoNalaska.$error.pattern && formUnos.mestoNalaska.$dirty}"> 
-						{{tr.format_error_slova}}
+					<input id="mestoNalaska" class="form-control" type="text" name="mestoNalaska" ng-model="mestoNalaska" ng-required="lokalizovan" ng-pattern="/^[a-zA-Z ]+$/"/>
+					<span class="text-transparent" ng-class="{textred: (formUnos.mestoNalaska.$error.pattern || formUnos.mestoNalaska.$error.required) && formUnos.mestoNalaska.$dirty}"> 
+						{{tr.obavezno_polje}} {{tr.format_error_slova}}
 					</span>
 				</div>
 			</div>
 			<div class="row form-group">
-				<label for="modernoImeDrzave" class="col-sm-1 control-label">{{tr.moderno_ime_drzave}}:</label>
+				<label for="modernoImeDrzave" class="col-sm-1 control-label">{{tr.moderno_ime_drzave}} <span style="color:red">*</span>:</label>
 				<div class="col-sm-3">
-					<select id="modernoImeDrzave" class="form-control" name="modernoImeDrzave" ng-model="modernoImeDrzave">
+					<select id="modernoImeDrzave" class="form-control" name="modernoImeDrzave" ng-model="modernoImeDrzave" ng-required="true">
 						<option ng-repeat="drzava in drzave  | orderBy:'naziv':false"> {{drzava.naziv}} </option>
 					</select>
 				</div>
-				<label for="modernoMesto" class="col-sm-1 control-label">{{tr.moderno_mesto}}:</label>
+				<label for="modernoMesto" class="col-sm-1 control-label">{{tr.moderno_mesto}} <span style="color:red">*</span>:</label>
 				<div class="col-sm-3">
-					<select id="modernoMesto" class="form-control" name="modernoMesto" ng-model="modernoMesto">
+					<select id="modernoMesto" class="form-control" name="modernoMesto" ng-model="modernoMesto" ng-required="true">
 						<option ng-repeat="mesto in mesta | orderBy:'naziv':false"> {{mesto.naziv}} </option>
 					</select>
 				</div>
@@ -97,16 +98,16 @@
 	<div class="fieldset_border">
 		<br/>
 		<div class="row form-group">
-				<label for="trenutnaLokacijaZnamenitosti" class="col-sm-2 control-label">{{tr.trenutna_lokacija_znamenitosti}}:</label>
+				<label for="trenutnaLokacijaZnamenitosti" class="col-sm-2 control-label">{{tr.trenutna_lokacija_znamenitosti}} <span style="color:red">*</span>:</label>
 				<div class="col-sm-4">
-					<input type="text" id="trenutnaLokacijaZnamenitosti" class="form-control" name="trenutnaLokacijaZnamenitosti" ng-model="trenutnaLokacijaZnamenitosti" ng-pattern="/^[a-zA-Z ]+$/"/>
+					<input type="text" id="trenutnaLokacijaZnamenitosti" class="form-control" name="trenutnaLokacijaZnamenitosti" ng-model="trenutnaLokacijaZnamenitosti" ng-pattern="/^[a-zA-Z ]+$/" ng-required="true"/>
 					<span class="text-transparent" ng-class="{textred:formUnos.trenutnaLokacijaZnamenitosti.$dirty && formUnos.trenutnaLokacijaZnamenitosti.$error.pattern}"> 
 						{{tr.format_error_slova}}
 					</span>
 				</div>
-				<label for="pleme" class="col-sm-2 control-label">{{tr.pleme}}:</label>
+				<label for="pleme" class="col-sm-2 control-label">{{tr.pleme}} <span style="color:red">*</span>:</label>
 				<div class="col-sm-4">
-					<input type="text" id="pleme" class="form-control" name="pleme" ng-model="pleme" ng-pattern="/^[a-zA-Z ]+$/"/>
+					<input type="text" id="pleme" class="form-control" name="pleme" ng-model="pleme" ng-pattern="/^[a-zA-Z ]+$/" ng-required="true"/>
 					<span class="text-transparent" ng-class="{textred:formUnos.pleme.$dirty && formUnos.pleme.$error.pattern}"> 
 						{{tr.format_error_slova}}
 					</span>
@@ -249,7 +250,7 @@
 				<label for="bibl" class="col-sm-2 control-label">{{tr.dodaj_pdf}}:</label>
 				<div class="col-sm-8">
                                     <input type="file" id="bibl" accept="application/pdf"  name="bibl" multiple onchange="angular.element(this).scope().handlePdfUpload(this.files)"  />
-                                    <span ng-repeat="pdf in pdfLinkovi"> {{ pdf }} </span>
+                                    <span ng-repeat="pdf in pdfLinkovi"> {{ pdf }} ;</span>
                                 </div>
 			</div>
 			<div class="row form-group">
@@ -265,7 +266,8 @@
 			<div class="row form-group">
 				<label for="foto" class="col-sm-2 control-label">{{tr.dodaj_fotografiju}}:</label>
 				<div class="col-sm-8">
-					<input type="file" id="foto" accept="image/*"  name="foto" ng-model="foto" multiple /> TODO
+					<input type="file" id="foto" accept="image/*"  name="foto" multiple onchange="angular.element(this).scope().handlePhotoUpload(this.files)" />
+					<span ng-repeat="photo in photoLinkovi"> {{ photo }} ;</span>
 				</div>
 			</div>
 			<div class="row form-group">

@@ -57,8 +57,10 @@
 "lokalizovan_podatak":"Localized",
 "registracija":"Registration",
 "polje_zvezda":"Fields with * are required",
-"ime_prezime":"First and last name",
-"pera_peric":"John Doe",
+"ime":"First name",
+"prezime" : "Last name",
+"pera":"John",
+"peric":"Doe",
 "obavezno_polje":"Field is required!",
 "email_format":"Expected format is example@email.com",
 "institucija":"Institution",
@@ -84,10 +86,13 @@
 "mapa":"Map",
 "rezultati_pretrage":"Search results",
 "format_error_slova_cifre_tacka":"Only letters, digits, spaces and dots are allowed!",
-"greska_jedinstvena_oznaka":"This label already exists in database. Choose another one!",
+"greska_jedinstvena_oznaka":"This label already exists in database!",
 "greska_jedinstven_username":"This username is taken!",
 "format_error_slova_cifre":"Only letters and digits are allowed!",
 "razlicite_sifre":"Passwords are not the same",
-"dodaj_pdf":"Add pdfs"
+"dodaj_pdf":"Add pdfs",
+"zaboravili_sifru": "Forgotten your password?",
+"posalji_email":"Send password on your email address",
+"greska404":"Error 404. You are trying to access to an nonexistent page, or you do not have permission to gain the access."
 
 }

@@ -11,14 +11,14 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
 	$scope.modernoImeDrzave=null;
 	$scope.modernoMesto=null;
 	$scope.pleme=null;
-    $scope.vek=null;
+        $scope.vek=null;
 	$scope.periodVeka=null;
 	$scope.prikaziNedatovaneNatpise=false;
 	$scope.sortiranje='poVremenu';
 	$scope.prikazi=true;
 	
-    $scope.provincije= null;
-    $scope.drzave=null;
+        $scope.provincije= null;
+        $scope.drzave=null;
 	$scope.plemena=null;
 	$scope.mesta=null;
 	$scope.razultatPretrage=null;
@@ -91,14 +91,36 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
 	var jsonData = angular.toJson(formData);
 	alert(jsonData);
 	 
-	$http.get('../server/objekat.php?podaci='+jsonData, {responseType: 'JSON'}).
+	$http.get('../server/objekat.php?type=search&podaci='+jsonData, {responseType: 'JSON'}).
         success(function(data, status, headers, config){
-            if(data!=="null")
-                $scope.rezultatPretrage=data.data;
+            if(data!=="null"){
+                $scope.rezultatPretrage=data;
+                alert(data);
+            }
         }).
         error(function(data, status, headers, config){
 
         });
+
+	$scope.natpis=null;
+	$scope.natpis2=null;
+	$scope.natpisArg='prazno';
+	$scope.rezimIgnorisanjaZagrada=false;
+	$scope.provincijaNalaska=null;
+	$scope.gradNalaska=null;
+	$scope.mestoNalaska=null;
+	$scope.prikaziNelokalizovanePodatke=false;
+	$scope.modernoImeDrzave=null;
+	$scope.modernoMesto=null;
+	$scope.pleme=null;
+        $scope.vek=null;
+	$scope.periodVeka=null;
+	$scope.prikaziNedatovaneNatpise=false;
+	$scope.sortiranje='poVremenu';
+	$scope.prikazi=true;
+        document.getElementById('reset').click();
+        $scope.prikazi=false;
+        
 	};
 
     $scope.autocompleteNatpis = function() {

@@ -19,7 +19,7 @@
 			<a id="tab-btn-mapa" href="#mapa" data-toggle="tab">{{tr.mapa}} </a>
         </li>
 		 <li  class="nav navbar-right search_hide"> 
-			<span ng-click="prikazi=!prikazi" ng-show="prikazi"> {{tr.sakrij}} &nbsp; <b class="caret-up"></b></span><span ng-click="prikazi=!prikazi" ng-hide="prikazi"> {{tr.prikazi}} &nbsp; <b class="caret"></b></span>
+                     <span ng-click="prikazi=!prikazi" ng-show="prikazi"> {{tr.sakrij}} &nbsp; <b class="caret-up"></b></span><span ng-click="prikazi=!prikazi" ng-hide="prikazi"> {{tr.prikazi}} &nbsp; <b class="caret"></b></span>
 		</li>
     </ul>
 
@@ -27,11 +27,12 @@
 	<div id="myTabContent" class="tab-content ">
 		<!--Pretraga tab -->
         <div class="tab-pane fade in active col-sm-12" id="pretraga" >
+			
+			<form class="form-horizontal" action=""  name='formPretraga'  id="myForm" method="post" enctype='multipart/form-data' ng-show="prikazi" >
 			<div class="row">
 				<h1> {{tr.pretraga}}</h1>
 			</div>
-			<form class="form-horizontal" action=""  name='formPretraga'  id="myForm" method="post" enctype='multipart/form-data' ng-show="prikazi" >
-			<div class="fieldset_border">
+                        <div class="fieldset_border">
 				<fieldset>
 					<legend> {{ tr.osnovne_informacije }} </legend>
 					<div class="row">
@@ -39,7 +40,7 @@
 							<label for="oznaka" class="control-label">{{ tr.oznaka }}<span style="color:red">*</span>: </label>
 						</div>
 						<div class="col-sm-9">
-							<input class="form-control" id="oznaka" type="text" name="oznaka" ng-maxlength="15" ng-model="oznaka" ng-pattern="/^[a-zA-Z0-9]+$/" ng-required='true' required/>  
+							<input class="form-control" id="oznaka" type="text" name="oznaka" ng-maxlength="15" ng-model="oznaka" ng-pattern="/^[a-zA-Z0-9]+$/" ng-required='true'/>  
 							<span class="text-transparent" ng-class="{textred:(formPretraga.oznaka.$error.required ||formPretraga.oznaka.$error.maxlength||formPretraga.oznaka.$error.pattern) && formPretraga.oznaka.$dirty}">
 								{{tr.obavezno_polje}}  {{ tr.oznaka_error_length }}{{tr.format_error_slova_cifre}}
 							</span>
@@ -74,7 +75,7 @@
 						</div>
 					</div>
 				</fieldset>
-			</div>
+			</div> <br/>
 			<div class="fieldset_border">
 				<fieldset>
 					 <legend> {{ tr.izvorno_mesto_nastanka }} </legend>
@@ -166,7 +167,7 @@
 						</div>
 					</div>
 				</fieldset>
-			</div>
+			</div> <br/>
 			<div class="fieldset_border">
 				 <fieldset>
 					<legend> {{tr.vreme}} </legend>
@@ -193,7 +194,7 @@
 							</div>
 						</div>
 				</fieldset>
-			</div>
+			</div> <br/>
 			<div class="fieldset_border">
 				<fieldset>
 					<legend> {{tr.sortiraj_rezultate_po}} </legend>
@@ -209,7 +210,6 @@
 						</div>
 					</div>
 				</fieldset>
-			
 			</div>
 			<br/>
 			<div class="row">
@@ -217,7 +217,7 @@
 					 <button type="submit" class="btn btn-success btn-block" ng-class="{'disabled':!formPretraga.$valid}" ng-click="posalji_podatke()" ng-enabled='formPretraga.$valid'> {{tr.zapocni_pretragu}}  </button>
 				</div>
 				<div class="col-sm-4 ">
-					<button type="reset" class="btn btn-primary btn-block">{{tr.resetuj_podatke}}</button>
+					<button type="reset" id="reset" class="btn btn-primary btn-block">{{tr.resetuj_podatke}}</button>
 				</div>
 			</div>
  
@@ -241,7 +241,6 @@
                     <button type="button" class="btn btn-success btn-block" ng-click="radiusSearch()">{{tr.zapocni_pretragu}}</button>
                   </div>
                 </div>
-                <p>{{tr.rezultati_pretrage}}: {{found}}</p>
 			</div>
         </div>
 	

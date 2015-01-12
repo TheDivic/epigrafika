@@ -33,7 +33,7 @@ angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http
     $scope.komentar=null;
     $scope.fotografije=null;
     $scope.fazaUnosa=null;
-    $scope.greska="";
+    $scope.greska=false;
     $scope.provincije= null;
     $scope.drzave=null;
     $scope.gradovi=null;
@@ -41,6 +41,7 @@ angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http
     $scope.mesta=null;
     $scope.korisnik=$cookies.user;
     $scope.pdfLinkovi = [];
+    $scope.photoLinkovi = [];
 
     function izracunajVek(godina){
       if(godina < 100)
@@ -238,8 +239,9 @@ $scope.posalji_podatke=function(){
      duzina : $scope.duzina,
      bibliografskoPoreklo: $scope.bibliografskoPoreklo,
      bibliografskoPorekloSkracenica: $scope.bibliografskoPorekloSkracenica,
+     bibliografskiPdfLinkovi : $scope.pdfLinkovi,
      komentar: $scope.komentar,
-     fotografije: $scope.fotografije,
+     fotografije: $scope.photoLinkovi,
      fazaUnosa:$scope.fazaUnosa,
      korisnickoIme:$scope.korisnik
  };
@@ -268,10 +270,10 @@ $scope.proveri_jedinstvenost = function(){
     success(function(data, status, headers, config){
         if(data!=="null"){
          if(data.isEmpty==false){
-            $scope.greska = "<span class='glyphicon glyphicon-remove'></span>"+$scope.tr.greska_jedinstvena_oznaka;
+            $scope.greska = true;
         }
         else 
-            $scope.greska="";
+            $scope.greska=false;
     }
 }).
     error(function(data, status, headers, config){
@@ -317,19 +319,24 @@ $scope.proveri_jedinstvenost = function(){
     };
 
 
-    var uploadPdf = function(file) {
+    var uploadFile = function(file, type) {
         var reader = new FileReader();
 
         reader.onload = function(evt) {
             var fd = new FormData();
-            fd.append('biblioPdf', file);
+            fd.append(type, file);
 
             $http.post("../server/upload.php", fd, {
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
             })
             .success(function(link){
-                $scope.pdfLinkovi.push(link);
+                if(type == "biblioPdf"){
+                    $scope.pdfLinkovi.push(link);
+                }
+                else if(type == "photo"){
+                    $scope.photoLinkovi.push(link);
+                }
             })
             .error(function(error){
                 console.error(error);
@@ -341,8 +348,15 @@ $scope.proveri_jedinstvenost = function(){
 
     $scope.handlePdfUpload = function(files){
         for(var i = 0; i < files.length; i++){
-            uploadPdf(files[i]);
+            uploadFile(files[i], "biblioPdf");
         }
     };
+
+    $scope.handlePhotoUpload = function(files){
+        for(var i = 0; i < files.length; i++){
+            uploadFile(files[i], "photo");
+        }
+    };
+
 }]);
 console.info("Inicijalizovan unosController");
