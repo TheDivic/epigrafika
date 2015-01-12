@@ -33,7 +33,7 @@ angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http
     $scope.komentar=null;
     $scope.fotografije=null;
     $scope.fazaUnosa=null;
-    $scope.greska="";
+    $scope.greska=false;
     $scope.provincije= null;
     $scope.drzave=null;
     $scope.gradovi=null;
@@ -269,10 +269,10 @@ $scope.proveri_jedinstvenost = function(){
     success(function(data, status, headers, config){
         if(data!=="null"){
          if(data.isEmpty==false){
-            $scope.greska = "<span class='glyphicon glyphicon-remove'></span>"+$scope.tr.greska_jedinstvena_oznaka;
+            $scope.greska = true;
         }
         else 
-            $scope.greska="";
+            $scope.greska=false;
     }
 }).
     error(function(data, status, headers, config){

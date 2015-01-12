@@ -25,11 +25,12 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-offset-2 col-sm-12">
-					<span ng-show="formUnos.oznaka.$dirty && (formUnos.oznaka.$error.required||formUnos.oznaka.$error.pattern||formUnos.oznaka.$error.maxlenght)">
+					<span class="text-transparent" ng-class="{textred:formUnos.oznaka.$dirty && (formUnos.oznaka.$error.required||formUnos.oznaka.$error.pattern||formUnos.oznaka.$error.maxlenght)}">
 						{{tr.oznaka_error_length}} {{tr.format_error_slova_cifre}} {{tr.obavezno_polje}}
-					</span>
-					<span>
-					{{greska}}
+                                        </span>
+					<span class="text-transparent" ng-class="{textred:greska}">
+					<span class='glyphicon glyphicon-remove'></span> 
+                                        {{tr.greska_jedinstvena_oznaka}}
 					</span>	
 				</div>
 			</div>

@@ -86,7 +86,7 @@
 "mapa":"Map",
 "rezultati_pretrage":"Search results",
 "format_error_slova_cifre_tacka":"Only letters, digits, spaces and dots are allowed!",
-"greska_jedinstvena_oznaka":"This label already exists in database. Choose another one!",
+"greska_jedinstvena_oznaka":"This label already exists in database!",
 "greska_jedinstven_username":"This username is taken!",
 "format_error_slova_cifre":"Only letters and digits are allowed!",
 "razlicite_sifre":"Passwords are not the same",
