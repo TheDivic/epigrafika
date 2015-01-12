@@ -5,7 +5,7 @@
  * Date: 1/10/2015
  * Time: 1:09 PM
  */
-//include 'konekcija.php';
+include 'konekcija.php';
 
 class selektovanje {
 

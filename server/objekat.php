@@ -19,10 +19,8 @@ try
         {
             //Standardna pretraga po nekim kljucnim recima
             $sl = selektovanje::getSelektor();
-             $data = $_GET['podaci'];
-            $result->data = $data;
-            //$result->data = $sl->selektuj($data);
-
+            $data = file_get_contents('php://input');
+            $result->data = $sl->selektuj($data);
 
         }
         else if($_GET['type'] === 'byLocation')
