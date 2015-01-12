@@ -91,15 +91,17 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
 	var jsonData = angular.toJson(formData);
 	alert(jsonData);
 	 
-	$http.get('../server/objekat.php?podaci='+jsonData, {responseType: 'JSON'}).
+	$http.get('../server/objekat.php?type=search&podaci="'+jsonData+'"', {responseType: 'JSON'}).
         success(function(data, status, headers, config){
             if(data!=="null"){
+                alert("ovde udje" +  data.ulazniPodaci);
                 $scope.rezultatPretrage=data.data;
                 alert(data.data);
             }
+            else alert("null");
         }).
         error(function(data, status, headers, config){
-
+                alert("Errorcina");
         });
 
 	$scope.natpis=null;

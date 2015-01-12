@@ -19,7 +19,8 @@ try
         {
             //Standardna pretraga po nekim kljucnim recima
             $sl = selektovanje::getSelektor();
-            $data = file_get_contents('php://input');
+            $data = $_GET['podaci'];
+            $result->ulazniPodaci = $data;
             $result->data = $sl->selektuj($data);
 
         }
