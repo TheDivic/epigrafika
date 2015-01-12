@@ -89,13 +89,14 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
 		    sortiranje: $scope.sortiranje
 	 }
 	var jsonData = angular.toJson(formData);
-	alert(jsonData);
+	//alert(jsonData);
 	 
 	$http.get('../server/objekat.php?type=search&podaci='+jsonData, {responseType: 'JSON'}).
         success(function(data, status, headers, config){
             if(data!=="null"){
-                $scope.rezultatPretrage=data;
-                alert(data);
+                //alert(data.ulazni_podaci);
+                $scope.rezultatPretrage=data.data;
+                alert(data.data);
             }
         }).
         error(function(data, status, headers, config){
