@@ -13,7 +13,9 @@ function unesi($data, $db){
     $data = json_decode($data);
 
     $oznaka = $data->oznaka;
+    $oznaka=mysql_real_escape_string($oznaka);
     $natpis = $data->natpis;
+    $natpis=mysql_real_escape_string($natpis);
 
     /*dobijamo ime jezika pa spajamo sa bazom da bismo dobili id */
     $jezikUpisa = $data->jezikUpisa;
@@ -71,9 +73,9 @@ function unesi($data, $db){
 
         // ovo nece proci jer su provincija, grad i mesto strani kljucevi i not null su....
 
-        $provincija = 0;
-        $grad = 0;
-        $mestoNalaska = 0;
+        $provincija = -1;
+        $grad = -1;
+        $mestoNalaska = -1;
 
     }
 
@@ -99,6 +101,7 @@ function unesi($data, $db){
 //        echo "<br>Id modernog mesta: ".$o[0][0];
 
     $trenutnaLokacijaZnamenitosti = $data->trenutnaLokacijaZnamenitosti;
+    $trenutnaLokacijaZnamenitosti=mysql_real_escape_string($trenutnaLokacijaZnamenitosti);
 
     $query="SELECT count(*) FROM `ustanova` WHERE naziv=:trenutnaLokacijaZnamenitosti";
     $stmt = $db->prepare($query);
@@ -134,6 +137,7 @@ function unesi($data, $db){
 
 //Potrebno je odrediti id plemena
     $pleme = $data->pleme;
+    $pleme=mysql_real_escape_string($pleme);
 
     $query="SELECT count(*) FROM `pleme` WHERE naziv=:pleme";
     $stmt = $db->prepare($query);
@@ -226,6 +230,10 @@ function unesi($data, $db){
     $tip = $data->tipZnamenitosti;
     $materijal = $data->materijalZnamenitosti;
     $komentar = $data->komentar;
+
+    $tip=mysql_real_escape_string($tip);
+    $materijal=mysql_real_escape_string($materijal);
+    $komentar=mysql_real_escape_string($komentar);
 
     //dimenzije objekta, trenutno nemamo format, prepraviti
     $dimenzije = $data->sirina;

@@ -119,7 +119,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mydb`.`Ustanova` ;
 
 CREATE  TABLE IF NOT EXISTS `mydb`.`Ustanova` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `naziv` VARCHAR(45) NOT NULL ,
   `modernoMesto` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
@@ -536,24 +536,6 @@ USE `mydb` ;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
