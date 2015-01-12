@@ -44,25 +44,21 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
     $scope.obrisi=function($korisnickoIme){
 		if($window.confirm('Da li ste sigurni?')) {
 		$http.delete('../server/korisnik.php?korisnickoIme="'+$korisnickoIme+'"')
-        .success(function (data, status, headers, config)
-        {	
-			$window.location.reload();
-            $window.alert(data.poruka);
-			
-        })
-        .error(function (data, status, headers, config)
-        {
+                .success(function (data, status, headers, config)
+                {	
+                    $window.location.reload();
+                    $window.alert(data.poruka);
+                })
+                .error(function (data, status, headers, config)
+                {
           
-        });
+                });
         
-      } else {
-      }
-        
-		
-    }
+                } else { }
+    };
 	//unos novog korisnika
 	$scope.submit=function(){
-	var formData = {
+            var formData = {
                 ime : $scope.ime,
                 prezime : $scope.prezime,
                 email : $scope.email,
@@ -70,8 +66,8 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
                 username : $scope.user,
                 password : $scope.pwd,
                 info : $scope.info,
-				status: $scope.status,
-				mod: $scope.mod
+		status: $scope.status,
+		mod: $scope.mod
             };
             
             var jsonData = angular.toJson(formData);
@@ -85,8 +81,8 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
                     if(data.error_status === false)
                         alert("Doslo je do greske pri registraciji.");
                     else{
-						$window.location.reload();
-						alert("Uspesno ste uneli korisnika.");
+			$window.location.reload();
+			alert("Uspesno ste uneli korisnika.");
                      }  
             }).
             error(function(data, status, headers, config){
@@ -126,14 +122,13 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
 		};
 		var data = angular.toJson(params);
 		console.log(data);
-		$http.put('../server/korisnik.php', data )
+	$http.put('../server/korisnik.php', data )
 	.success(function (data, status, headers, config)
 	{
             if(data.error_status==false){
                 $window.alert("Azuriran je");
-				$window.location.href="korisnici.php";
-				
-				}
+		$window.location.href="korisnici.php";
+			}
 	    else
                 console.log(data);
 	})
