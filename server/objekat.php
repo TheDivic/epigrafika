@@ -1,6 +1,7 @@
 <?php
 include 'konekcija.php';
 include 'dodavanje.php';
+include 'azuriranje.php';
 
 $result = new stdClass();
 try
@@ -61,6 +62,13 @@ try
     {
         //Azuriranje
         //Admin only?
+        $data = file_get_contents('php://input');
+        try {
+            $result = azuriraj($data, $db);
+        }catch (Exception $e){
+            $result = $e->getMessage();
+        }
+
     }
     else if ($method === 'DELETE')
     {

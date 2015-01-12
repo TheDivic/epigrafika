@@ -3,15 +3,15 @@
  * Created by PhpStorm.
  * User: Stefan
  * Date: 1/11/2015
- * Time: 7:01 PM
+ * Time: 11:10 PM
  */
-
-function unesi($data, $db){
+function azuriraj($data, $db){
 
 //    $db=konekcija::getConnectionInstance();
 
     $data = json_decode($data);
 
+    $id = $data->id;
     $oznaka = $data->oznaka;
     $natpis = $data->natpis;
 
@@ -233,6 +233,7 @@ function unesi($data, $db){
     $dimenzije.=$data->visina;
     $dimenzije.= ':';
     $dimenzije.=$data->duzina;
+
     $korisnickoIme=$data->korisnickoIme;
 
 
@@ -243,26 +244,27 @@ function unesi($data, $db){
 //         $grad, $mestoNalaska, $modernoImeDrzave,$modernoMesto, $tip, $materijal, $dimenzije, $komentar, $datumKreiranja,
 //         $datumPoslednjeIzmene, $fazaUnosa, $pleme, $trenutnaLokacijaZnamenitosti, 'Mirko')";
 //
-    $query="INSERT INTO objekat(oznaka, jezik, tekstNatpisa, vrstaNatpisa, provincija,
-        grad, mesto, modernaDrzava,modernoMesto, tip, materijal, dimenzije, komentar, datumKreiranja,
-        datumPoslednjeIzmene, faza, pleme, ustanova, korisnickoIme, lokalizovano, datovano,
-        pocetakGodina, pocetakVek, pocetakOdrednica, krajGodina, krajVek, krajOdrednica)
-         VALUES (:oznaka, :jezikUpisa, :natpis, :vrstaNatpisa, :provincija,
-         :grad, :mestoNalaska, :modernoImeDrzave,:modernoMesto, :tip, :materijal, :dimenzije, :komentar, :datumKreiranja,
-         :datumPoslednjeIzmene, :fazaUnosa, :pleme, :trenutnaLokacijaZnamenitosti, :korisnickoIme, :lokalizovanPodatak,
-         :datovano, :pocetakGodina, :pocetakVek, :pocetakOdrednica, :krajGodina, :krajVek, :krajOdrednica)";
+    $query="UPDATE objekat set oznaka = :oznaka, jezik = :jezikUpisa, tekstNatpisa = :natpis, vrstaNatpisa = :vrstaNatpisa,
+        provincija = :provincija, grad = :grad, mesto = :mestoNalaska, modernaDrzava = :modernoImeDrzave,
+        modernoMesto = :modernoMesto, tip = :tip, materijal = :materijal, dimenzije = :dimenzije, komentar = :komentar,
+         datumKreiranja = :datumKreiranja,datumPoslednjeIzmene = :datumPoslednjeIzmene, faza = :fazaUnosa, pleme = :pleme,
+          ustanova = :trenutnaLokacijaZnamenitosti, korisnickoIme = :korisnickoIme, lokalizovano = :LokalizovanPodatak,
+           datovano = :datovano, pocetakGodina = :pocetakGodina, pocetakVek = :pocetakVek, pocetakOdrednica = :pocetakOdrednica,
+            krajGodina = :krajGodina, krajVek = :krajVek, krajOdrednica = :krajOdrednica
+           where id = :id";
+
 //    $sth->execute(array(':calories' => $calories, ':colour' => $colour));
 
 
 
     $stmt = $db->prepare($query);
-    $returnValue = $stmt->execute(array(':oznaka' => $oznaka, ':jezikUpisa' => $jezikUpisa, ':natpis' => $natpis, ':vrstaNatpisa' => $vrstaNatpisa,
+    $returnValue = $stmt->execute(array(':id'=>$id, ':oznaka' => $oznaka, ':jezikUpisa' => $jezikUpisa, ':natpis' => $natpis, ':vrstaNatpisa' => $vrstaNatpisa,
         ':provincija' => $provincija, ':grad' => $grad, ':mestoNalaska' => $mestoNalaska, ':modernoImeDrzave' => $modernoImeDrzave,
         ':modernoMesto' => $modernoMesto, ':tip' => $tip, ':materijal' => $materijal, ':dimenzije' => $dimenzije, ':komentar' => $komentar,
         ':datumKreiranja' => $datumKreiranja, ':datumPoslednjeIzmene' => $datumPoslednjeIzmene, ':fazaUnosa' => $fazaUnosa, ':pleme' => $pleme,
-        ':trenutnaLokacijaZnamenitosti'=>$trenutnaLokacijaZnamenitosti, ':korisnickoIme' => $korisnickoIme, ':lokalizovanPodatak'=>$lokalizovanPodatak,
+        ':trenutnaLokacijaZnamenitosti'=>$trenutnaLokacijaZnamenitosti, ':korisnickoIme' => $korisnickoIme, ':LokalizovanPodatak'=>$lokalizovanPodatak,
         ':datovano' => $datovano, ':pocetakGodina' => $pocetakGodina, ':pocetakVek' => $pocetakVek, ':pocetakOdrednica' => $pocetakOdrednica,
-        ':krajGodina' => $krajGodina, ':krajVek' => $krajVek, ':krajOdrednica' => $krajOdrednica));
+        ':krajGodina' => $krajGodina, ':krajVek' => $krajVek, ':krajOdrednica' => $krajOdrednica ));
 
     return $returnValue;
 
