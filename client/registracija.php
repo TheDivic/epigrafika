@@ -11,21 +11,27 @@
 		<form class="form" name="registrationForm" method="get" action="">
 			<div class="row">
 				<div class="col-sm-6">
-					<div  class="col-sm-6">
-						<label for="ime" class="control-label">{{tr.ime}}: <span style="color:red">*</span></label>
-						<input type="text" name="ime" ng-model="ime" class="form-control" id="ime" ng-required="true" placeholder={{tr.pera_peric}} />
-						<span class="text-transparent" ng-class="{textred:registrationForm.ime.$error.required && registrationForm.ime.$dirty}">
-							{{tr.obavezno_polje}}
-						</span>
+					<div class="row">
+						<div class="col-sm-6">
+							<div class= "form-group">
+								<label for="ime" class="control-label">{{tr.ime}}: <span style="color:red">*</span></label>
+								<input type="text" name="ime" ng-model="ime" class="form-control" id="ime" ng-required="true" placeholder={{tr.pera}} />
+								<span class="text-transparent" ng-class="{textred:registrationForm.ime.$error.required && registrationForm.ime.$dirty}">
+									{{tr.obavezno_polje}}
+								</span>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label for="prezime" class="control-label">{{tr.prezime}}: <span style="color:red">*</span></label>
+								<input type="text" name="prezime" ng-model="prezime" class="form-control" id="prezime" ng-required="true" placeholder={{tr.peric}} />
+								<span class="text-transparent" ng-class="{textred:registrationForm.prezime.$error.required && registrationForm.prezime.$dirty}">
+									{{tr.obavezno_polje}}
+								</span>
+							</div>
+						</div>
 					</div>
-                                        <div  class="col-sm-6">
-						<label for="prezime" class="control-label">{{tr.prezime}}: <span style="color:red">*</span></label>
-						<input type="text" name="prezime" ng-model="prezime" class="form-control" id="prezime" ng-required="true" placeholder={{tr.pera_peric}} />
-						<span class="text-transparent" ng-class="{textred:registrationForm.prezime.$error.required && registrationForm.prezime.$dirty}">
-							{{tr.obavezno_polje}}
-						</span>
-					</div> 
-					<div class="form-group">
+					<div class="form-group clearfix">
 						<label for="email" class="control-label">Email:<span style="color:red">*</span></label>
 						<input type="email" ng-model="email" name="email" ng-required="true" class="form-control" id="email" placeholder="primer@email.com">
 						<span span class="text-transparent" ng-class="{textred: registrationForm.email.$dirty &&(registrationForm.email.$error.required || registrationForm.email.$error.email)}">
@@ -46,7 +52,10 @@
 						<input type="text" name="user" ng-model="user" ng-change="jedinstven()"ng-pattern="/^[A-Za-z0-9_-]{3,20}$/" ng-required="true" class="form-control" id="user" placeholder={{tr.korisnicko_max}}>
 						<span class="text-transparent" ng-class="{textred:registrationForm.user.$dirty && (registrationForm.user.$error.required || registrationForm.user.$error.pattern)}">
 							{{tr.obavezno_polje}} {{tr.dozvoljeni}} 
-						</span><span ng-show="greska" style="color:red" class="glyphicon glyphicon-remove">{{tr.greska_jedinstven_username}}</span>
+						</span>
+						<span class="text-transparent" ng-class="{textred:greska}">
+							<span style="top:2px;" class="glyphicon glyphicon-remove"></span> {{tr.greska_jedinstven_username}}
+						</span>
 					</div>
 					<div class="form-group">
 						<label for="pwd" class="control-label">{{tr.sifra}}:<span style="color:red">*</span></label>
