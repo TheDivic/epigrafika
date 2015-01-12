@@ -21,8 +21,15 @@ try
         {
             //Standardna pretraga po nekim kljucnim recima
             $sl = selektovanje::getSelektor();
-            $data = $_GET['podaci'];
-            $result->ulazni_podaci = $data;
+            $data1 = $_GET['podaci'];
+            $data1 = json_decode($data1);
+            $data = new stdClass();
+            foreach($data1 as $key => $value)
+            {
+                if($value != null)
+                    $data->$key = $value;
+            }
+            //$result->ulazni_podaci = $data;
             $result->data = $sl->selektuj($data);
             
 
