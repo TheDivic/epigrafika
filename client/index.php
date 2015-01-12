@@ -39,7 +39,7 @@
 							<label for="oznaka" class="control-label">{{ tr.oznaka }}<span style="color:red">*</span>: </label>
 						</div>
 						<div class="col-sm-9">
-							<input class="form-control" id="oznaka" type="text" name="oznaka" ng-maxlength="15" ng-model="oznaka" ng-pattern="/^[a-zA-Z0-9]+$/" ng-required='true' required/>  
+							<input class="form-control" id="oznaka" type="text" name="oznaka" ng-maxlength="15" ng-model="oznaka" ng-pattern="/^[a-zA-Z0-9]+$/" ng-required='true'/>  
 							<span class="text-transparent" ng-class="{textred:(formPretraga.oznaka.$error.required ||formPretraga.oznaka.$error.maxlength||formPretraga.oznaka.$error.pattern) && formPretraga.oznaka.$dirty}">
 								{{tr.obavezno_polje}}  {{ tr.oznaka_error_length }}{{tr.format_error_slova_cifre}}
 							</span>

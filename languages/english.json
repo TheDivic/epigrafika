@@ -89,6 +89,8 @@
 "greska_jedinstven_username":"This username is taken!",
 "format_error_slova_cifre":"Only letters and digits are allowed!",
 "razlicite_sifre":"Passwords are not the same",
-"dodaj_pdf":"Add pdfs"
+"dodaj_pdf":"Add pdfs",
+"zaboravili_sifru": "Forgotten your password?",
+"posalji_email":"Send password on your email address"
 
 }

@@ -100,8 +100,23 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
 
         });
 
-        //var myResetBtn = document.getElementById('reset');
-        //angular.element(myResetBtn).triggerHandler('click');
+        $scope.oznaka=null;
+	$scope.natpis=null;
+	$scope.natpis2=null;
+	$scope.natpisArg='prazno';
+	$scope.rezimIgnorisanjaZagrada=false;
+	$scope.provincijaNalaska=null;
+	$scope.gradNalaska=null;
+	$scope.mestoNalaska=null;
+	$scope.prikaziNelokalizovanePodatke=false;
+	$scope.modernoImeDrzave=null;
+	$scope.modernoMesto=null;
+	$scope.pleme=null;
+        $scope.vek=null;
+	$scope.periodVeka=null;
+	$scope.prikaziNedatovaneNatpise=false;
+	$scope.sortiranje='poVremenu';
+	$scope.prikazi=true;
 	};
 
     $scope.autocompleteNatpis = function() {
