@@ -19,7 +19,7 @@
 			<a id="tab-btn-mapa" href="#mapa" data-toggle="tab">{{tr.mapa}} </a>
         </li>
 		 <li  class="nav navbar-right search_hide"> 
-			<span ng-click="prikazi=!prikazi" ng-show="prikazi"> {{tr.sakrij}} &nbsp; <b class="caret-up"></b></span><span ng-click="prikazi=!prikazi" ng-hide="prikazi"> {{tr.prikazi}} &nbsp; <b class="caret"></b></span>
+                     <span ng-click="prikazi=!prikazi" ng-show="prikazi"> {{tr.sakrij}} &nbsp; <b class="caret-up"></b></span><span ng-click="prikazi=!prikazi" ng-hide="prikazi"> {{tr.prikazi}} &nbsp; <b class="caret"></b></span>
 		</li>
     </ul>
 
@@ -27,11 +27,12 @@
 	<div id="myTabContent" class="tab-content ">
 		<!--Pretraga tab -->
         <div class="tab-pane fade in active col-sm-12" id="pretraga" >
+			
+			<form class="form-horizontal" action=""  name='formPretraga'  id="myForm" method="post" enctype='multipart/form-data' ng-show="prikazi" >
 			<div class="row">
 				<h1> {{tr.pretraga}}</h1>
 			</div>
-			<form class="form-horizontal" action=""  name='formPretraga'  id="myForm" method="post" enctype='multipart/form-data' ng-show="prikazi" >
-			<div class="fieldset_border">
+                        <div class="fieldset_border">
 				<fieldset>
 					<legend> {{ tr.osnovne_informacije }} </legend>
 					<div class="row">
@@ -216,7 +217,7 @@
 					 <button type="submit" class="btn btn-success btn-block" ng-class="{'disabled':!formPretraga.$valid}" ng-click="posalji_podatke()" ng-enabled='formPretraga.$valid'> {{tr.zapocni_pretragu}}  </button>
 				</div>
 				<div class="col-sm-4 ">
-					<button type="reset" class="btn btn-primary btn-block">{{tr.resetuj_podatke}}</button>
+					<button type="reset" id="reset" class="btn btn-primary btn-block">{{tr.resetuj_podatke}}</button>
 				</div>
 			</div>
  

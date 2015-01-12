@@ -93,14 +93,15 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
 	 
 	$http.get('../server/objekat.php?podaci='+jsonData, {responseType: 'JSON'}).
         success(function(data, status, headers, config){
-            if(data!=="null")
+            if(data!=="null"){
                 $scope.rezultatPretrage=data.data;
+                alert(data.data);
+            }
         }).
         error(function(data, status, headers, config){
 
         });
 
-        $scope.oznaka=null;
 	$scope.natpis=null;
 	$scope.natpis2=null;
 	$scope.natpisArg='prazno';
@@ -117,6 +118,9 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
 	$scope.prikaziNedatovaneNatpise=false;
 	$scope.sortiranje='poVremenu';
 	$scope.prikazi=true;
+        document.getElementById('reset').click();
+        $scope.prikazi=false;
+        
 	};
 
     $scope.autocompleteNatpis = function() {
