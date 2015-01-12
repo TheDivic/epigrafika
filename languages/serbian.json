@@ -88,5 +88,8 @@
 "greska_jedinstven_username":"Korsnicko ime je zauzeto!",
 "format_error_slova_cifre":"Dozvoljena su samo mala, velika slova i cifre!",
 "razlicite_sifre":"Šifre se ne poklapaju",
-"dodaj_pdf":"Dodaj pdf-ove"
+"dodaj_pdf":"Dodaj pdf-ove",
+"broj_rezultata":"Broj rezultata po strani",
+"max_foto":"Maksimalan broj fotografija",
+"max_bibl":"Broj dokumenata uz bibliografski podatak"
 }
