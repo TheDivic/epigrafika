@@ -74,7 +74,7 @@
 						</div>
 					</div>
 				</fieldset>
-			</div>
+			</div> <br/>
 			<div class="fieldset_border">
 				<fieldset>
 					 <legend> {{ tr.izvorno_mesto_nastanka }} </legend>
@@ -166,7 +166,7 @@
 						</div>
 					</div>
 				</fieldset>
-			</div>
+			</div> <br/>
 			<div class="fieldset_border">
 				 <fieldset>
 					<legend> {{tr.vreme}} </legend>
@@ -193,7 +193,7 @@
 							</div>
 						</div>
 				</fieldset>
-			</div>
+			</div> <br/>
 			<div class="fieldset_border">
 				<fieldset>
 					<legend> {{tr.sortiraj_rezultate_po}} </legend>
@@ -209,7 +209,6 @@
 						</div>
 					</div>
 				</fieldset>
-			
 			</div>
 			<br/>
 			<div class="row">
@@ -217,7 +216,7 @@
 					 <button type="submit" class="btn btn-success btn-block" ng-class="{'disabled':!formPretraga.$valid}" ng-click="posalji_podatke()" ng-enabled='formPretraga.$valid'> {{tr.zapocni_pretragu}}  </button>
 				</div>
 				<div class="col-sm-4 ">
-					<button type="reset" id="reset" class="btn btn-primary btn-block">{{tr.resetuj_podatke}}</button>
+					<button type="reset" class="btn btn-primary btn-block">{{tr.resetuj_podatke}}</button>
 				</div>
 			</div>
  
@@ -241,7 +240,6 @@
                     <button type="button" class="btn btn-success btn-block" ng-click="radiusSearch()">{{tr.zapocni_pretragu}}</button>
                   </div>
                 </div>
-                <p>{{tr.rezultati_pretrage}}: {{found}}</p>
 			</div>
         </div>
 	
