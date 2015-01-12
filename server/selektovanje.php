@@ -195,8 +195,11 @@ class selektovanje {
         $od2 = $this->vreme($data); // // u where dodajemo restrikcije o vremenu
         $Tvreme = $od2->str;
 
-        $upit = "select Toznaka.*".
-            ", TmodernoImeDrzave.*". ", TmodernoMesto.*, Tpleme.*".
+        $upit = "select Toznaka.oznaka, Toznaka.tekstNatpisa AS natpis" .
+            ", TprovincijaNalaska.naziv AS provincijaNalaska , TgradNalaska.naziv AS gradNalaska, Mesto.naziv AS mestoNalaska ".       //provincija, grad i mesto
+
+            ", TmodernoImeDrzave.naziv AS modernoImeDrzave ". //moderno ime drzave i
+            //", TmodernoImeDrzave.*". ", TmodernoMesto.*, Tpleme.*".
             " FROM ".
             $Toznaka .
             " JOIN ".$TprovincijaNalaska. " ON Toznaka.provincija = TprovincijaNalaska.id " .
@@ -341,12 +344,13 @@ class selektovanje {
 
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        echo json_encode( $stmt->fetchAll());
+        //return json_encode( $stmt->fetchAll());
+        return $stmt->fetchAll();
     }
 
 }
 //$sl = new selektovanje();
-
+/*
 $a =  new stdClass();
 $a->oznaka = 'O(1]';
 $a->provincijaNalaska = 'Thracia[';
@@ -370,5 +374,5 @@ $a->rezimIgnorisanjaZagrada = true;
 
 $sl = selektovanje::getSelektor();
 $sl->selektuj($a);
-
+*/
 ?>

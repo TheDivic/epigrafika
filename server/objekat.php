@@ -2,6 +2,7 @@
 include 'konekcija.php';
 include 'dodavanje.php';
 include 'azuriranje.php';
+include 'selektovanje.php';
 
 $result = new stdClass();
 try
@@ -17,6 +18,10 @@ try
         if($_GET['type'] === 'search')
         {
             //Standardna pretraga po nekim kljucnim recima
+            $sl = selektovanje::getSelektor();
+            $data = file_get_contents('php://input');
+            $result->data = $sl->selektuj($data);
+
         }
         else if($_GET['type'] === 'byLocation')
         {	
