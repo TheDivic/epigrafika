@@ -317,19 +317,24 @@ $scope.proveri_jedinstvenost = function(){
     };
 
 
-    var uploadPdf = function(file) {
+    var uploadFile = function(file, type) {
         var reader = new FileReader();
 
         reader.onload = function(evt) {
             var fd = new FormData();
-            fd.append('biblioPdf', file);
+            fd.append(type, file);
 
             $http.post("../server/upload.php", fd, {
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
             })
             .success(function(link){
-                $scope.pdfLinkovi.push(link);
+                if(type == "biblioPdf"){
+                    $scope.pdfLinkovi.push(link);
+                }
+                else if(type == "photo"){
+                    $scope.photoLinkovi.push(link);
+                }
             })
             .error(function(error){
                 console.error(error);
@@ -341,7 +346,7 @@ $scope.proveri_jedinstvenost = function(){
 
     $scope.handlePdfUpload = function(files){
         for(var i = 0; i < files.length; i++){
-            uploadPdf(files[i]);
+            uploadFile(files[i], "biblioPdf");
         }
     };
 }]);
