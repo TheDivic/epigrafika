@@ -1,9 +1,9 @@
 <?php include 'header.php'; ?>
 
 <!-- ucitavanje kontrolera -->
-<script src="static/scripts/zaboravljenaSifra.js"></script>
+<script src="static/scripts/zaboravljena.js"></script>
 
-<div class="container text-center" style="margin: 100px; ">
+<div class="container text-center" style="margin: 100px; " ng-controller='zaboravljenaSifraController' ng-cloak>
     <h1>{{tr.zaboravili_sifru}} </h1>
     <form name='formSifra' style="margin: 30px; ">
     <div class="form-group col-sm-6 col-sm-offset-3" >
