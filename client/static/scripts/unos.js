@@ -239,8 +239,9 @@ $scope.posalji_podatke=function(){
      duzina : $scope.duzina,
      bibliografskoPoreklo: $scope.bibliografskoPoreklo,
      bibliografskoPorekloSkracenica: $scope.bibliografskoPorekloSkracenica,
+     bibliografskiPdfLinkovi : $scope.pdfLinkovi,
      komentar: $scope.komentar,
-     fotografije: $scope.fotografije,
+     fotografije: $scope.photoLinkovi,
      fazaUnosa:$scope.fazaUnosa,
      korisnickoIme:$scope.korisnik
  };
