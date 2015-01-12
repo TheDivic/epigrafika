@@ -249,7 +249,7 @@
 				<label for="bibl" class="col-sm-2 control-label">{{tr.dodaj_pdf}}:</label>
 				<div class="col-sm-8">
                                     <input type="file" id="bibl" accept="application/pdf"  name="bibl" multiple onchange="angular.element(this).scope().handlePdfUpload(this.files)"  />
-                                    <span ng-repeat="pdf in pdfLinkovi"> {{ pdf }} </span>
+                                    <span ng-repeat="pdf in pdfLinkovi"> {{ pdf }} ;</span>
                                 </div>
 			</div>
 			<div class="row form-group">
@@ -265,7 +265,8 @@
 			<div class="row form-group">
 				<label for="foto" class="col-sm-2 control-label">{{tr.dodaj_fotografiju}}:</label>
 				<div class="col-sm-8">
-					<input type="file" id="foto" accept="image/*"  name="foto" ng-model="foto" multiple /> TODO
+					<input type="file" id="foto" accept="image/*"  name="foto" multiple onchange="angular.element(this).scope().handlePhotoUpload(this.files)" />
+					<span ng-repeat="photo in photoLinkovi"> {{ photo }} ;</span>
 				</div>
 			</div>
 			<div class="row form-group">

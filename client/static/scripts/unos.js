@@ -41,6 +41,7 @@ angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http
     $scope.mesta=null;
     $scope.korisnik=$cookies.user;
     $scope.pdfLinkovi = [];
+    $scope.photoLinkovi = [];
 
     function izracunajVek(godina){
       if(godina < 100)
@@ -349,5 +350,12 @@ $scope.proveri_jedinstvenost = function(){
             uploadFile(files[i], "biblioPdf");
         }
     };
+
+    $scope.handlePhotoUpload = function(files){
+        for(var i = 0; i < files.length; i++){
+            uploadFile(files[i], "photo");
+        }
+    };
+
 }]);
 console.info("Inicijalizovan unosController");
