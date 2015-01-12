@@ -23,7 +23,7 @@ try
 					$result->isEmpty = false;
 
 		}
-		if($_GET['type'] === 'login'){
+		else if($_GET['type'] === 'login'){
 				$ime = $_GET['user']; 
 				$sifra=$_GET['pass'];
 				$query = $db->prepare("select * from mydb.korisnik where korisnickoIme=$ime and sifra=$sifra" );
@@ -36,7 +36,31 @@ try
 					$result->isEmpty = false;
 
 		}
-    }
+            }
+            else if($_GET['type'] === 'zaboravljenaSifra'){
+                    //TO DO - SLANJE MAILA na email korisnika sa sifrom.
+                    $ime = $_GET['user']; 
+                    $query = $db->prepare("select * from mydb.korisnik where korisnickoIme=$ime" );
+                    $query->execute();
+                    $result->error_status = false;
+                    $data = $query->fetch(PDO::FETCH_OBJ);
+                    if($data === NULL){
+                        $result->message = "ne postoji korisnicko ime.";
+                    }
+                    else{
+			$result->message = "Poslat mail na adresu.";
+                    }
+                    
+                    $email = $data->email;
+                    
+                    $headers = "From: noreply@example.com\r\nReply-To: noreply@example.com\r\nX-Mailer: PHP/".phpversion();
+                        if(mail($email, "Subjekat", "Neki tekst neke poruke", $headers)){
+                            echo "Success";
+                        }
+                        else {
+                            echo "Fail!";
+                        }
+                }
 	
 }
 if($method === 'POST')
