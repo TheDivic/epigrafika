@@ -12,7 +12,7 @@ class Konekcija extends PDO
 
     public static function getConnectionInstance(){
         if(self::$db==null){
-            self::$db = new PDO('mysql:dbname=mydb; host=localhost', 'root', 'sk84life',
+            self::$db = new PDO('mysql:dbname=mydb; host=localhost', 'root', '',
                 array(PDO::ATTR_PERSISTENT => true, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         }
         return self::$db;
