@@ -199,6 +199,12 @@ class selektovanje {
             ", TprovincijaNalaska.naziv AS provincijaNalaska , TgradNalaska.naziv AS gradNalaska, Mesto.naziv AS mestoNalaska ".       //provincija, grad i mesto
 
             ", TmodernoImeDrzave.naziv AS modernoImeDrzave ". //moderno ime drzave i
+            ", vrstaNatpisa.naziv AS vrstaNatpisa ".
+            ", jezik.naziv AS jezik  ".
+            " , Toznaka.tip, Toznaka.materijal, Toznaka.dimenzije  ".   //grupa tip spomenika
+            " , Toznaka.komentar  ".
+            " , Ustanova.naziv AS ustanova, TmodernoMesto.naziv AS modernoMesto  ". //trenutnaLokacijaZnamenitosti
+            " , Toznaka.pocetakGodina, Toznaka.pocetakVek, Toznaka.pocetakOdrednica , Toznaka.krajGodina, Toznaka.krajVek, Toznaka.krajOdrednica ".
             //", TmodernoImeDrzave.*". ", TmodernoMesto.*, Tpleme.*".
             " FROM ".
             $Toznaka .
@@ -209,6 +215,10 @@ class selektovanje {
             " JOIN ".$Tpleme. " ON Toznaka.pleme = Tpleme.id ".
             " LEFT JOIN Mesto ON Toznaka.mesto = Mesto.id "
             //" JOIN ".$TmestoNalaska. " ON Toznaka.id = TmestoNalaska.id"
+            ." LEFT JOIN vrstaNatpisa ON Toznaka.vrstaNatpisa = vrstaNatpisa.id "
+            ." LEFT JOIN jezik ON Toznaka.jezik = jezik.id "
+            . " LEFT JOIN ustanova on Toznaka.ustanova = Ustanova.id"
+            . " "
             .$TmestoNalaska
             .$Tnatpis
             .$Tvreme
@@ -373,6 +383,7 @@ $a->periodVeka = 'drugaPolovina';
 $a->rezimIgnorisanjaZagrada = true;
 
 $sl = selektovanje::getSelektor();
-$sl->selektuj($a);
+$odg = $sl->selektuj($a);
+echo json_encode($odg);
 */
 ?>
