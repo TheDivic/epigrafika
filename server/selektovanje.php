@@ -153,7 +153,32 @@ class selektovanje {
         }
         return $od2;
     }
+    public function sortiranje($data)
+    {
+        $podupit = '';
+        if(!property_exists($data, 'sortiranje'))
+            return ' ';
 
+        if (strcasecmp($data->sortiranje, 'poVremenu') == 0)
+        {
+            return ' ORDER BY Toznaka.pocetakVek, Toznaka.pocetakOdrednica DESC, Toznaka.pocetakGodina, Toznaka.krajVek, Toznaka.krajOdrednica DESC, Toznaka.krajGodina ';
+        }
+        else
+            if (strcasecmp($data->sortiranje, 'poMestuNalaska') == 0)
+            {
+                return ' ORDER BY Mesto.naziv ';
+            }
+            else
+                if (strcasecmp($data->sortiranje, 'poVrstiNatpisa') == 0)
+                {
+                    return ' ORDER BY vrstaNatpisa.naziv ';
+                }
+                else
+                {
+                    return ' ';
+                }
+
+    }
 
     public function vremeUString($godina, $vek, $odrednica)
     {
@@ -283,6 +308,8 @@ class selektovanje {
         $od2 = $this->vreme($data); // // u where dodajemo restrikcije o vremenu
         $Tvreme = $od2->str;
 
+        $Tsortiranje = $this->sortiranje($data);
+
         $upit = "select Toznaka.oznaka, Toznaka.tekstNatpisa AS natpis" .
             ", TprovincijaNalaska.naziv AS provincijaNalaska , TgradNalaska.naziv AS gradNalaska, Mesto.naziv AS mestoNalaska ".       //provincija, grad i mesto
 
@@ -311,6 +338,7 @@ class selektovanje {
             .$TmestoNalaska
             .$Tnatpis
             .$Tvreme
+            .$Tsortiranje
         ;
 
 
