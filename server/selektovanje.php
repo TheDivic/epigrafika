@@ -205,6 +205,7 @@ class selektovanje {
             " , Toznaka.komentar  ".
             " , Ustanova.naziv AS ustanova, TmodernoMesto.naziv AS modernoMesto  ". //trenutnaLokacijaZnamenitosti
             " , Toznaka.pocetakGodina, Toznaka.pocetakVek, Toznaka.pocetakOdrednica , Toznaka.krajGodina, Toznaka.krajVek, Toznaka.krajOdrednica ".
+            " , Toznaka.id  ".
             //", TmodernoImeDrzave.*". ", TmodernoMesto.*, Tpleme.*".
             " FROM ".
             $Toznaka .
