@@ -46,7 +46,7 @@ glavniModul.controller('rootController', ['$scope', 'getTranslation', '$cookies'
 				$scope.logged=true; $cookies.logged='logged';
 				$cookies.user=data.data[0].korisnickoIme;
 				console.log("logged");
-				if(data.data[0].mod=="admin"){
+				if(data.data[0].privilegije=="admin"){
 				$scope.admin=true; $cookies.admin='admin';
 				console.log("admin");
 				}
