@@ -124,14 +124,14 @@ INSERT INTO `mydb`.`podesavanja` (`id`, `naziv`, `tip`,`vrednost`) VALUES ('1', 
  /*objekat 2*/
 INSERT INTO `mydb`.`objekat` (`id`, `oznaka`, `tekstNatpisa`,`vrstaNatpisa`,`jezik`,`provincija`,`grad`,`mesto`,`pleme`,`modernaDrzava`,`modernoMesto`,`ustanova`,`korisnickoIme`,
 `faza`, `datumKreiranja`, `datumPoslednjeIzmene`, `datovano`, `lokalizovano`) 
-VALUES ('2','O2','Natpis','4','4','2','3','5','1','1','3','3','Mirko', 'faza1', '12-01-2015', '12-01-2015', 'true', 'true');
+VALUES ('2','O2','Natpis','4','4','2','3','5','1','1','3','3','Mirko', 'zavrsnaFaza', '12-01-2015', '12-01-2015', 'true', 'true');
 INSERT INTO `mydb`.`dodatniopis` (`id`, `objekat`) VALUES ('2', '2');
 INSERT INTO `mydb`.`bog` (`id`, `ime`) VALUES ('2', 'atina');
 INSERT INTO `mydb`.`osoba` (`id`, `name`, `praenomen`,`nomen`,`cognomen`,`agnomen`,`tribus`,`origo`) VALUES ('2','herkul','atina','alkmena','nema','nema','nema','ne');
 /*objekat 3*/
 INSERT INTO `mydb`.`objekat` (`id`, `oznaka`, `tekstNatpisa`,`vrstaNatpisa`,`jezik`,`provincija`,`grad`,`mesto`,`pleme`,`modernaDrzava`,`modernoMesto`,`ustanova`,`korisnickoIme`,
 `faza`, `datumKreiranja`, `datumPoslednjeIzmene`, `datovano`, `lokalizovano`) 
-VALUES ('3','O3','Natpis2','7','1','1','2','2','1','1','3','4','Mirko', 'faza1', '12-01-2015', '12-01-2015', 'true', 'true');
+VALUES ('3','O3','Natpis2','7','1','1','2','2','1','1','3','4','Mirko', 'zavrsnaFaza', '12-01-2015', '12-01-2015', 'true', 'true');
 INSERT INTO `mydb`.`dodatniopis` (`id`, `objekat`) VALUES ('3', '3');
 INSERT INTO `mydb`.`bog` (`id`, `ime`) VALUES ('3', 'atina');
 INSERT INTO `mydb`.`osoba` (`id`, `name`, `praenomen`,`nomen`,`cognomen`,`agnomen`,`tribus`,`origo`) VALUES ('3','herkul','atina','alkmena','nema','nema','nema','ne');
