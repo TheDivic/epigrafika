@@ -165,6 +165,17 @@ class selektovanje {
         return $vek . ". vek " . $odrednica;
 
     }
+
+    public function selektujFotografijeObjekta($idObjekta)
+    {
+        $upit = 'select * from Fotografija where objekat = :idObjekta';
+        $stmt=konekcija::getConnectionInstance()->prepare($upit);
+        $stmt->bindParam(':idObjekta', $idObjekta , PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        return  $stmt->fetchAll();
+
+    }
     public function obradiVrsta($row)
     {
         $d = new stdClass();
@@ -210,7 +221,9 @@ class selektovanje {
             $d->vreme = 'Od ' . $this->vremeUString($row['pocetakGodina'], $row['pocetakVek'], $row['pocetakOdrednica']) . ' do ' . $this->vremeUString($row['krajGodina'], $row['krajVek'], $row['krajOdrednica']);
         }
 
-        //$d->id = $row['id'];
+        //popunjavanje fotografije
+        $d->fotografije = $this->selektujFotografijeObjekta($row['id']);
+
 
         return $d;
     }
