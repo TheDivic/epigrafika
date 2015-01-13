@@ -154,6 +154,66 @@ class selektovanje {
         return $od2;
     }
 
+
+    public function vremeUString($godina, $vek, $odrednica)
+    {
+        if($godina != null)
+            return $godina;
+        if($odrednica == null)
+            return $vek . '. vek';
+
+        return $vek . ". vek " . $odrednica;
+
+    }
+    public function obradiVrsta($row)
+    {
+        $d = new stdClass();
+        $nepromenjeni = ['dimenzije', 'gradNalaska', 'id', 'jezik', 'komentar', 'materijal', 'mestoNalaska', 'modernoImeDrzave', 'natpis', 'oznaka', 'provincijaNalaska', 'tip', 'vrstaNatpisa' ];
+        foreach($row as $key => $value)
+        {
+            if(in_array($key, $nepromenjeni))
+            {
+                if($value != null)
+                    $d->$key = $value;
+                else
+                    $d->$key = 'nepoznato';
+            }
+        }
+        //trenutnaLokacijaZnamenitosti
+        if($row['ustanova'] == null)
+        {
+            if($row['modernoMesto'] == null)
+                $d->trenutnaLokacijaZnamenitosti = 'nepoznato';
+            else
+                $d->trenutnaLokacijaZnamenitosti = $row['modernoMesto'];
+        }
+        else
+        {
+            if($row['modernoMesto'] == null)
+                $d->trenutnaLokacijaZnamenitosti = $row['ustanova'];
+            else
+                $d->trenutnaLokacijaZnamenitosti = $row['modernoMesto'] . "   " . $row['ustanova'];
+        }
+
+        //postavljanje polja VREME
+        if($row['pocetakGodina'] == null && $row['pocetakVek'] == null )
+        {
+            $d->vreme = 'nepoznato';
+        }
+        else
+        if($row['krajGodina'] == null && $row['krajVek'] == null )
+        {
+            $d->vreme = $this->vremeUString($row['pocetakGodina'], $row['pocetakVek'], $row['pocetakOdrednica']);
+        }
+        else
+        {
+            $d->vreme = 'Od ' . $this->vremeUString($row['pocetakGodina'], $row['pocetakVek'], $row['pocetakOdrednica']) . ' do ' . $this->vremeUString($row['krajGodina'], $row['krajVek'], $row['krajOdrednica']);
+        }
+
+        //$d->id = $row['id'];
+
+        return $d;
+    }
     public function selektuj($data)
     {
 
@@ -356,7 +416,14 @@ class selektovanje {
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         //return json_encode( $stmt->fetchAll());
-        return $stmt->fetchAll();
+        $povratna = [];
+        while($row = $stmt->fetch())
+        {
+            $row = $this->obradiVrsta($row);
+            array_push ($povratna, $row);
+        }
+        //return $stmt->fetchAll();
+        return $povratna;
     }
 
 }
