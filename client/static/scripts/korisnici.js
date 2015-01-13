@@ -67,7 +67,7 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
                 password : $scope.pwd,
                 info : $scope.info,
 		status: $scope.status,
-		mod: $scope.mod
+		privilegije: $scope.privilegije
             };
             
             var jsonData = angular.toJson(formData);
@@ -78,11 +78,13 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
             }).
             success(function(data, status, headers, config){
                 if(data!=="null")
-                    if(data.error_status === false)
-                        alert("Doslo je do greske pri registraciji.");
+                    if(data.error_status === false){
+			alert("Uspesno ste uneli korisnika.");
+                        $window.location.reload();
+                    }
                     else{
 			$window.location.reload();
-			alert("Uspesno ste uneli korisnika.");
+                        alert("Doslo je do greske pri registraciji.");
                      }  
             }).
             error(function(data, status, headers, config){
@@ -107,7 +109,7 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
 
 	
 	//funkcija koja salje zahtev da azurira odgovarajuci red u bazi
-    $scope.sacuvaj=function($korisnickoIme, $ime,$prezime,$email,$institucija, $mod,$status)
+    $scope.sacuvaj=function($korisnickoIme, $ime,$prezime,$email,$institucija, $privilegije,$status)
     {
 
 		var params = {
@@ -116,7 +118,7 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
 			prezime:$prezime,
 			email:$email,
 			institucija:$institucija,
-			mod:$mod,
+			privilegije:$privilegije,
 			stat:$status
 			
 		};
@@ -125,10 +127,12 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
 	$http.put('../server/korisnik.php', data )
 	.success(function (data, status, headers, config)
 	{
+            alert(data.ulazniPodaci);
             if(data.error_status==false){
                 $window.alert("Azuriran je");
+                
 		$window.location.href="korisnici.php";
-			}
+            }
 	    else
                 console.log(data);
 	})

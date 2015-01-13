@@ -44,8 +44,8 @@ angular.module('epigrafikaModul').controller('registracijaController', ['$scope'
                 username : $scope.user,
                 password : $scope.pwd,
                 info : $scope.info,
-				status: "aktivan",
-				mod: "korisnik"
+		status: "aktivan",
+		privilegije: "korisnik"
             };
             
             var jsonData = angular.toJson(formData);

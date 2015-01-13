@@ -51,12 +51,12 @@
 						</span>
 					</div>
 					<div class="form-group">
-						<label for="mod" class="control-label"> Mod:<span style="color:red">*</span></label>
-						<select class="form-control" id="mod" name="mod" ng-model="s.mod">
+						<label for="privilegije" class="control-label"> Privilegije:<span style="color:red">*</span></label>
+						<select class="form-control" id="privilegije" name="privilegije" ng-model="s.privilegije">
 							<option>admin</option>
 							<option selected>korisnik</option>
 						</select>
-						<span class="text-transparent" ng-class="{textred:novakorisnik.mod.$dirty && novakorisnik.mod.$error.required}">
+						<span class="text-transparent" ng-class="{textred:novakorisnik.privilegije.$dirty && novakorisnik.privilegije.$error.required}">
 							{{tr.obavezno_polje}} 
 						</span>
 					</div>
@@ -74,7 +74,7 @@
 			</div>
 			<div class="row">
 					<div class="col-sm-4">
-						<button type="submit" ng-click="sacuvaj(s.korisnickoIme, s.ime,s.prezime,s.email,s.institucija, s.mod,s.status)" class="btn btn-success btn-block" ng-class="{'disabled':!novakorisnik.$valid}" ng-enabled="novakorisnik.$valid"> Sacuvaj </button>
+						<button type="submit" ng-click="sacuvaj(s.korisnickoIme, s.ime,s.prezime,s.email,s.institucija, s.privilegije,s.status)" class="btn btn-success btn-block" ng-class="{'disabled':!novakorisnik.$valid}" ng-enabled="novakorisnik.$valid"> Sacuvaj </button>
 					</div>
 					<div class="col-sm-4">
 						<button type="button" ng-click="ponisti()" class="btn btn-primary btn-block" > Ponisti </button>
@@ -106,7 +106,7 @@
                     <tr class="success row">
 						<th>KORISNICKO IME</th>
 						<th>IME PREZIME</th>
-						<th>MOD</th>
+						<th>PRIVILEGIJE</th>
 						<th>STATUS</th>
 						<th>INSTITUCIJA</th>
 						<th>DATUM</th>
@@ -118,7 +118,7 @@
                     <tr ng-repeat="korisnik in korisnici" ng-class-even="'success'" class="row">
 						<td class="col-sm-2"><p>{{ korisnik.korisnickoIme }}</p></td>
 						<td class="col-sm-3"><p>{{ korisnik.ime }} {{korisnik.prezime}}</p></td>
-						<td class="col-sm-1"><p>{{ korisnik.mod }}</p></td>
+						<td class="col-sm-1"><p>{{ korisnik.privilegije }}</p></td>
 						<td class="col-sm-1"><p>{{ korisnik.status }}</p></td>
 						<td class="col-sm-1"><p>{{ korisnik.institucija }}</p></td>
 						<td class="col-sm-2"><p>{{ korisnik.datumRegistrovanja }}</p></td>
@@ -177,12 +177,12 @@
 						</span>
 					</div>
 					<div class="form-group">
-						<label for="mod" class="control-label"> Mod:<span style="color:red">*</span></label>
-						<select class="form-control" id="mod" name="mod" ng-model="mod">
+						<label for="privilegije" class="control-label"> Privilegije:<span style="color:red">*</span></label>
+						<select class="form-control" id="privilegije" name="privilegije" ng-model="privilegije">
 							<option>admin</option>
 							<option selected>korisnik</option>
 						</select>
-						<span class="text-transparent" ng-class="{textred:novakorisnik.mod.$dirty && novakorisnik.mod.$error.required}">
+						<span class="text-transparent" ng-class="{textred:novakorisnik.privilegije.$dirty && novakorisnik.privilegije.$error.required}">
 							{{tr.obavezno_polje}} 
 						</span>
 					</div>

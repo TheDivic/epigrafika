@@ -82,7 +82,7 @@ try
 			}
 	
 }
-	if($method === 'POST')
+else if($method === 'POST')
     {
         $result->message = "Primljen zahtev za unos korisnika.";
 		$data=json_decode(file_get_contents('php://input'));
@@ -103,23 +103,23 @@ try
             $info = $data->info;
 		if(property_exists($data, "status"))
             $status = $data->status;
-		if(property_exists($data, "mod"))
-            $mod = $data->mod;
+		if(property_exists($data, "privilegije"))
+            $privilegije = $data->privilegije;
         $datum=date("Y-d-m");
         
-        $query = $db->prepare("INSERT INTO `mydb`.`korisnik` (`korisnickoIme`, `sifra`, `ime`,`prezime`,`email`,`institucija`,`dodatneInformacije`,`mod`,`datumRegistrovanja`,`status`) VALUES ('$username','$password', '$ime', '$prezime', '$email', '$institucija', '$info', '$mod', $datum, '$status' )");
+        $query = $db->prepare("INSERT INTO `mydb`.`korisnik` (`korisnickoIme`, `sifra`, `ime`,`prezime`,`email`,`institucija`,`dodatneInformacije`,`privilegije`,`datumRegistrovanja`,`status`) VALUES ('$username','$password', '$ime', '$prezime', '$email', '$institucija', '$info', '$privilegije', $datum, '$status' )");
 		$query->execute();  
         $broj_redova = $query->rowCount();
 		if($broj_redova==1) 
-            $result->error_status = false;
+                    $result->error_status = false;
 		else 
-            $result->error_status = true;
+                    $result->error_status = true;
 		}
-	if($method === 'DELETE')
+    else if($method === 'DELETE')
 		{
 			$result->message = "Primljen zahtev za brisanje";
 			if(isset($_GET['korisnickoIme'])){
-            $ime = $_GET['korisnickoIme']; 
+                        $ime = $_GET['korisnickoIme']; 
 			$query = $db->prepare("delete from mydb.korisnik where korisnickoIme=$ime" );
 			$query->execute();
 			$broj_redova = $query->rowCount();
@@ -132,27 +132,26 @@ try
 	
 		}
     }
-	if($method === 'PUT')
+else if($method === 'PUT')
     {
 		$result->message = "Primljen zahtev za promenu objekta";
 		$data=json_decode(file_get_contents('php://input'));
 		$result->ulazniPodaci = $data;
 		if(property_exists($data, "korisnickoIme"))
-            $korisnickoIme = $data->korisnickoIme;
+                    $korisnickoIme = $data->korisnickoIme;
 		if(property_exists($data, "ime"))
-            $ime = $data->ime;
+                    $ime = $data->ime;
 		if(property_exists($data, "prezime"))
-            $prezime = $data->prezime;
+                    $prezime = $data->prezime;
 		if(property_exists($data, "email"))
-            $email= $data->email;
+                    $email= $data->email;
 		if(property_exists($data, "institucija"))
-            $institucija = $data->institucija;
-		if(property_exists($data, "mod"))
-            $mod = $data->mod;
+                    $institucija = $data->institucija;
+		if(property_exists($data, "privilegije"))
+                    $privilegije = $data->privilegije;
 		if(property_exists($data, "stat"))
-            $stat= $data->stat;
-		
-		$query = $db->prepare("update mydb.korisnik set ime='$ime', prezime='$prezime', email='$email', institucija='$institucija',mod='$mod', status='$stat' WHERE korisnickoIme='$korisnickoIme'");
+                    $stat= $data->stat;
+		$query = $db->prepare("UPDATE mydb.korisnik SET privilegije = '$privilegije', status = '$stat', ime='$ime', prezime='$prezime', email='$email',institucija='$institucija'  WHERE korisnickoIme = 'Mirko'");
 		$query->execute();
 		$br = $query->rowCount();
 		if($br==1) $result->error_status = false;

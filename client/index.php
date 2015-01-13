@@ -246,23 +246,39 @@
 	
 	</div>
 	<!-- rezultati -->
-	<div id="rezultati">
-		<h1> {{tr.rezultati_pretrage}}</h1>
-		<div class="row" ng-repeat="rezultat in rezultatPretrage">
-			{{rezultat}} 
-		</div>
-	</div>
+        <div ng-show="!prikazi">
+            <div id="rezultati" >
+                    <h1> {{tr.rezultati_pretrage}}</h1>
+                    
+                    <div class="row" ng-repeat="rezultat in rezultatPretrage" style="border: 1px solid #999; padding: 30px;">
+                        <div class="col-sm-6">
+                        <label class="control-label">{{ tr.osnovne_informacije }}</label> <br/>
+                        <label class="control-label">{{ tr.oznaka }} : </label>  {{rezultat.oznaka}} <br/>    
+                        <label class="control-label">{{tr.vrsta_natpisa}} :</label> {{rezultat.natpis}} <br/> 
+                        
+                        <label class="control-label">  {{tr.lokacija}}</label> <br/>
+                        <label class="control-label">{{tr.provincija}} :</label> {{rezultat.provincijaNalaska}} <br/> 
+                        <label class="control-label">{{tr.grad}} :</label> {{rezultat.gradNalaska}} <br/> 
+                        <label class="control-label">{{tr.izvorno_mesto_nastanka}} :</label> {{rezultat.mestoNalaska}} <br/> 
+                        <label class="control-label">{{tr.moderno_ime_drzave}} :</label> {{rezultat.modernoImeDrzave}} <br/> 
+                        </div>
+                        <div class="col-sm-6">
+                        <a href="" > {{tr.vise_informacija}} </a>
+                        </div>
+                    </div>
 
-	<!--paginacija-->
-	<div class="row">
-		<div class="text-center">
-			<ul class="pagination pagination-sm">
-				<li class="disabled"><a href="#">«</a></li>
-				<li class="active"><a href="#">1</a></li>
-				<li><a href="#">»</a></li>
-			</ul>
-		</div>
-	</div>
+            <!--paginacija-->
+                    <div class="row">
+                        <div class="text-center">
+                            <ul class="pagination pagination-sm">
+                                    <li class="disabled"><a href="#">«</a></li>
+                                    <li class="active"><a href="#">1</a></li>
+                                    <li><a href="#">»</a></li>
+                            </ul>
+                        </div>
+                    </div>
+            </div>
+        </div>
 </div>
 
 <!-- Sve skripte vezane za mapu -->

@@ -93,6 +93,7 @@
 "dodaj_pdf":"Add pdfs",
 "zaboravili_sifru": "Forgotten your password?",
 "posalji_email":"Send password on your email address",
-"greska404":"Error 404. You are trying to access to an nonexistent page, or you do not have permission to gain the access."
-
+"greska404":"Error 404. You are trying to access to an nonexistent page, or you do not have permission to gain the access.",
+"lokacija":"Location",
+"vise_informacija":"More information"
 }

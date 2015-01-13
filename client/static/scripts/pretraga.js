@@ -96,8 +96,9 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
             if(data!=="null"){
                 //alert(data.ulazni_podaci);
                 $scope.rezultatPretrage=data.data;
-                alert(data.data);
             }
+            else
+                $scope.rezultatPretrage=null;
         }).
         error(function(data, status, headers, config){
 
