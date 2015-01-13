@@ -37,29 +37,42 @@ try
 
 		}
             }
-            if($_GET['type'] === 'zaboravljenaSifra'){
-                    //TO DO - SLANJE MAILA na email korisnika sa sifrom.
-                    $ime = $_GET['user']; 
-                    $query = $db->prepare("select * from mydb.korisnik where korisnickoIme=$ime" );
-                    $query->execute();
-                    $result->error_status = false;
-                    $data = $query->fetch(PDO::FETCH_OBJ);
-                    if($data === NULL){
-                        $result->message = "ne postoji korisnicko ime.";
-                    }
-                    else{
-						$result->message = "Poslat mail na adresu.";
-                    }
-                    
-                    $email = $data->email;
-                    $headers = "From: noreply@example.com\r\nReply-To: noreply@example.com\r\nX-Mailer: PHP/".phpversion();
-                        if(mail($email, "Subjekat", "Neki tekst neke poruke", $headers)){
-                            echo "Success";
-                        }
-                        else {
-                            echo "Fail!";
-                        }
-                }
+        if($_GET['type'] === 'zaboravljenaSifra'){
+            //TO DO - SLANJE MAILA na email korisnika sa sifrom.
+            $ime = $_GET['user'];
+
+            $query = $db->prepare("select * from mydb.korisnik where korisnickoIme=$ime" );
+            $query->execute();
+            $result->error_status = false;
+            $data = $query->fetch(PDO::FETCH_OBJ);
+
+            if($data == NULL){
+                $result->message = "Ne postoji korisnicko ime.";
+            }
+            else {
+
+                $email = $data->email;
+
+                $headers = "From: noreply@epigrafika.com\r\nReply-To: noreply@epigrafika.com\r\nX-Mailer: PHP/" . phpversion();
+                $subject="Nova lozinka";
+                $password=rand_passwd();
+                $message="Postovani, \n vasa nova lozinka je: ".$password."\n";
+
+                if(mail($email, $subject, $message, $headers))
+                    $result->message = "Poslat mejl na adresu.";
+                else
+                    $result->message = "Greska pri slanju mejla";
+
+                $ime1=$data->korisnickoIme;
+
+                $q = $db->prepare("UPDATE `mydb`.`korisnik` SET `sifra` = ? WHERE `korisnik`.`korisnickoIme` = ? ");
+                $q->execute(array($password, $ime1));
+
+
+            }
+        }
+
+
 			if($_GET['type'] === 'view'){
 				$user= $_GET['korisnickoIme'];
 				$query = $db->prepare("select * from mydb.korisnik where korisnickoIme='$user'" );
@@ -162,6 +175,12 @@ catch(Exception $e)
 {
     $result->error_status=true;
     $result->error_message = $e->getMessage();
+}
+
+function rand_passwd() {
+    $length = rand(8,12);
+    $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789';
+    return substr( str_shuffle( $chars ), 0, $length );
 }
 
 echo json_encode($result);
