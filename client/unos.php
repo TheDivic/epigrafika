@@ -285,7 +285,7 @@
 			<button type="submit" class="btn btn-success btn-block" ng-class="{'disabled':!formUnos.$valid}" ng-click="posalji_podatke()" ng-enabled='formUnos.$valid'> {{tr.unesi_podatke}}  </button>
 		</div>
 		<div class="col-sm-4 ">
-			<button type="reset" class="btn btn-primary btn-block">{{tr.resetuj_podatke}}</button>
+			<button type="reset" id="reset" class="btn btn-primary btn-block">{{tr.resetuj_podatke}}</button>
 		</div>
 	</div>
 </form>

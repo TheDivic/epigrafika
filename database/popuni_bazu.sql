@@ -27,7 +27,7 @@ INSERT INTO `mydb`.`Jezik`(`id`,`naziv`,`kod`) VALUES(1,'Srpski','s'), (2,'Staro
 
 INSERT INTO `mydb`.`Ustanova`( `id`,`naziv`,`modernoMesto`) VALUES(1,'Arheoloski Muzej', 1), (2,'Narodni Muzej',1), (3,'Prirodnjacki Muzej Kalemegdan',1),(4,'Narodni Muzej',3);
 
-INSERT INTO `mydb`.`korisnik` (`korisnickoIme`, `sifra`, `ime`,`prezime`,`email`,`institucija`,`dodatneInformacije`,`mod`,`datumRegistrovanja`,`status`) VALUES 
+INSERT INTO `mydb`.`korisnik` (`korisnickoIme`, `sifra`, `ime`,`prezime`,`email`,`institucija`,`dodatneInformacije`,`privilegije`,`datumRegistrovanja`,`status`) VALUES 
 ('Mirko','pr10','Mirko','Ivic','mivic@hotmail.com','ibm','prazno','l3','12-12-2014','0');
 
 /*poligon 1*/

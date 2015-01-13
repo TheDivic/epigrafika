@@ -55,11 +55,13 @@ angular.module('epigrafikaModul').controller('registracijaController', ['$scope'
             {responseType:'JSON',headers: {'content-type': 'application/json'}
             }).
             success(function(data, status, headers, config){
-                if(data!=="null")
+                if(data!=="null"){
                     if(data.error_status === false)
                         alert("Uspesno ste se registrovali.");
                     else
                         alert("Doslo je do greske pri registraciji.");
+                    $window.location.reload();
+                }
             }).
             error(function(data, status, headers, config){
 
