@@ -1,23 +1,26 @@
+INSERT INTO `mydb`.`modernadrzava` (`id`, `naziv`) VALUES (-1, 'Nepoznata');
 INSERT INTO `mydb`.`modernadrzava` (`id`, `naziv`) VALUES ('1', 'Srbija'),
 ('2', 'Makedonija'), ('3', 'Hrvatska');
 /* moderna mesta */
+INSERT INTO  `mydb`.`ModernoMesto`(`id`,`naziv`,`modernaDrzava`) VALUES(-1,'Nepoznato',-1);
 INSERT INTO  `mydb`.`ModernoMesto`(`id`,`naziv`,`modernaDrzava`) VALUES(1,'Beograd',1);
 INSERT INTO  `mydb`.`ModernoMesto`(`id`,`naziv`,`modernaDrzava`) VALUES(2,'Aleksandrovac',1);
 INSERT INTO  `mydb`.`ModernoMesto`(`id`,`naziv`,`modernaDrzava`) VALUES(3,'Kraljevo',1);
 INSERT INTO  `mydb`.`ModernoMesto`(`id`,`naziv`,`modernaDrzava`) VALUES(4,'Cacak',1);
 INSERT INTO  `mydb`.`ModernoMesto`(`id`,`naziv`,`modernaDrzava`) VALUES(5,'Valjevo',1);
 
-INSERT INTO `mydb`.`grad` (`id`, `naziv`) VALUES ('1', 'Aleksandrovac'), ('2', 'Kraljevo'),
+INSERT INTO `mydb`.`grad` (`id`, `naziv`) VALUES ('-1', 'Nepoznat'), ('1', 'Aleksandrovac'), ('2', 'Kraljevo'),
 ('3', 'Beograd'), ('4', 'Cacak'), ('5', 'Valjevo');
 
-INSERT INTO `mydb`.`provincija` (`id`, `naziv`, `pocetak`, `kraj`) VALUES ('1', 'Thracia', '1. vek n.e.', '3. vek n.e'),
+INSERT INTO `mydb`.`provincija` (`id`, `naziv`, `pocetak`, `kraj`) VALUES ('-1', 'Nepoznata', 'nepoznato', 'nepoznato'), ('1', 'Thracia', '1. vek n.e.', '3. vek n.e'),
 ('2', 'Macedonia', '2. vek n.e.', '3. vek n.e'), ('3', 'Dalmatia', '2. vek p.n.e.', '5. vek n.e');
 
 
 INSERT INTO `mydb`.`vrstanatpisa` (`id`, `naziv`) VALUES ('1', 'Natpis1'), ('2', 'Natpis2'), ('3', 'Natpis3');
 
-INSERT INTO `mydb`.`Mesto`(`id`,`naziv`)  VALUES (1, 'Aleksandrovac'), (2, 'Kraljevo'),
-(3, 'Beograd'), (4, 'Cacak'), (5, 'Valjevo'),('21', 'Vojvodina'), ('31', 'Kosovo');
+INSERT INTO `mydb`.`mesto`(`id`, `naziv`)  VALUES ('-1', 'Nepoznato'), ('1', 'Aleksandrovac'), ('2', 'Kraljevo'),
+('3', 'Beograd'), ('4', 'Cacak'), ('5', 'Valjevo'),('21', 'Vojvodina'), ('31', 'Kosovo');
+
 
 INSERT INTO `mydb`.`Pleme`(`id`,`naziv`) VALUES(1,'Zupani'), (2,'Varvari'), (3,'Autarijati'), (4,'Singi'), (5,'Varvari'),(7,'Iliri'), (8,'Tracani'), (9,'Grci'),('11', 'Apace'), ('12', 'Sijukas');
 

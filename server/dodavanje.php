@@ -43,7 +43,33 @@ function unesi($data, $db){
     if($lokalizovanPodatak==true){
         $provincija = $data->provincija;
         $grad = $data->grad;
-        $mestoNalaska = $data->mestoNalaska;
+
+        $mestoNalaska = trim($data->mestoNalaska);
+        $query = "select count(*) from mesto where naziv=:mestoNalaska";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(":mestoNalaska", $mestoNalaska, PDO::PARAM_STR);
+        $stmt->execute();
+        $o=$stmt->fetchAll();
+        $brojMesta = $o[0][0];
+
+        if($brojMesta == 0){
+            $query = "insert into mesto (naziv) values(:mestoNalaska)";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(":mestoNalaska", $mestoNalaska, PDO::PARAM_STR);
+            $stmt->execute();
+
+        }
+
+        //Potrebno je odrediti id Mesta
+        $query="SELECT id FROM `mesto` WHERE naziv=:mesto";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(":mesto", trim($mestoNalaska), PDO::PARAM_STR);
+        $stmt->execute();
+        $o=$stmt->fetchAll();
+        $mestoNalaska=$o[0][0];
+
+
+
         //Potrebno je odrediti id provincije
         $query="SELECT id FROM `provincija` WHERE naziv=:provincija";
         $stmt = $db->prepare($query);
@@ -59,13 +85,6 @@ function unesi($data, $db){
         $o=$stmt->fetchAll();
         $grad=$o[0][0];
 //            echo "<br>Id grada: ".$o[0][0];
-        //Potrebno je odrediti id Mesta
-        $query="SELECT id FROM `mesto` WHERE naziv=:mesto";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(":mesto", trim($mestoNalaska), PDO::PARAM_STR);
-        $stmt->execute();
-        $o=$stmt->fetchAll();
-        $mestoNalaska=$o[0][0];
 
 
     }
@@ -109,23 +128,17 @@ function unesi($data, $db){
     $stmt->execute();
     $o=$stmt->fetchAll();
 
-    if($o[0][0]==1) {
-        $query = "SELECT id FROM `ustanova` WHERE naziv=:trenutnaLokacijaZnamenitosti";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(":trenutnaLokacijaZnamenitosti", trim($trenutnaLokacijaZnamenitosti), PDO::PARAM_STR);
-        $stmt->execute();
-        $o = $stmt->fetchAll();
-        $trenutnaLokacijaZnamenitosti = $o[0][0];
-    }else{
 
-        // ovde postoji problem jer se id ne inkrementira automatski
-
+        if($o[0][0]==0){
+        $modernoMesto = -1;
         $query="INSERT INTO  `ustanova` (naziv, modernoMesto) VALUES (:trenutnaLokacijaZnamenitosti, :modernoMesto)";
         $stmt = $db->prepare($query);
         $stmt->bindParam(":trenutnaLokacijaZnamenitosti", trim($trenutnaLokacijaZnamenitosti), PDO::PARAM_STR);
         $stmt->bindParam(":modernoMesto", $modernoMesto, PDO::PARAM_INT);
         $stmt->execute();
 
+
+    }
         $query = "SELECT id FROM `ustanova` WHERE naziv=:trenutnaLokacijaZnamenitosti";
         $stmt = $db->prepare($query);
         $stmt->bindParam(":trenutnaLokacijaZnamenitosti", trim($trenutnaLokacijaZnamenitosti), PDO::PARAM_STR);
@@ -133,7 +146,6 @@ function unesi($data, $db){
         $o = $stmt->fetchAll();
         $trenutnaLokacijaZnamenitosti = $o[0][0];
 
-    }
 
 //Potrebno je odrediti id plemena
     $pleme = $data->pleme;
@@ -145,28 +157,21 @@ function unesi($data, $db){
     $stmt->execute();
     $o=$stmt->fetchAll();
 
-    if($o[0][0]==1) {
-        $query = "SELECT id FROM `pleme` WHERE naziv=:pleme";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(":pleme", trim($pleme), PDO::PARAM_STR);
-        $stmt->execute();
-        $o = $stmt->fetchAll();
-        $pleme = $o[0][0];
-    }else{
+    if($o[0][0]==0) {
 
         $query="INSERT INTO  `pleme` (naziv) VALUES (:pleme)";
         $stmt = $db->prepare($query);
         $stmt->bindParam(":pleme", trim($pleme), PDO::PARAM_STR);
         $stmt->execute();
 
-        $query = "SELECT id FROM `pleme` WHERE naziv=:pleme";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(":pleme", trim($pleme), PDO::PARAM_STR);
-        $stmt->execute();
-        $o = $stmt->fetchAll();
-        $pleme = $o[0][0];
-
     }
+    $query = "SELECT id FROM `pleme` WHERE naziv=:pleme";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(":pleme", trim($pleme), PDO::PARAM_STR);
+    $stmt->execute();
+    $o = $stmt->fetchAll();
+    $pleme = $o[0][0];
+
 //        echo "<br>Id plemena: ".$o[0][0];
 
 //        radimo sa vremenom, dovrsiti
