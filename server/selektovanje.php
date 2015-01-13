@@ -176,6 +176,19 @@ class selektovanje {
         return  $stmt->fetchAll();
 
     }
+    public function selektujBibliografskePodatkeObjekta($idObjekta)
+    {
+
+        $upit = 'select IzvodBibliografskogPodatka.putanja, IzvodBibliografskogPodatka.strana, BibliografskiPodatak.skracenica, BibliografskiPodatak.naslov '.
+            ' from IzvodBibliografskogPodatka JOIN  BibliografskiPodatak ON IzvodBibliografskogPodatka.bibliografskiPodatak = BibliografskiPodatak.id '.
+            'WHERE IzvodBibliografskogPodatka.objekat = :idObjekta';
+        $stmt=konekcija::getConnectionInstance()->prepare($upit);
+        $stmt->bindParam(':idObjekta', $idObjekta , PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        return  $stmt->fetchAll();
+
+    }
     public function obradiVrsta($row)
     {
         $d = new stdClass();
@@ -221,9 +234,11 @@ class selektovanje {
             $d->vreme = 'Od ' . $this->vremeUString($row['pocetakGodina'], $row['pocetakVek'], $row['pocetakOdrednica']) . ' do ' . $this->vremeUString($row['krajGodina'], $row['krajVek'], $row['krajOdrednica']);
         }
 
-        //popunjavanje fotografije
+        //popunjavanje fotografija
         $d->fotografije = $this->selektujFotografijeObjekta($row['id']);
 
+        //popunjavanje bibliografskih podataka
+        $d->bibliografskiPodatci = $this->selektujBibliografskePodatkeObjekta($row['id']);
 
         return $d;
     }
