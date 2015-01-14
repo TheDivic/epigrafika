@@ -472,6 +472,37 @@ class selektovanje {
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         //return json_encode( $stmt->fetchAll());
+
+        if(property_exists($data, 'offset'))
+        {
+            $i = 0;
+
+            $offs = $data->offset;
+          //  echo $offs . "---\n";
+
+            while($i <  $offs &&  $stmt->fetch() )
+            {
+                //$row = $stmt->fetch();
+               // echo json_encode( $row);
+               // echo $i . "---\n";
+                $i = $i + 1;
+            }
+
+
+
+            $povratna = [];
+            $i = 0;
+            while(($row = $stmt->fetch()) && $i<5 )  //MAKSIMALNO VRACENIH
+            {
+             //   echo json_encode( $row);
+               // echo "\n";
+                $row = $this->obradiVrsta($row);
+                array_push($povratna, $row);
+                $i = $i+1;
+            }
+            return $povratna;
+
+        }
         $povratna = [];
         while($row = $stmt->fetch())
         {
@@ -494,9 +525,9 @@ class selektovanje {
 
 }
 //$sl = new selektovanje();
-/*
-$a =  new stdClass();
 
+//$a =  new stdClass();
+/*
 $a->oznaka = 'O(1]';
 $a->provincijaNalaska = 'Thracia[';
 $a->gradNalaska = 'Aleksandrovac['; //Kreljevo Aleksandrovac
@@ -516,11 +547,14 @@ $a->vek = 21;
 $a->periodVeka = 'drugaPolovina';
 
 $a->rezimIgnorisanjaZagrada = true;
-
-$sl = selektovanje::getSelektor();
-$odg = $sl->selektuj($a);
-echo json_encode($odg);
 */
+/*
+$a->offset = 2;
+$sl = selektovanje::getSelektor();
+
+$odg = $sl->selektuj($a);
+echo json_encode($odg);*/
+//*/
 /*
 $sl = selektovanje::getSelektor();
 $odg = $sl->selektujeObjekat(1);
