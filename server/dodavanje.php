@@ -5,6 +5,7 @@
  * Date: 1/11/2015
  * Time: 7:01 PM
  */
+include 'dictionary.php';
 
 function unesi($data, $db){
 
@@ -266,7 +267,8 @@ function unesi($data, $db){
          :datovano, :pocetakGodina, :pocetakVek, :pocetakOdrednica, :krajGodina, :krajVek, :krajOdrednica)";
 //    $sth->execute(array(':calories' => $calories, ':colour' => $colour));
 
-
+    // Unosenje reci iz natpisa u recnik, potrebno za autocomplete
+    populateDictionary($natpis);
 
     $stmt = $db->prepare($query);
     $returnValue = $stmt->execute(array(':oznaka' => $oznaka, ':jezikUpisa' => $jezikUpisa, ':natpis' => $natpis, ':vrstaNatpisa' => $vrstaNatpisa,
@@ -278,7 +280,4 @@ function unesi($data, $db){
         ':krajGodina' => $krajGodina, ':krajVek' => $krajVek, ':krajOdrednica' => $krajOdrednica));
 
     return $returnValue;
-
-
-
 }
