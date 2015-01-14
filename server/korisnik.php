@@ -77,7 +77,7 @@ try
 
                 $ime1=$data->korisnickoIme;
 
-                $passwordCrypt=crypt($password,'$2m$3');
+                $passwordCrypt=password_hash($password,PASSWORD_DEFAULT);
 
                 $q = $db->prepare("UPDATE `mydb`.`korisnik` SET `sifra` = ? WHERE `korisnik`.`korisnickoIme` = ? ");
                 $q->execute(array($passwordCrypt, $ime1));
@@ -134,7 +134,7 @@ else if($method === 'POST')
             $privilegije = $data->privilegije;
         $datum=date("Y-d-m");
 
-        $passwordCrypt=crypt($password,'$2m$3');
+        $passwordCrypt=password_hash($password, PASSWORD_DEFAULT);
         $query = $db->prepare("INSERT INTO `mydb`.`korisnik` (`korisnickoIme`, `sifra`, `ime`,`prezime`,`email`,`institucija`,`dodatneInformacije`,`privilegije`,`datumRegistrovanja`,`status`) VALUES ('$username','$passwordCrypt', '$ime', '$prezime', '$email', '$institucija', '$info', '$privilegije', $datum, '$status' )");
 		$query->execute();  
         $broj_redova = $query->rowCount();
