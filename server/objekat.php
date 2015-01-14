@@ -81,7 +81,10 @@ try
         else if($_GET['type'] === 'byId')
         {
             $objectId = $_GET['objectId'];
-            
+
+            $sl = selektovanje::getSelektor();
+            $result->data = $sl->selektujeObjekat( $objectId);
+            /*
             $query = $db->prepare(  "select o.id, o.oznaka, o.tekstNatpisa, 
                                     vn.naziv as 'vrstaNatpisa', j.naziv as 'jezik', pr.naziv as 'provincija', g.naziv as 'grad', pl.naziv as 'pleme', 
                                     md.naziv as 'modernaDrzava', mm.naziv as 'modernoMesto', u.naziv as 'ustanova', 
@@ -99,7 +102,7 @@ try
                                     where o.id = $objectId");
             $query->execute();
             $result->error_status = false;
-            $result->data = $query->fetchAll(PDO::FETCH_OBJ);
+            $result->data = $query->fetchAll(PDO::FETCH_OBJ);*/
         }
         else if($_GET['type'] === 'jedinstena_oznaka')
         {
