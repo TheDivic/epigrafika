@@ -42,6 +42,8 @@ angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http
     $scope.korisnik=$cookies.user;
     $scope.pdfLinkovi = [];
     $scope.photoLinkovi = [];
+    $scope.pdfError = false;
+    $scope.photoError = false;
 
     function izracunajVek(godina){
       if(godina < 100)
@@ -348,15 +350,53 @@ $scope.proveri_jedinstvenost = function(){
         reader.readAsBinaryString(file);
     };
 
+    var checkType = function(fileType, reqType) {
+        return fileType.indexOf(reqType) != -1;
+    };
+
     $scope.handlePdfUpload = function(files){
+        $scope.pdfError = false;
+       
+        if(files.length > 10){
+            $scope.pdfError = true;
+            return;
+        }
+
         for(var i = 0; i < files.length; i++){
-            uploadFile(files[i], "biblioPdf");
+            if(!checkType(files[i].type, "pdf")){
+                $scope.pdfError = true;
+                $scope.$apply();
+                return;
+            }
+        }
+
+        if(!$scope.pdfError){
+            for(var i = 0; i < files.length; i++){
+                uploadFile(files[i], "biblioPdf");
+            }
         }
     };
 
     $scope.handlePhotoUpload = function(files){
+        $scope.photoError = false;
+       
+        if(files.length > 10){
+            $scope.photoError = true;
+            return;
+        }
+
         for(var i = 0; i < files.length; i++){
-            uploadFile(files[i], "photo");
+            if(!checkType(files[i].type, "image")){
+                $scope.photoError = true;
+                $scope.$apply();
+                return;
+            }
+        }
+
+        if(!$scope.photoError){
+            for(var i = 0; i < files.length; i++){
+                uploadFile(files[i], "photo");
+            }
         }
     };
 
