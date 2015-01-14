@@ -57,8 +57,8 @@ try
                 }
 
             }
-            echo json_encode($data);
-            echo '        ';
+           // echo json_encode($data);
+           // echo '        ';
             //$result->ulazni_podaci = $data;
             $result->data = $sl->selektuj($data);
             
