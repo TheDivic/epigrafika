@@ -136,6 +136,30 @@ INSERT INTO `mydb`.`dodatniopis` (`id`, `objekat`) VALUES ('3', '3');
 INSERT INTO `mydb`.`bog` (`id`, `ime`) VALUES ('3', 'atina');
 INSERT INTO `mydb`.`osoba` (`id`, `name`, `praenomen`,`nomen`,`cognomen`,`agnomen`,`tribus`,`origo`) VALUES ('3','herkul','atina','alkmena','nema','nema','nema','ne');
 
+/*objekat 4*/
+INSERT INTO `mydb`.`objekat` (`id`, `oznaka`, `tekstNatpisa`, `vrstaNatpisa`, `jezik`, `provincija`, `grad`, `mesto`, `pleme`, `modernaDrzava`, `modernoMesto`, `ustanova`, `pocetakGodina`, `pocetakVek`, `pocetakOdrednica`, `krajGodina`, `krajVek`, `krajOdrednica`, `tip`, `materijal`, `dimenzije`, `komentar`, `faza`, `korisnickoIme`, `datumKreiranja`, `datumPoslednjeIzmene`, `datovano`, `lokalizovano`) VALUES (NULL, 'O4', 'Natpis4', '4', '4', '1', '2', '2', '4', '1', '3', '4', NULL, '20', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'zavrsnaFaza', 'Mirko', '2015-01-14', '2015-01-14', '1', '1');
+
+/*objekat 5*/
+INSERT INTO `mydb`.`objekat` (`id`, `oznaka`, `tekstNatpisa`, `vrstaNatpisa`, `jezik`, `provincija`, `grad`, `mesto`, `pleme`, `modernaDrzava`, `modernoMesto`, `ustanova`, `pocetakGodina`, `pocetakVek`, `pocetakOdrednica`, `krajGodina`, `krajVek`, `krajOdrednica`, `tip`, `materijal`, `dimenzije`, `komentar`, `faza`, `korisnickoIme`, `datumKreiranja`, `datumPoslednjeIzmene`, `datovano`, `lokalizovano`) VALUES (NULL, 'O45', 'Natpis45', '4', '4', '1', '4', '3', '1', '1', '3', '4', NULL, '20', 'drugaPolovina', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'zavrsnaFaza', 'Mirko', '2015-01-14', '2015-01-14', '1', '1');
+
+/*objekat 6*/
+INSERT INTO `mydb`.`objekat` (`id`, `oznaka`, `tekstNatpisa`, `vrstaNatpisa`, `jezik`, `provincija`, `grad`, `mesto`, `pleme`, `modernaDrzava`, `modernoMesto`, `ustanova`, `pocetakGodina`, `pocetakVek`, `pocetakOdrednica`, `krajGodina`, `krajVek`, `krajOdrednica`, `tip`, `materijal`, `dimenzije`, `komentar`, `faza`, `korisnickoIme`, `datumKreiranja`, `datumPoslednjeIzmene`, `datovano`, `lokalizovano`) VALUES (NULL, 'O6', 'Natpis6', '4', '4', '1', '4', '3', '1', '1', '3', '4', '1991', '20', 'drugaPolovina', NULL, '21', NULL, NULL, NULL, NULL, NULL, 'zavrsnaFaza', 'Mirko', '2015-01-14', '2015-01-14', '1', '1');
+
+/*objekat 7*/
+INSERT INTO `mydb`.`objekat` (`id`, `oznaka`, `tekstNatpisa`, `vrstaNatpisa`, `jezik`, `provincija`, `grad`, `mesto`, `pleme`, `modernaDrzava`, `modernoMesto`, `ustanova`, `pocetakGodina`, `pocetakVek`, `pocetakOdrednica`, `krajGodina`, `krajVek`, `krajOdrednica`, `tip`, `materijal`, `dimenzije`, `komentar`, `faza`, `korisnickoIme`, `datumKreiranja`, `datumPoslednjeIzmene`, `datovano`, `lokalizovano`) VALUES (NULL, 'O7', 'Natpis7', '4', '4', '1', '4', '3', '1', '1', '3', '4', NULL, '20', 'prvaPolovina', NULL, '21', NULL, NULL, NULL, NULL, NULL, 'zavrsnaFaza', 'Mirko', '2015-01-14', '2015-01-14', '1', '1');
+
+/*objekat 8*/
+INSERT INTO `mydb`.`objekat` (`id`, `oznaka`, `tekstNatpisa`, `vrstaNatpisa`, `jezik`, `provincija`, `grad`, `mesto`, `pleme`, `modernaDrzava`, `modernoMesto`, `ustanova`, `pocetakGodina`, `pocetakVek`, `pocetakOdrednica`, `krajGodina`, `krajVek`, `krajOdrednica`, `tip`, `materijal`, `dimenzije`, `komentar`, `faza`, `korisnickoIme`, `datumKreiranja`, `datumPoslednjeIzmene`, `datovano`, `lokalizovano`) VALUES (NULL, 'O7', 'Natpis7', '4', '4', '1', '4', '3', '1', '1', '3', '4', NULL, '20', 'prvaPolovina', '2003', '21', 'prvaPolovina', NULL, NULL, NULL, NULL, 'zavrsnaFaza', 'Mirko', '2015-01-14', '2015-01-14', '1', '1');
+
+/*objekat 9*/
+INSERT INTO `mydb`.`objekat` (`id`, `oznaka`, `tekstNatpisa`, `vrstaNatpisa`, `jezik`, `provincija`, `grad`, `mesto`, `pleme`, `modernaDrzava`, `modernoMesto`, `ustanova`, `pocetakGodina`, `pocetakVek`, `pocetakOdrednica`, `krajGodina`, `krajVek`, `krajOdrednica`, `tip`, `materijal`, `dimenzije`, `komentar`, `faza`, `korisnickoIme`, `datumKreiranja`, `datumPoslednjeIzmene`, `datovano`, `lokalizovano`) VALUES (NULL, 'O7', 'Natpis7', '4', '4', '1', '4', '3', '1', '1', '3', '4', NULL, '20', 'drugaPolovina', '2003', '21', 'prvaPolovina', NULL, NULL, NULL, NULL, 'zavrsnaFaza', 'Mirko', '2015-01-14', '2015-01-14', '1', '1');
+
+/*objekat 10*/
+INSERT INTO `mydb`.`objekat` (`id`, `oznaka`, `tekstNatpisa`, `vrstaNatpisa`, `jezik`, `provincija`, `grad`, `mesto`, `pleme`, `modernaDrzava`, `modernoMesto`, `ustanova`, `pocetakGodina`, `pocetakVek`, `pocetakOdrednica`, `krajGodina`, `krajVek`, `krajOdrednica`, `tip`, `materijal`, `dimenzije`, `komentar`, `faza`, `korisnickoIme`, `datumKreiranja`, `datumPoslednjeIzmene`, `datovano`, `lokalizovano`) VALUES (NULL, 'O7', 'Natpis7', '4', '4', '1', '1', '4', '1', '3', '3', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'zavrsnaFaza', 'Mirko', '2015-01-14', '2015-01-14', '1', '1');
+
+/*objekat 11*/
+INSERT INTO `mydb`.`objekat` (`id`, `oznaka`, `tekstNatpisa`, `vrstaNatpisa`, `jezik`, `provincija`, `grad`, `mesto`, `pleme`, `modernaDrzava`, `modernoMesto`, `ustanova`, `pocetakGodina`, `pocetakVek`, `pocetakOdrednica`, `krajGodina`, `krajVek`, `krajOdrednica`, `tip`, `materijal`, `dimenzije`, `komentar`, `faza`, `korisnickoIme`, `datumKreiranja`, `datumPoslednjeIzmene`, `datovano`, `lokalizovano`) VALUES (NULL, 'O2', 'Natpis', '4', '4', '2', '3', '5', '1', '1', '3', '3', '1904', '20', 'prvaPolovina', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'zavrsnaFaza', 'Mirko', '2015-01-12', '2015-01-12', '1', '1');
+
 
 /* geoloska mesta*/
 INSERT INTO `mydb`.`GeoMesto`(`poligon`,`mesto`) VALUES(1,1);
