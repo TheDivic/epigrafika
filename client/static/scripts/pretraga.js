@@ -96,7 +96,6 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
 	$http.get('../server/objekat.php?type=search&podaci='+jsonData, {responseType: 'JSON'}).
         success(function(data, status, headers, config){
             if(data!=="null"){
-                alert(data.data);
                 $scope.rezultatPretrage=data.data;
             }
             else
