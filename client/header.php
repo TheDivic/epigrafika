@@ -4,8 +4,6 @@
         <title>  Epigrafika </title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1"/>
-		
-		<base href="http://localhost/epigrafika/client/" >
         
         <!-- eksterne biblioteke-->
         <script src='static/scripts/libs/angular.min.js' type='text/javascript' > </script> 
@@ -42,7 +40,7 @@
 							<input name="pswd" ng-model="pswd" type="password" class="form-control" id="pswd" placeholder={{tr.sifra}} />
 						</div>
 						<button type="submit" ng-click="login(usr,pswd)"class="btn btn-default" >Login</button>
-						<a href="zaboravljena.php" class="btn btn-link" target="_self">{{tr.zaboravljena}}</a>
+						<a href="zaboravljena.php" class="btn btn-link">{{tr.zaboravljena}}</a>
 						<a href="registracija.php" class="btn btn-link">{{tr.registracija}}</a>
 						<a href="#" class="btn btn-link dropdown dropdown-toggle" data-toggle="dropdown" aria-expanded="true">{{tr.jezici}} <b class="caret"></b></a>
 						<div class="dropdown-menu">
