@@ -217,7 +217,7 @@ class selektovanje {
     public function obradiVrsta($row)
     {
         $d = new stdClass();
-        $nepromenjeni = ['dimenzije', 'gradNalaska', 'id', 'jezik', 'komentar', 'materijal', 'mestoNalaska', 'modernoImeDrzave', 'natpis', 'oznaka', 'provincijaNalaska', 'tip', 'vrstaNatpisa' ];
+        $nepromenjeni = ['modernoMesto' ,'dimenzije', 'gradNalaska', 'id', 'jezik', 'komentar', 'materijal', 'mestoNalaska', 'modernoImeDrzave', 'natpis', 'oznaka', 'provincijaNalaska', 'tip', 'vrstaNatpisa' ];
         foreach($row as $key => $value)
         {
             if(in_array($key, $nepromenjeni))
