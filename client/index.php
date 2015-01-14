@@ -28,7 +28,7 @@
 		<!--Pretraga tab -->
         <div class="tab-pane fade in active col-sm-12" id="pretraga" >
 			
-			<form class="form-horizontal" action=""  name='formPretraga'  id="myForm" method="post" enctype='multipart/form-data' ng-show="prikazi" >
+			<form class="form-horizontal" action=""  name='formPretraga'  id="myForm" method="post" enctype='multipart/form-data' autocomplete="off" ng-show="prikazi" >
 			<div class="row">
 				<h1> {{tr.pretraga}}</h1>
 			</div>

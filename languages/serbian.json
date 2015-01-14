@@ -100,5 +100,7 @@
 "vise_informacija":"Više informacija",
 "jezik":"Jezik",
 "tip_spomenika":"Tip spomenika",
-"dimenzije":"Dimenzije"
+"dimenzije":"Dimenzije",
+"pdf_error":"Dozvoljen je unos maksimalno 10 PDF dokumenata",
+"photo_error":"Dozvoljen je unos maksimalno 10 fotografija"
 }

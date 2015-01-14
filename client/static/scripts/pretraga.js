@@ -22,6 +22,7 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
 	$scope.plemena=null;
 	$scope.mesta=null;
 	$scope.razultatPretrage=null;
+    $scope.searchOffset = 0;
 
     $http.get('../server/provincije.php', {responseType: 'JSON'}).
     success(function(data, status, headers, config){
@@ -86,7 +87,8 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
 		    vek : $scope.vek,
 		    periodVeka: $scope.periodVeka,
 		    prikaziNedatovaneNatpise : $scope.prikaziNedatovaneNatpise,
-		    sortiranje: $scope.sortiranje
+		    sortiranje: $scope.sortiranje,
+            offset: $scope.searchOffset
 	 }
 	var jsonData = angular.toJson(formData);
 	//alert(jsonData);

@@ -250,7 +250,7 @@
 				<label for="bibl" class="col-sm-2 control-label">{{tr.dodaj_pdf}}:</label>
 				<div class="col-sm-8">
                                     <input type="file" id="bibl" accept="application/pdf"  name="bibl" multiple onchange="angular.element(this).scope().handlePdfUpload(this.files)"  />
-                                    <span class="text-transparent" ng-class="{textred: pdfError}">Dozvoljen je unos maksimalno 10 PDF dokumenata! </span> 
+                                    <span class="text-transparent" ng-class="{textred: pdfError}">{{ tr.pdf_error }} </span> 
                                 </div>
 			</div>
 			<div class="row form-group">
@@ -267,7 +267,7 @@
 				<label for="foto" class="col-sm-2 control-label">{{tr.dodaj_fotografiju}}:</label>
 				<div class="col-sm-8">
 					<input type="file" id="foto" accept="image/*"  name="foto" multiple onchange="angular.element(this).scope().handlePhotoUpload(this.files)" />
-					<span class="text-transparent" ng-class="{textred: photoError}">Dozvoljen je unos maksimalno 10 fotografija! </span>
+					<span class="text-transparent" ng-class="{textred: photoError}">{{tr.photo_error}}</span>
 				</div>
 			</div>
 			<div class="row form-group">

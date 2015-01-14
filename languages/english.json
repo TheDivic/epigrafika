@@ -98,5 +98,7 @@
 "vise_informacija":"More information",
 "jezik":"Language",
 "tip_spomenika":"Monument type",
-"dimenzije":"Dimensions"
+"dimenzije":"Dimensions",
+"pdf_error":"You can upload 10 or less PDF files",
+"photo_error":"You can upload 10 or less images"
 }
