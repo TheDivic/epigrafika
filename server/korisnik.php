@@ -29,6 +29,8 @@ try
 
                 $sifra=str_replace('"',"",$sifra);
 
+                $sifraCrypt=crypt($sifra, '$2a$10$dfgbdfgbt5y56gtbftrty6');
+
                 $query = $db->prepare("select * from mydb.korisnik where korisnickoIme=$ime");
 				$query->execute();
 				$result->error_status = false;
@@ -41,7 +43,7 @@ try
                     $result->isEmpty = true;
 
 				else{
-                    if(password_verify($sifra, $data[0]['sifra']))
+                    if($sifraCrypt===$data[0]['sifra'])
 					   $result->isEmpty = false;
                     else {
                         $result->data = null;
@@ -77,7 +79,7 @@ try
 
                 $ime1=$data->korisnickoIme;
 
-                $passwordCrypt=password_hash($password,PASSWORD_DEFAULT);
+                $passwordCrypt=crypt($password, '$2a$10$dfgbdfgbt5y56gtbftrty6');
 
                 $q = $db->prepare("UPDATE `mydb`.`korisnik` SET `sifra` = ? WHERE `korisnik`.`korisnickoIme` = ? ");
                 $q->execute(array($passwordCrypt, $ime1));
@@ -134,7 +136,10 @@ else if($method === 'POST')
             $privilegije = $data->privilegije;
         $datum=date("Y-d-m");
 
-        $passwordCrypt=password_hash($password, PASSWORD_DEFAULT);
+
+        $passwordCrypt=crypt($password,'$2a$10$dfgbdfgbt5y56gtbftrty6');
+
+
         $query = $db->prepare("INSERT INTO `mydb`.`korisnik` (`korisnickoIme`, `sifra`, `ime`,`prezime`,`email`,`institucija`,`dodatneInformacije`,`privilegije`,`datumRegistrovanja`,`status`) VALUES ('$username','$passwordCrypt', '$ime', '$prezime', '$email', '$institucija', '$info', '$privilegije', $datum, '$status' )");
 		$query->execute();  
         $broj_redova = $query->rowCount();
