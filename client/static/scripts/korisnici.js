@@ -1,4 +1,4 @@
-angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http','$window','$location', function ($scope, $http,$window,$location){
+angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http','$window', function ($scope, $http,$window){
     
     $scope.korisnici= null;
 	$scope.greska=false;
@@ -93,9 +93,10 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
 	}
 	
 	$scope.prikazi= function(){
-		var user =$location.search()['korisnickoIme'];
-		console.log(user);
-		$http.get('../server/korisnik.php?type=view&korisnickoIme='+user, {responseType: 'JSON'}).
+		var location =$window.location.href;
+		var user=location.split('=');
+		console.log(user[1]);
+		$http.get('../server/korisnik.php?type=view&korisnickoIme='+user[1], {responseType: 'JSON'}).
 			success(function(data, status, headers, config){
 			if(data!=="null"){
 			$scope.single=data.data;
