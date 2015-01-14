@@ -75,6 +75,29 @@ try
             $result->error_status = false;
             $result->data = $query->fetchAll(PDO::FETCH_OBJ);
         }
+        else if($_GET['type'] === 'byId')
+        {
+            $objectId = $_GET['objectId'];
+            
+            $query = $db->prepare(  "select o.id, o.oznaka, o.tekstNatpisa, 
+                                    vn.naziv as 'vrstaNatpisa', j.naziv as 'jezik', pr.naziv as 'provincija', g.naziv as 'grad', pl.naziv as 'pleme', 
+                                    md.naziv as 'modernaDrzava', mm.naziv as 'modernoMesto', u.naziv as 'ustanova', 
+                                    o.pocetakGodina, o.pocetakVek, o.pocetakOdrednica, o.krajGodina, o.krajVek, o.krajOdrednica, o.tip, 
+                                    o.materijal, o.dimenzije, o.komentar, o.faza, o.datumKreiranja, o.datumPoslednjeIzmene, o.datovano, o.lokalizovano
+                                    from objekat o join vrstanatpisa vn on o.vrstaNatpisa = vn.id
+                                    join jezik j on o.jezik = j.id
+                                    join provincija pr on o.provincija = pr.id
+                                    join grad g on o.grad = g.id
+                                    join mesto m on o.mesto = m.id
+                                    join pleme pl on o.pleme = pl.id
+                                    join modernadrzava md on o.modernaDrzava = md.id
+                                    join modernoMesto mm on o.modernoMesto = mm.id
+                                    join ustanova u on o.ustanova = u.id
+                                    where o.id = $objectId");
+            $query->execute();
+            $result->error_status = false;
+            $result->data = $query->fetchAll(PDO::FETCH_OBJ);
+        }
         else if($_GET['type'] === 'jedinstena_oznaka')
         {
             $oznaka = $_GET['oznaka'];

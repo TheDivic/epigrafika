@@ -69,7 +69,7 @@
 "dozvoljeni": "Numbers, letters and _ are allowed",
 "sifra":"Password",
 "ponovljena_sifra":"Re-enter password",
-"dodatne_info":"Additional informations",
+"dodatne_info":"Additional information",
 "registruj_se":"Sing up",
 "info_max":"Only 45 characters allowed",
 "pattern_error_cifre":"Only digits are allowed!",
@@ -91,9 +91,9 @@
 "format_error_slova_cifre":"Only letters and digits are allowed!",
 "razlicite_sifre":"Passwords are not the same",
 "dodaj_pdf":"Add pdfs",
-"zaboravili_sifru": "Forgotten your password?",
-"posalji_email":"Send password on your email address",
-"greska404":"Error 404. You are trying to access to an nonexistent page, or you do not have permission to gain the access.",
+"zaboravili_sifru": "Forgot your password?",
+"posalji_email":"Send password to your email address",
+"greska404":"Error 404. You are trying to access a nonexisting page, or you have insufficient permission.",
 "lokacija":"Location",
 "vise_informacija":"More information",
 "jezik":"Language",
@@ -101,4 +101,8 @@
 "dimenzije":"Dimensions",
 "pdf_error":"You can upload 10 or less PDF files",
 "photo_error":"You can upload 10 or less images"
+"slike":"Photos",
+"nema_slika":"No photos available",
+"datum_kreiranja":"Created",
+"datum_poslednje_izmene":"Modified"
 }
