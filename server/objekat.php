@@ -124,7 +124,11 @@ try
         //Admin only?
         $data = file_get_contents('php://input');
         try {
-            $result = unesi($data, $db);
+            $rezultat = unesi($data, $db);
+            if($rezultat == true){
+                $result->error_status = false;
+
+            }
         }catch (Exception $e){
             $result->error_status=true;
             $result->error_message = $e->getMessage();
@@ -137,7 +141,12 @@ try
         //Admin only?
         $data = file_get_contents('php://input');
         try {
-            $result = azuriraj($data, $db);
+            $rezultat = azuriraj($data, $db);
+
+            if($rezultat == true){
+                $result->error_status = false;
+            }
+
         }catch (Exception $e){
             $result->error_status=true;
             $result->error_message = $e->getMessage();
