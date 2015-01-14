@@ -104,5 +104,8 @@
 "slike":"Photos",
 "nema_slika":"No photos available",
 "datum_kreiranja":"Created",
-"datum_poslednje_izmene":"Modified"
+"datum_poslednje_izmene":"Modified",
+"bibliografski_podaci":"Bibliographical data",
+"nema_podataka":"No data available",
+"izvorni_grad":"Town of origin"
 }

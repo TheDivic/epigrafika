@@ -106,5 +106,8 @@
 "slike":"Slike",
 "nema_slika":"Nema dostupnih slika",
 "datum_kreiranja":"Datum kreiranja",
-"datum_poslednje_izmene":"Datum poslednje izmene"
+"datum_poslednje_izmene":"Datum poslednje izmene",
+"bibliografski_podaci":"Bibliografski podaci",
+"nema_podataka":"Nema dostupnih podataka",
+"izvorni_grad":"Izvorni grad nalaska"
 }

@@ -83,7 +83,8 @@ try
             $objectId = $_GET['objectId'];
 
             $sl = selektovanje::getSelektor();
-            $result->data = $sl->selektujeObjekat( $objectId);
+			$result->error_status = false;
+            $result->data = $sl->selektujeObjekat($objectId);
             /*
             $query = $db->prepare(  "select o.id, o.oznaka, o.tekstNatpisa, 
                                     vn.naziv as 'vrstaNatpisa', j.naziv as 'jezik', pr.naziv as 'provincija', g.naziv as 'grad', pl.naziv as 'pleme', 
