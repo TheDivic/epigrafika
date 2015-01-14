@@ -276,7 +276,7 @@
                         <label class="control-label">  {{tr.vreme}}: </label> {{rezultat.vreme}} <br/>
                         <label class="control-label">  {{tr.komentar}}: </label>{{rezultat.komentar}} <br/>
 
-                        <a href="objekat.php?id={{rezultat.id}}" style="font-size: 18px;"> {{tr.vise_informacija}} </a>
+                        <a href="objekat.php?id={{rezultat.id}}"  target="_blank" style="font-size: 18px;"> {{tr.vise_informacija}} </a>
                         </div>
                         <div class="col-sm-4">
                             slika!!!

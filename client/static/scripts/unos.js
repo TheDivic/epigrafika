@@ -32,7 +32,7 @@ angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http
     $scope.bibliografskoPorekloSkracenica=null;
     $scope.komentar=null;
     $scope.fotografije=null;
-    $scope.fazaUnosa=null;
+    $scope.fazaUnosa="nekompletno";
     $scope.greska=false;
     $scope.provincije= null;
     $scope.drzave=null;
