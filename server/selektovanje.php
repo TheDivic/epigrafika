@@ -153,7 +153,120 @@ class selektovanje {
         }
         return $od2;
     }
+    public function sortiranje($data)
+    {
+        $podupit = '';
+        if(!property_exists($data, 'sortiranje'))
+            return ' ';
 
+        if (strcasecmp($data->sortiranje, 'poVremenu') == 0)
+        {
+            return ' ORDER BY Toznaka.pocetakVek, Toznaka.pocetakOdrednica DESC, Toznaka.pocetakGodina, Toznaka.krajVek, Toznaka.krajOdrednica DESC, Toznaka.krajGodina ';
+        }
+        else
+            if (strcasecmp($data->sortiranje, 'poMestuNalaska') == 0)
+            {
+                return ' ORDER BY Mesto.naziv ';
+            }
+            else
+                if (strcasecmp($data->sortiranje, 'poVrstiNatpisa') == 0)
+                {
+                    return ' ORDER BY vrstaNatpisa.naziv ';
+                }
+                else
+                {
+                    return ' ';
+                }
+
+    }
+
+    public function vremeUString($godina, $vek, $odrednica)
+    {
+        if($godina != null)
+            return $godina;
+        if($odrednica == null)
+            return $vek . '. vek';
+
+        return $vek . ". vek " . $odrednica;
+
+    }
+
+    public function selektujFotografijeObjekta($idObjekta)
+    {
+        $upit = 'select * from Fotografija where objekat = :idObjekta';
+        $stmt=konekcija::getConnectionInstance()->prepare($upit);
+        $stmt->bindParam(':idObjekta', $idObjekta , PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        return  $stmt->fetchAll();
+
+    }
+    public function selektujBibliografskePodatkeObjekta($idObjekta)
+    {
+
+        $upit = 'select IzvodBibliografskogPodatka.putanja, IzvodBibliografskogPodatka.strana, BibliografskiPodatak.skracenica, BibliografskiPodatak.naslov '.
+            ' from IzvodBibliografskogPodatka JOIN  BibliografskiPodatak ON IzvodBibliografskogPodatka.bibliografskiPodatak = BibliografskiPodatak.id '.
+            'WHERE IzvodBibliografskogPodatka.objekat = :idObjekta';
+        $stmt=konekcija::getConnectionInstance()->prepare($upit);
+        $stmt->bindParam(':idObjekta', $idObjekta , PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        return  $stmt->fetchAll();
+
+    }
+    public function obradiVrsta($row)
+    {
+        $d = new stdClass();
+        $nepromenjeni = ['dimenzije', 'gradNalaska', 'id', 'jezik', 'komentar', 'materijal', 'mestoNalaska', 'modernoImeDrzave', 'natpis', 'oznaka', 'provincijaNalaska', 'tip', 'vrstaNatpisa' ];
+        foreach($row as $key => $value)
+        {
+            if(in_array($key, $nepromenjeni))
+            {
+                if($value != null)
+                    $d->$key = $value;
+                else
+                    $d->$key = 'nepoznato';
+            }
+        }
+        //trenutnaLokacijaZnamenitosti
+        if($row['ustanova'] == null)
+        {
+            if($row['modernoMesto'] == null)
+                $d->trenutnaLokacijaZnamenitosti = 'nepoznato';
+            else
+                $d->trenutnaLokacijaZnamenitosti = $row['modernoMesto'];
+        }
+        else
+        {
+            if($row['modernoMesto'] == null)
+                $d->trenutnaLokacijaZnamenitosti = $row['ustanova'];
+            else
+                $d->trenutnaLokacijaZnamenitosti = $row['modernoMesto'] . "   " . $row['ustanova'];
+        }
+
+        //postavljanje polja VREME
+        if($row['pocetakGodina'] == null && $row['pocetakVek'] == null )
+        {
+            $d->vreme = 'nepoznato';
+        }
+        else
+        if($row['krajGodina'] == null && $row['krajVek'] == null )
+        {
+            $d->vreme = $this->vremeUString($row['pocetakGodina'], $row['pocetakVek'], $row['pocetakOdrednica']);
+        }
+        else
+        {
+            $d->vreme = 'Od ' . $this->vremeUString($row['pocetakGodina'], $row['pocetakVek'], $row['pocetakOdrednica']) . ' do ' . $this->vremeUString($row['krajGodina'], $row['krajVek'], $row['krajOdrednica']);
+        }
+
+        //popunjavanje fotografija
+        $d->fotografije = $this->selektujFotografijeObjekta($row['id']);
+
+        //popunjavanje bibliografskih podataka
+        $d->bibliografskiPodatci = $this->selektujBibliografskePodatkeObjekta($row['id']);
+
+        return $d;
+    }
     public function selektuj($data)
     {
 
@@ -195,10 +308,19 @@ class selektovanje {
         $od2 = $this->vreme($data); // // u where dodajemo restrikcije o vremenu
         $Tvreme = $od2->str;
 
+        $Tsortiranje = $this->sortiranje($data);
+
         $upit = "select Toznaka.oznaka, Toznaka.tekstNatpisa AS natpis" .
             ", TprovincijaNalaska.naziv AS provincijaNalaska , TgradNalaska.naziv AS gradNalaska, Mesto.naziv AS mestoNalaska ".       //provincija, grad i mesto
 
             ", TmodernoImeDrzave.naziv AS modernoImeDrzave ". //moderno ime drzave i
+            ", vrstaNatpisa.naziv AS vrstaNatpisa ".
+            ", jezik.naziv AS jezik  ".
+            " , Toznaka.tip, Toznaka.materijal, Toznaka.dimenzije  ".   //grupa tip spomenika
+            " , Toznaka.komentar  ".
+            " , Ustanova.naziv AS ustanova, TmodernoMesto.naziv AS modernoMesto  ". //trenutnaLokacijaZnamenitosti
+            " , Toznaka.pocetakGodina, Toznaka.pocetakVek, Toznaka.pocetakOdrednica , Toznaka.krajGodina, Toznaka.krajVek, Toznaka.krajOdrednica ".
+            " , Toznaka.id  ".
             //", TmodernoImeDrzave.*". ", TmodernoMesto.*, Tpleme.*".
             " FROM ".
             $Toznaka .
@@ -209,14 +331,19 @@ class selektovanje {
             " JOIN ".$Tpleme. " ON Toznaka.pleme = Tpleme.id ".
             " LEFT JOIN Mesto ON Toznaka.mesto = Mesto.id "
             //" JOIN ".$TmestoNalaska. " ON Toznaka.id = TmestoNalaska.id"
+            ." LEFT JOIN vrstaNatpisa ON Toznaka.vrstaNatpisa = vrstaNatpisa.id "
+            ." LEFT JOIN jezik ON Toznaka.jezik = jezik.id "
+            . " LEFT JOIN ustanova on Toznaka.ustanova = Ustanova.id"
+            . " "
             .$TmestoNalaska
             .$Tnatpis
             .$Tvreme
+            .$Tsortiranje
         ;
 
 
-       // echo $upit;
-       // echo "\n";
+        //echo $upit;
+        //echo "\n";
 
         $stmt=konekcija::getConnectionInstance()->prepare($upit);
 
@@ -345,13 +472,31 @@ class selektovanje {
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         //return json_encode( $stmt->fetchAll());
-        return $stmt->fetchAll();
+        $povratna = [];
+        while($row = $stmt->fetch())
+        {
+            $row = $this->obradiVrsta($row);
+            array_push ($povratna, $row);
+        }
+        //return $stmt->fetchAll();
+        return $povratna;
+    }
+    public function selektujeObjekat($idObjekta)
+    {
+        $upit = "select Toznaka.oznaka, Toznaka.tekstNatpisa AS natpis, TprovincijaNalaska.naziv AS provincijaNalaska , TgradNalaska.naziv AS gradNalaska, Mesto.naziv AS mestoNalaska , TmodernoImeDrzave.naziv AS modernoImeDrzave , vrstaNatpisa.naziv AS vrstaNatpisa , jezik.naziv AS jezik   , Toznaka.tip, Toznaka.materijal, Toznaka.dimenzije   , Toznaka.komentar   , Ustanova.naziv AS ustanova, TmodernoMesto.naziv AS modernoMesto   , Toznaka.pocetakGodina, Toznaka.pocetakVek, Toznaka.pocetakOdrednica , Toznaka.krajGodina, Toznaka.krajVek, Toznaka.krajOdrednica  , Toznaka.id   FROM (select * from Objekat) Toznaka JOIN (select * from Provincija) TprovincijaNalaska ON Toznaka.provincija = TprovincijaNalaska.id  JOIN (select * from Grad) TgradNalaska ON Toznaka.grad = TgradNalaska.id  JOIN (select * from ModernaDrzava) TmodernoImeDrzave ON Toznaka.modernaDrzava = TmodernoImeDrzave.id  JOIN (select * from ModernoMesto) TmodernoMesto ON Toznaka.modernoMesto = TmodernoMesto.id  JOIN (select * from Pleme) Tpleme ON Toznaka.pleme = Tpleme.id  LEFT JOIN Mesto ON Toznaka.mesto = Mesto.id  LEFT JOIN vrstaNatpisa ON Toznaka.vrstaNatpisa = vrstaNatpisa.id  LEFT JOIN jezik ON Toznaka.jezik = jezik.id  LEFT JOIN ustanova on Toznaka.ustanova = Ustanova.id where Toznaka.id = :idObjekta ";
+        $stmt=konekcija::getConnectionInstance()->prepare($upit);
+        $stmt->bindParam(':idObjekta', $idObjekta , PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $d =  $stmt->fetch();
+        return $this->obradiVrsta($d);
     }
 
 }
 //$sl = new selektovanje();
 /*
 $a =  new stdClass();
+
 $a->oznaka = 'O(1]';
 $a->provincijaNalaska = 'Thracia[';
 $a->gradNalaska = 'Aleksandrovac['; //Kreljevo Aleksandrovac
@@ -373,6 +518,12 @@ $a->periodVeka = 'drugaPolovina';
 $a->rezimIgnorisanjaZagrada = true;
 
 $sl = selektovanje::getSelektor();
-$sl->selektuj($a);
+$odg = $sl->selektuj($a);
+echo json_encode($odg);
+*/
+/*
+$sl = selektovanje::getSelektor();
+$odg = $sl->selektujeObjekat(1);
+echo json_encode($odg);
 */
 ?>

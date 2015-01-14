@@ -1,23 +1,26 @@
+INSERT INTO `mydb`.`modernadrzava` (`id`, `naziv`) VALUES (-1, 'Nepoznata');
 INSERT INTO `mydb`.`modernadrzava` (`id`, `naziv`) VALUES ('1', 'Srbija'),
 ('2', 'Makedonija'), ('3', 'Hrvatska');
 /* moderna mesta */
+INSERT INTO  `mydb`.`ModernoMesto`(`id`,`naziv`,`modernaDrzava`) VALUES(-1,'Nepoznato',-1);
 INSERT INTO  `mydb`.`ModernoMesto`(`id`,`naziv`,`modernaDrzava`) VALUES(1,'Beograd',1);
 INSERT INTO  `mydb`.`ModernoMesto`(`id`,`naziv`,`modernaDrzava`) VALUES(2,'Aleksandrovac',1);
 INSERT INTO  `mydb`.`ModernoMesto`(`id`,`naziv`,`modernaDrzava`) VALUES(3,'Kraljevo',1);
 INSERT INTO  `mydb`.`ModernoMesto`(`id`,`naziv`,`modernaDrzava`) VALUES(4,'Cacak',1);
 INSERT INTO  `mydb`.`ModernoMesto`(`id`,`naziv`,`modernaDrzava`) VALUES(5,'Valjevo',1);
 
-INSERT INTO `mydb`.`grad` (`id`, `naziv`) VALUES ('1', 'Aleksandrovac'), ('2', 'Kraljevo'),
+INSERT INTO `mydb`.`grad` (`id`, `naziv`) VALUES ('-1', 'Nepoznat'), ('1', 'Aleksandrovac'), ('2', 'Kraljevo'),
 ('3', 'Beograd'), ('4', 'Cacak'), ('5', 'Valjevo');
 
-INSERT INTO `mydb`.`provincija` (`id`, `naziv`, `pocetak`, `kraj`) VALUES ('1', 'Thracia', '1. vek n.e.', '3. vek n.e'),
+INSERT INTO `mydb`.`provincija` (`id`, `naziv`, `pocetak`, `kraj`) VALUES ('-1', 'Nepoznata', 'nepoznato', 'nepoznato'), ('1', 'Thracia', '1. vek n.e.', '3. vek n.e'),
 ('2', 'Macedonia', '2. vek n.e.', '3. vek n.e'), ('3', 'Dalmatia', '2. vek p.n.e.', '5. vek n.e');
 
 
 INSERT INTO `mydb`.`vrstanatpisa` (`id`, `naziv`) VALUES ('1', 'Natpis1'), ('2', 'Natpis2'), ('3', 'Natpis3');
 
-INSERT INTO `mydb`.`Mesto`(`id`,`naziv`)  VALUES (1, 'Aleksandrovac'), (2, 'Kraljevo'),
-(3, 'Beograd'), (4, 'Cacak'), (5, 'Valjevo'),('21', 'Vojvodina'), ('31', 'Kosovo');
+INSERT INTO `mydb`.`mesto`(`id`, `naziv`)  VALUES ('-1', 'Nepoznato'), ('1', 'Aleksandrovac'), ('2', 'Kraljevo'),
+('3', 'Beograd'), ('4', 'Cacak'), ('5', 'Valjevo'),('21', 'Vojvodina'), ('31', 'Kosovo');
+
 
 INSERT INTO `mydb`.`Pleme`(`id`,`naziv`) VALUES(1,'Zupani'), (2,'Varvari'), (3,'Autarijati'), (4,'Singi'), (5,'Varvari'),(7,'Iliri'), (8,'Tracani'), (9,'Grci'),('11', 'Apace'), ('12', 'Sijukas');
 
@@ -27,7 +30,7 @@ INSERT INTO `mydb`.`Jezik`(`id`,`naziv`,`kod`) VALUES(1,'Srpski','s'), (2,'Staro
 
 INSERT INTO `mydb`.`Ustanova`( `id`,`naziv`,`modernoMesto`) VALUES(1,'Arheoloski Muzej', 1), (2,'Narodni Muzej',1), (3,'Prirodnjacki Muzej Kalemegdan',1),(4,'Narodni Muzej',3);
 
-INSERT INTO `mydb`.`korisnik` (`korisnickoIme`, `sifra`, `ime`,`prezime`,`email`,`institucija`,`dodatneInformacije`,`mod`,`datumRegistrovanja`,`status`) VALUES 
+INSERT INTO `mydb`.`korisnik` (`korisnickoIme`, `sifra`, `ime`,`prezime`,`email`,`institucija`,`dodatneInformacije`,`privilegije`,`datumRegistrovanja`,`status`) VALUES 
 ('Mirko','pr10','Mirko','Ivic','mivic@hotmail.com','ibm','prazno','l3','12-12-2014','0');
 
 /*poligon 1*/
@@ -121,14 +124,14 @@ INSERT INTO `mydb`.`podesavanja` (`id`, `naziv`, `tip`,`vrednost`) VALUES ('1', 
  /*objekat 2*/
 INSERT INTO `mydb`.`objekat` (`id`, `oznaka`, `tekstNatpisa`,`vrstaNatpisa`,`jezik`,`provincija`,`grad`,`mesto`,`pleme`,`modernaDrzava`,`modernoMesto`,`ustanova`,`korisnickoIme`,
 `faza`, `datumKreiranja`, `datumPoslednjeIzmene`, `datovano`, `lokalizovano`) 
-VALUES ('2','O2','Natpis','4','4','2','3','5','1','1','3','3','Mirko', 'faza1', '12-01-2015', '12-01-2015', 'true', 'true');
+VALUES ('2','O2','Natpis','4','4','2','3','5','1','1','3','3','Mirko', 'zavrsnaFaza', '12-01-2015', '12-01-2015', 'true', 'true');
 INSERT INTO `mydb`.`dodatniopis` (`id`, `objekat`) VALUES ('2', '2');
 INSERT INTO `mydb`.`bog` (`id`, `ime`) VALUES ('2', 'atina');
 INSERT INTO `mydb`.`osoba` (`id`, `name`, `praenomen`,`nomen`,`cognomen`,`agnomen`,`tribus`,`origo`) VALUES ('2','herkul','atina','alkmena','nema','nema','nema','ne');
 /*objekat 3*/
 INSERT INTO `mydb`.`objekat` (`id`, `oznaka`, `tekstNatpisa`,`vrstaNatpisa`,`jezik`,`provincija`,`grad`,`mesto`,`pleme`,`modernaDrzava`,`modernoMesto`,`ustanova`,`korisnickoIme`,
 `faza`, `datumKreiranja`, `datumPoslednjeIzmene`, `datovano`, `lokalizovano`) 
-VALUES ('3','O3','Natpis2','7','1','1','2','2','1','1','3','4','Mirko', 'faza1', '12-01-2015', '12-01-2015', 'true', 'true');
+VALUES ('3','O3','Natpis2','7','1','1','2','2','1','1','3','4','Mirko', 'zavrsnaFaza', '12-01-2015', '12-01-2015', 'true', 'true');
 INSERT INTO `mydb`.`dodatniopis` (`id`, `objekat`) VALUES ('3', '3');
 INSERT INTO `mydb`.`bog` (`id`, `ime`) VALUES ('3', 'atina');
 INSERT INTO `mydb`.`osoba` (`id`, `name`, `praenomen`,`nomen`,`cognomen`,`agnomen`,`tribus`,`origo`) VALUES ('3','herkul','atina','alkmena','nema','nema','nema','ne');

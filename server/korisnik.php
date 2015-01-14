@@ -26,40 +26,67 @@ try
 		if($_GET['type'] === 'login'){
 				$ime = $_GET['user']; 
 				$sifra=$_GET['pass'];
-				$query = $db->prepare("select * from mydb.korisnik where korisnickoIme=$ime and sifra=$sifra" );
+
+                $sifra=str_replace('"',"",$sifra);
+
+                $query = $db->prepare("select * from mydb.korisnik where korisnickoIme=$ime");
 				$query->execute();
 				$result->error_status = false;
-				$result->data = $query->fetchAll();
-				if(count($result->data) == 0)
-					$result->isEmpty = true;
-				else{
-					$result->isEmpty = false;
 
+                $data = $query->fetchAll();
+
+                $result->data = $data;
+
+                if(count($data) == 0)
+                    $result->isEmpty = true;
+
+				else{
+                    if(password_verify($sifra, $data[0]['sifra']))
+					   $result->isEmpty = false;
+                    else {
+                        $result->data = null;
+                        $result->isEmpty = true;
+                    }
 		}
             }
-            if($_GET['type'] === 'zaboravljenaSifra'){
-                    //TO DO - SLANJE MAILA na email korisnika sa sifrom.
-                    $ime = $_GET['user']; 
-                    $query = $db->prepare("select * from mydb.korisnik where korisnickoIme=$ime" );
-                    $query->execute();
-                    $result->error_status = false;
-                    $data = $query->fetch(PDO::FETCH_OBJ);
-                    if($data === NULL){
-                        $result->message = "ne postoji korisnicko ime.";
-                    }
-                    else{
-						$result->message = "Poslat mail na adresu.";
-                    }
-                    
-                    $email = $data->email;
-                    $headers = "From: noreply@example.com\r\nReply-To: noreply@example.com\r\nX-Mailer: PHP/".phpversion();
-                        if(mail($email, "Subjekat", "Neki tekst neke poruke", $headers)){
-                            echo "Success";
-                        }
-                        else {
-                            echo "Fail!";
-                        }
-                }
+        if($_GET['type'] === 'zaboravljenaSifra'){
+            //TO DO - SLANJE MAILA na email korisnika sa sifrom.
+            $ime = $_GET['user'];
+
+            $query = $db->prepare("select * from mydb.korisnik where korisnickoIme=$ime" );
+            $query->execute();
+            $result->error_status = false;
+            $data = $query->fetch(PDO::FETCH_OBJ);
+
+            if($data == NULL){
+                $result->message = "Ne postoji korisnicko ime.";
+            }
+            else {
+
+                $email = $data->email;
+
+                $headers = "From: noreply@epigrafika.com\r\nReply-To: noreply@epigrafika.com\r\nX-Mailer: PHP/" . phpversion();
+                $subject="Nova lozinka";
+                $password=rand_passwd();
+                $message="Postovani, \n vasa nova lozinka je: ".$password."\n";
+
+                if(mail($email, $subject, $message, $headers))
+                    $result->message = "Poslat mejl na adresu.";
+                else
+                    $result->message = "Greska pri slanju mejla";
+
+                $ime1=$data->korisnickoIme;
+
+                $passwordCrypt=password_hash($password,PASSWORD_DEFAULT);
+
+                $q = $db->prepare("UPDATE `mydb`.`korisnik` SET `sifra` = ? WHERE `korisnik`.`korisnickoIme` = ? ");
+                $q->execute(array($passwordCrypt, $ime1));
+
+
+            }
+        }
+
+
 			if($_GET['type'] === 'view'){
 				$user= $_GET['korisnickoIme'];
 				$query = $db->prepare("select * from mydb.korisnik where korisnickoIme='$user'" );
@@ -106,8 +133,9 @@ else if($method === 'POST')
 		if(property_exists($data, "privilegije"))
             $privilegije = $data->privilegije;
         $datum=date("Y-d-m");
-        
-        $query = $db->prepare("INSERT INTO `mydb`.`korisnik` (`korisnickoIme`, `sifra`, `ime`,`prezime`,`email`,`institucija`,`dodatneInformacije`,`privilegije`,`datumRegistrovanja`,`status`) VALUES ('$username','$password', '$ime', '$prezime', '$email', '$institucija', '$info', '$privilegije', $datum, '$status' )");
+
+        $passwordCrypt=password_hash($password, PASSWORD_DEFAULT);
+        $query = $db->prepare("INSERT INTO `mydb`.`korisnik` (`korisnickoIme`, `sifra`, `ime`,`prezime`,`email`,`institucija`,`dodatneInformacije`,`privilegije`,`datumRegistrovanja`,`status`) VALUES ('$username','$passwordCrypt', '$ime', '$prezime', '$email', '$institucija', '$info', '$privilegije', $datum, '$status' )");
 		$query->execute();  
         $broj_redova = $query->rowCount();
 		if($broj_redova==1) 
@@ -162,6 +190,12 @@ catch(Exception $e)
 {
     $result->error_status=true;
     $result->error_message = $e->getMessage();
+}
+
+function rand_passwd() {
+    $length = rand(8,12);
+    $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789';
+    return substr( str_shuffle( $chars ), 0, $length );
 }
 
 echo json_encode($result);

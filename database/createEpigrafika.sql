@@ -39,7 +39,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mydb`.`Mesto` ;
 
 CREATE  TABLE IF NOT EXISTS `mydb`.`Mesto` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `naziv` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
@@ -139,7 +139,7 @@ DROP TABLE IF EXISTS `mydb`.`Korisnik` ;
 
 CREATE  TABLE IF NOT EXISTS `mydb`.`Korisnik` (
   `korisnickoIme` VARCHAR(20) NOT NULL ,
-  `sifra` CHAR(32) NOT NULL ,
+  `sifra` CHAR(100) NOT NULL ,
   `ime` VARCHAR(45) NOT NULL ,
   `prezime` VARCHAR(45) NOT NULL ,
   `email` VARCHAR(45) NOT NULL ,

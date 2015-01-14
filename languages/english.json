@@ -95,5 +95,8 @@
 "posalji_email":"Send password on your email address",
 "greska404":"Error 404. You are trying to access to an nonexistent page, or you do not have permission to gain the access.",
 "lokacija":"Location",
-"vise_informacija":"More information"
+"vise_informacija":"More information",
+"jezik":"Language",
+"tip_spomenika":"Monument type",
+"dimenzije":"Dimensions"
 }

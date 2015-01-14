@@ -262,6 +262,8 @@ $scope.posalji_podatke=function(){
  error(function(data, status, headers, config){
 
  });
+ 
+ document.getElementById('reset').click();
 };
 
 $scope.proveri_jedinstvenost = function(){

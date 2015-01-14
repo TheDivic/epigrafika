@@ -27,7 +27,34 @@ try
             foreach($data1 as $key => $value)
             {
                 if($value != null)
-                    $data->$key = $value;
+                {
+                    if(is_string($value))
+                        $value = trim($value);
+
+                    if($key == 'natpisArg' && $value == 'andNot')
+                    {
+                        $data->$key = 'AND NOT';
+                    }
+                  /*  else
+                        if($key == 'periodVeka' && $value == 'prvaPolovinaVeka')
+                        {
+                            $data->$key = 'prvaPolovina';
+                        }
+                    else
+                        if($key == 'periodVeka' && $value == 'drugaPolovinaVeka')
+                        {
+                            $data->$key = 'drugaPolovina';
+                        }*/
+                    else
+                    {
+                      /*  if(is_string($value))
+                            $data->$key = trim($value);
+                        else*/
+                            $data->$key = $value;
+                    }
+
+                }
+
             }
             //$result->ulazni_podaci = $data;
             $result->data = $sl->selektuj($data);

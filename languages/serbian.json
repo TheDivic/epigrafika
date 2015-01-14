@@ -97,5 +97,8 @@
 "max_bibl":"Broj dokumenata uz bibliografski podatak",
 "greska404":"Greška 404. Pokušavate da pristupite nepostojećoj strani ili nemate prava pristupa!",
 "lokacija":"Lokacija",
-"vise_informacija":"Više informacija"
+"vise_informacija":"Više informacija",
+"jezik":"Jezik",
+"tip_spomenika":"Tip spomenika",
+"dimenzije":"Dimenzije"
 }
