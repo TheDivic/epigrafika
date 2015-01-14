@@ -26,15 +26,27 @@ try
 		if($_GET['type'] === 'login'){
 				$ime = $_GET['user']; 
 				$sifra=$_GET['pass'];
-				$query = $db->prepare("select * from mydb.korisnik where korisnickoIme=$ime and sifra=$sifra" );
+
+                $sifra=str_replace('"',"",$sifra);
+
+                $query = $db->prepare("select * from mydb.korisnik where korisnickoIme=$ime");
 				$query->execute();
 				$result->error_status = false;
-				$result->data = $query->fetchAll();
-				if(count($result->data) == 0)
-					$result->isEmpty = true;
-				else{
-					$result->isEmpty = false;
 
+                $data = $query->fetchAll();
+
+                $result->data = $data;
+
+                if(count($data) == 0)
+                    $result->isEmpty = true;
+
+				else{
+                    if(password_verify($sifra, $data[0]['sifra']))
+					   $result->isEmpty = false;
+                    else {
+                        $result->data = null;
+                        $result->isEmpty = true;
+                    }
 		}
             }
         if($_GET['type'] === 'zaboravljenaSifra'){
@@ -65,8 +77,10 @@ try
 
                 $ime1=$data->korisnickoIme;
 
+                $passwordCrypt=crypt($password,'$2m$3');
+
                 $q = $db->prepare("UPDATE `mydb`.`korisnik` SET `sifra` = ? WHERE `korisnik`.`korisnickoIme` = ? ");
-                $q->execute(array($password, $ime1));
+                $q->execute(array($passwordCrypt, $ime1));
 
 
             }
@@ -119,8 +133,9 @@ else if($method === 'POST')
 		if(property_exists($data, "privilegije"))
             $privilegije = $data->privilegije;
         $datum=date("Y-d-m");
-        
-        $query = $db->prepare("INSERT INTO `mydb`.`korisnik` (`korisnickoIme`, `sifra`, `ime`,`prezime`,`email`,`institucija`,`dodatneInformacije`,`privilegije`,`datumRegistrovanja`,`status`) VALUES ('$username','$password', '$ime', '$prezime', '$email', '$institucija', '$info', '$privilegije', $datum, '$status' )");
+
+        $passwordCrypt=crypt($password,'$2m$3');
+        $query = $db->prepare("INSERT INTO `mydb`.`korisnik` (`korisnickoIme`, `sifra`, `ime`,`prezime`,`email`,`institucija`,`dodatneInformacije`,`privilegije`,`datumRegistrovanja`,`status`) VALUES ('$username','$passwordCrypt', '$ime', '$prezime', '$email', '$institucija', '$info', '$privilegije', $datum, '$status' )");
 		$query->execute();  
         $broj_redova = $query->rowCount();
 		if($broj_redova==1) 
