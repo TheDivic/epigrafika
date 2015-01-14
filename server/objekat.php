@@ -22,11 +22,12 @@ try
             //Standardna pretraga po nekim kljucnim recima
             $sl = selektovanje::getSelektor();
             $data1 = $_GET['podaci'];
+
             $data1 = json_decode($data1);
             $data = new stdClass();
             foreach($data1 as $key => $value)
             {
-                if($value != null)
+                if($value != null || $value ===0)
                 {
                     if(is_string($value))
                         $value = trim($value);
@@ -56,6 +57,8 @@ try
                 }
 
             }
+            echo json_encode($data);
+            echo '        ';
             //$result->ulazni_podaci = $data;
             $result->data = $sl->selektuj($data);
             
