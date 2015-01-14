@@ -25,10 +25,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.230769" vertical-offset="68" max-vertical-offset="5270">
+            <state vertical-scroll-proportion="0.2620424" vertical-offset="68" max-vertical-offset="5270">
               <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
               <folding />
             </state>
@@ -38,40 +38,36 @@
       <file leaf-file-name="objekat.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/objekat.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="31.538462" vertical-offset="1075" max-vertical-offset="1836">
-              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+            <state vertical-scroll-proportion="-6.888889" vertical-offset="2705" max-vertical-offset="3196">
+              <caret line="181" column="4" selection-start-line="181" selection-start-column="0" selection-end-line="181" selection-end-column="4" />
               <folding>
-                <element signature="e#2796#4248#0#PHP" expanded="false" />
-                <element signature="e#3135#4248#0#PHP" expanded="false" />
-                <element signature="e#3467#4248#0#PHP" expanded="false" />
-                <marker date="1421160696252" expanded="true" signature="1935:2152" placeholder="select o.id,..objekat..." />
-                <marker date="1421160696252" expanded="true" signature="2454:2494" placeholder="select * fro..objekat..." />
+                <marker date="1421263651939" expanded="true" signature="2021:2238" placeholder="select o.id,..objekat..." />
+                <marker date="1421263651939" expanded="true" signature="2546:3877" placeholder="select o.id,..." />
+                <marker date="1421263651939" expanded="true" signature="4175:4215" placeholder="select * fro..objekat..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="selektovanje.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="selektovanje.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/selektovanje.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.291971" vertical-offset="5908" max-vertical-offset="7310">
-              <caret line="7" column="2" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="2" />
+            <state vertical-scroll-proportion="-3.0185184" vertical-offset="2523" max-vertical-offset="7310">
+              <caret line="297" column="15" selection-start-line="297" selection-start-column="11" selection-end-line="297" selection-end-column="15" />
               <folding>
                 <element signature="n#getSelektor#0;n#selektovanje#0;n#!!top" expanded="false" />
                 <element signature="n#mesto#0;n#selektovanje#0;n#!!top" expanded="false" />
                 <element signature="n#natpis#0;n#selektovanje#0;n#!!top" expanded="false" />
                 <element signature="n#vreme#0;n#selektovanje#0;n#!!top" expanded="false" />
                 <element signature="n#sortiranje#0;n#selektovanje#0;n#!!top" expanded="false" />
-                <marker date="1421257822593" expanded="true" signature="5877:5929" placeholder="select * fro..Fotografija..." />
-                <marker date="1421257822593" expanded="true" signature="6274:6435" placeholder="select Izvod..Fotografija..." />
-                <marker date="1421257822593" expanded="true" signature="17518:18764" placeholder="select Tozna..*..." />
-                <marker date="1421257822593" expanded="true" signature="17518:18787" placeholder="select Tozna..*..." />
-                <marker date="1421257822593" expanded="true" signature="18088:18109" placeholder="select * fro..Objekat..." />
-                <marker date="1421257822593" expanded="true" signature="18125:18149" placeholder="select * fro..Provincija..." />
-                <marker date="1421257822593" expanded="true" signature="18223:18241" placeholder="select * fro..Grad..." />
-                <marker date="1421257822593" expanded="true" signature="18297:18324" placeholder="select * fro..ModernaDrzava..." />
-                <marker date="1421257822593" expanded="true" signature="18399:18425" placeholder="select * fro..ModernoMesto..." />
-                <marker date="1421257822593" expanded="true" signature="18491:18510" placeholder="select * fro..Pleme..." />
+                <marker date="1421262579515" expanded="true" signature="5877:5929" placeholder="select * fro..Fotografija..." />
+                <marker date="1421262579515" expanded="true" signature="17518:18787" placeholder="select Tozna..*..." />
+                <marker date="1421262579515" expanded="true" signature="18088:18109" placeholder="select * fro..Objekat..." />
+                <marker date="1421262579515" expanded="true" signature="18125:18149" placeholder="select * fro..Provincija..." />
+                <marker date="1421262579515" expanded="true" signature="18223:18241" placeholder="select * fro..Grad..." />
+                <marker date="1421262579515" expanded="true" signature="18297:18324" placeholder="select * fro..ModernaDrzava..." />
+                <marker date="1421262579515" expanded="true" signature="18399:18425" placeholder="select * fro..ModernoMesto..." />
+                <marker date="1421262579515" expanded="true" signature="18491:18510" placeholder="select * fro..Pleme..." />
               </folding>
             </state>
           </provider>
@@ -90,8 +86,8 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/server/objekat.php" />
         <option value="$PROJECT_DIR$/server/selektovanje.php" />
+        <option value="$PROJECT_DIR$/server/objekat.php" />
       </list>
     </option>
   </component>
@@ -136,44 +132,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="epigrafika" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="epigrafika" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="epigrafika" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="epigrafika" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="epigrafika" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="epigrafika" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -205,15 +163,15 @@
       <BehatRunner />
       <method />
     </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
+      <method />
+    </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
       <node-options />
       <gulpfile />
       <tasks />
       <pass-parent-env-vars>false</pass-parent-env-vars>
       <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
       <method />
     </configuration>
     <configuration default="false" name="selektovanje.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/server/selektovanje.php">
@@ -246,7 +204,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -254,9 +212,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24963397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16912971" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25340393" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -265,9 +221,11 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="PHP-CGI Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16912971" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -303,14 +261,54 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/objekat.php">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="3196">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding>
+            <marker date="1421263651939" expanded="true" signature="2021:2238" placeholder="select o.id,..objekat..." />
+            <marker date="1421263651939" expanded="true" signature="2546:3877" placeholder="select o.id,..." />
+            <marker date="1421263651939" expanded="true" signature="4175:4215" placeholder="select * fro..objekat..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/selektovanje.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="7310">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#getSelektor#0;n#selektovanje#0;n#!!top" expanded="false" />
+            <element signature="n#mesto#0;n#selektovanje#0;n#!!top" expanded="false" />
+            <element signature="n#natpis#0;n#selektovanje#0;n#!!top" expanded="false" />
+            <element signature="n#vreme#0;n#selektovanje#0;n#!!top" expanded="false" />
+            <element signature="n#sortiranje#0;n#selektovanje#0;n#!!top" expanded="false" />
+            <marker date="1421262579515" expanded="true" signature="5877:5929" placeholder="select * fro..Fotografija..." />
+            <marker date="1421262579515" expanded="true" signature="17518:18787" placeholder="select Tozna..*..." />
+            <marker date="1421262579515" expanded="true" signature="18088:18109" placeholder="select * fro..Objekat..." />
+            <marker date="1421262579515" expanded="true" signature="18125:18149" placeholder="select * fro..Provincija..." />
+            <marker date="1421262579515" expanded="true" signature="18223:18241" placeholder="select * fro..Grad..." />
+            <marker date="1421262579515" expanded="true" signature="18297:18324" placeholder="select * fro..ModernaDrzava..." />
+            <marker date="1421262579515" expanded="true" signature="18399:18425" placeholder="select * fro..ModernoMesto..." />
+            <marker date="1421262579515" expanded="true" signature="18491:18510" placeholder="select * fro..Pleme..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="5270">
+          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/objekat.php">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2120" max-vertical-offset="2754">
           <caret line="45" column="58" selection-start-line="45" selection-start-column="58" selection-end-line="45" selection-end-column="58" />
           <folding>
-            <element signature="e#2796#4248#0#PHP" expanded="false" />
-            <element signature="e#3135#4248#0#PHP" expanded="false" />
-            <element signature="e#3467#4248#0#PHP" expanded="false" />
-            <marker date="1421160696252" expanded="true" signature="1935:2152" placeholder="select o.id,..objekat..." />
-            <marker date="1421160696252" expanded="true" signature="2454:2494" placeholder="select * fro..objekat..." />
+            <marker date="1421263651939" expanded="true" signature="2021:2238" placeholder="select o.id,..objekat..." />
+            <marker date="1421263651939" expanded="true" signature="2546:3877" placeholder="select o.id,..." />
+            <marker date="1421263651939" expanded="true" signature="4175:4215" placeholder="select * fro..objekat..." />
           </folding>
         </state>
       </provider>
@@ -325,38 +323,14 @@
             <element signature="n#natpis#0;n#selektovanje#0;n#!!top" expanded="false" />
             <element signature="n#vreme#0;n#selektovanje#0;n#!!top" expanded="false" />
             <element signature="n#sortiranje#0;n#selektovanje#0;n#!!top" expanded="false" />
-            <marker date="1421257822593" expanded="true" signature="5877:5929" placeholder="select * fro..Fotografija..." />
-            <marker date="1421257822593" expanded="true" signature="6274:6435" placeholder="select Izvod..Fotografija..." />
-            <marker date="1421257822593" expanded="true" signature="17518:18764" placeholder="select Tozna..*..." />
-            <marker date="1421257822593" expanded="true" signature="17518:18787" placeholder="select Tozna..*..." />
-            <marker date="1421257822593" expanded="true" signature="18088:18109" placeholder="select * fro..Objekat..." />
-            <marker date="1421257822593" expanded="true" signature="18125:18149" placeholder="select * fro..Provincija..." />
-            <marker date="1421257822593" expanded="true" signature="18223:18241" placeholder="select * fro..Grad..." />
-            <marker date="1421257822593" expanded="true" signature="18297:18324" placeholder="select * fro..ModernaDrzava..." />
-            <marker date="1421257822593" expanded="true" signature="18399:18425" placeholder="select * fro..ModernoMesto..." />
-            <marker date="1421257822593" expanded="true" signature="18491:18510" placeholder="select * fro..Pleme..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.230769" vertical-offset="68" max-vertical-offset="5270">
-          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/objekat.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="31.538462" vertical-offset="1075" max-vertical-offset="1836">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding>
-            <element signature="e#2796#4248#0#PHP" expanded="false" />
-            <element signature="e#3135#4248#0#PHP" expanded="false" />
-            <element signature="e#3467#4248#0#PHP" expanded="false" />
-            <marker date="1421160696252" expanded="true" signature="1935:2152" placeholder="select o.id,..objekat..." />
-            <marker date="1421160696252" expanded="true" signature="2454:2494" placeholder="select * fro..objekat..." />
+            <marker date="1421262579515" expanded="true" signature="5877:5929" placeholder="select * fro..Fotografija..." />
+            <marker date="1421262579515" expanded="true" signature="17518:18787" placeholder="select Tozna..*..." />
+            <marker date="1421262579515" expanded="true" signature="18088:18109" placeholder="select * fro..Objekat..." />
+            <marker date="1421262579515" expanded="true" signature="18125:18149" placeholder="select * fro..Provincija..." />
+            <marker date="1421262579515" expanded="true" signature="18223:18241" placeholder="select * fro..Grad..." />
+            <marker date="1421262579515" expanded="true" signature="18297:18324" placeholder="select * fro..ModernaDrzava..." />
+            <marker date="1421262579515" expanded="true" signature="18399:18425" placeholder="select * fro..ModernoMesto..." />
+            <marker date="1421262579515" expanded="true" signature="18491:18510" placeholder="select * fro..Pleme..." />
           </folding>
         </state>
       </provider>
@@ -365,31 +339,48 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33175355" vertical-offset="132" max-vertical-offset="578">
           <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/objekat.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.888889" vertical-offset="2705" max-vertical-offset="3196">
+          <caret line="181" column="4" selection-start-line="181" selection-start-column="0" selection-end-line="181" selection-end-column="4" />
+          <folding>
+            <marker date="1421263651939" expanded="true" signature="2021:2238" placeholder="select o.id,..objekat..." />
+            <marker date="1421263651939" expanded="true" signature="2546:3877" placeholder="select o.id,..." />
+            <marker date="1421263651939" expanded="true" signature="4175:4215" placeholder="select * fro..objekat..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/selektovanje.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.291971" vertical-offset="5908" max-vertical-offset="7310">
-          <caret line="7" column="2" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="2" />
+        <state vertical-scroll-proportion="-3.0185184" vertical-offset="2523" max-vertical-offset="7310">
+          <caret line="297" column="15" selection-start-line="297" selection-start-column="11" selection-end-line="297" selection-end-column="15" />
           <folding>
             <element signature="n#getSelektor#0;n#selektovanje#0;n#!!top" expanded="false" />
             <element signature="n#mesto#0;n#selektovanje#0;n#!!top" expanded="false" />
             <element signature="n#natpis#0;n#selektovanje#0;n#!!top" expanded="false" />
             <element signature="n#vreme#0;n#selektovanje#0;n#!!top" expanded="false" />
             <element signature="n#sortiranje#0;n#selektovanje#0;n#!!top" expanded="false" />
-            <marker date="1421257822593" expanded="true" signature="5877:5929" placeholder="select * fro..Fotografija..." />
-            <marker date="1421257822593" expanded="true" signature="6274:6435" placeholder="select Izvod..Fotografija..." />
-            <marker date="1421257822593" expanded="true" signature="17518:18764" placeholder="select Tozna..*..." />
-            <marker date="1421257822593" expanded="true" signature="17518:18787" placeholder="select Tozna..*..." />
-            <marker date="1421257822593" expanded="true" signature="18088:18109" placeholder="select * fro..Objekat..." />
-            <marker date="1421257822593" expanded="true" signature="18125:18149" placeholder="select * fro..Provincija..." />
-            <marker date="1421257822593" expanded="true" signature="18223:18241" placeholder="select * fro..Grad..." />
-            <marker date="1421257822593" expanded="true" signature="18297:18324" placeholder="select * fro..ModernaDrzava..." />
-            <marker date="1421257822593" expanded="true" signature="18399:18425" placeholder="select * fro..ModernoMesto..." />
-            <marker date="1421257822593" expanded="true" signature="18491:18510" placeholder="select * fro..Pleme..." />
+            <marker date="1421262579515" expanded="true" signature="5877:5929" placeholder="select * fro..Fotografija..." />
+            <marker date="1421262579515" expanded="true" signature="17518:18787" placeholder="select Tozna..*..." />
+            <marker date="1421262579515" expanded="true" signature="18088:18109" placeholder="select * fro..Objekat..." />
+            <marker date="1421262579515" expanded="true" signature="18125:18149" placeholder="select * fro..Provincija..." />
+            <marker date="1421262579515" expanded="true" signature="18223:18241" placeholder="select * fro..Grad..." />
+            <marker date="1421262579515" expanded="true" signature="18297:18324" placeholder="select * fro..ModernaDrzava..." />
+            <marker date="1421262579515" expanded="true" signature="18399:18425" placeholder="select * fro..ModernoMesto..." />
+            <marker date="1421262579515" expanded="true" signature="18491:18510" placeholder="select * fro..Pleme..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2620424" vertical-offset="68" max-vertical-offset="5270">
+          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
