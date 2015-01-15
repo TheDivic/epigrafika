@@ -6,7 +6,7 @@ try{
 
     $db=konekcija::getConnectionInstance();
 
-    $query="select * from mydb.modernadrzava";
+    $query="select * from mydb.modernadrzava where id!=-1";
 
     $stmt = $db->prepare($query);
     $stmt->execute();

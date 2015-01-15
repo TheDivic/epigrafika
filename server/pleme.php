@@ -6,7 +6,7 @@ try{
 
     $db=konekcija::getConnectionInstance();
 
-    $query="select * from mydb.pleme";
+    $query="select * from mydb.pleme where id!=-1";
 
     $stmt = $db->prepare($query);
     $stmt->execute();

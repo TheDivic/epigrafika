@@ -249,6 +249,12 @@ function unesi($data, $db){
     $dimenzije.=$data->duzina;
     $korisnickoIme=$data->korisnickoIme;
 
+   // $trenutniId =
+
+    //deo za fotografije
+    //$fotografije = $data->fotografije;
+
+
 
 //    $query="INSERT INTO objekat(oznaka, jezik, tekstNatpisa, vrstaNatpisa, provincija,
 //        grad, mesto, modernaDrzava,modernoMesto, tip, materijal, dimenzije, komentar, datumKreiranja,
