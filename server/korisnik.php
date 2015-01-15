@@ -192,7 +192,7 @@ else if($method === 'PUT')
                     $privilegije = $data->privilegije;
 		if(property_exists($data, "stat"))
                     $stat= $data->stat;
-		$query = $db->prepare("UPDATE mydb.korisnik SET privilegije = '$privilegije', status = '$stat', ime='$ime', prezime='$prezime', email='$email',institucija='$institucija'  WHERE korisnickoIme = 'Mirko'");
+		$query = $db->prepare("UPDATE mydb.korisnik SET privilegije = '$privilegije', status = '$stat', ime='$ime', prezime='$prezime', email='$email',institucija='$institucija'  WHERE korisnickoIme = '$korisnickoIme'");
 		$query->execute();
 		$br = $query->rowCount();
 		if($br==1) $result->error_status = false;

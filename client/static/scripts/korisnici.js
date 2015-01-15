@@ -66,8 +66,8 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
                 username : $scope.user,
                 password : $scope.pwd,
                 info : $scope.info,
-				status: $scope.status,
-				privilegije: $scope.privilegije
+		status: $scope.status,
+		privilegije: $scope.privilegije
             };
             
             var jsonData = angular.toJson(formData);
@@ -79,8 +79,8 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
                if(data!=="null"){
                     if(data.error_status === false){
                         alert("Uspesno ste uneli korisnika.");
-						$window.location.reload();
-						}
+				$window.location.reload();
+			}
 						
                     else
                         alert("Doslo je do greske pri registraciji.");
