@@ -126,6 +126,13 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
         
 	};
 
+
+    $scope.show_grad_autocomplete = false;
+    $scope.gradPredlozi = [];
+    $scope.show_mesto_autocomplete = false;
+    $scope.mestoPredlozi = [];
+    $scope.mestoNalaska = "";
+
     $scope.autocompleteNatpis = function() {
         if($scope.natpis){
             var lastWord = $scope.natpis.split(/[\s,.!?]+/).pop();
@@ -164,62 +171,33 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
         $scope.show_natpis_autocomplete = false;
     };
 
-    $scope.autocompleteGrad = function() {
-        if($scope.gradNalaska){
-            $http.get('../server/autocomplete.php?type=city&key=' + $scope.gradNalaska).
+    $scope.autocomplete = function(type, model, responseArray, showVariable) {
+        if(model){
+            $http.get('../server/autocomplete.php?type=' + type + '&key=' + model).
                 success(function(data){
                     var response = angular.fromJson(data);
 
                     if(response.words){
-                        $scope.gradPredlozi = response.words;
-                        $scope.show_grad_autocomplete = true;
+                        $scope[responseArray] = response.words;
+                        $scope[showVariable] = true;
                     }
                     else {
-                        $scope.gradPredlozi = [];
-                        $scope.show_grad_autocomplete = false;
+                        responseArray = [];
+                        $scope[showVariable] = false;
                     }
                 }).
                 error(function(data){
-                    console.log("Error");
+                    console.log("Autocomplete $http error!");
                 });
         }
         else {
-            $scope.show_grad_autocomplete = false;
+            $scope[showVariable] = false;
         }
-    }
-
-    $scope.upisiPredlogGrad = function($event){
-        $scope.gradNalaska = $event.target.innerHTML;
-        $scope.show_grad_autocomplete = false;
     };
 
-    $scope.autocompleteMesto = function() {
-        if($scope.mestoNalaska){
-            $http.get('../server/autocomplete.php?type=place&key=' + $scope.mestoNalaska).
-                success(function(data){
-                    var response = angular.fromJson(data);
-
-                    if(response.words){
-                        $scope.mestoPredlozi = response.words;
-                        $scope.show_mesto_autocomplete = true;
-                    }
-                    else {
-                        $scope.mestoPredlozi = [];
-                        $scope.show_mesto_autocomplete = false;
-                    }
-                }).
-                error(function(data){
-                    console.log("Error");
-                });
-        }
-        else {
-            $scope.show_mesto_autocomplete = false;
-        }
-    }
-
-    $scope.upisiPredlogMesto = function($event){
-        $scope.mestoNalaska = $event.target.innerHTML;
-        $scope.show_mesto_autocomplete = false;
+    $scope.insertAutocomplete = function($event, model, showVariable) {
+        $scope[model] = $event.target.innerHTML;
+        $scope[showVariable] = false;
     };
 }]);
 console.info("Inicijalizovan pretragaController.");
