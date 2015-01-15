@@ -1,4 +1,4 @@
-angular.module('epigrafikaModul').controller('registracijaController', ['$scope','$http', function($scope,$http) {
+angular.module('epigrafikaModul').controller('registracijaController', ['$scope','$http', '$window', function($scope,$http,$window) {
 	$scope.greska=false;
 	$scope.sameR=false;
         

@@ -1,4 +1,4 @@
-angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http','$cookies', function ($scope, $http,$cookies){
+angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http','$cookies','$window', function ($scope, $http,$cookies, $window){
     $scope.oznaka=null;
     $scope.jezikUpisa='latinski';
     $scope.natpis=null;
@@ -257,15 +257,18 @@ $scope.posalji_podatke=function(){
     {responseType:'JSON',headers: {'content-type': 'application/json'}
 }).
  success(function(data, status, headers, config){
-    if(data!=="null")
-        alert(data.status_text);
-                //$scope.poruka=data.error_message;
+    if(data!=="null"){
+        if(data.error_status)
+            alert("doslo je do greske.");
+        else alert("Objekat je uspesno unet.");
+        
+        $window.location.href="index.php";
+    }
             }).
  error(function(data, status, headers, config){
 
  });
  
- document.getElementById('reset').click();
 };
 
 $scope.proveri_jedinstvenost = function(){

@@ -56,7 +56,10 @@
     border-top: none;
     padding: 0px;
 }
-
+.kursor
+{
+	cursor: default;
+}
 .autocomplete-dropdown li {
     padding: 2px 10px 2px 10px;
     box-sizing: border-box;
@@ -100,6 +103,10 @@
 .ispis{
     text-decoration: underline;
     font-size: 17px;
+}
+
+input[id="user"]:disabled ,input[id="oznaka"]:disabled  {
+    cursor:default;
 }
 
 

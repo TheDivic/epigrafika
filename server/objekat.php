@@ -120,6 +120,35 @@ try
             else
                 $result->isEmpty = false;
         }
+		else if ($_GET['type'] === 'chart'){
+			$stmt = $db->prepare("select count(*) as novi, datumKreiranja, '#00bc8c' as boja from mydb.objekat group by datumKreiranja,boja");
+			$stmt->execute();
+			$stmt->setFetchMode(PDO::FETCH_ASSOC);
+			$result->error_status=false;
+			$result->data = $stmt->fetchAll();
+			$result->num=count($result->data);
+			}
+		else if($_GET['type'] === 'all')
+        {
+            
+            $query = $db->prepare(  "select o.id, o.oznaka, o.tekstNatpisa, 
+                                    vn.naziv as 'vrstaNatpisa', j.naziv as 'jezik', pr.naziv as 'provincija', g.naziv as 'grad', pl.naziv as 'pleme', 
+                                    md.naziv as 'modernaDrzava', mm.naziv as 'modernoMesto', u.naziv as 'ustanova', 
+                                    o.pocetakGodina, o.pocetakVek, o.pocetakOdrednica, o.krajGodina, o.krajVek, o.krajOdrednica, o.tip, 
+                                    o.materijal, o.dimenzije, o.komentar, o.faza, o.datumKreiranja, o.datumPoslednjeIzmene, o.datovano, o.lokalizovano
+                                    from objekat o join vrstanatpisa vn on o.vrstaNatpisa = vn.id
+                                    join jezik j on o.jezik = j.id
+                                    join provincija pr on o.provincija = pr.id
+                                    join grad g on o.grad = g.id
+                                    join mesto m on o.mesto = m.id
+                                    join pleme pl on o.pleme = pl.id
+                                    join modernadrzava md on o.modernaDrzava = md.id
+                                    join modernoMesto mm on o.modernoMesto = mm.id
+                                    join ustanova u on o.ustanova = u.id");
+            $query->execute();
+            $result->error_status = false;
+            $result->data = $query->fetchAll(PDO::FETCH_OBJ);
+        }
     }
     else if ($method === 'POST')
     {
