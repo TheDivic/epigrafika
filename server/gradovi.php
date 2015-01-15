@@ -10,7 +10,7 @@ try{
 
     if($method === 'GET')
     {
-        $query="select * from mydb.grad";
+        $query="select * from mydb.grad where id!=-1";
 		$stmt = $db->prepare($query);
 		$stmt->execute();
 		$stmt->setFetchMode(PDO::FETCH_ASSOC);

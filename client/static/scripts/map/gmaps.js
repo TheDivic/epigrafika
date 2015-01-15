@@ -84,11 +84,15 @@ function QueryResultNode(location, objects)
         var content = "";
         for(var i = 0; i < objects.length; i++)
         {
-            content += "<p>"+objects[i].oznaka+" "+objects[i].tekstNatpisa+"</p>";
+            content += "<h4 style='margin:0'>"+objects[i].oznaka+"</h4>"+
+						"<p style='padding-left:5px;margin:0'>"+objects[i].tekstNatpisa.substring(0,50)+"</p>"+
+						"<a style='padding-left:5px' href='objekat.php?id="+objects[i].id+"' target='_blank'>Detaljnije</a>"+ //TODO: Lokalizuj
+						"<hr style='margin:5px'/>";
         }
         
         this.infoWindow = new google.maps.InfoWindow({
-            content: content
+            content: content,
+			minWidth: 300
         });
         
         this.marker = new google.maps.Marker({
@@ -282,8 +286,11 @@ var RadiusSearchManager = (function () {
                 data: { type: "byLocation", locationId: locations[i].id},
                 dataType: "json",
                 success:function(result,statusText,jqxhr){
-                    if(result.error_status == false && result.data.length >= 1)
-                        resultNodes.push(new QueryResultNode(locations[i], result.data));
+                    if(result.error_status == false)
+					{
+						if(result.data.length >= 1)
+							resultNodes.push(new QueryResultNode(locations[i], result.data));
+					}
                     else
                         console.error(result.error_message);
                 },
