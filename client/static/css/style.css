@@ -109,4 +109,14 @@ input[id="user"]:disabled ,input[id="oznaka"]:disabled  {
     cursor:default;
 }
 
+.caret-right {
+    border-bottom: 5px solid transparent;
+    border-top: 5px solid transparent;
+    border-left: 5px solid;
+    display: inline-block;
+    height: 0;
+    vertical-align: middle;
+    width: 0;
+}
+
 

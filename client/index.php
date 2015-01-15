@@ -250,37 +250,30 @@
             <div id="rezultati" >
                     <h1> {{tr.rezultati_pretrage}}</h1>
                     
-                    <div class="row" ng-repeat="rezultat in rezultatPretrage" style="border: 2px solid #c0c0c0; padding: 30px; border-radius: 20px">
+                    <div class="row" ng-repeat="rezultat in rezultatPretrage" style="border: 2px solid #c0c0c0; padding: 30px; border-radius: 20px; margin: 30px;">
                         <div class="col-sm-4">
-                        <label class="control-label ispis" >{{ tr.osnovne_informacije }}</label> <br/>
-                        <label class="control-label">{{ tr.oznaka }} : </label>  {{rezultat.oznaka}} <br/>    
-                        <label class="control-label">{{tr.natpis}} :</label> {{rezultat.natpis | limitTo: 20 }} <br/> 
-                        <label class="control-label">{{tr.vrsta_natpisa}} :</label> {{rezultat.vrstaNatpisa}} <br/> 
-                        <label class="control-label">{{tr.jezik}} :</label> {{rezultat.jezik}} <br/>
-                        <label class="control-label ispis" >  {{tr.lokacija}}</label> <br/>
-                        <label class="control-label">{{tr.provincija}} :</label> {{rezultat.provincijaNalaska}} <br/> 
-                        <label class="control-label">{{tr.grad}} :</label> {{rezultat.gradNalaska}} <br/> 
-                        <label class="control-label">{{tr.izvorno_mesto_nastanka}} :</label> {{rezultat.mestoNalaska}} <br/> 
-                        <label class="control-label">{{tr.moderno_ime_drzave}} :</label> {{rezultat.modernoImeDrzave}} <br/> 
-                        <label class="control-label">{{tr.moderno_mesto}} :</label> {{rezultat.modernoMesto}} <br/> 
-                        <label class="control-label">  {{tr.trenutna_lokacija_znamenitosti}}: </label>{{rezultat.ustanova}} <br/>
-
+                            <label class="control-label ispis" >{{ tr.osnovne_informacije }}</label> <br/>
+                            <label class="control-label">{{ tr.oznaka }} : </label>  {{rezultat.oznaka}} <br/>    
+                            <label class="control-label">{{tr.natpis}} :</label> {{rezultat.natpis | limitTo: 40 }} <br/> 
+                            <label class="control-label">{{tr.vrsta_natpisa}} :</label> {{rezultat.vrstaNatpisa}} <br/> 
+                            <label class="control-label">{{tr.jezik}} :</label> {{rezultat.jezik}} <br/>
+                        </div >
+                        <div class="col-sm-4">
+                            <label class="control-label ispis" >  {{tr.lokacija}}</label> <br/>
+                            <label class="control-label">{{tr.izvorno_mesto_nastanka}} :</label> {{rezultat.mestoNalaska}} <br/> 
+                            <label class="control-label">{{tr.moderno_ime_drzave}} :</label> {{rezultat.modernoImeDrzave}} <br/> 
+                            <label class="control-label">{{tr.moderno_mesto}} :</label> {{rezultat.modernoMesto}} <br/> 
+                            <label class="control-label">  {{tr.trenutna_lokacija_znamenitosti}}: </label>{{rezultat.ustanova}} <br/>
                         </div>
+                        
                         <div class="col-sm-4">
                         <label class="control-label ispis">  {{tr.tip_spomenika}}</label> <br/>
                         <label class="control-label">{{tr.tip}} :</label> {{rezultat.tip}} <br/> 
                         <label class="control-label">{{tr.materijal}} :</label> {{rezultat.materijal}} <br/> 
                         <label class="control-label">  {{tr.dimenzije}}: </label>{{rezultat.dimenzije}} <br/>
-
-                        <label class="control-label ispis">  {{tr.dodatne_info}}</label> <br/>
-                        <label class="control-label">  {{tr.vreme}}: </label> {{rezultat.vreme}} <br/>
-                        <label class="control-label">  {{tr.komentar}}: </label>{{rezultat.komentar}} <br/>
-
-                        <a href="objekat.php?id={{rezultat.id}}"  target="_blank" style="font-size: 18px;"> {{tr.vise_informacija}} </a>
+                        <a href="objekat.php?id={{rezultat.id}}"  target="_blank" style="font-size: 18px;"> {{tr.vise_informacija}} <b class="caret-right"></b> </a>
                         </div>
-                        <div class="col-sm-4">
-                            slika!!!
-                        </div>
+                        <br/>
                     </div>
 
             <!--paginacija-->
