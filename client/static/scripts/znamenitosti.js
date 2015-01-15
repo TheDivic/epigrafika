@@ -55,23 +55,23 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
                         success(function(data, status, headers, config){
                             if(data.error_status == false)
                             {
-								$scope.single = data.data;
-								if(!data.data)
-									$window.location.replace("greska.php");
-								for(s in data.data)
-									$scope.single[s]=data.data[s];
-									
-									console.log($scope.single);
+				$scope.single = data.data;
+				if(!data.data)
+                                    $window.location.replace("greska.php");
+                                for(s in data.data)
+                                    $scope.single[s]=data.data[s];
+				console.log($scope.single);
+                                alert($scope.single)
                             }
                             else
-							{	
-								console.error(data.error_message);
-									window.location.replace("greska.php");
-							}     
+                            {	
+                                console.error(data.error_message);
+                                window.location.replace("greska.php");
+                            }     
                         }).
                         error(function(data, status, headers, config){
                             console.error(status);
-								window.location.replace("greska.php");
+                            window.location.replace("greska.php");
                     });
 					
 				

@@ -44,7 +44,7 @@
 				<label for="vrstaNatpisa" class="col-sm-2 control-label">{{tr.vrsta_natpisa}}  <span style="color:red">*</span>:</label>
 				<div class="col-sm-9">
 					<select class="form-control" id="vrstaNatpisa" name="vrstaNatpisa" ng-model="single.vrstaNatpisa" ng-required='true'>
-						<option ng-repeat="natpis in vrsteNatpisa  | orderBy:'naziv':false"> {{natpis.naziv}} </option>
+						<option ng-repeat="natpis in vrsteNatpisa  | orderBy:'naziv':false" ng-selected="single.vrstaNatpisa == natpis.naziv"> {{natpis.naziv}} </option>
 					</select>
 				</div>
 			</div>
