@@ -97,10 +97,10 @@
 									<label for="gradNalaska" class="control-label">{{tr.grad}}: </label>
 								</div>
 								<div class="col-sm-8">
-									<input class="form-control" type="text" name="gradNalaska" ng-model="gradNalaska" ng-change="autocompleteGrad()" ng-pattern="/^[a-zA-Z ]+$/"/>
+									<input class="form-control" type="text" name="gradNalaska" ng-model="gradNalaska" ng-change="autocomplete('city', gradNalaska, 'gradPredlozi', 'show_grad_autocomplete')" ng-pattern="/^[a-zA-Z ]+$/"/>
 									<!-- Dropdown za autocomplete -->
 									<ul class="autocomplete-dropdown" ng-show="show_grad_autocomplete" role="menu">
-										<a ng-repeat="predlog in gradPredlozi" ng-click="upisiPredlogGrad($event)"><li>{{ predlog }}</li></a>
+										<a ng-repeat="predlog in gradPredlozi" ng-click="insertAutocomplete($event, 'gradNalaska', 'show_grad_autocomplete')"><li>{{ predlog }}</li></a>
 									</ul>
 									<span class="text-transparent" ng-class="{textred:formPretraga.gradNalaska.$dirty &&formPretraga.gradNalaska.$error.pattern}"> 
 												{{tr.format_error_slova}}
@@ -112,10 +112,10 @@
 									<label for="mestoNalaska" class="control-label"> {{tr.mesto}}: </label>
 								</div>
 								<div class="col-sm-8">
-									 <input class="form-control" type="text" name="mestoNalaska" ng-model="mestoNalaska" ng-change="autocompleteMesto()" ng-pattern="/^[a-zA-Z ]+$/"/>
+									 <input class="form-control" type="text" name="mestoNalaska" ng-model="mestoNalaska" ng-change="autocomplete('place', mestoNalaska, 'mestoPredlozi', 'show_mesto_autocomplete')" ng-pattern="/^[a-zA-Z ]+$/"/>
 									 <!-- Dropdown za autocomplete -->
 									<ul class="autocomplete-dropdown" ng-show="show_mesto_autocomplete" role="menu">
-										<a ng-repeat="predlog in mestoPredlozi" ng-click="upisiPredlogMesto($event)"><li>{{ predlog }}</li></a>
+										<a ng-repeat="predlog in mestoPredlozi" ng-click="insertAutocomplete($event, 'mestoNalaska', 'show_mesto_autocomplete')"><li>{{ predlog }}</li></a>
 									</ul>
 									<span class="text-transparent" ng-class="{textred:formPretraga.mestoNalaska.$dirty &&formPretraga.mestoNalaska.$error.pattern}"> 
 												{{tr.format_error_slova}}
@@ -254,7 +254,7 @@
                         <div class="col-sm-4">
                         <label class="control-label ispis" >{{ tr.osnovne_informacije }}</label> <br/>
                         <label class="control-label">{{ tr.oznaka }} : </label>  {{rezultat.oznaka}} <br/>    
-                        <label class="control-label">{{tr.natpis}} :</label> {{rezultat.natpis}} <br/> 
+                        <label class="control-label">{{tr.natpis}} :</label> {{rezultat.natpis }} <br/> 
                         <label class="control-label">{{tr.vrsta_natpisa}} :</label> {{rezultat.vrstaNatpisa}} <br/> 
                         <label class="control-label">{{tr.jezik}} :</label> {{rezultat.jezik}} <br/>
                         <label class="control-label ispis" >  {{tr.lokacija}}</label> <br/>
@@ -276,7 +276,7 @@
                         <label class="control-label">  {{tr.vreme}}: </label> {{rezultat.vreme}} <br/>
                         <label class="control-label">  {{tr.komentar}}: </label>{{rezultat.komentar}} <br/>
 
-                        <a href="objekat.php?id={{rezultat.id}}" style="font-size: 18px;"> {{tr.vise_informacija}} </a>
+                        <a href="objekat.php?id={{rezultat.id}}"  target="_blank" style="font-size: 18px;"> {{tr.vise_informacija}} </a>
                         </div>
                         <div class="col-sm-4">
                             slika!!!

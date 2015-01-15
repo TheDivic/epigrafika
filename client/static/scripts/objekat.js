@@ -5,7 +5,8 @@ angular.module('epigrafikaModul').
                 
                 $scope.objectId = 0;
                 $scope.object = null;
-				$scope.imgUriList = null;
+				$scope.imgList = null;
+				$scope.bibliographyData = null;
 				$scope.map = null;
 				
 				//Map settings
@@ -20,25 +21,20 @@ angular.module('epigrafikaModul').
                         success(function(data, status, headers, config){
                             if(data.error_status == false)
                             {
-                                $scope.object = data.data[0];
-								if(!$scope.object)
-									window.location.replace("greska.php");
-								getImgUriList();
+                                $scope.object = data.data;
+								$scope.imgList = data.data.fotografije;
+								$scope.bibliographyData = data.data.bibliografskiPodatci;
 								mapInit($scope.object.modernoMesto);
                             }
                             else
-							{	
-								console.error(data.error_message);
-								window.location.replace("greska.php");
-							}     
+								console.error(data.error_message); 
                         }).
                         error(function(data, status, headers, config){
                             console.error(status);
-							window.location.replace("greska.php");
                     });
                 }
 				
-				function getImgUriList()
+				/*function getImgUriList()
 				{
 					$http.get('../server/fotografija.php?type=byObject&objectId='+$scope.objectId, {responseType: 'JSON'}).
                         success(function(data, status, headers, config){
@@ -50,7 +46,7 @@ angular.module('epigrafikaModul').
                         error(function(data, status, headers, config){
                             console.error(status);
                     });
-				}
+				}*/
 				
 				//Inicijalizacija mape
 				function mapInit(name)

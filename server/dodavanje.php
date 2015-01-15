@@ -91,7 +91,6 @@ function unesi($data, $db){
     }
     else{
 
-        // ovo nece proci jer su provincija, grad i mesto strani kljucevi i not null su....
 
         $provincija = -1;
         $grad = -1;
@@ -131,11 +130,12 @@ function unesi($data, $db){
 
 
         if($o[0][0]==0){
-        $modernoMesto = -1;
-        $query="INSERT INTO  `ustanova` (naziv, modernoMesto) VALUES (:trenutnaLokacijaZnamenitosti, :modernoMesto)";
+//        $trenutnaLokacijaZnamenitosti = -1;
+        $trenutnoModernoMesto = -1;
+        $query="INSERT INTO  `ustanova` (naziv, modernoMesto) VALUES (:trenutnaLokacijaZnamenitosti, :trenutnoModernoMesto)";
         $stmt = $db->prepare($query);
         $stmt->bindParam(":trenutnaLokacijaZnamenitosti", trim($trenutnaLokacijaZnamenitosti), PDO::PARAM_STR);
-        $stmt->bindParam(":modernoMesto", $modernoMesto, PDO::PARAM_INT);
+        $stmt->bindParam(":trenutnoModernoMesto", $trenutnoModernoMesto, PDO::PARAM_INT);
         $stmt->execute();
 
 
@@ -248,6 +248,12 @@ function unesi($data, $db){
     $dimenzije.= ':';
     $dimenzije.=$data->duzina;
     $korisnickoIme=$data->korisnickoIme;
+
+   // $trenutniId =
+
+    //deo za fotografije
+    //$fotografije = $data->fotografije;
+
 
 
 //    $query="INSERT INTO objekat(oznaka, jezik, tekstNatpisa, vrstaNatpisa, provincija,

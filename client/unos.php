@@ -271,9 +271,9 @@
 				</div>
 			</div>
 			<div class="row form-group">
-				<label for="foto" class="col-sm-2 control-label">{{tr.trenutna_faza_unosa}}:</label>
+				<label for="foto" class="col-sm-2 control-label">{{tr.trenutna_faza_unosa}}<span style="color:red">*</span>:</label>
 				<div class="col-sm-8">
-					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="fazaUnosa" value="nekompletno"/> {{tr.nekompletno}}</label>
+					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="fazaUnosa" value="nekompletno" checked/> {{tr.nekompletno}}</label>
 					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="fazaUnosa" value="zaKontrolu"/> {{tr.za_kontrolu}} </label>
 					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="fazaUnosa" value="objavljivanje"/> {{tr.objavljivanje}}</label>
 				</div>

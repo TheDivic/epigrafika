@@ -10,7 +10,7 @@ try{
 	
     if($method === 'GET')
     {
-        $query="select * from mydb.provincija";
+        $query="select * from mydb.provincija where id!=-1";
 
 	$stmt = $db->prepare($query);
 	$stmt->execute();
