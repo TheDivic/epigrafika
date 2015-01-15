@@ -60,7 +60,9 @@ try
            // echo json_encode($data);
            // echo '        ';
             //$result->ulazni_podaci = $data;
-            $result->data = $sl->selektuj($data);
+            $selectResults = $sl->selektuj($data);
+            $result->data = $selectResults['results'];
+            $result->remaining = $selectResults['remaining'];
             
 
         }

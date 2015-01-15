@@ -476,6 +476,7 @@ class selektovanje {
         if(property_exists($data, 'offset'))
         {
             $i = 0;
+            $num_results = 0;
 
             $offs = $data->offset;
           //  echo $offs . "---\n";
@@ -486,20 +487,25 @@ class selektovanje {
                // echo json_encode( $row);
                // echo $i . "---\n";
                 $i = $i + 1;
+                $num_results += 1;
             }
 
+            $povratna['results'] = [];
 
-
-            $povratna = [];
             $i = 0;
-            while(($row = $stmt->fetch()) && $i<5 )  //MAKSIMALNO VRACENIH
+            while(($row = $stmt->fetch()))  //MAKSIMALNO VRACENIH
             {
              //   echo json_encode( $row);
                // echo "\n";
-                $row = $this->obradiVrsta($row);
-                array_push($povratna, $row);
+                if($i < 5){
+                    $row = $this->obradiVrsta($row);
+                    array_push($povratna['results'], $row);
+                }
                 $i = $i+1;
+                $num_results += 1;
             }
+
+            $povratna['remaining'] = ($num_results - $offs - 5) > 0 ? ($num_results - $offs - 5) : 0;
             return $povratna;
 
         }

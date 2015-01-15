@@ -22,7 +22,12 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
 	$scope.plemena=null;
 	$scope.mesta=null;
 	$scope.razultatPretrage=null;
+
+    // paginacija
+    $scope.showPagination = false;
+    $scope.currentPage = 1;
     $scope.searchOffset = 0;
+    $scope.remainingResults = 0;
 
     $http.get('../server/provincije.php', {responseType: 'JSON'}).
     success(function(data, status, headers, config){
@@ -97,6 +102,7 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
         success(function(data, status, headers, config){
             if(data!=="null"){
                 $scope.rezultatPretrage=data.data;
+                $scope.remainingResults=data.remaining;
             }
             else
                 $scope.rezultatPretrage=null;
@@ -105,27 +111,25 @@ angular.module('epigrafikaModul').controller('pretragaController', ['$scope', '$
 
         });
 
-	$scope.natpis=null;
-	$scope.natpis2=null;
-	$scope.natpisArg='prazno';
-	$scope.rezimIgnorisanjaZagrada=false;
-	$scope.provincijaNalaska=null;
-	$scope.gradNalaska=null;
-	$scope.mestoNalaska=null;
-	$scope.prikaziNelokalizovanePodatke=false;
-	$scope.modernoImeDrzave=null;
-	$scope.modernoMesto=null;
-	$scope.pleme=null;
-        $scope.vek=null;
-	$scope.periodVeka=null;
-	$scope.prikaziNedatovaneNatpise=false;
-	$scope.sortiranje='poVremenu';
-	$scope.prikazi=true;
-        document.getElementById('reset').click();
-        $scope.prikazi=false;
-        
+	$scope.prikazi = false;
+    $scope.showPagination = true;
 	};
 
+    $scope.prethodna_strana = function(){
+        if($scope.currentPage > 1){
+            $scope.searchOffset -= 5;
+            $scope.currentPage -= 1;
+            $scope.posalji_podatke();
+        }
+    };
+
+    $scope.sledeca_strana = function(){
+        if($scope.remainingResults > 0){
+            $scope.searchOffset += 5;
+            $scope.currentPage += 1;
+            $scope.posalji_podatke();
+        }
+    }
 
     $scope.show_grad_autocomplete = false;
     $scope.gradPredlozi = [];

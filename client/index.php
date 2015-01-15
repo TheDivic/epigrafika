@@ -286,10 +286,10 @@
             <!--paginacija-->
                     <div class="row">
                         <div class="text-center">
-                            <ul class="pagination pagination-sm">
-                                    <li class="disabled"><a href="#">«</a></li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">»</a></li>
+                            <ul ng-show="showPagination" class="pagination pagination-sm">
+                                    <li ng-class="{disabled: currentPage <= 1}"><a href="#" ng-click="prethodna_strana()">«</a></li>
+                                    <li class="active"><a href="#">{{currentPage}}</a></li>
+                                    <li ng-class="{disabled: remainingResults <= 0}"><a href="#" ng-click="sledeca_strana()">»</a></li>
                             </ul>
                         </div>
                     </div>
