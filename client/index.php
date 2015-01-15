@@ -254,7 +254,7 @@
                         <div class="col-sm-4">
                         <label class="control-label ispis" >{{ tr.osnovne_informacije }}</label> <br/>
                         <label class="control-label">{{ tr.oznaka }} : </label>  {{rezultat.oznaka}} <br/>    
-                        <label class="control-label">{{tr.natpis}} :</label> {{rezultat.natpis }} <br/> 
+                        <label class="control-label">{{tr.natpis}} :</label> {{rezultat.natpis | limitTo: 20 }} <br/> 
                         <label class="control-label">{{tr.vrsta_natpisa}} :</label> {{rezultat.vrstaNatpisa}} <br/> 
                         <label class="control-label">{{tr.jezik}} :</label> {{rezultat.jezik}} <br/>
                         <label class="control-label ispis" >  {{tr.lokacija}}</label> <br/>
