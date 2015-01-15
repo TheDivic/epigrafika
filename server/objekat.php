@@ -121,7 +121,7 @@ try
                 $result->isEmpty = false;
         }
 		else if ($_GET['type'] === 'chart'){
-			$stmt = $db->prepare("select count(*) as novi, datumKreiranja, '#00bc8c' as boja from mydb.objekat group by datumKreiranja,boja");
+			$stmt = $db->prepare("select * from (select count(*) as novi, datumKreiranja, '#00bc8c' as boja from mydb.objekat group by datumKreiranja,boja order by datumKreiranja desc limit 7) tmp order by datumKreiranja asc");
 			$stmt->execute();
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 			$result->error_status=false;

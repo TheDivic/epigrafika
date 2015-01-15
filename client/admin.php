@@ -1,6 +1,6 @@
 <?php include 'header-admin.php';?>
 <script src="static/scripts/admin.js"> </script>
-<div class="container" ng-controller="admin">
+<div class="container" ng-controller="adminChart">
 <script src="static/scripts/amcharts.js" type="text/javascript"></script>
 <script src="static/scripts/serial.js" type="text/javascript"></script>
 <div class="col-sm-6">

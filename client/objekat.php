@@ -1,9 +1,9 @@
 <?php 
-    /*if(!isset($_GET['id']))
+    if(!isset($_GET['id']))
     {
         header("Location: greska.php");
         exit();
-    }*/
+    } 
     
     include 'header.php';
 ?>

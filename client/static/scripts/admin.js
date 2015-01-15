@@ -1,10 +1,6 @@
-angular.module('epigrafikaModul').controller('admin', ['$scope', '$http','$window', function ($scope, $http,$window){
-$scope.colors=["#FF0F00","#FF6600","#FF9E01","#FCD202","#F8FF01","#B0DE09","#B0DE09",
-			"#B0DE09","#04D215","#0D8ECF","#0D52D1","#2A0CD0","#8A0CCF","#CD0D74",
-			"#754DEB","#DDDDDD","#999999","#333333","#000000"];
+angular.module('epigrafikaModul').controller('adminChart', ['$scope', '$http','$window', function ($scope, $http,$window){
+$scope.colors=["#FF0F00","#F8FF01","#04D215","#0D8ECF","#2A0CD0","#8A0CCF","#754DEB"];
 $scope.chartData1=null;
-$scope.lenght=0;
-$scope.colors.lenght;
 $scope.chartData2=null;
 $http.get('../server/korisnik.php?type=chart', {responseType: 'JSON'}).
 			success(function(data, status, headers, config){
@@ -62,9 +58,10 @@ $http.get('../server/korisnik.php?type=chart', {responseType: 'JSON'}).
 
                 // WRITE
                 chart.write("chartdiv1");
+				console.log("Korsnici chart");
             });
 			
-$http.get('../server/objekat.php?type=chart', {responseType: 'JSON'}).
+	$http.get('../server/objekat.php?type=chart', {responseType: 'JSON'}).
 			success(function(data, status, headers, config){
 				if(data!=="null"){
 				$scope.chartData2=data.data;
@@ -120,6 +117,7 @@ $http.get('../server/objekat.php?type=chart', {responseType: 'JSON'}).
 
                 // WRITE
                 chart.write("chartdiv2");
+				console.log("Objekat chart");
             });
 
 }]);

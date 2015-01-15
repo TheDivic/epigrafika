@@ -110,7 +110,7 @@ try
 			$result->data = $stmt->fetchAll();
 			}
 		if ($_GET['type'] === 'chart'){
-			$stmt = $db->prepare("select count(*) as novi, datumRegistrovanja, '#0D52D1' as boja from mydb.korisnik group by datumRegistrovanja,boja");
+			$stmt = $db->prepare("select * from (select count(*) as novi, datumRegistrovanja, '#0D52D1' as boja from mydb.korisnik group by datumRegistrovanja,boja order by datumRegistrovanja desc limit 7) tmp order by datumRegistrovanja asc");
 			$stmt->execute();
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 			$result->error_status=false;
