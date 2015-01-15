@@ -27,6 +27,7 @@
 				</div>
 				<ul class="nav navbar-nav navbar-left">
 					<li><a href="admin.php" class="btn btn-link"><span class="glyphicon glyphicon-home"></span></a></li> <!--Home-->
+					<li><a href="znamenitosti.php" class="btn btn-link">Znamenitosti</a></li>
 					<li><a href="korisnici.php" class="btn btn-link">Korisnici</a></li>
 					<li><a href="provincije.php" class="btn btn-link">Provincije</a> <li>
 					<li><a href="natpisi.php" class="btn btn-link">Natpisi</a> <li>

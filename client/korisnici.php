@@ -1,8 +1,8 @@
 <?php include "header-admin.php"; ?>
 <?php if(isset($_GET['korisnickoIme'])){ ?>
 <script src="static/scripts/korisnici.js"> </script>
-<div class="container" ng-controller="adminKorisnici" ng-init="prikazi();">
-			<h1> Unos novog korisnika</h1>
+<div class="container" ng-controller="adminKorisnici" ng-init="init();">
+			<h1> Izmena podataka</h1>
 			<form class="form" name="novakorisnik" method="get" action="" ng-repeat="s in single">
 			<div class="row">
 				<div class="col-sm-6">

@@ -1,4 +1,4 @@
-angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http','$window','$location', function ($scope, $http,$window,$location){
+angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http','$window', function ($scope, $http,$window){
     
     $scope.korisnici= null;
 	$scope.greska=false;
@@ -66,44 +66,45 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
                 username : $scope.user,
                 password : $scope.pwd,
                 info : $scope.info,
-		status: $scope.status,
-		privilegije: $scope.privilegije
+				status: $scope.status,
+				privilegije: $scope.privilegije
             };
             
             var jsonData = angular.toJson(formData);
-            alert(jsonData);
-            
+			
             $http.post('../server/korisnik.php', jsonData, 
             {responseType:'JSON',headers: {'content-type': 'application/json'}
             }).
             success(function(data, status, headers, config){
-                if(data!=="null")
+               if(data!=="null"){
                     if(data.error_status === false){
-			alert("Uspesno ste uneli korisnika.");
-                        $window.location.reload();
-                    }
-                    else{
-			$window.location.reload();
+                        alert("Uspesno ste uneli korisnika.");
+						$window.location.reload();
+						}
+						
+                    else
                         alert("Doslo je do greske pri registraciji.");
-                     }  
+                   //$window.location.reload();
+                }
             }).
             error(function(data, status, headers, config){
 
             });
 	}
 	
-	$scope.prikazi= function(){
-		var lokacija =$window.location.href;
-		var user=lokacija.split('=');
+	$scope.init= function(){
+		var user=$window.location.href.split('=');
+		//$scope.korisnickoIme= user;
 		$http.get('../server/korisnik.php?type=view&korisnickoIme='+user[1], {responseType: 'JSON'}).
 			success(function(data, status, headers, config){
 			if(data!=="null"){
 			$scope.single=data.data;
-			$scope.tmp=angular.copy(data.data);
 			}
+			else
+				$window.location.href="greska.php";
 			}).
 			error(function(data, status, headers, config){
-			console.log("Greska");
+				$window.location.href="greska.php";
 			});
 	}
 
@@ -127,11 +128,9 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
 	$http.put('../server/korisnik.php', data )
 	.success(function (data, status, headers, config)
 	{
-            alert(data.ulazniPodaci);
             if(data.error_status==false){
-                $window.alert("Azuriran je");
-                
-		$window.location.href="korisnici.php";
+                $window.alert("Azuriran je");         
+				$window.location.href="korisnici.php";
             }
 	    else
                 console.log(data);
