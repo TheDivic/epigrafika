@@ -53,23 +53,23 @@
 	<div class="fieldset_border">
 		<fieldset>
 			<legend> {{tr.izvorno_mesto_nastanka}} </legend>
-			<label> <input type="checkbox" name="LokalizovanPodatak" ng-model="LokalizovanPodatak" value="LokalizovanPodatak" ng-click="lokalizovanIzmena=!lokalizovan"  checked/> {{ tr.lokalizovan_podatak}} </label>
-			<div class="row form-group" ng-show="lokalizovan">
+			<label> <input type="checkbox" name="LokalizovanPodatak" ng-model="LokalizovanPodatak" value="LokalizovanPodatak" ng-click="lok=!lok" ng-checked="lok"/> {{ tr.lokalizovan_podatak}} </label>
+			<div class="row form-group" ng-show="lok">
 				<label for="provincija" class="col-sm-1 control-label">{{tr.provincija}}<span style="color:red">*</span></label>
 				<div class="col-sm-3">
-					<select name="provincija" id="provincija" class="form-control" ng-model="provincija" ng-required="lokalizovan">
-						<option ng-repeat="p in provincije  | orderBy:'naziv':false"> {{ p.naziv }} </option>
+					<select name="provincija" id="provincija" class="form-control" ng-model="single.provincijaNalaska" ng-required="lok">
+						<option ng-repeat="p in provincije  | orderBy:'naziv':false" ng-selected="single.provincijaNalaska==p.naziv"> {{ p.naziv }} </option>
 					</select>
 				</div>
 				<label for="grad" class="col-sm-1 control-label">{{tr.grad}} <span style="color:red">*</span>:</label>
 				<div class="col-sm-3">
-					<select id="grad" class="form-control" name="grad" ng-model="grad" ng-required="lokalizovan">
-						<option ng-repeat="grad in gradovi | orderBy:'naziv':false"> {{grad.naziv}} </option>
+					<select id="grad" class="form-control" name="grad" ng-model="single.gradNalaska" ng-required="lok">
+						<option ng-repeat="grad in gradovi | orderBy:'naziv':false" ng-selected="single.gradNalaska==grad.naziv"> {{grad.naziv}} </option>
 					</select>
 				</div>
 				<label for="mestoNalaska" class="col-sm-1 control-label">{{tr.mesto}} <span style="color:red">*</span>:</label>
 				<div class="col-sm-3 clirfix">
-					<input id="mestoNalaska" class="form-control" type="text" name="mestoNalaska" ng-model="mestoNalaska" ng-required="lokalizovan" ng-pattern="/^[a-zA-Z ]+$/"/>
+					<input id="mestoNalaska" class="form-control" type="text" name="mestoNalaska" ng-model="single.mestoNalaska" ng-required="lok" ng-pattern="/^[a-zA-Z ]+$/"/>
 					<span class="text-transparent" ng-class="{textred: (formUnos.mestoNalaska.$error.pattern || formUnos.mestoNalaska.$error.required) && formUnos.mestoNalaska.$dirty}"> 
 						{{tr.obavezno_polje}} {{tr.format_error_slova}}
 					</span>
@@ -79,13 +79,13 @@
 				<label for="modernoImeDrzave" class="col-sm-1 control-label">{{tr.moderno_ime_drzave}} <span style="color:red">*</span>:</label>
 				<div class="col-sm-3">
 					<select id="modernoImeDrzave" class="form-control" name="modernoImeDrzave" ng-model="single.modernoImeDrzave" ng-required="true">
-						<option ng-repeat="drzava in drzave  | orderBy:'naziv':false"> {{drzava.naziv}} </option>
+						<option ng-repeat="drzava in drzave  | orderBy:'naziv':false" ng-selected="single.modernoImeDrzave==drzava.naziv"> {{drzava.naziv}} </option>
 					</select>
 				</div>
 				<label for="modernoMesto" class="col-sm-1 control-label">{{tr.moderno_mesto}} <span style="color:red">*</span>:</label>
 				<div class="col-sm-3">
 					<select id="modernoMesto" class="form-control" name="modernoMesto" ng-model="single.modernoMesto" ng-required="true">
-						<option ng-repeat="mesto in mesta | orderBy:'naziv':false"> {{mesto.naziv}} </option>
+						<option ng-repeat="mesto in mesta | orderBy:'naziv':false" ng-selected="single.modernoMesto==mesto.naziv"> {{mesto.naziv}} </option>
 					</select>
 				</div>
 			</div>	
@@ -97,7 +97,7 @@
 		<div class="row form-group">
 				<label for="trenutnaLokacijaZnamenitosti" class="col-sm-2 control-label">{{tr.trenutna_lokacija_znamenitosti}} <span style="color:red">*</span>:</label>
 				<div class="col-sm-4">
-					<input type="text" id="trenutnaLokacijaZnamenitosti" class="form-control" name="trenutnaLokacijaZnamenitosti" ng-model="singletrenutnaLokacijaZnamenitosti" ng-pattern="/^[a-zA-Z ]+$/" ng-required="true"/>
+					<input type="text" id="trenutnaLokacijaZnamenitosti" class="form-control" name="trenutnaLokacijaZnamenitosti" ng-model="single.trenutnaLokacijaZnamenitosti" ng-pattern="/^[a-zA-Z ]+$/" ng-required="true"/>
 					<span class="text-transparent" ng-class="{textred:formUnos.trenutnaLokacijaZnamenitosti.$dirty && formUnos.trenutnaLokacijaZnamenitosti.$error.pattern}"> 
 						{{tr.format_error_slova}}
 					</span>
@@ -181,7 +181,7 @@
 			<div class="row form-group">
 				<label for="tipZnamenitosti" class="col-sm-2 control-label">{{tr.tip}}:</label>
 				<div class="col-sm-6">
-					<input id="tipZnamenitosti" class="form-control" type="text" name="tipZnamenitosti" ng-model="tipZnamenitosti" ng-pattern="/^[a-zA-Z ]+$/"/>
+					<input id="tipZnamenitosti" class="form-control" type="text" name="tipZnamenitosti" ng-model="single.tip" ng-pattern="/^[a-zA-Z ]+$/"/>
 				</div>
 				<span class="text-transparent col-sm-3" ng-class="{textred:formUnos.tipZnamenitosti.$dirty && formUnos.tipZnamenitosti.$error.pattern }"> 
 					{{tr.format_error_slova}}
@@ -190,7 +190,7 @@
 			<div class="row form-group">
 				<label for="materijalZnamenitosti" class="col-sm-2 control-label">{{tr.materijal}}: </label>
 				<div class="col-sm-6">
-					<input id="materijalZnamenitosti" class="form-control"type="text" name="materijalZnamenitosti" ng-model="materijalZnamenitosti" ng-pattern="/^[a-zA-Z ]+$/"/>
+					<input id="materijalZnamenitosti" class="form-control"type="text" name="materijalZnamenitosti" ng-model="single.materijal" ng-pattern="/^[a-zA-Z ]+$/"/>
 				</div>
 				<span class="text-transparent col-sm-3" ng-class="{textred:formUnos.materijalZnamenitosti.$dirty  && formUnos.materijalZnamenitosti.$error.pattern  }"> 
 					{{tr.format_error_slova}}
@@ -199,7 +199,7 @@
 			<div class="row form-group">
 				<label for="sirina" class="col-sm-2 control-label">{{tr.sirina}}: </label>
 				<div class="col-sm-6">
-					 <input id="sirina" class="form-control" type="text" ng-model="sirina" name="sirina" ng-pattern="/^\d+(\.)?(\d{1,9})?$/"/> 
+					 <input id="sirina" class="form-control" type="text" ng-model="single.sirina" name="sirina" ng-pattern="/^\d+(\.)?(\d{1,9})?$/"/> 
 				</div>
 				<span class="text-transparent col-sm-3" ng-class="{textred:formUnos.sirina.$dirty  && formUnos.sirina.$error.pattern}"> 
 					{{tr.pattern_error_cifre}}
@@ -208,7 +208,7 @@
 			<div class="row form-group">
 				<label for="visina" class="col-sm-2 control-label">{{tr.visina}}: </label>
 				<div class="col-sm-6">
-					 <input id="visina" class="form-control" type="text" ng-model="visina" name="visina" ng-pattern="/^\d+(\.)?(\d{1,9})?$/"/>  
+					 <input id="visina" class="form-control" type="text" ng-model="single.visina" name="visina" ng-pattern="/^\d+(\.)?(\d{1,9})?$/"/>  
 				</div>
 				<span class="text-transparent col-sm-3" ng-class="{textred:formUnos.visina.$dirty  && formUnos.visina.$error.pattern}"> 
 					{{tr.pattern_error_cifre}}
@@ -217,7 +217,7 @@
 			<div class="row form-group">
 				<label for="duzina" class="col-sm-2 control-label">{{tr.duzina}}: </label>
 				<div class="col-sm-6">
-					<input id="duzina" class="form-control" type="text" ng-model="duzina" name="duzina" ng-pattern="/^\d+(\.)?(\d{1,9})?$/"/>  
+					<input id="duzina" class="form-control" type="text" ng-model="single.duzina" name="duzina" ng-pattern="/^\d+(\.)?(\d{1,9})?$/"/>  
 				</div>
 				<span class="text-transparent col-sm-3" ng-class="{textred:formUnos.duzina.$dirty  && formUnos.duzina.$error.pattern}"> 
 					{{tr.pattern_error_cifre}}
@@ -270,7 +270,7 @@
 			<div class="row form-group">
 				<label for="foto" class="col-sm-2 control-label">{{tr.trenutna_faza_unosa}}:</label>
 				<div class="col-sm-8">
-					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="fazaUnosa" value="nekompletno"/> {{tr.nekompletno}}</label>
+					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="single.fazaUnosa" value="nekompletno"/> {{tr.nekompletno}}</label>
 					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="fazaUnosa" value="zaKontrolu"/> {{tr.za_kontrolu}} </label>
 					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="fazaUnosa" value="objavljivanje"/> {{tr.objavljivanje}}</label>
 				</div>
@@ -279,10 +279,10 @@
 	</div> <br/><!-- fieldset end -->
 	<div class="row">
 		<div class="col-sm-4 col-sm-offset-2">
-			<button type="submit" class="btn btn-success btn-block" ng-class="{'disabled':!formUnos.$valid}" ng-click="posalji_podatke()" ng-enabled='formUnos.$valid'> {{tr.unesi_podatke}}  </button>
+			<button type="submit" class="btn btn-success btn-block" ng-class="{'disabled':!formUnos.$valid}" ng-click="sacuvaj()" ng-enabled='formUnos.$valid'> {{tr.unesi_podatke}}  </button>
 		</div>
 		<div class="col-sm-4 ">
-			<button type="reset" id="reset" class="btn btn-primary btn-block">{{tr.resetuj_podatke}}</button>
+			<button type="reset" id="reset" ng-click="ponisti()" class="btn btn-primary btn-block">{{tr.resetuj_podatke}}</button>
 		</div>
 	</div>
 

@@ -3,7 +3,6 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
     $scope.znamenitosti= null;
 	$scope.greska=false;
 	$scope.single=null;
-	//$scope.id=null;
 
 	//trazi se lista svih natpis od servera
     $http.get('../server/objekat.php?type=all', {responseType: 'JSON'}).
@@ -55,13 +54,15 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
                         success(function(data, status, headers, config){
                             if(data.error_status == false)
                             {
-				$scope.single = data.data;
-				if(!data.data)
+								if(!data.data)
                                     $window.location.replace("greska.php");
-                                for(s in data.data)
-                                    $scope.single[s]=data.data[s];
-				console.log($scope.single);
-                                alert($scope.single)
+                                $scope.single=angular.copy(data.data);
+								console.log($scope.single);
+								$scope.lok=!(($scope.provincijaNalaska =="Nepoznata")&&($scope.gradNalaska=="Nepoznat")&&(mestoNalaska=="Nepoznato"));
+								console.log($scope.lok);
+								var tmp=$scope.single.dimenzije.split(':');
+								$scope.single.sirina=tmp[0];$scope.single.visina=tmp[1]; $scope.single.duzina=tmp[2];
+								
                             }
                             else
                             {	
@@ -73,10 +74,6 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
                             console.error(status);
                             window.location.replace("greska.php");
                     });
-					
-				
-		//$scope.lokalizovanIzmena=!(($scope.single.provincijaNalaska=='Nepoznata')&&($scope.single.gradNalaska=='Nepoznat')&&($scope.single.mestoNalaska=='Nepoznato'));
-		console.log($scope.single);
 	}
 	
 	
