@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Stefan
- * Date: 1/11/2015
- * Time: 7:01 PM
- */
+
 include 'dictionary.php';
 
 function unesi($data, $db){
@@ -129,7 +124,7 @@ function unesi($data, $db){
     $o=$stmt->fetchAll();
 
 
-        if($o[0][0]==0){
+    if($o[0][0]==0){
 //        $trenutnaLokacijaZnamenitosti = -1;
         $trenutnoModernoMesto = -1;
         $query="INSERT INTO  `ustanova` (naziv, modernoMesto) VALUES (:trenutnaLokacijaZnamenitosti, :trenutnoModernoMesto)";
@@ -140,12 +135,12 @@ function unesi($data, $db){
 
 
     }
-        $query = "SELECT id FROM `ustanova` WHERE naziv=:trenutnaLokacijaZnamenitosti";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(":trenutnaLokacijaZnamenitosti", trim($trenutnaLokacijaZnamenitosti), PDO::PARAM_STR);
-        $stmt->execute();
-        $o = $stmt->fetchAll();
-        $trenutnaLokacijaZnamenitosti = $o[0][0];
+    $query = "SELECT id FROM `ustanova` WHERE naziv=:trenutnaLokacijaZnamenitosti";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(":trenutnaLokacijaZnamenitosti", trim($trenutnaLokacijaZnamenitosti), PDO::PARAM_STR);
+    $stmt->execute();
+    $o = $stmt->fetchAll();
+    $trenutnaLokacijaZnamenitosti = $o[0][0];
 
 
 //Potrebno je odrediti id plemena
@@ -249,49 +244,41 @@ function unesi($data, $db){
     $dimenzije.=$data->duzina;
     $korisnickoIme=$data->korisnickoIme;
 
-   // $trenutniId =
-
-    //deo za fotografije
-    //$fotografije = $data->fotografije;
-
-
-
-//    $query="INSERT INTO objekat(oznaka, jezik, tekstNatpisa, vrstaNatpisa, provincija,
-//        grad, mesto, modernaDrzava,modernoMesto, tip, materijal, dimenzije, komentar, datumKreiranja,
-//        datumPoslednjeIzmene, faza, pleme, ustanova, korisnickoIme)
-//         VALUES ($oznaka, $jezikUpisa, $natpis, $vrstaNatpisa, $provincija,
-//         $grad, $mestoNalaska, $modernoImeDrzave,$modernoMesto, $tip, $materijal, $dimenzije, $komentar, $datumKreiranja,
-//         $datumPoslednjeIzmene, $fazaUnosa, $pleme, $trenutnaLokacijaZnamenitosti, 'Mirko')";
-//
-    $query="INSERT INTO objekat(oznaka, jezik, tekstNatpisa, vrstaNatpisa, provincija,
-        grad, mesto, modernaDrzava,modernoMesto, tip, materijal, dimenzije, komentar, datumKreiranja,
-        datumPoslednjeIzmene, faza, pleme, ustanova, korisnickoIme, lokalizovano, datovano,
-        pocetakGodina, pocetakVek, pocetakOdrednica, krajGodina, krajVek, krajOdrednica)
-         VALUES (:oznaka, :jezikUpisa, :natpis, :vrstaNatpisa, :provincija,
-         :grad, :mestoNalaska, :modernoImeDrzave,:modernoMesto, :tip, :materijal, :dimenzije, :komentar, :datumKreiranja,
-         :datumPoslednjeIzmene, :fazaUnosa, :pleme, :trenutnaLokacijaZnamenitosti, :korisnickoIme, :lokalizovanPodatak,
-         :datovano, :pocetakGodina, :pocetakVek, :pocetakOdrednica, :krajGodina, :krajVek, :krajOdrednica)";
-//    $sth->execute(array(':calories' => $calories, ':colour' => $colour));
-
-    // Unosenje reci iz natpisa u recnik, potrebno za autocomplete
-    populateDictionary($natpis);
-
-    $stmt = $db->prepare($query);
-    $returnValue = $stmt->execute(array(':oznaka' => $oznaka, ':jezikUpisa' => $jezikUpisa, ':natpis' => $natpis, ':vrstaNatpisa' => $vrstaNatpisa,
-        ':provincija' => $provincija, ':grad' => $grad, ':mestoNalaska' => $mestoNalaska, ':modernoImeDrzave' => $modernoImeDrzave,
-        ':modernoMesto' => $modernoMesto, ':tip' => $tip, ':materijal' => $materijal, ':dimenzije' => $dimenzije, ':komentar' => $komentar,
-        ':datumKreiranja' => $datumKreiranja, ':datumPoslednjeIzmene' => $datumPoslednjeIzmene, ':fazaUnosa' => $fazaUnosa, ':pleme' => $pleme,
-        ':trenutnaLokacijaZnamenitosti'=>$trenutnaLokacijaZnamenitosti, ':korisnickoIme' => $korisnickoIme, ':lokalizovanPodatak'=>$lokalizovanPodatak,
-        ':datovano' => $datovano, ':pocetakGodina' => $pocetakGodina, ':pocetakVek' => $pocetakVek, ':pocetakOdrednica' => $pocetakOdrednica,
-        ':krajGodina' => $krajGodina, ':krajVek' => $krajVek, ':krajOdrednica' => $krajOdrednica));
-
-    //odavde krece novi kod
+    // Unos bibliografskog podatka- priprema
 
     $bibliografskoPoreklo=$data->bibliografskoPoreklo;
     $bibliografskoPorekloSkracenica=$data->bibliografskoPorekloSkracenica;
     $bibliografskiPdfLinkovi=$data->bibliografskiPdfLinkovi;
 
 
+
+
+    // izdvojiti url iz url/path
+    // ovime cu dobiti url/
+    if(count($data->bibliografskiPdfLinkovi)) {
+        $url = $data->bibliografskiPdfLinkovi[0];
+
+        $arr = explode('/', $url);
+
+        $length = count($arr);
+
+        $url = '';
+
+        for ($i = 0; $i < $length - 1; $i++)
+            $url .= $arr[$i] . '/';
+
+
+        $putanja = $bibliografskiPdfLinkovi[0];
+    }else $url='';
+
+
+    // sada vrsimo unos u tabelu bibliografski podatak
+    $query="INSERT INTO `bibliografskipodatak` (skracenica, naslov, putanja) VALUES (:skracenica, :naslov, :putanja)";
+    $stmt=$db->prepare($query);
+    $returnValue=$stmt->execute(array(':skracenica'=>$bibliografskoPorekloSkracenica, ':naslov'=>$bibliografskoPoreklo, 'putanja'=>$url));
+
+
+    // pripremanje vrednosti za Izvod Bibliografskog Podatka
 
     // objekat
 
@@ -309,6 +296,29 @@ function unesi($data, $db){
     $bibl=$stmt->fetchAll();
     $bibl=$bibl[0][0];
 
+    // prvo se mora izvrsiti insert za tabelu Objekat
+
+    $query="INSERT INTO objekat(oznaka, jezik, tekstNatpisa, vrstaNatpisa, provincija,
+        grad, mesto, modernaDrzava,modernoMesto, tip, materijal, dimenzije, komentar, datumKreiranja,
+        datumPoslednjeIzmene, faza, pleme, ustanova, korisnickoIme, lokalizovano, datovano,
+        pocetakGodina, pocetakVek, pocetakOdrednica, krajGodina, krajVek, krajOdrednica)
+         VALUES (:oznaka, :jezikUpisa, :natpis, :vrstaNatpisa, :provincija,
+         :grad, :mestoNalaska, :modernoImeDrzave,:modernoMesto, :tip, :materijal, :dimenzije, :komentar, :datumKreiranja,
+         :datumPoslednjeIzmene, :fazaUnosa, :pleme, :trenutnaLokacijaZnamenitosti, :korisnickoIme, :lokalizovanPodatak,
+         :datovano, :pocetakGodina, :pocetakVek, :pocetakOdrednica, :krajGodina, :krajVek, :krajOdrednica)";
+
+    populateDictionary($natpis);
+
+    $stmt = $db->prepare($query);
+    $returnValue = $stmt->execute(array(':oznaka' => $oznaka, ':jezikUpisa' => $jezikUpisa, ':natpis' => $natpis, ':vrstaNatpisa' => $vrstaNatpisa,
+        ':provincija' => $provincija, ':grad' => $grad, ':mestoNalaska' => $mestoNalaska, ':modernoImeDrzave' => $modernoImeDrzave,
+        ':modernoMesto' => $modernoMesto, ':tip' => $tip, ':materijal' => $materijal, ':dimenzije' => $dimenzije, ':komentar' => $komentar,
+        ':datumKreiranja' => $datumKreiranja, ':datumPoslednjeIzmene' => $datumPoslednjeIzmene, ':fazaUnosa' => $fazaUnosa, ':pleme' => $pleme,
+        ':trenutnaLokacijaZnamenitosti'=>$trenutnaLokacijaZnamenitosti, ':korisnickoIme' => $korisnickoIme, ':lokalizovanPodatak'=>$lokalizovanPodatak,
+        ':datovano' => $datovano, ':pocetakGodina' => $pocetakGodina, ':pocetakVek' => $pocetakVek, ':pocetakOdrednica' => $pocetakOdrednica,
+        ':krajGodina' => $krajGodina, ':krajVek' => $krajVek, ':krajOdrednica' => $krajOdrednica));
+
+    // sada vrsimo pripremu za unos u tabelu Izvod bibliografskog podatka
 
     for($i=0;$i<count($data->bibliografskiPdfLinkovi);$i++) {
 
@@ -340,6 +350,7 @@ function unesi($data, $db){
 
     $fotografije=$data->fotografije;
 
+
     if(count($data->fotografije)) {
         $url = $data->fotografije[0];
 
@@ -356,25 +367,25 @@ function unesi($data, $db){
         $putanja = $bibliografskiPdfLinkovi[0];
 
 
-        for ($i = 0; $i < count($data->fotografije); $i++) {
+        for($i=0;$i<count($data->fotografije);$i++) {
 
             // odredjujemo path iz url/path
 
-            $path = $data->fotografije[$i];
+            $path=$data->fotografije[$i];
 
-            $arr = explode('/', $path);
-            $path = $arr[count($arr) - 1];
+            $arr=explode('/',$path);
+            $path=$arr[count($arr)-1];
 
 
-            $query = "INSERT INTO `fotografija` (naziv, putanja, objekat)
+            $query="INSERT INTO `fotografija` (naziv, putanja, objekat)
         VALUES (:naziv, :putanja, :objekat)";
-            $stmt = $db->prepare($query);
-            $returnValue = $stmt->execute(array(':naziv' => $path, ':putanja' => $url, ':objekat' => $obj));
+            $stmt=$db->prepare($query);
+            $returnValue=$stmt->execute(array(':naziv'=>$path, ':putanja'=>$url, ':objekat'=>$obj));
 
 
         }
-    }
 
+    }
 
 
     return $returnValue;
