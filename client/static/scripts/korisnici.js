@@ -4,6 +4,7 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
 	$scope.greska=false;
 	$scope.sameR=false;
 	$scope.single=null;
+        $scope.info=null;
 
 	//trazi se lista svih natpis od servera
     $http.get('../server/korisnik.php?type=all', {responseType: 'JSON'}).
@@ -40,14 +41,14 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
             });
 	}
 	
-	//funkcija koja salje zahtev za brisanje natpisi iz baze, sa prosledjenim id-em natpisi
+	//funkcija koja salje zahtev za brisanje korisnika iz baze, sa prosledjenim id-em 
     $scope.obrisi=function($korisnickoIme){
 		if($window.confirm('Da li ste sigurni?')) {
 		$http.delete('../server/korisnik.php?korisnickoIme="'+$korisnickoIme+'"')
                 .success(function (data, status, headers, config)
                 {	
-                    $window.location.reload();
                     $window.alert(data.poruka);
+                    $window.location.reload();
                 })
                 .error(function (data, status, headers, config)
                 {
@@ -84,7 +85,7 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
 						
                     else
                         alert("Doslo je do greske pri registraciji.");
-                   //$window.location.reload();
+                   $window.location.reload();
                 }
             }).
             error(function(data, status, headers, config){
