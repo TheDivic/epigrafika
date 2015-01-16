@@ -288,9 +288,36 @@ function unesi($data, $db){
 
     //odavde krece novi kod
 
+
     $bibliografskoPoreklo=$data->bibliografskoPoreklo;
     $bibliografskoPorekloSkracenica=$data->bibliografskoPorekloSkracenica;
     $bibliografskiPdfLinkovi=$data->bibliografskiPdfLinkovi;
+
+    // izdvojiti url iz url/path
+    // ovime cu dobiti url/
+    if(count($data->bibliografskiPdfLinkovi)) {
+        $url = $data->bibliografskiPdfLinkovi[0];
+
+        $arr = explode('/', $url);
+
+        $length = count($arr);
+
+        $url = '';
+
+        for ($i = 0; $i < $length - 1; $i++)
+            $url .= $arr[$i] . '/';
+
+
+        $putanja = $bibliografskiPdfLinkovi[0];
+    }
+
+    else $url='';
+
+
+    // sada vrsimo unos u tabelu bibliografski podatak
+    $query="INSERT INTO `bibliografskipodatak` (skracenica, naslov, putanja) VALUES (:skracenica, :naslov, :putanja)";
+    $stmt=$db->prepare($query);
+    $returnValue=$stmt->execute(array(':skracenica'=>$bibliografskoPorekloSkracenica, ':naslov'=>$bibliografskoPoreklo, 'putanja'=>$url));
 
 
 
@@ -325,6 +352,7 @@ function unesi($data, $db){
 
         $path=$data->bibliografskiPdfLinkovi[$i];
 
+        //ovo nije puna putanja, mora da se menja
         $arr=explode('/',$path);
         $path=$arr[count($arr)-1];
 
@@ -332,7 +360,7 @@ function unesi($data, $db){
         $query="INSERT INTO `izvodbibliografskogpodatka` (objekat, bibliografskiPodatak, strana, putanja)
         VALUES (:objekat, :bibliografskiPodatak, :strana, :putanja)";
         $stmt=$db->prepare($query);
-        $returnValue=$stmt->execute(array(':objekat'=>$obj, ':bibliografskiPodatak'=>$bibl, ':strana'=>$strana, ':putanja'=>$path));
+        $returnValue1=$stmt->execute(array(':objekat'=>$obj, ':bibliografskiPodatak'=>$bibl, ':strana'=>$strana, ':putanja'=>$path));
 
 
     }
@@ -379,4 +407,5 @@ function unesi($data, $db){
 
 
     return $returnValue;
+
 }
