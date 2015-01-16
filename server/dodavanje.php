@@ -288,7 +288,7 @@ function unesi($data, $db){
 
     //odavde krece novi kod
 
-
+/*
     $bibliografskoPoreklo=$data->bibliografskoPoreklo;
     $bibliografskoPorekloSkracenica=$data->bibliografskoPorekloSkracenica;
     $bibliografskiPdfLinkovi=$data->bibliografskiPdfLinkovi;
@@ -364,41 +364,34 @@ function unesi($data, $db){
 
 
     }
-
+*/
     // sada vrsimo unos i fotografija
 
     $fotografije=$data->fotografije;
 
     if(count($data->fotografije)) {
-        $url = $data->fotografije[0];
-
-        $arr = explode('/', $url);
-
-        $length = count($arr);
-
-        $url = '';
-
-        for ($i = 0; $i < $length - 1; $i++)
-            $url .= $arr[$i] . '/';
-
-
-        $putanja = $bibliografskiPdfLinkovi[0];
-
+        $query="SELECT max(id) FROM `objekat`";
+        $stmt=$db->prepare($query);
+        $returnValue=$stmt->execute();
+        $objekat=$stmt->fetchAll();
+        $objekat=$objekat[0][0];
 
         for ($i = 0; $i < count($data->fotografije); $i++) {
 
             // odredjujemo path iz url/path
 
-            $path = $data->fotografije[$i];
+            $putanja = $data->fotografije[$i];
 
-            $arr = explode('/', $path);
-            $path = $arr[count($arr) - 1];
-
+            $arr = explode('/', $putanja);
+            $naziv = $arr[count($arr) - 1];
+            $naziv = explode('.', $naziv);
+            $naziv = $naziv[0];
 
             $query = "INSERT INTO `fotografija` (naziv, putanja, objekat)
         VALUES (:naziv, :putanja, :objekat)";
             $stmt = $db->prepare($query);
-            $returnValue = $stmt->execute(array(':naziv' => $path, ':putanja' => $url, ':objekat' => $obj));
+
+            $returnValue1 = $stmt->execute(array(':naziv' => $naziv, ':putanja' => $putanja, ':objekat' => $objekat));
 
 
         }
@@ -406,6 +399,6 @@ function unesi($data, $db){
 
 
 
-    return $returnValue;
+    return $returnValue && $returnValue1;
 
 }
