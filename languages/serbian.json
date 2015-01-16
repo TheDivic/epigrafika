@@ -19,9 +19,9 @@
 "druga_polovina":" druga polovina",
 "prikazi_nedatovane_natpise":"Prikaži i nedatovane natpise",
 "sortiraj_rezultate_po":"Sortiraj rezultate po",
-"vremenu":"vremenu",
-"mestu_nalaska":"mestu nalaska",
-"vrsti_natpisa":"vrsti natpisa",
+"vremenu":"Vremenu",
+"mestu_nalaska":"Mestu nalaska",
+"vrsti_natpisa":"Vrsti natpisa",
 "zapocni_pretragu":"Traži",
 "resetuj_podatke":"Resetuj polja",
 "osnovne_informacije":"Osnovne informacije",
@@ -109,5 +109,7 @@
 "datum_poslednje_izmene":"Datum poslednje izmene",
 "bibliografski_podaci":"Bibliografski podaci",
 "nema_podataka":"Nema dostupnih podataka",
-"izvorni_grad":"Izvorni grad nalaska"
+"izvorni_grad":"Izvorni grad nalaska",
+"nepoznato":"Nepoznato",
+"odrednica":"Odrednica"
 }

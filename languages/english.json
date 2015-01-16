@@ -19,9 +19,9 @@
 "druga_polovina":" second half",
 "prikazi_nedatovane_natpise":"Show undated data",
 "sortiraj_rezultate_po":"Sort results by",
-"vremenu":"data",
-"mestu_nalaska":"finding place",
-"vrsti_natpisa":"type",
+"vremenu":"Period",
+"mestu_nalaska":"Place of origin",
+"vrsti_natpisa":"Type of inscription",
 "zapocni_pretragu":"Search",
 "resetuj_podatke":"Reset form",
 "osnovne_informacije":"General information",
@@ -107,5 +107,7 @@
 "datum_poslednje_izmene":"Modified",
 "bibliografski_podaci":"Bibliographical data",
 "nema_podataka":"No data available",
-"izvorni_grad":"Town of origin"
+"izvorni_grad":"Town of origin",
+"nepoznato":"Unknown",
+"odrednica":"Entry"
 }

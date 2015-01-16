@@ -13,25 +13,25 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<label class="control-label ispis" >{{ tr.osnovne_informacije }}</label> <br/>
-				<label class="control-label">{{ tr.oznaka }} : </label> {{object.oznaka}} <br/>   
-				<label class="control-label">{{tr.vrsta_natpisa}} :</label> {{object.vrstaNatpisa}} <br/> 
-				<label class="control-label">{{tr.jezik}} :</label> {{object.jezik}} <br/>
+				<label class="control-label">{{ tr.oznaka }} : </label> <span ng-if="!object.oznaka">{{tr.nepoznato}}</span> {{object.oznaka}} <br/>   
+				<label class="control-label">{{tr.vrsta_natpisa}} :</label> <span ng-if="!object.vrstaNatpisa">{{tr.nepoznato}}</span> {{object.vrstaNatpisa}} <br/> 
+				<label class="control-label">{{tr.jezik}} :</label> <span ng-if="!object.jezik">{{tr.nepoznato}}</span> {{object.jezik}} <br/>
 				<br/> <label class="control-label ispis"> {{tr.tip_spomenika}} </label> <br/>
-				<label class="control-label">{{tr.tip}} :</label> {{object.tip}} <br/> 
-				<label class="control-label">{{tr.materijal}} :</label> {{object.materijal}} <br/> 
-				<label class="control-label">  {{tr.dimenzije}}: </label> {{object.dimenzije}} <br/>	
+				<label class="control-label">{{tr.tip}} :</label> <span ng-if="!object.tip">{{tr.nepoznato}}</span> {{object.tip}} <br/> 
+				<label class="control-label">{{tr.materijal}} :</label> <span ng-if="!object.materijali">{{tr.nepoznato}}</span> {{object.materijal}} <br/> 
+				<label class="control-label">  {{tr.dimenzije}}: </label> <span ng-if="!object.dimenzije">{{tr.nepoznato}}</span> {{object.dimenzije}} <br/>	
 				<br/> <label class="control-label"> {{tr.natpis}} :</label><br/> 
 				<div style="border: 1px solid #c0c0c0; width: 100%; height: 100%; margin: 0; padding: 10px; border-radius: 10px">
-					<span>{{object.natpis}}</span>
+					<span ng-if="!object.natpis">{{tr.nepoznato}}</span> <span>{{object.natpis}}</span>
 				</div>
 			</div>
 			<div class="col-sm-6">
 				<label class="control-label ispis" >{{ tr.lokacija }}</label> <br/>
-				<label class="control-label">{{tr.izvorno_mesto_nastanka}} :</label> {{object.provincijaNalaska}} <br/> 
-				<label class="control-label">{{tr.izvorni_grad}} :</label> {{object.gradNalaska}} <br/> 
-				<label class="control-label">{{tr.moderno_mesto}} :</label> {{object.modernoMesto}} <br/> 
-				<label class="control-label">{{tr.moderno_ime_drzave}} :</label> {{object.modernoImeDrzave}} <br/> 
-				<label class="control-label">  {{tr.trenutna_lokacija_znamenitosti}}: </label> {{object.trenutnaLokacijaZnamenitosti}}<br/>
+				<label class="control-label">{{tr.izvorno_mesto_nastanka}} :</label> <span ng-if="!object.provincijaNalaska">{{tr.nepoznato}}</span> {{object.provincijaNalaska}} <br/> 
+				<label class="control-label">{{tr.izvorni_grad}} :</label> <span ng-if="!object.gradNalaska">{{tr.nepoznato}}</span> {{object.gradNalaska}} <br/> 
+				<label class="control-label">{{tr.moderno_mesto}} :</label> <span ng-if="!object.modernoMesto">{{tr.nepoznato}}</span> {{object.modernoMesto}} <br/> 
+				<label class="control-label">{{tr.moderno_ime_drzave}} :</label> <span ng-if="!object.modernoImeDrzave">{{tr.nepoznato}}</span> {{object.modernoImeDrzave}} <br/> 
+				<label class="control-label">  {{tr.trenutna_lokacija_znamenitosti}}: </label> <span ng-if="!object.trenutnaLokacijaZnamenitosti">{{tr.nepoznato}}</span> {{object.trenutnaLokacijaZnamenitosti}}<br/>
 				<br/> <div id="map-canvas" style="width:100%;height:300px"></div>
 			</div>
 		</div>
@@ -56,9 +56,16 @@
 	<div style="border: 2px solid #c0c0c0; margin-bottom: 20px; padding: 30px; border-radius: 20px">
 		<div class="row">
 			<div class="col-sm-6">
+				<label class="control-label ispis" >{{ tr.vreme }}</label> <br/>
+				<label class="control-label">  {{tr.godina}}: </label> {{object.pocetakGodina}} - {{object.krajGodina}} <br/>
+				<label class="control-label">  {{tr.vek}}: </label> {{object.pocetakVek}} - {{object.krajVek}} <br/>
+				<label class="control-label">  {{tr.odrednica}}: </label> {{object.pocetakOdrednica}} - {{object.krajOdrednica}} <br/>
+			</div>
+			<div class="col-sm-6">
 				<label class="control-label ispis" >{{ tr.dodatne_info }}</label> <br/>
-				<label class="control-label">  {{tr.vreme}}: </label> {{object.vreme}} <br/>
-				<label class="control-label">  {{tr.komentar}}: </label> {{object.komentar}} <br/>
+				<label class="control-label">  {{tr.datum_kreiranja}}: </label> {{object.datumKreiranja}} <br/>
+				<label class="control-label">  {{tr.datum_poslednje_izmene}}: </label> {{object.datumPoslednjeIzmene}} <br/>
+				<label class="control-label">  {{tr.komentar}}: </label> <span ng-if="!object.komentar">{{tr.nepoznato}}</span> {{object.komentar}} <br/>
 			</div>
 		</div>
 	</div>
