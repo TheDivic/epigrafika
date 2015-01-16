@@ -10,13 +10,14 @@ include 'dictionary.php';
 function unesi($data, $db){
 
 //    $db=konekcija::getConnectionInstance();
+    date_default_timezone_set("Europe/Belgrade");
 
     $data = json_decode($data);
 
     $oznaka = $data->oznaka;
-    $oznaka=mysql_real_escape_string($oznaka);
+    $oznaka=($oznaka);
     $natpis = $data->natpis;
-    $natpis=mysql_real_escape_string($natpis);
+    $natpis=($natpis);
 
     /*dobijamo ime jezika pa spajamo sa bazom da bismo dobili id */
     $jezikUpisa = $data->jezikUpisa;
@@ -120,7 +121,7 @@ function unesi($data, $db){
 //        echo "<br>Id modernog mesta: ".$o[0][0];
 
     $trenutnaLokacijaZnamenitosti = $data->trenutnaLokacijaZnamenitosti;
-    $trenutnaLokacijaZnamenitosti=mysql_real_escape_string($trenutnaLokacijaZnamenitosti);
+    $trenutnaLokacijaZnamenitosti=($trenutnaLokacijaZnamenitosti);
 
     $query="SELECT count(*) FROM `ustanova` WHERE naziv=:trenutnaLokacijaZnamenitosti";
     $stmt = $db->prepare($query);
@@ -150,7 +151,7 @@ function unesi($data, $db){
 
 //Potrebno je odrediti id plemena
     $pleme = $data->pleme;
-    $pleme=mysql_real_escape_string($pleme);
+    $pleme=($pleme);
 
     $query="SELECT count(*) FROM `pleme` WHERE naziv=:pleme";
     $stmt = $db->prepare($query);
@@ -179,7 +180,7 @@ function unesi($data, $db){
     $vreme = $data->vreme;
 
     if(strcmp($vreme, "nedatovan")==0){
-        $datovano = false;
+        $datovano = 0;
 
         $pocetakGodina = null;
         $pocetakVek = null;
@@ -192,7 +193,7 @@ function unesi($data, $db){
     //velika mogucnost greske
 
     else if(strcmp($vreme, "godina")==0){
-        $datovano = true;
+        $datovano = 1;
         $pocetakGodina = $data->godinaPronalaska;
         $pocetakVek = $data->vekGodine;
         $pocetakOdrednica = $data->periodVekGodine;
@@ -237,9 +238,9 @@ function unesi($data, $db){
     $materijal = $data->materijalZnamenitosti;
     $komentar = $data->komentar;
 
-    $tip=mysql_real_escape_string($tip);
-    $materijal=mysql_real_escape_string($materijal);
-    $komentar=mysql_real_escape_string($komentar);
+    $tip=($tip);
+    $materijal=($materijal);
+    $komentar=($komentar);
 
     //dimenzije objekta, trenutno nemamo format, prepraviti
     $dimenzije = $data->sirina;

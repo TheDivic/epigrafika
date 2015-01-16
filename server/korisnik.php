@@ -142,13 +142,15 @@ else if($method === 'POST')
             $status = $data->status;
 		if(property_exists($data, "privilegije"))
             $privilegije = $data->privilegije;
-        $datum=date("Y-d-m");
+        
+        date_default_timezone_set("Europe/Belgrade");
+        $datum=date("Y-m-d");
 
 
         $passwordCrypt=crypt($password,'$2a$10$dfgbdfgbt5y56gtbftrty6');
 
 
-        $query = $db->prepare("INSERT INTO `mydb`.`korisnik` (`korisnickoIme`, `sifra`, `ime`,`prezime`,`email`,`institucija`,`dodatneInformacije`,`privilegije`,`datumRegistrovanja`,`status`) VALUES ('$username','$passwordCrypt', '$ime', '$prezime', '$email', '$institucija', '$info', '$privilegije', $datum, '$status' )");
+        $query = $db->prepare("INSERT INTO `mydb`.`korisnik` (`korisnickoIme`, `sifra`, `ime`,`prezime`,`email`,`institucija`,`dodatneInformacije`,`privilegije`,`datumRegistrovanja`,`status`) VALUES ('$username','$passwordCrypt', '$ime', '$prezime', '$email', '$institucija', '$info', '$privilegije', '$datum', '$status' )");
 		$query->execute();  
         $broj_redova = $query->rowCount();
 		if($broj_redova==1) 
