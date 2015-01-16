@@ -40,10 +40,24 @@ angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http
     $scope.vrsteNatpisa=null;
     $scope.mesta=null;
     $scope.korisnik=$cookies.user;
+
+    // upload fajlova
     $scope.pdfLinkovi = [];
     $scope.photoLinkovi = [];
     $scope.pdfError = false;
     $scope.photoError = false;
+    $scope.pdfUploadComplete = false;
+    $scope.photoUploadComplete = false;
+
+    var spinOpts = {
+        lines: 10,
+        length: 8,
+        width: 3,
+        radius: 6,
+    };
+
+    var pdfSpinner = new Spinner(spinOpts);
+    var photoSpinner = new Spinner(spinOpts);
 
     function izracunajVek(godina){
       if(godina < 100)
@@ -326,7 +340,7 @@ $scope.proveri_jedinstvenost = function(){
     };
 
 
-    var uploadFile = function(file, type) {
+    var uploadFile = function(file, type, total) {
         var reader = new FileReader();
 
         reader.onload = function(evt) {
@@ -340,9 +354,18 @@ $scope.proveri_jedinstvenost = function(){
             .success(function(link){
                 if(type == "biblioPdf"){
                     $scope.pdfLinkovi.push(link);
+
+                    if($scope.pdfLinkovi.length >= total){
+                        pdfSpinner.stop();
+                        $scope.pdfUploadComplete = true;
+                    }
                 }
                 else if(type == "photo"){
                     $scope.photoLinkovi.push(link);
+                    if($scope.photoLinkovi.length >= total){
+                        photoSpinner.stop();
+                        $scope.photoUploadComplete = true;
+                    }
                 }
             })
             .error(function(error){
@@ -359,7 +382,8 @@ $scope.proveri_jedinstvenost = function(){
 
     $scope.handlePdfUpload = function(files){
         $scope.pdfError = false;
-       
+        $scope.pdfUploadComplete = false;
+        
         if(files.length > 10){
             $scope.pdfError = true;
             return;
@@ -374,14 +398,16 @@ $scope.proveri_jedinstvenost = function(){
         }
 
         if(!$scope.pdfError){
+            pdfSpinner.spin(document.getElementById("pdf-upload-status"));
             for(var i = 0; i < files.length; i++){
-                uploadFile(files[i], "biblioPdf");
+                uploadFile(files[i], "biblioPdf", files.length);
             }
         }
     };
 
     $scope.handlePhotoUpload = function(files){
         $scope.photoError = false;
+        $scope.photoUploadComplete = false;
        
         if(files.length > 10){
             $scope.photoError = true;
@@ -397,8 +423,9 @@ $scope.proveri_jedinstvenost = function(){
         }
 
         if(!$scope.photoError){
+            photoSpinner.spin(document.getElementById("photo-upload-status"));
             for(var i = 0; i < files.length; i++){
-                uploadFile(files[i], "photo");
+                uploadFile(files[i], "photo", files.length);
             }
         }
     };

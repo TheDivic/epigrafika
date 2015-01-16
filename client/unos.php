@@ -2,6 +2,7 @@
 
 <!-- ucitavanje kontrolera -->
 <script src="static/scripts/unos.js"></script>
+<script src="static/scripts/libs/spin.min.js"></script>
 <div class="container" ng-controller='unosController' ng-cloak>
 	<form action=""  name='formUnos' method="post" enctype='multipart/form-data' class="form-horizontal">
 	<div class="fieldset_border">
@@ -248,9 +249,10 @@
 			</div>
 			<div class="row form-group">
 				<label for="bibl" class="col-sm-2 control-label">{{tr.dodaj_pdf}}:</label>
-				<div class="col-sm-8">
-                                    <input type="file" id="bibl" accept="application/pdf"  name="bibl" multiple onchange="angular.element(this).scope().handlePdfUpload(this.files)"  />
-                                    <span class="text-transparent" ng-class="{textred: pdfError}">{{ tr.pdf_error }} </span> 
+				<div class="col-sm-8" id="upload-pdf">
+                                    <input type="file" id="bibl" accept="application/pdf" style="float:left; width: 200px;" name="bibl" multiple onchange="angular.element(this).scope().handlePdfUpload(this.files)"  />
+                                    <span id="pdf-upload-status" style="float: left; width: 30px"><span class="glyphicon glyphicon-thumbs-up" style="color: green;" ng-show="pdfUploadComplete"></span></span>
+                                    <span class="text-transparent" style="float: left;" ng-class="{textred: pdfError}">{{ tr.pdf_error }} </span> 
                                 </div>
 			</div>
 			<div class="row form-group">
@@ -266,8 +268,9 @@
 			<div class="row form-group">
 				<label for="foto" class="col-sm-2 control-label">{{tr.dodaj_fotografiju}}:</label>
 				<div class="col-sm-8">
-					<input type="file" id="foto" accept="image/*"  name="foto" multiple onchange="angular.element(this).scope().handlePhotoUpload(this.files)" />
-					<span class="text-transparent" ng-class="{textred: photoError}">{{tr.photo_error}}</span>
+					<input type="file" id="foto" accept="image/*"  name="foto" style="float:left; width: 200px;" multiple onchange="angular.element(this).scope().handlePhotoUpload(this.files)" />
+					<span id="photo-upload-status" style="float: left; width: 30px"><span class="glyphicon glyphicon-thumbs-up" style="color: green;" ng-show="photoUploadComplete"></span></span>
+					<span class="text-transparent" style="float: left;" ng-class="{textred: photoError}">{{tr.photo_error}}</span>
 				</div>
 			</div>
 			<div class="row form-group">
