@@ -203,8 +203,13 @@ class selektovanje {
     }
     public function selektujBibliografskePodatkeObjekta($idObjekta)
     {
-
+/*
         $upit = 'select IzvodBibliografskogPodatka.putanja, IzvodBibliografskogPodatka.strana, BibliografskiPodatak.skracenica, BibliografskiPodatak.naslov '.
+            ' from IzvodBibliografskogPodatka JOIN  BibliografskiPodatak ON IzvodBibliografskogPodatka.bibliografskiPodatak = BibliografskiPodatak.id '.
+            'WHERE IzvodBibliografskogPodatka.objekat = :idObjekta';
+*/
+
+        $upit = 'select IzvodBibliografskogPodatka.*,  BibliografskiPodatak.skracenica, BibliografskiPodatak.naslov,  BibliografskiPodatak.id  '.
             ' from IzvodBibliografskogPodatka JOIN  BibliografskiPodatak ON IzvodBibliografskogPodatka.bibliografskiPodatak = BibliografskiPodatak.id '.
             'WHERE IzvodBibliografskogPodatka.objekat = :idObjekta';
         $stmt=konekcija::getConnectionInstance()->prepare($upit);
@@ -258,6 +263,52 @@ class selektovanje {
         {
             $d->vreme = 'Od ' . $this->vremeUString($row['pocetakGodina'], $row['pocetakVek'], $row['pocetakOdrednica']) . ' do ' . $this->vremeUString($row['krajGodina'], $row['krajVek'], $row['krajOdrednica']);
         }
+
+        //popunjavanje fotografija
+        $d->fotografije = $this->selektujFotografijeObjekta($row['id']);
+
+        //popunjavanje bibliografskih podataka
+        $d->bibliografskiPodatci = $this->selektujBibliografskePodatkeObjekta($row['id']);
+
+        return $d;
+    }
+    public function obradiVrstaId($row)
+    {
+        $d = new stdClass();
+        foreach($row as $key => $value)
+        {
+                    $d->$key = $value;
+        }
+        //trenutnaLokacijaZnamenitosti
+        if($row['ustanova'] == null)
+        {
+            if($row['modernoMesto'] == null)
+                $d->trenutnaLokacijaZnamenitosti = 'nepoznato';
+            else
+                $d->trenutnaLokacijaZnamenitosti = $row['modernoMesto'];
+        }
+        else
+        {
+            if($row['modernoMesto'] == null)
+                $d->trenutnaLokacijaZnamenitosti = $row['ustanova'];
+            else
+                $d->trenutnaLokacijaZnamenitosti = $row['modernoMesto'] . "   " . $row['ustanova'];
+        }
+
+        //postavljanje polja VREME
+        if($row['pocetakGodina'] == null && $row['pocetakVek'] == null )
+        {
+            $d->vreme = 'nepoznato';
+        }
+        else
+            if($row['krajGodina'] == null && $row['krajVek'] == null )
+            {
+                $d->vreme = $this->vremeUString($row['pocetakGodina'], $row['pocetakVek'], $row['pocetakOdrednica']);
+            }
+            else
+            {
+                $d->vreme = 'Od ' . $this->vremeUString($row['pocetakGodina'], $row['pocetakVek'], $row['pocetakOdrednica']) . ' do ' . $this->vremeUString($row['krajGodina'], $row['krajVek'], $row['krajOdrednica']);
+            }
 
         //popunjavanje fotografija
         $d->fotografije = $this->selektujFotografijeObjekta($row['id']);
@@ -520,13 +571,15 @@ class selektovanje {
     }
     public function selektujeObjekat($idObjekta)
     {
-        $upit = "select Toznaka.oznaka, Toznaka.tekstNatpisa AS natpis, TprovincijaNalaska.naziv AS provincijaNalaska , TgradNalaska.naziv AS gradNalaska, Mesto.naziv AS mestoNalaska , TmodernoImeDrzave.naziv AS modernoImeDrzave , vrstaNatpisa.naziv AS vrstaNatpisa , jezik.naziv AS jezik   , Toznaka.tip, Toznaka.materijal, Toznaka.dimenzije   , Toznaka.komentar   , Ustanova.naziv AS ustanova, TmodernoMesto.naziv AS modernoMesto   , Toznaka.pocetakGodina, Toznaka.pocetakVek, Toznaka.pocetakOdrednica , Toznaka.krajGodina, Toznaka.krajVek, Toznaka.krajOdrednica  , Toznaka.id   FROM (select * from Objekat) Toznaka JOIN (select * from Provincija) TprovincijaNalaska ON Toznaka.provincija = TprovincijaNalaska.id  JOIN (select * from Grad) TgradNalaska ON Toznaka.grad = TgradNalaska.id  JOIN (select * from ModernaDrzava) TmodernoImeDrzave ON Toznaka.modernaDrzava = TmodernoImeDrzave.id  JOIN (select * from ModernoMesto) TmodernoMesto ON Toznaka.modernoMesto = TmodernoMesto.id  JOIN (select * from Pleme) Tpleme ON Toznaka.pleme = Tpleme.id  LEFT JOIN Mesto ON Toznaka.mesto = Mesto.id  LEFT JOIN vrstaNatpisa ON Toznaka.vrstaNatpisa = vrstaNatpisa.id  LEFT JOIN jezik ON Toznaka.jezik = jezik.id  LEFT JOIN ustanova on Toznaka.ustanova = Ustanova.id where Toznaka.id = :idObjekta ";
+       // $upit = "select Tpleme.naziv AS pleme, Toznaka.oznaka, Toznaka.tekstNatpisa AS natpis, TprovincijaNalaska.naziv AS provincijaNalaska , TgradNalaska.naziv AS gradNalaska, Mesto.naziv AS mestoNalaska , TmodernoImeDrzave.naziv AS modernoImeDrzave , vrstaNatpisa.naziv AS vrstaNatpisa , jezik.naziv AS jezik   , Toznaka.tip, Toznaka.materijal, Toznaka.dimenzije   , Toznaka.komentar   , Ustanova.naziv AS ustanova, TmodernoMesto.naziv AS modernoMesto   , Toznaka.pocetakGodina, Toznaka.pocetakVek, Toznaka.pocetakOdrednica , Toznaka.krajGodina, Toznaka.krajVek, Toznaka.krajOdrednica  , Toznaka.id   FROM (select * from Objekat) Toznaka JOIN (select * from Provincija) TprovincijaNalaska ON Toznaka.provincija = TprovincijaNalaska.id  JOIN (select * from Grad) TgradNalaska ON Toznaka.grad = TgradNalaska.id  JOIN (select * from ModernaDrzava) TmodernoImeDrzave ON Toznaka.modernaDrzava = TmodernoImeDrzave.id  JOIN (select * from ModernoMesto) TmodernoMesto ON Toznaka.modernoMesto = TmodernoMesto.id  JOIN (select * from Pleme) Tpleme ON Toznaka.pleme = Tpleme.id  LEFT JOIN Mesto ON Toznaka.mesto = Mesto.id  LEFT JOIN vrstaNatpisa ON Toznaka.vrstaNatpisa = vrstaNatpisa.id  LEFT JOIN jezik ON Toznaka.jezik = jezik.id  LEFT JOIN ustanova on Toznaka.ustanova = Ustanova.id where Toznaka.id = :idObjekta ";
+        $upit = "select Tpleme.naziv AS pleme, Toznaka.*, Toznaka.tekstNatpisa AS natpis, TprovincijaNalaska.naziv AS provincijaNalaska , TgradNalaska.naziv AS gradNalaska, Mesto.naziv AS mestoNalaska , TmodernoImeDrzave.naziv AS modernoImeDrzave , vrstaNatpisa.naziv AS vrstaNatpisa , jezik.naziv AS jezik  , Ustanova.naziv AS ustanova, TmodernoMesto.naziv AS modernoMesto     FROM (select * from Objekat) Toznaka JOIN (select * from Provincija) TprovincijaNalaska ON Toznaka.provincija = TprovincijaNalaska.id  JOIN (select * from Grad) TgradNalaska ON Toznaka.grad = TgradNalaska.id  JOIN (select * from ModernaDrzava) TmodernoImeDrzave ON Toznaka.modernaDrzava = TmodernoImeDrzave.id  JOIN (select * from ModernoMesto) TmodernoMesto ON Toznaka.modernoMesto = TmodernoMesto.id  JOIN (select * from Pleme) Tpleme ON Toznaka.pleme = Tpleme.id  LEFT JOIN Mesto ON Toznaka.mesto = Mesto.id  LEFT JOIN vrstaNatpisa ON Toznaka.vrstaNatpisa = vrstaNatpisa.id  LEFT JOIN jezik ON Toznaka.jezik = jezik.id  LEFT JOIN ustanova on Toznaka.ustanova = Ustanova.id where Toznaka.id = :idObjekta ";
+
         $stmt=konekcija::getConnectionInstance()->prepare($upit);
         $stmt->bindParam(':idObjekta', $idObjekta , PDO::PARAM_INT);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $d =  $stmt->fetch();
-        return $this->obradiVrsta($d);
+        return $this->obradiVrstaId($d);
     }
 
 }
