@@ -288,83 +288,106 @@ function unesi($data, $db){
 
     //odavde krece novi kod
 
-/*
-    $bibliografskoPoreklo=$data->bibliografskoPoreklo;
-    $bibliografskoPorekloSkracenica=$data->bibliografskoPorekloSkracenica;
-    $bibliografskiPdfLinkovi=$data->bibliografskiPdfLinkovi;
-
-    // izdvojiti url iz url/path
-    // ovime cu dobiti url/
-    if(count($data->bibliografskiPdfLinkovi)) {
-        $url = $data->bibliografskiPdfLinkovi[0];
-
-        $arr = explode('/', $url);
-
-        $length = count($arr);
-
-        $url = '';
-
-        for ($i = 0; $i < $length - 1; $i++)
-            $url .= $arr[$i] . '/';
-
-
-        $putanja = $bibliografskiPdfLinkovi[0];
-    }
-
-    else $url='';
-
-
-    // sada vrsimo unos u tabelu bibliografski podatak
-    $query="INSERT INTO `bibliografskipodatak` (skracenica, naslov, putanja) VALUES (:skracenica, :naslov, :putanja)";
-    $stmt=$db->prepare($query);
-    $returnValue=$stmt->execute(array(':skracenica'=>$bibliografskoPorekloSkracenica, ':naslov'=>$bibliografskoPoreklo, 'putanja'=>$url));
 
 
 
-    // objekat
+    if($data->bibliografskoPoreklo!=null || $data->bibliografskoPorekloSkracenica
+        || count($bibliografskiPdfLinkovi=$data->bibliografskiPdfLinkovi)!=0) {
 
-    $query="SELECT max(id) FROM `objekat` WHERE 1";
-    $stmt=$db->prepare($query);
-    $returnValue=$stmt->execute();
-    $obj=$stmt->fetchAll();
-    $obj=$obj[0][0]+1;
+        if($data->bibliografskoPoreklo!=null)
+            $bibliografskoPoreklo = trim($data->bibliografskoPoreklo);
+        else
+            $bibliografskoPoreklo = '';
+        if($data->bibliografskoPorekloSkracenica!=null)
+            $bibliografskoPorekloSkracenica = trim($data->bibliografskoPorekloSkracenica);
+        else
+            $bibliografskoPorekloSkracenica = '';
 
-    // bibliografski podatak
+        $bibliografskiPdfLinkovi = $data->bibliografskiPdfLinkovi;
 
-    $query="SELECT max(id) FROM `bibliografskipodatak` WHERE 1";
-    $stmt=$db->prepare($query);
-    $returnValue=$stmt->execute();
-    $bibl=$stmt->fetchAll();
-    $bibl=$bibl[0][0];
+        //ovo promeniti ako se nekad organizuje po folderima, za sad ce dobro ici ovako
+        $putanja = '../uploads/biblio';
+
+        //ako se promeni to, radi ovako nesto
+        /*    if(count($data->bibliografskiPdfLinkovi)) {
+            $url = $data->bibliografskiPdfLinkovi[0];
+
+            $arr = explode('/', $url);
+
+            $length = count($arr);
+
+            $url = '';
+
+            for ($i = 0; $i < $length - 1; $i++)
+                $url .= $arr[$i] . '/';
 
 
-    for($i=0;$i<count($data->bibliografskiPdfLinkovi);$i++) {
+            $putanja = $bibliografskiPdfLinkovi[0];
+        }
 
-        // odredjujem broj strane
-        $query = "SELECT count(*) FROM `izvodbibliografskogpodatka` WHERE objekat=:objekat AND bibliografskiPodatak=:bibliografskiPodatak";
+        else $url='';
+    */
+
+        $query="SELECT count(*) FROM `BibliografskiPodatak`
+        WHERE skracenica=:bibliografskoPorekloSkracenica and naslov = :bibliografskoPoreklo";
         $stmt = $db->prepare($query);
-        $returnValue = $stmt->execute(array(':objekat'=>$obj, ':bibliografskiPodatak'=>$bibl));
-        $strana = $stmt->fetchAll();
-        $strana = intval($strana[0][0]) + 1;
+        $stmt->bindParam(":bibliografskoPorekloSkracenica", $bibliografskoPorekloSkracenica, PDO::PARAM_STR);
+        $stmt->bindParam(":bibliografskoPoreklo", $bibliografskoPoreklo, PDO::PARAM_STR);
+        $stmt->execute();
+        $o=$stmt->fetchAll();
+
+        if($o[0][0]==0) {
+
+            // sada vrsimo unos u tabelu bibliografski podatak
+            $query = "INSERT INTO `bibliografskipodatak` (skracenica, naslov, putanja) VALUES (:skracenica, :naslov, :putanja)";
+            $stmt = $db->prepare($query);
+            $returnValue1 = $stmt->execute(array(':skracenica' => $bibliografskoPorekloSkracenica, ':naslov' => $bibliografskoPoreklo, 'putanja' => $url));
+
+            if($returnValue1==false)
+               return false;
+
+        }
+
+        if(count($bibliografskiPdfLinkovi)> 0) {
+            //nalazenje id BibPodatka
+            $query = "SELECT id FROM `BibliografskiPodatak`
+        WHERE skracenica=:bibliografskoPorekloSkracenica and naslov = :bibliografskoPoreklo";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(":bibliografskoPorekloSkracenica", $bibliografskoPorekloSkracenica, PDO::PARAM_STR);
+            $stmt->bindParam(":bibliografskoPoreklo", $bibliografskoPoreklo, PDO::PARAM_STR);
+            $stmt->execute();
+            $o = $stmt->fetchAll();
+            $idBibliografskogPodatka = $o[0][0];
 
 
-        // odredjujemo path iz url/path
+            $query = "SELECT max(id) FROM `objekat`";
+            $stmt = $db->prepare($query);
+            $returnValue = $stmt->execute();
+            $obj = $stmt->fetchAll();
+            $idObjekta = $obj[0][0];
 
-        $path=$data->bibliografskiPdfLinkovi[$i];
+            for ($i = 0; $i < count($data->bibliografskiPdfLinkovi); $i++) {
 
-        //ovo nije puna putanja, mora da se menja
-        $arr=explode('/',$path);
-        $path=$arr[count($arr)-1];
+                $strana = $i + 1;
+
+                // odredjujemo path iz url/path
+
+                $putanja = $data->bibliografskiPdfLinkovi[$i];
 
 
-        $query="INSERT INTO `izvodbibliografskogpodatka` (objekat, bibliografskiPodatak, strana, putanja)
+
+                $query = "INSERT INTO `izvodbibliografskogpodatka` (objekat, bibliografskiPodatak, strana, putanja)
         VALUES (:objekat, :bibliografskiPodatak, :strana, :putanja)";
-        $stmt=$db->prepare($query);
-        $returnValue1=$stmt->execute(array(':objekat'=>$obj, ':bibliografskiPodatak'=>$bibl, ':strana'=>$strana, ':putanja'=>$path));
+                $stmt = $db->prepare($query);
+                $returnValue1 = $stmt->execute(array(':objekat' => $idObjekta, ':bibliografskiPodatak' => $idBibliografskogPodatka,
+                    ':strana' => $strana, ':putanja' => $putanja));
+                if($returnValue1 = false)
+                    return false;
 
-
+            }
+        }
     }
-*/
+
     // sada vrsimo unos i fotografija
 
     $fotografije=$data->fotografije;
@@ -392,13 +415,14 @@ function unesi($data, $db){
             $stmt = $db->prepare($query);
 
             $returnValue1 = $stmt->execute(array(':naziv' => $naziv, ':putanja' => $putanja, ':objekat' => $objekat));
-
+            if($returnValue1==false)
+                return false;
 
         }
     }
 
 
 
-    return $returnValue && $returnValue1;
+    return $returnValue;
 
 }
