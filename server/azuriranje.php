@@ -6,16 +6,15 @@
  * Time: 11:10 PM
  */
 function azuriraj($data, $db){
-
-//    $db=konekcija::getConnectionInstance();
+    date_default_timezone_set("Europe/Belgrade");
 
     $data = json_decode($data);
 
+//    $oznaka = $data->oznaka;
+//    $oznaka=($oznaka);
     $id = $data->id;
-    $oznaka = $data->oznaka;
-    $oznaka=mysql_real_escape_string($oznaka);
     $natpis = $data->natpis;
-    $natpis=mysql_real_escape_string($natpis);
+    $natpis=($natpis);
 
     /*dobijamo ime jezika pa spajamo sa bazom da bismo dobili id */
     $jezikUpisa = $data->jezikUpisa;
@@ -43,7 +42,46 @@ function azuriraj($data, $db){
     if($lokalizovanPodatak==true){
         $provincija = $data->provincija;
         $grad = $data->grad;
-        $mestoNalaska = $data->mestoNalaska;
+
+        $mestoNalaska = trim($data->mestoNalaska);
+        $query = "select count(*) from mesto where naziv=:mestoNalaska";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(":mestoNalaska", $mestoNalaska, PDO::PARAM_STR);
+        $stmt->execute();
+        $o=$stmt->fetchAll();
+        $brojMesta = $o[0][0];
+
+        if($brojMesta == 0){
+
+            try{
+
+                $db->beginTransaction();
+
+                $query = "insert into mesto (naziv) values(:mestoNalaska)";
+                $stmt = $db->prepare($query);
+                $stmt->bindParam(":mestoNalaska", $mestoNalaska, PDO::PARAM_STR);
+                $stmt->execute();
+
+                $db->commit();
+
+            }catch(Exception $e){
+
+                $db->rollBack();
+                return false;
+            }
+
+        }
+
+        //Potrebno je odrediti id Mesta
+        $query="SELECT id FROM `mesto` WHERE naziv=:mesto";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(":mesto", trim($mestoNalaska), PDO::PARAM_STR);
+        $stmt->execute();
+        $o=$stmt->fetchAll();
+        $mestoNalaska=$o[0][0];
+
+
+
         //Potrebno je odrediti id provincije
         $query="SELECT id FROM `provincija` WHERE naziv=:provincija";
         $stmt = $db->prepare($query);
@@ -59,19 +97,11 @@ function azuriraj($data, $db){
         $o=$stmt->fetchAll();
         $grad=$o[0][0];
 //            echo "<br>Id grada: ".$o[0][0];
-        //Potrebno je odrediti id Mesta
-        $query="SELECT id FROM `mesto` WHERE naziv=:mesto";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(":mesto", trim($mestoNalaska), PDO::PARAM_STR);
-        $stmt->execute();
-        $o=$stmt->fetchAll();
-        $mestoNalaska=$o[0][0];
 
 
     }
     else{
 
-        // ovo nece proci jer su provincija, grad i mesto strani kljucevi i not null su....
 
         $provincija = -1;
         $grad = -1;
@@ -101,7 +131,7 @@ function azuriraj($data, $db){
 //        echo "<br>Id modernog mesta: ".$o[0][0];
 
     $trenutnaLokacijaZnamenitosti = $data->trenutnaLokacijaZnamenitosti;
-    $trenutnaLokacijaZnamenitosti=mysql_real_escape_string($trenutnaLokacijaZnamenitosti);
+    $trenutnaLokacijaZnamenitosti=($trenutnaLokacijaZnamenitosti);
 
     $query="SELECT count(*) FROM `ustanova` WHERE naziv=:trenutnaLokacijaZnamenitosti";
     $stmt = $db->prepare($query);
@@ -109,35 +139,44 @@ function azuriraj($data, $db){
     $stmt->execute();
     $o=$stmt->fetchAll();
 
-    if($o[0][0]==1) {
-        $query = "SELECT id FROM `ustanova` WHERE naziv=:trenutnaLokacijaZnamenitosti";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(":trenutnaLokacijaZnamenitosti", trim($trenutnaLokacijaZnamenitosti), PDO::PARAM_STR);
-        $stmt->execute();
-        $o = $stmt->fetchAll();
-        $trenutnaLokacijaZnamenitosti = $o[0][0];
-    }else{
 
-        // ovde postoji problem jer se id ne inkrementira automatski
+    if($o[0][0]==0){
+//        $trenutnaLokacijaZnamenitosti = -1;
+        $trenutnoModernoMesto = -1;
 
-        $query="INSERT INTO  `ustanova` (naziv, modernoMesto) VALUES (:trenutnaLokacijaZnamenitosti, :modernoMesto)";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(":trenutnaLokacijaZnamenitosti", trim($trenutnaLokacijaZnamenitosti), PDO::PARAM_STR);
-        $stmt->bindParam(":modernoMesto", $modernoMesto, PDO::PARAM_INT);
-        $stmt->execute();
+        try{
 
-        $query = "SELECT id FROM `ustanova` WHERE naziv=:trenutnaLokacijaZnamenitosti";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(":trenutnaLokacijaZnamenitosti", trim($trenutnaLokacijaZnamenitosti), PDO::PARAM_STR);
-        $stmt->execute();
-        $o = $stmt->fetchAll();
-        $trenutnaLokacijaZnamenitosti = $o[0][0];
+            $db->beginTransaction();
+
+
+            $query="INSERT INTO  `ustanova` (naziv, modernoMesto) VALUES (:trenutnaLokacijaZnamenitosti, :trenutnoModernoMesto)";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(":trenutnaLokacijaZnamenitosti", trim($trenutnaLokacijaZnamenitosti), PDO::PARAM_STR);
+            $stmt->bindParam(":trenutnoModernoMesto", $trenutnoModernoMesto, PDO::PARAM_INT);
+            $stmt->execute();
+
+
+            $db->commit();
+
+        }catch(Exception $e){
+
+            $db->rollBack();
+            return false;
+        }
+
 
     }
+    $query = "SELECT id FROM `ustanova` WHERE naziv=:trenutnaLokacijaZnamenitosti";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(":trenutnaLokacijaZnamenitosti", trim($trenutnaLokacijaZnamenitosti), PDO::PARAM_STR);
+    $stmt->execute();
+    $o = $stmt->fetchAll();
+    $trenutnaLokacijaZnamenitosti = $o[0][0];
+
 
 //Potrebno je odrediti id plemena
     $pleme = $data->pleme;
-    $pleme=mysql_real_escape_string($pleme);
+    $pleme=($pleme);
 
     $query="SELECT count(*) FROM `pleme` WHERE naziv=:pleme";
     $stmt = $db->prepare($query);
@@ -145,35 +184,40 @@ function azuriraj($data, $db){
     $stmt->execute();
     $o=$stmt->fetchAll();
 
-    if($o[0][0]==1) {
-        $query = "SELECT id FROM `pleme` WHERE naziv=:pleme";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(":pleme", trim($pleme), PDO::PARAM_STR);
-        $stmt->execute();
-        $o = $stmt->fetchAll();
-        $pleme = $o[0][0];
-    }else{
+    if($o[0][0]==0) {
 
-        $query="INSERT INTO  `pleme` (naziv) VALUES (:pleme)";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(":pleme", trim($pleme), PDO::PARAM_STR);
-        $stmt->execute();
+        try{
 
-        $query = "SELECT id FROM `pleme` WHERE naziv=:pleme";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(":pleme", trim($pleme), PDO::PARAM_STR);
-        $stmt->execute();
-        $o = $stmt->fetchAll();
-        $pleme = $o[0][0];
+            $db->beginTransaction();
+
+            $query="INSERT INTO  `pleme` (naziv) VALUES (:pleme)";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(":pleme", trim($pleme), PDO::PARAM_STR);
+            $stmt->execute();
+
+            $db->commit();
+
+        }catch(Exception $e){
+
+            $db->rollBack();
+            return false;
+        }
+
 
     }
+    $query = "SELECT id FROM `pleme` WHERE naziv=:pleme";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(":pleme", trim($pleme), PDO::PARAM_STR);
+    $stmt->execute();
+    $o = $stmt->fetchAll();
+    $pleme = $o[0][0];
+
 //        echo "<br>Id plemena: ".$o[0][0];
 
-//        radimo sa vremenom, dovrsiti
     $vreme = $data->vreme;
 
     if(strcmp($vreme, "nedatovan")==0){
-        $datovano = false;
+        $datovano = 0;
 
         $pocetakGodina = null;
         $pocetakVek = null;
@@ -186,7 +230,7 @@ function azuriraj($data, $db){
     //velika mogucnost greske
 
     else if(strcmp($vreme, "godina")==0){
-        $datovano = true;
+        $datovano = 1;
         $pocetakGodina = $data->godinaPronalaska;
         $pocetakVek = $data->vekGodine;
         $pocetakOdrednica = $data->periodVekGodine;
@@ -231,9 +275,9 @@ function azuriraj($data, $db){
     $materijal = $data->materijalZnamenitosti;
     $komentar = $data->komentar;
 
-    $tip=mysql_real_escape_string($tip);
-    $materijal=mysql_real_escape_string($materijal);
-    $komentar=mysql_real_escape_string($komentar);
+    $tip=($tip);
+    $materijal=($materijal);
+    $komentar=($komentar);
 
     //dimenzije objekta, trenutno nemamo format, prepraviti
     $dimenzije = $data->sirina;
@@ -241,17 +285,10 @@ function azuriraj($data, $db){
     $dimenzije.=$data->visina;
     $dimenzije.= ':';
     $dimenzije.=$data->duzina;
-
     $korisnickoIme=$data->korisnickoIme;
 
 
-//    $query="INSERT INTO objekat(oznaka, jezik, tekstNatpisa, vrstaNatpisa, provincija,
-//        grad, mesto, modernaDrzava,modernoMesto, tip, materijal, dimenzije, komentar, datumKreiranja,
-//        datumPoslednjeIzmene, faza, pleme, ustanova, korisnickoIme)
-//         VALUES ($oznaka, $jezikUpisa, $natpis, $vrstaNatpisa, $provincija,
-//         $grad, $mestoNalaska, $modernoImeDrzave,$modernoMesto, $tip, $materijal, $dimenzije, $komentar, $datumKreiranja,
-//         $datumPoslednjeIzmene, $fazaUnosa, $pleme, $trenutnaLokacijaZnamenitosti, 'Mirko')";
-//
+
     $query="UPDATE objekat set oznaka = :oznaka, jezik = :jezikUpisa, tekstNatpisa = :natpis, vrstaNatpisa = :vrstaNatpisa,
         provincija = :provincija, grad = :grad, mesto = :mestoNalaska, modernaDrzava = :modernoImeDrzave,
         modernoMesto = :modernoMesto, tip = :tip, materijal = :materijal, dimenzije = :dimenzije, komentar = :komentar,
@@ -263,16 +300,64 @@ function azuriraj($data, $db){
 
 //    $sth->execute(array(':calories' => $calories, ':colour' => $colour));
 
+try{
 
+    $db->beginTransaction();
 
     $stmt = $db->prepare($query);
-    $returnValue = $stmt->execute(array(':id'=>$id, ':oznaka' => $oznaka, ':jezikUpisa' => $jezikUpisa, ':natpis' => $natpis, ':vrstaNatpisa' => $vrstaNatpisa,
+    $returnValue = $stmt->execute(array(':id'=>$id, ':jezikUpisa' => $jezikUpisa, ':natpis' => $natpis, ':vrstaNatpisa' => $vrstaNatpisa,
         ':provincija' => $provincija, ':grad' => $grad, ':mestoNalaska' => $mestoNalaska, ':modernoImeDrzave' => $modernoImeDrzave,
         ':modernoMesto' => $modernoMesto, ':tip' => $tip, ':materijal' => $materijal, ':dimenzije' => $dimenzije, ':komentar' => $komentar,
         ':datumKreiranja' => $datumKreiranja, ':datumPoslednjeIzmene' => $datumPoslednjeIzmene, ':fazaUnosa' => $fazaUnosa, ':pleme' => $pleme,
         ':trenutnaLokacijaZnamenitosti'=>$trenutnaLokacijaZnamenitosti, ':korisnickoIme' => $korisnickoIme, ':LokalizovanPodatak'=>$lokalizovanPodatak,
         ':datovano' => $datovano, ':pocetakGodina' => $pocetakGodina, ':pocetakVek' => $pocetakVek, ':pocetakOdrednica' => $pocetakOdrednica,
         ':krajGodina' => $krajGodina, ':krajVek' => $krajVek, ':krajOdrednica' => $krajOdrednica ));
+
+}catch(Exception $e){
+
+    $db->rollBack();
+    return false;
+}
+
+    //azuriranje fotografija, odnosno dodavanje novih
+    $fotografije=$data->fotografije;
+
+    if(count($data->fotografije)) {
+
+        for ($i = 0; $i < count($data->fotografije); $i++) {
+
+            // odredjujemo path iz url/path
+
+            $putanja = $data->fotografije[$i];
+
+            $arr = explode('/', $putanja);
+            $naziv = $arr[count($arr) - 1];
+            $naziv = explode('.', $naziv);
+            $naziv = $naziv[0];
+
+            try{
+
+                $db->beginTransaction();
+
+                $query = "INSERT INTO `fotografija` (naziv, putanja, objekat)
+        VALUES (:naziv, :putanja, :objekat)";
+                $stmt = $db->prepare($query);
+
+                $returnValue1 = $stmt->execute(array(':naziv' => $naziv, ':putanja' => $putanja, ':objekat' => $id));
+                if($returnValue1==false)
+                    return false;
+
+                $db->commit();
+
+            }catch(Exception $e){
+
+                $db->rollBack();
+                return false;
+            }
+
+
+        }
+    }
 
     return $returnValue;
 
