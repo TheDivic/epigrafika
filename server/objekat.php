@@ -202,7 +202,10 @@ try
 
             $id = intval($url_elements[1]);
             try {
-                $result = obrisi($id, $db);
+                $rezultat = obrisi($id, $db);
+                if($rezultat==true)
+                    $result->error_status = false;
+
             } catch (Exception $e) {
                 $result->error_status=true;
                 $result->error_message = $e->getMessage();
