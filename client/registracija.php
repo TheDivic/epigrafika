@@ -15,18 +15,18 @@
 						<div class="col-sm-6">
 							<div class= "form-group">
 								<label for="ime" class="control-label">{{tr.ime}}: <span style="color:red">*</span></label>
-								<input type="text" name="ime" ng-model="ime" class="form-control" id="ime" ng-required="true" placeholder={{tr.pera}} />
-								<span class="text-transparent" ng-class="{textred:registrationForm.ime.$error.required && registrationForm.ime.$dirty}">
-									{{tr.obavezno_polje}}
+								<input type="text" name="ime" ng-model="ime" class="form-control" id="ime" ng-required="true" placeholder={{tr.pera}} ng-pattern="/^[a-zA-Z ]+$/" />
+								<span class="text-transparent" ng-class="{textred:(registrationForm.ime.$error.required || registrationForm.ime.$error.pattern) && registrationForm.ime.$dirty }">
+									{{tr.format_error_slova}}
 								</span>
 							</div>
 						</div>
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label for="prezime" class="control-label">{{tr.prezime}}: <span style="color:red">*</span></label>
-								<input type="text" name="prezime" ng-model="prezime" class="form-control" id="prezime" ng-required="true" placeholder={{tr.peric}} />
-								<span class="text-transparent" ng-class="{textred:registrationForm.prezime.$error.required && registrationForm.prezime.$dirty}">
-									{{tr.obavezno_polje}}
+								<input type="text" name="prezime" ng-model="prezime" class="form-control" id="prezime" ng-required="true" placeholder={{tr.peric}} ng-pattern="/^[a-zA-Z ]+$/"/>
+								<span class="text-transparent" ng-class="{textred:(registrationForm.prezime.$error.required|| registrationForm.prezime.$error.pattern) && registrationForm.prezime.$dirty}">
+									{{tr.format_error_slova}}
 								</span>
 							</div>
 						</div>
@@ -40,16 +40,16 @@
 					</div>
 					<div class="form-group">
 						<label for="institucija" class="control-label">{{tr.institucija}}:<span style="color:red">*</span></label>
-						<input type="text" name="institucija" ng-model="institucija" ng-required="true" class="form-control" id="institucija" placeholder={{tr.institucija}}>
-						<span class="text-transparent" ng-class="{textred:registrationForm.institucija.$error.required && registrationForm.institucija.$dirty}">
-							{{tr.obavezno_polje}}
+						<input type="text" name="institucija" ng-model="institucija" ng-required="true" class="form-control" id="institucija" placeholder={{tr.institucija}} ng-pattern="/^[a-zA-Z ]+$/">
+						<span class="text-transparent" ng-class="{textred:(registrationForm.institucija.$error.required || registrationForm.institucija.$error.pattern)&& registrationForm.institucija.$dirty}">
+							{{tr.obavezno_polje}} {{tr.format_error_slova}}
 						</span>
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group">
 						<label for="user" class="control-label">{{tr.korisnicko_ime}}:<span style="color:red">*</span></label>
-						<input type="text" name="user" ng-model="user" ng-change="jedinstven()"ng-pattern="/^[A-Za-z0-9_-]{3,20}$/" ng-required="true" class="form-control" id="user" placeholder={{tr.korisnicko_max}}>
+						<input type="text" name="user" ng-model="user" ng-change="jedinstven()" ng-pattern="/^[A-Za-z0-9_-]{3,20}$/" ng-required="true" class="form-control" id="user" placeholder={{tr.korisnicko_max}}>
 						<span class="text-transparent" ng-class="{textred:registrationForm.user.$dirty && (registrationForm.user.$error.required || registrationForm.user.$error.pattern)}">
 							{{tr.obavezno_polje}} {{tr.dozvoljeni}} 
 						</span>
@@ -77,9 +77,9 @@
 				<div class="col-sm-12">
 					<div class="form-group">
 						<label for="info" class="control-label">{{tr.dodatne_info}}:</label>
-                                                <textarea style="max-width:100%;" name="info" ng-model="info" ng-maxLenght="45" class="form-control" rows="3" id="info"></textarea>
-					`	<span class="text-transparent" ng-class="{textred:registrationForm.info.$dirty && registrationForm.info.$error.maxLenght}">
-							{{tr.info_max}}
+                                                <textarea style="max-width:100%;" name="info" ng-model="info" ng-maxLenght="45" class="form-control" rows="3" id="info" ng-pattern="/^[a-zA-Z0-9 \. , ' \( \) ]+$/"></textarea>
+					`	<span class="text-transparent" ng-class="{textred:registrationForm.info.$dirty && (registrationForm.info.$error.maxLenght || registrationForm.info.$error.pattern)}">
+							{{tr.info_max}} {{tr.format_error_slova_cifre_tacka}}
 						</span>
 					</div>
 				</div>
@@ -87,7 +87,7 @@
 			
 			<div class="row">
 				<div class="col-sm-8 col-sm-offset-2">
-                                    <button type="submit" ng-click="posaljiPodatke()" class="btn btn-primary btn-block" ng-class="{'disabled':!registrationForm.$valid && sameR}" ng-enabled="!sameR && registrationForm.$valid">{{tr.registruj_se}}</button>
+                                    <button type="submit" ng-click="posaljiPodatke()" class="btn btn-primary btn-block" ng-class="{'disabled':(!registrationForm.$valid || sameR)}" ng-enabled="(!sameR && registrationForm.$valid)">{{tr.registruj_se}}</button>
 				</div>
 			</div>
 		</form>
