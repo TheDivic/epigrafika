@@ -18,8 +18,8 @@ function obrisi($id, $db)
 
     if ($o[0][0] == 0)
         return false;
-    else
-        $query = "SELECT putanja FROM `fotografija`
+
+    $query = "SELECT putanja FROM `fotografija`
         WHERE id = :id";
     $stmt = $db->prepare($query);
     $stmt->bindParam(":id", $id, PDO::PARAM_INT);
