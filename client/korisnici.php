@@ -10,18 +10,18 @@
 						<div class="col-sm-6">
 							<div class= "form-group">
 								<label for="ime" class="control-label">{{tr.ime}}: <span style="color:red">*</span></label>
-								<input type="text" name="ime" ng-model="s.ime" class="form-control" id="ime" ng-required="true"/>
-								<span class="text-transparent" ng-class="{textred:novakorisnik.ime.$error.required && novakorisnik.ime.$dirty}">
-									{{tr.obavezno_polje}}
+								<input type="text" name="ime" ng-model="s.ime" class="form-control" id="ime" ng-required="true" ng-pattern="/^[a-zA-Z ]+$/"/>
+								<span class="text-transparent" ng-class="{textred:(novakorisnik.ime.$error.required || novakorisnik.ime.$error.pattern) && novakorisnik.ime.$dirty}">
+									{{tr.format_error_slova}}
 								</span>
 							</div>
 						</div>
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label for="prezime" class="control-label">{{tr.prezime}}: <span style="color:red">*</span></label>
-								<input type="text" name="prezime" ng-model="s.prezime" class="form-control" id="prezime" ng-required="true" />
-								<span class="text-transparent" ng-class="{textred:novakorisnik.prezime.$error.required && novakorisnik.prezime.$dirty}">
-									{{tr.obavezno_polje}}
+								<input type="text" name="prezime" ng-model="s.prezime" class="form-control" id="prezime" ng-required="true" ng-pattern="/^[a-zA-Z ]+$/"/>
+								<span class="text-transparent" ng-class="{textred:(novakorisnik.prezime.$error.required || novakorisnik.prezime.$error.pattern) && novakorisnik.prezime.$dirty}">
+									{{tr.format_error_slova}}
 								</span>
 							</div>
 						</div>
@@ -35,9 +35,9 @@
 					</div>
 					<div class="form-group">
 						<label for="institucija" class="control-label">{{tr.institucija}}:<span style="color:red">*</span></label>
-						<input type="text" name="institucija" ng-model="s.institucija" ng-required="true" class="form-control" id="institucija">
-						<span class="text-transparent" ng-class="{textred:novakorisnik.institucija.$error.required && novakorisnik.institucija.$dirty}">
-							{{tr.obavezno_polje}}
+						<input type="text" name="institucija" ng-model="s.institucija" ng-required="true" class="form-control" id="institucija" ng-pattern="/^[a-zA-Z ]+$/">
+						<span class="text-transparent" ng-class="{textred:(novakorisnik.institucija.$error.required ||novakorisnik.institucija.$error.pattern) && novakorisnik.institucija.$dirty}">
+							{{tr.obavezno_polje}}{{tr.format_error_slova}}
 						</span>
 					</div>
 					
@@ -146,18 +146,18 @@
 						<div class="col-sm-6">
 							<div class= "form-group">
 								<label for="ime" class="control-label">{{tr.ime}}: <span style="color:red">*</span></label>
-								<input type="text" name="ime" ng-model="ime" class="form-control" id="ime" ng-required="true" placeholder={{tr.pera}} />
-								<span class="text-transparent" ng-class="{textred:novakorisnik.ime.$error.required && novakorisnik.ime.$dirty}">
-									{{tr.obavezno_polje}}
+								<input type="text" name="ime" ng-model="ime" class="form-control" id="ime" ng-required="true" placeholder={{tr.pera}} ng-pattern="/^[a-zA-Z ]+$/" />
+								<span class="text-transparent" ng-class="{textred:(novakorisnik.ime.$error.required||novakorisnik.ime.$error.pattern) && novakorisnik.ime.$dirty}">
+									{{tr.format_error_slova}}
 								</span>
 							</div>
 						</div>
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label for="prezime" class="control-label">{{tr.prezime}}: <span style="color:red">*</span></label>
-								<input type="text" name="prezime" ng-model="prezime" class="form-control" id="prezime" ng-required="true" placeholder={{tr.peric}} />
-								<span class="text-transparent" ng-class="{textred:novakorisnik.prezime.$error.required && novakorisnik.prezime.$dirty}">
-									{{tr.obavezno_polje}}
+								<input type="text" name="prezime" ng-model="prezime" class="form-control" id="prezime" ng-required="true" placeholder={{tr.peric}} ng-pattern="/^[a-zA-Z ]+$/"/>
+								<span class="text-transparent" ng-class="{textred:(novakorisnik.prezime.$error.required || novakorisnik.prezime.$error.pattern) && novakorisnik.prezime.$dirty}">
+									{{tr.format_error_slova}}
 								</span>
 							</div>
 						</div>
@@ -171,9 +171,9 @@
 					</div>
 					<div class="form-group">
 						<label for="institucija" class="control-label">{{tr.institucija}}:<span style="color:red">*</span></label>
-						<input type="text" name="institucija" ng-model="institucija" ng-required="true" class="form-control" id="institucija" placeholder={{tr.institucija}}>
-						<span class="text-transparent" ng-class="{textred:novakorisnik.institucija.$error.required && novakorisnik.institucija.$dirty}">
-							{{tr.obavezno_polje}}
+						<input type="text" name="institucija" ng-model="institucija" ng-required="true" class="form-control" id="institucija" placeholder={{tr.institucija}} ng-pattern="/^[a-zA-Z ]+$/">
+						<span class="text-transparent" ng-class="{textred:(novakorisnik.institucija.$error.required || novakorisnik.institucija.$error.pattern) && novakorisnik.institucija.$dirty}">
+							{{tr.obavezno_polje}}{{tr.format_error_slova}}
 						</span>
 					</div>
 					<div class="form-group">
@@ -228,9 +228,9 @@
 				<div class="col-sm-12">
 					<div class="form-group">
 						<label for="info" class="control-label">{{tr.dodatne_info}}:</label>
-                                                <textarea style="max-width:100%;" name="info" ng-model="info" ng-maxLenght="45" class="form-control" rows="3" id="info"></textarea>
-						<span class="text-transparent" ng-class="{textred:novakorisnik.info.$dirty && novakorisnik.info.$error.maxLenght}">
-							{{tr.info_max}}
+                                                <textarea style="max-width:100%;" name="info" ng-model="info" ng-maxLenght="45" class="form-control" rows="3" id="info" ng-pattern="/^[a-zA-Z0-9 \. , ' \( \) ]+$/"></textarea>
+						<span class="text-transparent" ng-class="{textred:novakorisnik.info.$dirty && (novakorisnik.info.$error.maxLenght || novakorisnik.info.$error.pattern)}">
+							{{tr.info_max}} {{tr.format_error_slova_cifre_tacka}}
 						</span>
 					</div>
 				</div>
@@ -238,7 +238,7 @@
 			
 			<div class="row">
 					<div class="col-sm-4">
-						<button type="submit" ng-click="submit()" class="btn btn-success btn-block" ng-class="{'disabled':!novakorisnik.$valid}" ng-enabled="novakorisnik.$valid"> Unesi </button>
+						<button type="submit" ng-click="submit()" class="btn btn-success btn-block" ng-class="{'disabled':(!novakorisnik.$valid || sameR)}" ng-enabled="!sameR && novakorisnik.$valid"> Unesi </button>
 					</div>
 					<div class="col-sm-4">
 						<button type="reset" class="btn btn-primary btn-block" > Ponisti </button>
