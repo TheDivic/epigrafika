@@ -55,10 +55,24 @@ function unesi($data, $db){
         $brojMesta = $o[0][0];
 
         if($brojMesta == 0){
-            $query = "insert into mesto (naziv) values(:mestoNalaska)";
-            $stmt = $db->prepare($query);
-            $stmt->bindParam(":mestoNalaska", $mestoNalaska, PDO::PARAM_STR);
-            $stmt->execute();
+
+            try{
+
+                $db->beginTransaction();
+
+                $query = "insert into mesto (naziv) values(:mestoNalaska)";
+                $stmt = $db->prepare($query);
+                $stmt->bindParam(":mestoNalaska", $mestoNalaska, PDO::PARAM_STR);
+                $stmt->execute();
+
+                $db->commit();
+
+            }catch(Exception $e){
+
+                $db->rollBack();
+                echo "Failed: " . $e->getMessage();
+
+            }
 
         }
 
@@ -130,23 +144,39 @@ function unesi($data, $db){
     $o=$stmt->fetchAll();
 
 
-        if($o[0][0]==0){
+    if($o[0][0]==0){
 //        $trenutnaLokacijaZnamenitosti = -1;
         $trenutnoModernoMesto = -1;
-        $query="INSERT INTO  `ustanova` (naziv, modernoMesto) VALUES (:trenutnaLokacijaZnamenitosti, :trenutnoModernoMesto)";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(":trenutnaLokacijaZnamenitosti", trim($trenutnaLokacijaZnamenitosti), PDO::PARAM_STR);
-        $stmt->bindParam(":trenutnoModernoMesto", $trenutnoModernoMesto, PDO::PARAM_INT);
-        $stmt->execute();
+
+        try{
+
+            $db->beginTransaction();
+
+
+            $query="INSERT INTO  `ustanova` (naziv, modernoMesto) VALUES (:trenutnaLokacijaZnamenitosti, :trenutnoModernoMesto)";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(":trenutnaLokacijaZnamenitosti", trim($trenutnaLokacijaZnamenitosti), PDO::PARAM_STR);
+            $stmt->bindParam(":trenutnoModernoMesto", $trenutnoModernoMesto, PDO::PARAM_INT);
+            $stmt->execute();
+
+
+            $db->commit();
+
+        }catch(Exception $e){
+
+            $db->rollBack();
+            echo "Failed: " . $e->getMessage();
+
+        }
 
 
     }
-        $query = "SELECT id FROM `ustanova` WHERE naziv=:trenutnaLokacijaZnamenitosti";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(":trenutnaLokacijaZnamenitosti", trim($trenutnaLokacijaZnamenitosti), PDO::PARAM_STR);
-        $stmt->execute();
-        $o = $stmt->fetchAll();
-        $trenutnaLokacijaZnamenitosti = $o[0][0];
+    $query = "SELECT id FROM `ustanova` WHERE naziv=:trenutnaLokacijaZnamenitosti";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(":trenutnaLokacijaZnamenitosti", trim($trenutnaLokacijaZnamenitosti), PDO::PARAM_STR);
+    $stmt->execute();
+    $o = $stmt->fetchAll();
+    $trenutnaLokacijaZnamenitosti = $o[0][0];
 
 
 //Potrebno je odrediti id plemena
@@ -161,10 +191,24 @@ function unesi($data, $db){
 
     if($o[0][0]==0) {
 
-        $query="INSERT INTO  `pleme` (naziv) VALUES (:pleme)";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(":pleme", trim($pleme), PDO::PARAM_STR);
-        $stmt->execute();
+        try{
+
+            $db->beginTransaction();
+
+            $query="INSERT INTO  `pleme` (naziv) VALUES (:pleme)";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(":pleme", trim($pleme), PDO::PARAM_STR);
+            $stmt->execute();
+
+            $db->commit();
+
+        }catch(Exception $e){
+
+            $db->rollBack();
+            echo "Failed: " . $e->getMessage();
+
+        }
+
 
     }
     $query = "SELECT id FROM `pleme` WHERE naziv=:pleme";
@@ -250,7 +294,7 @@ function unesi($data, $db){
     $dimenzije.=$data->duzina;
     $korisnickoIme=$data->korisnickoIme;
 
-   // $trenutniId =
+    // $trenutniId =
 
     //deo za fotografije
     //$fotografije = $data->fotografije;
@@ -264,7 +308,12 @@ function unesi($data, $db){
 //         $grad, $mestoNalaska, $modernoImeDrzave,$modernoMesto, $tip, $materijal, $dimenzije, $komentar, $datumKreiranja,
 //         $datumPoslednjeIzmene, $fazaUnosa, $pleme, $trenutnaLokacijaZnamenitosti, 'Mirko')";
 //
-    $query="INSERT INTO objekat(oznaka, jezik, tekstNatpisa, vrstaNatpisa, provincija,
+
+    try{
+
+        $db->beginTransaction();
+
+        $query="INSERT INTO objekat(oznaka, jezik, tekstNatpisa, vrstaNatpisa, provincija,
         grad, mesto, modernaDrzava,modernoMesto, tip, materijal, dimenzije, komentar, datumKreiranja,
         datumPoslednjeIzmene, faza, pleme, ustanova, korisnickoIme, lokalizovano, datovano,
         pocetakGodina, pocetakVek, pocetakOdrednica, krajGodina, krajVek, krajOdrednica)
@@ -274,17 +323,27 @@ function unesi($data, $db){
          :datovano, :pocetakGodina, :pocetakVek, :pocetakOdrednica, :krajGodina, :krajVek, :krajOdrednica)";
 //    $sth->execute(array(':calories' => $calories, ':colour' => $colour));
 
-    // Unosenje reci iz natpisa u recnik, potrebno za autocomplete
-    populateDictionary($natpis);
+        // Unosenje reci iz natpisa u recnik, potrebno za autocomplete
+        populateDictionary($natpis);
 
-    $stmt = $db->prepare($query);
-    $returnValue = $stmt->execute(array(':oznaka' => $oznaka, ':jezikUpisa' => $jezikUpisa, ':natpis' => $natpis, ':vrstaNatpisa' => $vrstaNatpisa,
-        ':provincija' => $provincija, ':grad' => $grad, ':mestoNalaska' => $mestoNalaska, ':modernoImeDrzave' => $modernoImeDrzave,
-        ':modernoMesto' => $modernoMesto, ':tip' => $tip, ':materijal' => $materijal, ':dimenzije' => $dimenzije, ':komentar' => $komentar,
-        ':datumKreiranja' => $datumKreiranja, ':datumPoslednjeIzmene' => $datumPoslednjeIzmene, ':fazaUnosa' => $fazaUnosa, ':pleme' => $pleme,
-        ':trenutnaLokacijaZnamenitosti'=>$trenutnaLokacijaZnamenitosti, ':korisnickoIme' => $korisnickoIme, ':lokalizovanPodatak'=>$lokalizovanPodatak,
-        ':datovano' => $datovano, ':pocetakGodina' => $pocetakGodina, ':pocetakVek' => $pocetakVek, ':pocetakOdrednica' => $pocetakOdrednica,
-        ':krajGodina' => $krajGodina, ':krajVek' => $krajVek, ':krajOdrednica' => $krajOdrednica));
+        $stmt = $db->prepare($query);
+        $returnValue = $stmt->execute(array(':oznaka' => $oznaka, ':jezikUpisa' => $jezikUpisa, ':natpis' => $natpis, ':vrstaNatpisa' => $vrstaNatpisa,
+            ':provincija' => $provincija, ':grad' => $grad, ':mestoNalaska' => $mestoNalaska, ':modernoImeDrzave' => $modernoImeDrzave,
+            ':modernoMesto' => $modernoMesto, ':tip' => $tip, ':materijal' => $materijal, ':dimenzije' => $dimenzije, ':komentar' => $komentar,
+            ':datumKreiranja' => $datumKreiranja, ':datumPoslednjeIzmene' => $datumPoslednjeIzmene, ':fazaUnosa' => $fazaUnosa, ':pleme' => $pleme,
+            ':trenutnaLokacijaZnamenitosti'=>$trenutnaLokacijaZnamenitosti, ':korisnickoIme' => $korisnickoIme, ':lokalizovanPodatak'=>$lokalizovanPodatak,
+            ':datovano' => $datovano, ':pocetakGodina' => $pocetakGodina, ':pocetakVek' => $pocetakVek, ':pocetakOdrednica' => $pocetakOdrednica,
+            ':krajGodina' => $krajGodina, ':krajVek' => $krajVek, ':krajOdrednica' => $krajOdrednica));
+
+
+        $db->commit();
+
+    }catch(Exception $e){
+
+        $db->rollBack();
+        echo "Failed: " . $e->getMessage();
+
+    }
 
     //odavde krece novi kod
 
@@ -338,13 +397,27 @@ function unesi($data, $db){
 
         if($o[0][0]==0) {
 
-            // sada vrsimo unos u tabelu bibliografski podatak
-            $query = "INSERT INTO `bibliografskipodatak` (skracenica, naslov, putanja) VALUES (:skracenica, :naslov, :putanja)";
-            $stmt = $db->prepare($query);
-            $returnValue1 = $stmt->execute(array(':skracenica' => $bibliografskoPorekloSkracenica, ':naslov' => $bibliografskoPoreklo, 'putanja' => $putanja));
+            try{
 
-            if($returnValue1==false)
-               return false;
+                $db->beginTransaction();
+
+                // sada vrsimo unos u tabelu bibliografski podatak
+                $query = "INSERT INTO `bibliografskipodatak` (skracenica, naslov, putanja) VALUES (:skracenica, :naslov, :putanja)";
+                $stmt = $db->prepare($query);
+                $returnValue1 = $stmt->execute(array(':skracenica' => $bibliografskoPorekloSkracenica, ':naslov' => $bibliografskoPoreklo, 'putanja' => $putanja));
+
+                if($returnValue1==false)
+                    return false;
+
+                $db->commit();
+
+            }catch(Exception $e){
+
+                $db->rollBack();
+                echo "Failed: " . $e->getMessage();
+
+            }
+
 
         }
 
@@ -374,15 +447,28 @@ function unesi($data, $db){
 
                 $putanja = $data->bibliografskiPdfLinkovi[$i];
 
+                try{
+
+                    $db->beginTransaction();
 
 
-                $query = "INSERT INTO `izvodbibliografskogpodatka` (objekat, bibliografskiPodatak, strana, putanja)
+                    $query = "INSERT INTO `izvodbibliografskogpodatka` (objekat, bibliografskiPodatak, strana, putanja)
         VALUES (:objekat, :bibliografskiPodatak, :strana, :putanja)";
-                $stmt = $db->prepare($query);
-                $returnValue1 = $stmt->execute(array(':objekat' => $idObjekta, ':bibliografskiPodatak' => $idBibliografskogPodatka,
-                    ':strana' => $strana, ':putanja' => $putanja));
-                if($returnValue1 = false)
-                    return false;
+                    $stmt = $db->prepare($query);
+                    $returnValue1 = $stmt->execute(array(':objekat' => $idObjekta, ':bibliografskiPodatak' => $idBibliografskogPodatka,
+                        ':strana' => $strana, ':putanja' => $putanja));
+                    if($returnValue1 = false)
+                        return false;
+
+                    $db->commit();
+
+                }catch(Exception $e){
+
+                    $db->rollBack();
+                    echo "Failed: " . $e->getMessage();
+
+                }
+
 
             }
         }
@@ -410,13 +496,27 @@ function unesi($data, $db){
             $naziv = explode('.', $naziv);
             $naziv = $naziv[0];
 
-            $query = "INSERT INTO `fotografija` (naziv, putanja, objekat)
-        VALUES (:naziv, :putanja, :objekat)";
-            $stmt = $db->prepare($query);
+            try{
 
-            $returnValue1 = $stmt->execute(array(':naziv' => $naziv, ':putanja' => $putanja, ':objekat' => $objekat));
-            if($returnValue1==false)
-                return false;
+                $db->beginTransaction();
+
+                $query = "INSERT INTO `fotografija` (naziv, putanja, objekat)
+        VALUES (:naziv, :putanja, :objekat)";
+                $stmt = $db->prepare($query);
+
+                $returnValue1 = $stmt->execute(array(':naziv' => $naziv, ':putanja' => $putanja, ':objekat' => $objekat));
+                if($returnValue1==false)
+                    return false;
+
+                $db->commit();
+
+            }catch(Exception $e){
+
+                $db->rollBack();
+                echo "Failed: " . $e->getMessage();
+
+            }
+
 
         }
     }
