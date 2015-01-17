@@ -79,7 +79,7 @@
 "prikazi":"Prikaži",
 "mapa":"Mapa",
 "rezultati_pretrage":"Rezultati pretrage",
-"format_error_slova_cifre_tacka":"Dozvoljena su samo mala i velika slova, cifre, razmak i tačka!",
+"format_error_slova_cifre_tacka":"Dozvoljena su samo mala i velika slova, cifre, zagrade(), apostrof, zarez, razmak i tačka!",
 "prva_polovina":"prva polovina",
 "druga_polovina":"druga polovina",
 "pocetak_perioda":"Pocetak perioda: ",

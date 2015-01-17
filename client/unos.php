@@ -38,7 +38,7 @@
 			<div class="row form-group">
 				<label for="natpis" class="col-sm-2 control-label">{{tr.natpis}}  <span style="color:red">*</span>:</label>
 				<div class="col-sm-9">
-					<textarea  class="form-control textarea_unos" rows="2" id="natpis" ng-model="natpis" name="natpis" ng-required='true' ng-pattern="/^[a-zA-Z0-9 \. ]+$/"/> </textarea>	
+					<textarea  class="form-control textarea_unos" rows="2" id="natpis" ng-model="natpis" name="natpis" ng-required='true' ng-pattern="/^[a-zA-Z0-9 \. , ' \( \) ]+$/"/> </textarea>	
 					<span class="text-transparent" ng-class="{textred:formUnos.natpis.$dirty && (formUnos.natpis.$error.required || formUnos.natpis.$error.pattern)}">
 						{{tr.obavezno_polje}} {{tr.format_error_slova_cifre_tacka}}
 					</span>
@@ -258,7 +258,7 @@
 			<div class="row form-group">
 				<label for="komentar" class="col-sm-2 control-label">{{tr.komentar}}:</label>
 				<div class="col-sm-8">
-					<textarea  rows="2" id="komentar" class="form-control textarea_unos" name="komentar" ng-model="komentar" ng-pattern="/^[a-zA-Z0-9 \. ]+$/"/> </textarea>
+					<textarea  rows="2" id="komentar" class="form-control textarea_unos" name="komentar" ng-model="komentar" ng-pattern="/^[a-zA-Z0-9 \. , ' \( \) ]+$/"/> </textarea>
 					 <span class="text-transparent" ng-class="{textred: formUnos.komentar.$error.pattern && formUnos.komentar.$dirty}"> 
 						{{tr.format_error_slova_cifre_tacka}}
 					</span> 
