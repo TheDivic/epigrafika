@@ -341,7 +341,7 @@ function unesi($data, $db){
             // sada vrsimo unos u tabelu bibliografski podatak
             $query = "INSERT INTO `bibliografskipodatak` (skracenica, naslov, putanja) VALUES (:skracenica, :naslov, :putanja)";
             $stmt = $db->prepare($query);
-            $returnValue1 = $stmt->execute(array(':skracenica' => $bibliografskoPorekloSkracenica, ':naslov' => $bibliografskoPoreklo, 'putanja' => $url));
+            $returnValue1 = $stmt->execute(array(':skracenica' => $bibliografskoPorekloSkracenica, ':naslov' => $bibliografskoPoreklo, 'putanja' => $putanja));
 
             if($returnValue1==false)
                return false;
