@@ -7,104 +7,97 @@ function obrisi($id, $db){
 
     try{
 
+        $query = "SELECT * FROM `fotografija`
+        WHERE objekat = :objekat";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(":objekat", $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $o = $stmt->fetchAll();
+
+        foreach($o as $row){
+            $rez = unlink($row['putanja']);
+            if ($rez == false)
+                return false;
+
+        }
+
+
         $db->beginTransaction();
 
         $query="DELETE FROM `fotografija` WHERE objekat = :id";
         $stmt = $db->prepare($query);
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
         $returnValue1=$stmt->execute();
+        if($returnValue1==false)
+            return false;
 
         $db->commit();
 
     }catch(Exception $e){
 
         $db->rollBack();
-        echo "Failed: " . $e->getMessage();
-
+        return false;
     }
-    // brisemo sve izvode bibliografskih podataka koje se odnose na objekat koji se brise...
-    // ali prvo izdvajamo id bibliografskog podatka da bismo mogli i njega izbrisati
-    // vazan je redosled
 
+    //sada brisem bibliografske izvode
 
-    $query="SELECT bibliografskiPodatak FROM `izvodbibliografskogpodatka` WHERE objekat = :id";
+    $query = "SELECT * FROM `IzvodBibliografskogPodatka`
+        WHERE objekat = :id";
     $stmt = $db->prepare($query);
     $stmt->bindParam(":id", $id, PDO::PARAM_INT);
-    $returnValue1=$stmt->execute();
+    $stmt->execute();
+    $o = $stmt->fetchAll();
 
-    $bibliografskiPodatak=$stmt->fetchAll();
-    if($bibliografskiPodatak) {
-        $bibliografskiPodatak = $bibliografskiPodatak[0][0];
+//brisem prvo sve izvode vezane za bibliografski podatak
+    foreach($o as $row){
+        $rez = unlink($row['putanja']);
+        if ($rez == false)
+            return false;
 
-        // sada mozemo da ga obrisemo
-
-        try{
-
-
-            // brisemo bibliografski podatak koje se odnose na objekat koji se brise...
-
+        try {
             $db->beginTransaction();
-
-            $query = "DELETE FROM `izvodbibliografskogpodatka` WHERE objekat = :id";
+            $query = "DELETE FROM `IzvodBibliografskogPodatka`
+             WHERE objekat = :objekat and bibliografskiPodatak = :bibliografskiPodatak
+             and strana = :strana";
             $stmt = $db->prepare($query);
-            $stmt->bindParam(":id", $id, PDO::PARAM_INT);
-            $returnValue1 = $stmt->execute();
+            $stmt->bindParam(":objekat", $row['objekat'], PDO::PARAM_INT);
+            $stmt->bindParam(":bibliografskiPodatak", $row['bibliografskiPodatak'], PDO::PARAM_INT);
+            $stmt->bindParam(":strana", $row['strana'], PDO::PARAM_INT);
 
+            $returnValue1 = $stmt->execute();
+            if($returnValue1==false)
+                return false;
 
             $db->commit();
 
-        }catch(Exception $e){
-
-            $db->rollBack();
-            echo "Failed: " . $e->getMessage();
-
+        }catch (Exception $e){
+            $db->rollback();
+            return false;
         }
 
-        // brisemo bibliografski podatak koje se odnose na objekat koji se brise...
-
-        try{
-
-            $db->beginTransaction();
-
-            $query = "DELETE FROM `bibliografskipodatak` WHERE id = :id";
-            $stmt = $db->prepare($query);
-            $stmt->bindParam(":id", $bibliografskiPodatak, PDO::PARAM_INT);
-            $returnValue1 = $stmt->execute();
-
-
-            $db->commit();
-
-        }catch(Exception $e){
-
-            $db->rollBack();
-            echo "Failed: " . $e->getMessage();
-
-        }
     }
 
-    // sada brisemo objekat sa datim id-om...
 
     try{
-
 
         $db->beginTransaction();
 
         $query="DELETE FROM `objekat` WHERE id = :id";
         $stmt = $db->prepare($query);
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
-        $returnValue2=$stmt->execute();
+        $returnValue=$stmt->execute();
 
         $db->commit();
 
     }catch(Exception $e){
 
         $db->rollBack();
-        echo "Failed: " . $e->getMessage();
+        return false;
 
     }
 
 
-    return $returnValue1 && $returnValue2;
+    return $returnValue;
 
 
 }
