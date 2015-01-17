@@ -109,5 +109,7 @@
 "nema_podataka":"No data available",
 "izvorni_grad":"Town of origin",
 "nepoznato":"Unknown",
-"odrednica":"Entry"
+"odrednica":"Entry",
+"dobrodosli":"Welcome to Epigrafika! If you are already registered, please log in. If you are not, you can register " ,
+"ovde" : " here."
 }
