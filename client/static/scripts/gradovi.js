@@ -98,20 +98,49 @@ angular.module('epigrafikaModul').controller('adminGradovi', ['$scope', '$http',
 	{
           
 	});}
- 
-	//trazi se lista svih gradova od servera
-    $http.get('../server/gradovi.php', {responseType: 'JSON'}).
-    success(function(data, status, headers, config){
-        if(data!=="null")
-        $scope.gradovi=data.data;
-		
-    }).
-    error(function(data, status, headers, config){
-    });
-	if( $scope.gradovi!=null){
-		foreach(g in gradovi)
-			$scope.izmeni[g.id]=false;
-		}
+
+
+    $scope.offset = 0;
+    var pageLimit = 10;
+    $scope.pageNumber = 1;
+    $scope.remainingResults = 0;
+
+    $scope.nextPage = function() {
+        if($scope.remainingResults > 0){
+            $scope.offset += pageLimit;
+            $scope.pageNumber += 1;
+            getGradovi();
+        }
+    };
+
+    $scope.previousPage = function() {
+        if($scope.pageNumber > 1){
+            $scope.offset -= pageLimit;
+            $scope.pageNumber -= 1;
+            getGradovi();
+        }
+    };
+
+    var getGradovi = function() {
+        //trazi se lista svih gradova od servera
+        $http.get('../server/gradovi.php?offset=' + $scope.offset, {responseType: 'JSON'}).
+        success(function(data, status, headers, config){
+            if(data!=="null") {
+                $scope.gradovi=data.data;
+                $scope.remainingResults = data.remaining;
+            }
+        }).
+        error(function(data, status, headers, config){
+            console.error(data);
+        });
+    };
+
+    getGradovi();
+
+    if( $scope.gradovi!=null){
+      foreach(g in gradovi)
+      $scope.izmeni[g.id]=false;
+  }
 	
 
 }]);
