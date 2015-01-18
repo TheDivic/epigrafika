@@ -156,10 +156,10 @@ try
             if(isset($_GET['offset'])) {
                 $offset = intval($_GET['offset']);
             
-                for($i = $offset; $i < sizeof($query_result) && $i < $offset + 10; $i++){
+                for($i = $offset; $i < sizeof($query_result) && $i < $offset + $limit; $i++){
                     $result->data[] = $query_result[$i];
                 }
-                $remaining = sizeof($query_result) - $offset - 10;
+                $remaining = sizeof($query_result) - $offset - $limit;
             }
             else {
                 $result->data = $query_result;
