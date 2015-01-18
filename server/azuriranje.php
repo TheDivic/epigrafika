@@ -5,7 +5,10 @@
  * Date: 1/11/2015
  * Time: 11:10 PM
  */
-session_start();
+if(!isset($_SESSION))
+{
+    session_start();
+}
 
 function azuriraj($data, $db){
     date_default_timezone_set("Europe/Belgrade");

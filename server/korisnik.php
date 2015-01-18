@@ -1,5 +1,4 @@
 <?php
-session_start();
 include 'konekcija.php';
 
 $result = new stdClass();
@@ -49,6 +48,7 @@ try
 				else{
                     if($sifraCrypt===$data[0]['sifra']) {
                         $result->isEmpty = false;
+                        session_start();
                         $_SESSION['privilegije']= $data[0]['privilegije'];
                         $_SESSION['status']=$data[0]['status'];
                         $_SESSION['korisnickoIme']=$data[0]['korisnickoIme'];
