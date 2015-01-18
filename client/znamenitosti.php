@@ -296,9 +296,9 @@ else if($_SESSION['privilegije']!=="admin") {
 			<div class="row form-group">
 				<label class="col-sm-2 control-label">{{tr.trenutna_faza_unosa}}:</label>
 				<div class="col-sm-8">
-					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="single.faza" value="nekompletno" ng-checked="single.fazaUnosa=='nekompletno'"/> {{tr.nekompletno}}</label>
-					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="single.faza" value="zaKontrolu" ng-checked="single.fazaUnosa=='zaKontrolu'"/> {{tr.za_kontrolu}} </label>
-					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="single.faza" value="objavljivanje" ng-checked="single.fazaUnosa=='objavjivanje'"/> {{tr.objavljivanje}}</label>
+					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="single.faza" value="nekompletno" /> {{tr.nekompletno}}</label>
+					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="single.faza" value="zaKontrolu" /> {{tr.za_kontrolu}} </label>
+					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="single.faza" value="objavljivanje"/> {{tr.objavljivanje}}</label>
 				</div>
 			</div>
 		</fieldset>

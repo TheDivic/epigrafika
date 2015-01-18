@@ -203,7 +203,7 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
      bibliografskiPdfLinkovi : $scope.pdfLinkovi,
      komentar: $scope.single.komentar,
      fotografije: $scope.photoLinkovi,
-     fazaUnosa:$scope.single.fazaUnosa,
+     fazaUnosa:$scope.single.faza,
 	 idBibliografskogPodatka:$scope.single.idBibl,
 	 id:$scope.single.id
  };
