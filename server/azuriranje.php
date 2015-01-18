@@ -337,7 +337,7 @@ function azuriraj($data, $db){
 
 
 
-    $query="UPDATE objekat set oznaka = :oznaka, jezik = :jezikUpisa, tekstNatpisa = :natpis, vrstaNatpisa = :vrstaNatpisa,
+    $query="UPDATE objekat set jezik = :jezikUpisa, tekstNatpisa = :natpis, vrstaNatpisa = :vrstaNatpisa,
         provincija = :provincija, grad = :grad, mesto = :mestoNalaska, modernaDrzava = :modernoImeDrzave,
         modernoMesto = :modernoMesto, tip = :tip, materijal = :materijal, dimenzije = :dimenzije, komentar = :komentar,
          datumKreiranja = :datumKreiranja,datumPoslednjeIzmene = :datumPoslednjeIzmene, faza = :fazaUnosa, pleme = :pleme,
@@ -408,6 +408,164 @@ try{
 
         }
     }
+
+    //sada bibliografski podaci
+
+
+    if($data->bibliografskoPoreklo!=null || $data->bibliografskoPorekloSkracenica!=null
+        || count($data->bibliografskiPdfLinkovi)!=0) {
+
+        if($data->bibliografskoPoreklo!=null)
+            $bibliografskoPoreklo = trim($data->bibliografskoPoreklo);
+        else
+            $bibliografskoPoreklo = '';
+        if($data->bibliografskoPorekloSkracenica!=null)
+            $bibliografskoPorekloSkracenica = trim($data->bibliografskoPorekloSkracenica);
+        else
+            $bibliografskoPorekloSkracenica = '';
+
+        $bibliografskiPdfLinkovi = $data->bibliografskiPdfLinkovi;
+
+        //ovo promeniti ako se nekad organizuje po folderima, za sad ce dobro ici ovako
+        $putanja = '../uploads/biblio';
+
+        $idBP = $data->idBibliografskogPodatka;
+        //ako se promeni to, radi ovako nesto
+        /*    if(count($data->bibliografskiPdfLinkovi)) {
+            $url = $data->bibliografskiPdfLinkovi[0];
+
+            $arr = explode('/', $url);
+
+            $length = count($arr);
+
+            $url = '';
+
+            for ($i = 0; $i < $length - 1; $i++)
+                $url .= $arr[$i] . '/';
+
+
+            $putanja = $bibliografskiPdfLinkovi[0];
+        }
+
+        else $url='';
+    */
+
+        //u slucaju da ne postoji bibliografski podatak
+        if($idBP==null) {
+
+            $query = "SELECT count(*) FROM `BibliografskiPodatak`
+        WHERE skracenica=:bibliografskoPorekloSkracenica and naslov = :bibliografskoPoreklo";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(":bibliografskoPorekloSkracenica", $bibliografskoPorekloSkracenica, PDO::PARAM_STR);
+            $stmt->bindParam(":bibliografskoPoreklo", $bibliografskoPoreklo, PDO::PARAM_STR);
+            $stmt->execute();
+            $o = $stmt->fetchAll();
+
+            if ($o[0][0] == 0) {
+
+                try {
+
+                    $db->beginTransaction();
+
+                    // sada vrsimo unos u tabelu bibliografski podatak
+                    $query = "INSERT INTO `bibliografskipodatak` (skracenica, naslov, putanja) VALUES (:skracenica, :naslov, :putanja)";
+                    $stmt = $db->prepare($query);
+                    $returnValue1 = $stmt->execute(array(':skracenica' => $bibliografskoPorekloSkracenica, ':naslov' => $bibliografskoPoreklo, 'putanja' => $putanja));
+
+                    if ($returnValue1 == false)
+                        return false;
+
+                    $db->commit();
+
+                } catch (Exception $e) {
+
+                    $db->rollBack();
+                    return false;
+
+                }
+
+
+            }
+        }
+        //u slucaju da postoji, update-ujemo ga
+        else{
+            $query = "UPDATE BibliografskiPodatak SET skracenica = :skracenica, naslov = :naslov
+                      WHERE id = :id";
+
+            try{
+                $db->beginTransaction();
+                $stmt = $db->prepare($query);
+                $returnValue1 = $stmt->exectute(array(':id' => $idBP, ':skracenica' => $bibliografskoPorekloSkracenica,
+                ':naslov' => $bibliografskoPoreklo));
+                if(!$returnValue1)
+                    return false;
+
+            }catch (Exception $e){
+                $db->rollback();
+                return false;
+            }
+
+
+        }
+
+        //sada radimo sa izvodomBibliografskog podatka
+
+        if(count($bibliografskiPdfLinkovi)> 0) {
+            //nalazenje id BibPodatka
+            $query = "SELECT id FROM `BibliografskiPodatak`
+        WHERE skracenica=:bibliografskoPorekloSkracenica and naslov = :bibliografskoPoreklo";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(":bibliografskoPorekloSkracenica", $bibliografskoPorekloSkracenica, PDO::PARAM_STR);
+            $stmt->bindParam(":bibliografskoPoreklo", $bibliografskoPoreklo, PDO::PARAM_STR);
+            $stmt->execute();
+            $o = $stmt->fetchAll();
+            $idBibliografskogPodatka = $o[0][0];
+
+
+
+
+            for ($i = 0; $i < count($data->bibliografskiPdfLinkovi); $i++) {
+
+                //izracunavamo broj nove strane
+                $query = "SELECT MAX(strana) FROM IzvodBibliografskogPodatka
+                          where objekat = :objekat and bibliografskiPodatak=:bibliografskiPodatak";
+                $stmt= $db->preprare($query);
+                $stmt->execute(array(':objekat' => $id, ':bibliografskiPodatak' => $idBibliografskogPodatka));
+                $o = $stmt->fetchAll();
+
+                $strana = $o[0][0] + 1;
+                // odredjujemo path iz url/path
+
+                $putanja = $data->bibliografskiPdfLinkovi[$i];
+
+                try{
+
+                    $db->beginTransaction();
+
+
+                    $query = "INSERT INTO `izvodbibliografskogpodatka` (objekat, bibliografskiPodatak, strana, putanja)
+        VALUES (:objekat, :bibliografskiPodatak, :strana, :putanja)";
+                    $stmt = $db->prepare($query);
+                    $returnValue1 = $stmt->execute(array(':objekat' => $id, ':bibliografskiPodatak' => $idBibliografskogPodatka,
+                        ':strana' => $strana, ':putanja' => $putanja));
+                    if($returnValue1 = false)
+                        return false;
+
+                    $db->commit();
+
+                }catch(Exception $e){
+
+                    $db->rollBack();
+                    return false;
+
+                }
+
+
+            }
+        }
+    }
+
+
 
     return true;
 

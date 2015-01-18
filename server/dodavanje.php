@@ -388,8 +388,8 @@ function unesi($data, $db){
 
 
 
-    if($data->bibliografskoPoreklo!=null || $data->bibliografskoPorekloSkracenica
-        || count($bibliografskiPdfLinkovi=$data->bibliografskiPdfLinkovi)!=0) {
+    if($data->bibliografskoPoreklo!=null || $data->bibliografskoPorekloSkracenica!=null
+        || count($data->bibliografskiPdfLinkovi)!=0) {
 
         if($data->bibliografskoPoreklo!=null)
             $bibliografskoPoreklo = trim($data->bibliografskoPoreklo);
