@@ -335,7 +335,7 @@ function azuriraj($data, $db){
     $query="UPDATE objekat set jezik = :jezikUpisa, tekstNatpisa = :natpis, vrstaNatpisa = :vrstaNatpisa,
         provincija = :provincija, grad = :grad, mesto = :mestoNalaska, modernaDrzava = :modernoImeDrzave,
         modernoMesto = :modernoMesto, tip = :tip, materijal = :materijal, dimenzije = :dimenzije, komentar = :komentar,
-         datumKreiranja = :datumKreiranja,datumPoslednjeIzmene = :datumPoslednjeIzmene, faza = :fazaUnosa, pleme = :pleme,
+         datumPoslednjeIzmene = :datumPoslednjeIzmene, faza = :fazaUnosa, pleme = :pleme,
           ustanova = :trenutnaLokacijaZnamenitosti, korisnickoIme = :korisnickoIme, lokalizovano = :LokalizovanPodatak,
            datovano = :datovano, pocetakGodina = :pocetakGodina, pocetakVek = :pocetakVek, pocetakOdrednica = :pocetakOdrednica,
             krajGodina = :krajGodina, krajVek = :krajVek, krajOdrednica = :krajOdrednica
@@ -351,7 +351,7 @@ try{
     $returnValue = $stmt->execute(array(':id'=>$id, ':jezikUpisa' => $jezikUpisa, ':natpis' => $natpis, ':vrstaNatpisa' => $vrstaNatpisa,
         ':provincija' => $provincija, ':grad' => $grad, ':mestoNalaska' => $mestoNalaska, ':modernoImeDrzave' => $modernoImeDrzave,
         ':modernoMesto' => $modernoMesto, ':tip' => $tip, ':materijal' => $materijal, ':dimenzije' => $dimenzije, ':komentar' => $komentar,
-        ':datumKreiranja' => $datumKreiranja, ':datumPoslednjeIzmene' => $datumPoslednjeIzmene, ':fazaUnosa' => $fazaUnosa, ':pleme' => $pleme,
+         ':datumPoslednjeIzmene' => $datumPoslednjeIzmene, ':fazaUnosa' => $fazaUnosa, ':pleme' => $pleme,
         ':trenutnaLokacijaZnamenitosti'=>$trenutnaLokacijaZnamenitosti, ':korisnickoIme' => $korisnickoIme, ':LokalizovanPodatak'=>$lokalizovanPodatak,
         ':datovano' => $datovano, ':pocetakGodina' => $pocetakGodina, ':pocetakVek' => $pocetakVek, ':pocetakOdrednica' => $pocetakOdrednica,
         ':krajGodina' => $krajGodina, ':krajVek' => $krajVek, ':krajOdrednica' => $krajOdrednica ));

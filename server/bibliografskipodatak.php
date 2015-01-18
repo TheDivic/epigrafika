@@ -1,7 +1,7 @@
 <?php
 include 'konekcija.php';
 
-function brisiBibliografskiPodatak($id, $db){
+function brisiBibliografskiPodatak($id, $str, $db){
     $query = "SELECT count(*) FROM `BibliografskiPodatak`
         WHERE id = :id";
     $stmt = $db->prepare($query);
@@ -13,9 +13,10 @@ function brisiBibliografskiPodatak($id, $db){
         return false;
 
     $query = "SELECT * FROM `IzvodBibliografskogPodatka`
-        WHERE bibliografskiPodatak = :id";
+        WHERE bibliografskiPodatak = :id AND strana=:strana";
     $stmt = $db->prepare($query);
     $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+    $stmt->bindParam(":strana", $str, PDO::PARAM_INT);
     $stmt->execute();
     $o = $stmt->fetchAll();
 
@@ -33,7 +34,7 @@ function brisiBibliografskiPodatak($id, $db){
             $stmt = $db->prepare($query);
             $stmt->bindParam(":objekat", $row['objekat'], PDO::PARAM_INT);
             $stmt->bindParam(":bibliografskiPodatak", $row['bibliografskiPodatak'], PDO::PARAM_INT);
-            $stmt->bindParam(":strana", $row['strana'], PDO::PARAM_INT);
+            $stmt->bindParam(":strana", $str, PDO::PARAM_INT);
 
             $stmt->execute();
             $db->commit();
@@ -42,18 +43,6 @@ function brisiBibliografskiPodatak($id, $db){
             return false;
         }
 
-    }
-    try {
-        $db->beginTransaction();
-        $query = "DELETE FROM `BibliografskiPodatak`
-             WHERE id = :id";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
-        $stmt->execute();
-        $db->commit();
-
-    }catch (Exception $e){
-        return false;
     }
 
     return true;
@@ -74,11 +63,11 @@ try
 
         if($_GET['type'] === 'byObject')
         {
-			//Vrati sve putanje do slika za dati objekat
-			$objectId = $_GET['objectId'];
-			
+            //Vrati sve putanje do slika za dati objekat
+            $objectId = $_GET['objectId'];
+
             $query = $db->prepare( 	"select b.naslov, ib.strana, ib.path
-									from bibliografskipodatak b join izvodbibliografskogpodatka ib 
+									from bibliografskipodatak b join izvodbibliografskogpodatka ib
 									on b.id = ib.bibliografskiPodatak
 									where ib.objekat = $objectId");
 
@@ -100,9 +89,16 @@ try
 
         if($number_of_url_elements ==1) {
 
-            $id = intval($url_elements[1]);
+            // podaci su oblika ime.php/id&brojStrane
+
+            $dVar=$url_elements[1];
+            $url_elements=explode("&", $dVar);
+
+            $id = intval($url_elements[0]);
+            $str=intval($url_elements[1]);
+
             try {
-                $rezultat = brisiBibliografskiPodatak($id, $db);
+                $rezultat = brisiBibliografskiPodatak($id, $str, $db);
                 if($rezultat==true)
                     $result->error_status=false;
                 else{
@@ -135,4 +131,5 @@ catch(Exception $e)
 }
 
 echo json_encode($result);
+
 ?>
