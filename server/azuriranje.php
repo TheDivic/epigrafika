@@ -10,11 +10,14 @@ function azuriraj($data, $db){
 
     $data = json_decode($data);
 
-//    $oznaka = $data->oznaka;
-//    $oznaka=($oznaka);
     $id = $data->id;
+
     $natpis = $data->natpis;
-    $natpis=($natpis);
+    $natpis=trim($natpis);
+    if (!preg_match("#^[a-zA-Z0-9 \.\(\)\'\,\.]+$#", $natpis))
+        return false;
+
+
 
     /*dobijamo ime jezika pa spajamo sa bazom da bismo dobili id */
     $jezikUpisa = $data->jezikUpisa;
@@ -44,6 +47,9 @@ function azuriraj($data, $db){
         $grad = $data->grad;
 
         $mestoNalaska = trim($data->mestoNalaska);
+        if(!preg_match("#^[a-zA-Z ]+$#", $mestoNalaska))
+            return false;
+
         $query = "select count(*) from mesto where naziv=:mestoNalaska";
         $stmt = $db->prepare($query);
         $stmt->bindParam(":mestoNalaska", $mestoNalaska, PDO::PARAM_STR);
@@ -60,7 +66,9 @@ function azuriraj($data, $db){
                 $query = "insert into mesto (naziv) values(:mestoNalaska)";
                 $stmt = $db->prepare($query);
                 $stmt->bindParam(":mestoNalaska", $mestoNalaska, PDO::PARAM_STR);
-                $stmt->execute();
+                $returnValue1 = $stmt->execute();
+                if(!$returnValue1)
+                    return false;
 
                 $db->commit();
 
@@ -68,6 +76,7 @@ function azuriraj($data, $db){
 
                 $db->rollBack();
                 return false;
+
             }
 
         }
@@ -131,11 +140,14 @@ function azuriraj($data, $db){
 //        echo "<br>Id modernog mesta: ".$o[0][0];
 
     $trenutnaLokacijaZnamenitosti = $data->trenutnaLokacijaZnamenitosti;
-    $trenutnaLokacijaZnamenitosti=($trenutnaLokacijaZnamenitosti);
+    $trenutnaLokacijaZnamenitosti=trim($trenutnaLokacijaZnamenitosti);
+    if(!preg_match("#^[a-zA-Z ]+$#", $trenutnaLokacijaZnamenitosti))
+        return false;
+
 
     $query="SELECT count(*) FROM `ustanova` WHERE naziv=:trenutnaLokacijaZnamenitosti";
     $stmt = $db->prepare($query);
-    $stmt->bindParam(":trenutnaLokacijaZnamenitosti", trim($trenutnaLokacijaZnamenitosti), PDO::PARAM_STR);
+    $stmt->bindParam(":trenutnaLokacijaZnamenitosti", $trenutnaLokacijaZnamenitosti, PDO::PARAM_STR);
     $stmt->execute();
     $o=$stmt->fetchAll();
 
@@ -153,8 +165,9 @@ function azuriraj($data, $db){
             $stmt = $db->prepare($query);
             $stmt->bindParam(":trenutnaLokacijaZnamenitosti", trim($trenutnaLokacijaZnamenitosti), PDO::PARAM_STR);
             $stmt->bindParam(":trenutnoModernoMesto", $trenutnoModernoMesto, PDO::PARAM_INT);
-            $stmt->execute();
-
+            $returnValue1 = $stmt->execute();
+            if(!$returnValue1)
+                return false;
 
             $db->commit();
 
@@ -162,6 +175,7 @@ function azuriraj($data, $db){
 
             $db->rollBack();
             return false;
+
         }
 
 
@@ -176,7 +190,10 @@ function azuriraj($data, $db){
 
 //Potrebno je odrediti id plemena
     $pleme = $data->pleme;
-    $pleme=($pleme);
+    $pleme=trim($pleme);
+    if(!preg_match("#^[a-zA-Z ]+$#", $pleme))
+        return false;
+
 
     $query="SELECT count(*) FROM `pleme` WHERE naziv=:pleme";
     $stmt = $db->prepare($query);
@@ -193,7 +210,9 @@ function azuriraj($data, $db){
             $query="INSERT INTO  `pleme` (naziv) VALUES (:pleme)";
             $stmt = $db->prepare($query);
             $stmt->bindParam(":pleme", trim($pleme), PDO::PARAM_STR);
-            $stmt->execute();
+            $returnValue1 = $stmt->execute();
+            if(!$returnValue1)
+                return false;
 
             $db->commit();
 
@@ -214,6 +233,7 @@ function azuriraj($data, $db){
 
 //        echo "<br>Id plemena: ".$o[0][0];
 
+//        radimo sa vremenom, dovrsiti
     $vreme = $data->vreme;
 
     if(strcmp($vreme, "nedatovan")==0){
@@ -238,6 +258,9 @@ function azuriraj($data, $db){
         $krajVek = null;
         $krajOdrednica = null;
 
+        if(is_numeric($pocetakVek)==false || is_numeric($pocetakGodina)==false)
+            return false;
+
     }
 
     else if(strcmp($vreme, "unosVeka")==0){
@@ -249,6 +272,9 @@ function azuriraj($data, $db){
         $krajGodina = null;
         $krajVek = null;
         $krajOdrednica = null;
+
+        if(is_numeric($pocetakVek)==false)
+            return false;
     }
 
     else if(strcmp($vreme, "unosPeriodaOdDo")==0){
@@ -260,6 +286,9 @@ function azuriraj($data, $db){
         $krajVek = $data->krajVek;
         $krajOdrednica = $data->krajPeriodVeka;
 
+        if(is_numeric($pocetakVek)==false || is_numeric($pocetakGodina)==false
+            || is_numeric($krajVek)==false || is_numeric($krajGodina)==false)
+            return false;
     }
 
 // datum kreiranja, datum poslednje izmene
@@ -271,21 +300,40 @@ function azuriraj($data, $db){
     $fazaUnosa = $data->fazaUnosa;
 
     //tip i ostalo
-    $tip = $data->tipZnamenitosti;
-    $materijal = $data->materijalZnamenitosti;
-    $komentar = $data->komentar;
+    $tip = trim($data->tipZnamenitosti);
+    if(!preg_match("#^[a-zA-Z ]*$#", $tip))
+        return false;
 
-    $tip=($tip);
-    $materijal=($materijal);
-    $komentar=($komentar);
+
+    $materijal = trim($data->materijalZnamenitosti);
+    if(!preg_match("#^[a-zA-Z ]*$#", $materijal))
+        return false;
+
+
+    $komentar = trim($data->komentar);
+    if (!preg_match("#^[a-zA-Z0-9 \.\(\)\'\,\.]*$#", $komentar))
+        return false;
+
+
 
     //dimenzije objekta, trenutno nemamo format, prepraviti
     $dimenzije = $data->sirina;
+    if($data->sirina!=null && !is_numeric($data->sirina))
+        return false;
     $dimenzije.= ':';
     $dimenzije.=$data->visina;
+    if($data->sirina!=null && !is_numeric($data->visina))
+        return false;
+
     $dimenzije.= ':';
     $dimenzije.=$data->duzina;
+    if($data->sirina!=null && !is_numeric($data->duzina))
+        return false;
+
     $korisnickoIme=$data->korisnickoIme;
+
+    if(!preg_match("#^[a-zA-Z_0-9]+$#", $korisnickoIme))
+        return false;
 
 
 
@@ -312,6 +360,8 @@ try{
         ':trenutnaLokacijaZnamenitosti'=>$trenutnaLokacijaZnamenitosti, ':korisnickoIme' => $korisnickoIme, ':LokalizovanPodatak'=>$lokalizovanPodatak,
         ':datovano' => $datovano, ':pocetakGodina' => $pocetakGodina, ':pocetakVek' => $pocetakVek, ':pocetakOdrednica' => $pocetakOdrednica,
         ':krajGodina' => $krajGodina, ':krajVek' => $krajVek, ':krajOdrednica' => $krajOdrednica ));
+    if($returnValue==false)
+        return false;
 
 }catch(Exception $e){
 
@@ -359,7 +409,7 @@ try{
         }
     }
 
-    return $returnValue;
+    return true;
 
 
 
