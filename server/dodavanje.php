@@ -337,9 +337,20 @@ function unesi($data, $db){
     if($data->sirina!=null && !is_numeric($data->duzina))
         return false;
 
-    $korisnickoIme=$data->korisnickoIme;
+    $korisnickoIme=trim($data->korisnickoIme);
 
     if(!preg_match("#^[a-zA-Z_0-9]+$#", $korisnickoIme))
+        return false;
+
+    //provera da li je korisnik aktivan(samo aktivni korisnici mogu da unose)
+    $query = "SELECT status FROM korisnik WHERE korisnickoIme=:korisnickoIme";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(":korisnickoIme", $korisnickoIme, PDO::PARAM_STR);
+    $stmt->execute();
+    $o = $stmt->fetchAll();
+    $status = $o[0][0];
+
+    if(strcmp($status, "aktivan")!=0)
         return false;
 
 
