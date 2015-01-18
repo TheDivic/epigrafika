@@ -12,12 +12,26 @@ try{
     {
         $query="select * from mydb.provincija where id!=-1";
 
-	$stmt = $db->prepare($query);
-	$stmt->execute();
-	$stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        $query_result = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $remaining = 0;
+        $limit = 10;
+        $result->data = [];
 
-	$result->error_status=false;
-	$result->data = $stmt->fetchAll();
+        if(isset($_GET['offset'])) {
+            $offset = intval($_GET['offset']);
+            
+            for($i = $offset; $i < sizeof($query_result) && $i < $offset + $limit; $i++){
+                $result->data[] = $query_result[$i];
+            }
+            $remaining = (sizeof($query_result) - $offset - $limit) > 0 ? (sizeof($query_result) - $offset - $limit) : 0;
+        }
+        else {
+            $result->data = $query_result;
+        }
+
+        $result->remaining = $remaining;
     }
     else if($method === 'PUT')
     {

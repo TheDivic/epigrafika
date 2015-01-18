@@ -105,15 +105,43 @@ angular.module('epigrafikaModul').controller('adminProvincije', ['$scope', '$htt
           
 	});}
  
-	//trazi se lista svih provincija od servera
-    $http.get('../server/provincije.php', {responseType: 'JSON'}).
-    success(function(data, status, headers, config){
-        if(data!=="null")
-        $scope.provincije=data.data;
-		
-    }).
-    error(function(data, status, headers, config){
-    });
+    $scope.offset = 0;
+    var pageLimit = 10;
+    $scope.pageNumber = 1;
+    $scope.remainingResults = 0;
+
+    $scope.nextPage = function() {
+        if($scope.remainingResults > 0){
+            $scope.offset += pageLimit;
+            $scope.pageNumber += 1;
+            getProvincije();
+        }
+    };
+
+    $scope.previousPage = function() {
+        if($scope.pageNumber > 1){
+            $scope.offset -= pageLimit;
+            $scope.pageNumber -= 1;
+            getProvincije();
+        }
+    };
+
+    var getProvincije = function() {
+        //trazi se lista svih provincija od servera
+        $http.get('../server/provincije.php?offset=' + $scope.offset, {responseType: 'JSON'}).
+        success(function(data, status, headers, config){
+            if(data!=="null") {
+                $scope.provincije=data.data;
+                $scope.remainingResults = data.remaining;
+            }
+        }).
+        error(function(data, status, headers, config){
+            console.error(data);
+        });
+    };
+
+    getProvincije();
+
 	if( $scope.provincije!=null){
 		foreach(p in provincije)
 			$scope.izmeni[p.id]=false;
