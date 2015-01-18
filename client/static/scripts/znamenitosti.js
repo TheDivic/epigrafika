@@ -178,7 +178,7 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
      jezikUpisa : $scope.single.jezik,
      natpis : $scope.single.natpis,
      vrstaNatpisa : $scope.single.vrstaNatpisa,
-     LokalizovanPodatak : $scope.single.lokalizovan,
+     LokalizovanPodatak : $scope.single.lokalizovano,
      provincija : $scope.single.provincijaNalaska,
      grad : $scope.single.gradNalaska,
      mestoNalaska : $scope.single.mestoNalaska,
