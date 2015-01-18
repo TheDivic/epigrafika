@@ -33,7 +33,7 @@
 
 				<div class="nav navbar-nav navbar-right vertical-center" style="padding-top:10px;">
 					<a href="admin.php" class="btn btn-success"><span class="glyphicon glyphicon-user"> </span> Admin</a>
-                    <a href="index.php" class="btn btn-info">Pretraga</a>
+                    <a href="index.php" class="btn btn-info">{{tr.pretraga}}</a>
                     <a href="unos.php" class="btn btn-info">{{tr.unesi_objekat}}</a>
                     <a href="../server/logout.php" ng-click="" class="btn btn-danger">Logout </a>
 					<a href="#" class="btn btn-warning dropdown open dropdown-toggle" data-toggle="dropdown" aria-expanded="true">{{tr.jezici}} <b class="caret"></b></a>
