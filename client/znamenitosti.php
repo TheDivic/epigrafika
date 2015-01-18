@@ -149,8 +149,8 @@ else if($_SESSION['privilegije']!=="admin") {
 								{{tr.pattern_error_cifre}}
 							</span>
 						</div>
-						<label class="radio-inline col-sm-2"><input type="radio" name="periodVeka" ng-checked="single.pocetakOdrednica=='prvaPolovinaVeka' || single.pocetakOdrednica=='first half'" ng-model="single.pocetakOdrednica" value="prvaPolovinaVeka"/> {{tr.prva_polovina}} </label>
-						<label class="radio-inline col-sm-2"> <input type="radio" name="periodVeka" ng-model="single.pocetakOdrednica" value="drugaPolovinaVeka" ng-checked="single.pocetakOdrednica=='drugaPolovinaVeka' || single.pocetakOdrednica=='second half'"/>  {{tr.druga_polovina}} </label>
+						<label class="radio-inline col-sm-2"><input type="radio" name="periodVeka" ng-checked="single.pocetakOdrednica=='prvaPolovinaVek' || single.pocetakOdrednica=='first half'" ng-model="single.pocetakOdrednica" value="prvaPolovinaVeka"/> {{tr.prva_polovina}} </label>
+						<label class="radio-inline col-sm-2"> <input type="radio" name="periodVeka" ng-model="single.pocetakOdrednica" value="drugaPolovinaVeka" ng-checked="single.pocetakOdrednica=='drugaPolovinaVe' || single.pocetakOdrednica=='second half'"/>  {{tr.druga_polovina}} </label>
 						</div>
 						<div class="row">
 						<label for="pocetakGodina" class="col-sm-2 control-label">{{tr.od}}:</label>
@@ -296,9 +296,9 @@ else if($_SESSION['privilegije']!=="admin") {
 			<div class="row form-group">
 				<label class="col-sm-2 control-label">{{tr.trenutna_faza_unosa}}:</label>
 				<div class="col-sm-8">
-					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="single.fazaUnosa" value="nekompletno" ng-checked="single.fazaUnosa=='nekompletno'"/> {{tr.nekompletno}}</label>
-					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="single.fazaUnosa" value="zaKontrolu" ng-checked="single.fazaUnosa=='zaKontrolu'"/> {{tr.za_kontrolu}} </label>
-					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="single.fazaUnosa" value="objavljivanje" ng-checked="single.fazaUnosa=='objavjivanje'"/> {{tr.objavljivanje}}</label>
+					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="single.faza" value="nekompletno" ng-checked="single.fazaUnosa=='nekompletno'"/> {{tr.nekompletno}}</label>
+					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="single.faza" value="zaKontrolu" ng-checked="single.fazaUnosa=='zaKontrolu'"/> {{tr.za_kontrolu}} </label>
+					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="single.faza" value="objavljivanje" ng-checked="single.fazaUnosa=='objavjivanje'"/> {{tr.objavljivanje}}</label>
 				</div>
 			</div>
 		</fieldset>
@@ -639,7 +639,7 @@ else if($_SESSION['privilegije']!=="admin") {
 			<div class="row form-group">
 				<label for="foto" class="col-sm-2 control-label">{{tr.trenutna_faza_unosa}}:</label>
 				<div class="col-sm-8">
-					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="fazaUnosa" value="nekompletno" checked/> {{tr.nekompletno}}</label>
+					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="fazaUnosa" value="nekompletno" checked /> {{tr.nekompletno}}</label>
 					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="fazaUnosa" value="zaKontrolu"/> {{tr.za_kontrolu}} </label>
 					<label class="radio-inline"><input type="radio" name="fazaUnosa" ng-model="fazaUnosa" value="objavljivanje"/> {{tr.objavljivanje}}</label>
 				</div>

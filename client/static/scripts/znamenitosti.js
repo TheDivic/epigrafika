@@ -203,7 +203,9 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
      bibliografskiPdfLinkovi : $scope.pdfLinkovi,
      komentar: $scope.single.komentar,
      fotografije: $scope.photoLinkovi,
-     fazaUnosa:$scope.single.fazaUnosa
+     fazaUnosa:$scope.single.fazaUnosa,
+	 idBibliografskogPodatka:$scope.single.idBibl,
+	 id:$scope.single.id
  };
 
  var jsonData = angular.toJson(formData);
@@ -249,10 +251,12 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
 								$scope.single.sirina=tmp[0];$scope.single.visina=tmp[1]; $scope.single.duzina=tmp[2];
 								if($scope.single.bibliografskiPodatci.length>0){
 									$scope.single.bibliografskoPoreklo=$scope.single.bibliografskiPodatci[0].naslov;
-									$scope.single.bibliografskoPorekloSkracenica=$scope.single.bibliografskiPodatci[0].skracenica;}
+									$scope.single.bibliografskoPorekloSkracenica=$scope.single.bibliografskiPodatci[0].skracenica;
+									$scope.single.idBibl=$scope.single.bibliografskiPodatci[0].id}
 								else{
 									$scope.single.bibliografskoPoreklo=null;
-									$scope.single.bibliografskoPorekloSkracenica=null;}
+									$scope.single.bibliografskoPorekloSkracenica=null;
+									$scope.single.idBibl=null;}
 								
 								
 								
