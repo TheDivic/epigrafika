@@ -1,4 +1,17 @@
-<?php include 'header.php'; ?>
+<?php
+session_start();
+if(!isset($_SESSION['privilegije'])) {
+    include 'headerNijeUlogovan.php';
+}
+else if($_SESSION['status'] === "aktivan") {
+    include 'headerAktivan.php';
+
+}
+else if($_SESSION['status'] === "neaktivan") {
+    include 'headerNeaktivan.php';
+
+}
+?>
 
 <!-- ucitavanje kontrolera -->
 

@@ -1,4 +1,15 @@
-<?php include 'header.php'; ?>
+<?php
+session_start();
+if(!isset($_SESSION['privilegije'])) {
+    header('Location: ../client/pocetna.php');
+    exit;
+}
+else if($_SESSION['privilegije']==="admin")
+    include 'header.php';
+else if($_SESSION['status']==="aktivan")
+    include 'headerAktivan.php';
+else
+    include 'headerNeaktivan.php';?>
 
 <!-- ucitavanje kontrolera -->
 <script src="static/scripts/pretraga.js"></script>

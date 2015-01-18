@@ -1,4 +1,14 @@
-<?php include 'header-admin.php'; ?>
+<?php
+session_start();
+if(!isset($_SESSION['privilegije'])) {
+    header('Location: ../client/pocetna.php');
+    exit;
+}
+else if($_SESSION['privilegije']!=="admin") {
+    header('Location: ../client/index.php');
+    exit;
+}
+include 'header-admin.php'; ?>
 <script src="static/scripts/config.js"></script>
 <div class="container">
 	<h2>Konfiguracija sajta</h2>

@@ -1,4 +1,14 @@
-<?php include 'header-admin.php'; ?>
+<?php
+session_start();
+if(!isset($_SESSION['privilegije'])) {
+    header('Location: ../client/pocetna.php');
+    exit;
+}
+else if($_SESSION['privilegije']!=="admin") {
+    header('Location: ../client/index.php');
+    exit;
+}
+include 'header-admin.php'; ?>
 <!-- ucitavanje kontrolera -->
 <script src="static/scripts/gradovi.js"></script>
 <script src="static/scripts/slanjePodatakaServeru.js"></script>

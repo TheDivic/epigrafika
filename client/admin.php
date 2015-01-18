@@ -1,4 +1,14 @@
-<?php include 'header-admin.php';?>
+<?php
+session_start();
+if(!isset($_SESSION['privilegije'])) {
+    header('Location: ../client/pocetna.php');
+    exit;
+}
+else if($_SESSION['privilegije']!=="admin") {
+    header('Location: ../client/greska.php');
+    exit;
+}
+include 'header-admin.php';?>
 <script src="static/scripts/admin.js"> </script>
 <div class="container" ng-controller="adminChart">
 <script src="static/scripts/amcharts.js" type="text/javascript"></script>

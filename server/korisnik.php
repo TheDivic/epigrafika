@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'konekcija.php';
 
 $result = new stdClass();
@@ -37,14 +38,20 @@ try
 
                 $data = $query->fetchAll();
 
+
                 $result->data = $data;
+
+
 
                 if(count($data) == 0)
                     $result->isEmpty = true;
 
 				else{
-                    if($sifraCrypt===$data[0]['sifra'])
-					   $result->isEmpty = false;
+                    if($sifraCrypt===$data[0]['sifra']) {
+                        $result->isEmpty = false;
+                        $_SESSION['privilegije']= $data[0]['privilegije'];
+                        $_SESSION['status']=$data[0]['status'];
+                    }
                     else {
                         $result->data = null;
                         $result->isEmpty = true;

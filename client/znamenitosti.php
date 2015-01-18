@@ -1,4 +1,14 @@
-<?php include "header-admin.php"; ?>
+<?php
+session_start();
+if(!isset($_SESSION['privilegije'])) {
+    header('Location: ../client/pocetna.php');
+    exit;
+}
+else if($_SESSION['privilegije']!=="admin") {
+    header('Location: ../client/index.php');
+    exit;
+}
+include "header-admin.php"; ?>
 <?php if(isset($_GET['id'])){ ?>
 <script src="static/scripts/znamenitosti.js"> </script>
 <div class="container" ng-controller="adminZnamenitosti" ng-init="init();">

@@ -1,11 +1,22 @@
-<?php 
+<?php
+session_start();
+if(!isset($_SESSION['privilegije'])) {
+    header('Location: ../client/pocetna.php');
+    exit;
+}
+else if($_SESSION['privilegije']==="admin")
+    include 'header.php';
+else if($_SESSION['status']==="aktivan")
+    include 'headerAktivan.php';
+else
+    include 'headerNeaktivan.php';
+
     if(!isset($_GET['id']))
     {
         header("Location: greska.php");
         exit();
     } 
-    
-    include 'header.php';
+
 ?>
 
 <div class="container" ng-controller="objekatController" ng-init="init(<?php echo $_GET['id']; ?>)"> 

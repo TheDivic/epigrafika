@@ -1,4 +1,19 @@
-<?php include 'header.php'; ?>
+<?php
+session_start();
+if(!isset($_SESSION['privilegije'])) {
+    header('Location: ../client/pocetna.php');
+    exit;
+}
+else if($_SESSION['privilegije']==="admin")
+    include 'header.php';
+else if($_SESSION['status']==="aktivan")
+    include 'headerAktivan.php';
+else {
+    header('Location: ../client/index.php');
+    exit;
+}
+
+    ?>
 
 <!-- ucitavanje kontrolera -->
 <script src="static/scripts/unos.js"></script>

@@ -1,4 +1,10 @@
-<?php include 'header.php'; ?>
+<?php
+session_start();
+if(isset($_SESSION['privilegije'])) {
+    header('Location: ../client/index.php');
+    exit;
+}
+include 'headerNijeUlogovan.php'; ?>
 
 <!-- ucitavanje kontrolera -->
 
