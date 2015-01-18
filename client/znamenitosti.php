@@ -129,7 +129,7 @@ else if($_SESSION['privilegije']!=="admin") {
 				<label class="col-sm-2"> <input type="radio" name="vreme" ng-model="single.vreme" value="nedatovan" ng-click="single.datovano=0" ng-checked="single.datovano==0" /> {{tr.nedatovan_natpis}}: </label>
 			</div>
 			<div class="row">
-				<label class="col-sm-2"><input type="radio" name="vreme" ng-model="single.vreme" value="datovan" ng-checked="single.datovano!=0" ng-click="single.datovano=1"> Datovan natpis : </label> <br/>
+				<label class="col-sm-2"><input type="radio" name="vreme" ng-model="single.vreme" value="datovan" ng-checked="single.datovano==1" ng-click="single.datovano=1"> Datovan natpis : </label> <br/>
 			
 					<div class="col-sm-8" ng-show="single.datovano!=0">
 						<div class="row">
