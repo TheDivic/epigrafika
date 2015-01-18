@@ -127,6 +127,11 @@ input[id="user"]:disabled ,input[id="oznaka"]:disabled  {
 	margin:3px !important;
 	float:left;
 }
+.bibl-delete span
+{
+	color:red;
+	cursor:pointer;
+}
 
 .photo-delete span
 {

@@ -114,7 +114,7 @@ else if($_SESSION['privilegije']!=="admin") {
 				</div>
 				<label for="pleme" class="col-sm-2 control-label">{{tr.pleme}} <span style="color:red">*</span>:</label>
 				<div class="col-sm-4">
-					<input type="text" id="pleme" class="form-control" name="pleme" ng-model="single.pleme" ng-pattern="/^[a-zA-Z ]+$/" ng-required="true"/>
+					<input type="text" id="pleme" class="form-control" name="pleme" ng-model="single.plemeNaziv" ng-pattern="/^[a-zA-Z ]+$/" ng-required="true"/>
 					<span class="text-transparent" ng-class="{textred:formUnos.pleme.$dirty && formUnos.pleme.$error.pattern}"> 
 						{{tr.format_error_slova}}
 					</span>
@@ -261,7 +261,7 @@ else if($_SESSION['privilegije']!=="admin") {
 				<label class="control-label col-sm-2" >{{ tr.bibliografski_podaci }}</label>
 				
 				<span ng-show="!single.bibliografskiPodatci.length">  {{tr.nema_podataka}} </span>
-				<ul class="col-sm-8">
+				<ul class="col-sm-8 bibl-delete">
 				<li ng-repeat="bib in single.bibliografskiPodatci" style="color:white;"> {{bib['naslov']}} ({{bib['strana']}}) - <a href="{{bib['putanja']}}" target="_blank">(.PDF)</a> <span class="glyphicon glyphicon-remove" ng-click="obrisiBibl(bib.id)"></span></li>
 				</ul>
 			</div>
@@ -359,9 +359,9 @@ else if($_SESSION['privilegije']!=="admin") {
 				<!-- paginacija -->
 			<div class="text-center">
 				<ul class="pagination pagination-sm">
-					<li ng-class="{disabled: pageNumber <= 1}"><a href="#" ng-click="previousPage()">«</a></li>
-					<li class="active"><a href="#">{{pageNumber}}</a></li>
-					<li ng-class="{disabled: remainingResults <= 0}"><a ng-click="nextPage()" href="#">»</a></li>
+					<li class="disabled"><a href="#">«</a></li>
+					<li class="active"><a href="#">1</a></li>
+					<li><a href="#">»</a></li>
 				</ul>
 			</div>
         </div>

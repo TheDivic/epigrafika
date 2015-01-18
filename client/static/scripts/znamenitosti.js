@@ -185,7 +185,7 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
      modernoImeDrzave : $scope.single.modernoImeDrzave,
      modernoMesto: $scope.single.modernoMesto,
      trenutnaLokacijaZnamenitosti : $scope.single.trenutnaLokacijaZnamenitosti,
-     pleme : $scope.single.pleme,
+     pleme : $scope.single.plemeNaziv,
      vreme : $scope.single.datovano,
      pocetakGodina : $scope.single.pocetakGodina,
      pocetakVek: $scope.single.pocetakVek,
