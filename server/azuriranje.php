@@ -260,10 +260,10 @@ function azuriraj($data, $db){
         $datovano = true;
         $pocetakGodina = $data->pocetakGodina;
         $pocetakVek = $data->pocetakVek;
-        $pocetakOdrednica = $data->pocetakPeriodVeka;
+        $pocetakOdrednica = $data->pocetakOdrednica;
         $krajGodina = $data->krajGodina;
         $krajVek = $data->krajVek;
-        $krajOdrednica = $data->krajPeriodVeka;
+        $krajOdrednica = $data->krajOdrednica;
 
 
     }
