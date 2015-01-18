@@ -301,7 +301,7 @@ function azuriraj($data, $db){
     if($data->sirina!=null && !is_numeric($data->duzina))
         return false;
 
-    $korisnickoIme=trim($data->korisnickoIme);
+    $korisnickoIme=$_SESSION['korisnickoIme'];
 
     if(!preg_match("#^[a-zA-Z_0-9]+$#", $korisnickoIme))
         return false;
