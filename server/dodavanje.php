@@ -5,9 +5,11 @@
  * Date: 1/11/2015
  * Time: 7:01 PM
  */
+session_start();
 include 'dictionary.php';
 
 function unesi($data, $db){
+
 
 //    $db=konekcija::getConnectionInstance();
     date_default_timezone_set("Europe/Belgrade");
