@@ -34,7 +34,7 @@ else
 				<label class="control-label">  {{tr.dimenzije}}: </label> <span ng-if="!object.dimenzije">{{tr.nepoznato}}</span> {{object.dimenzije}} <br/>	
 				<br/> <label class="control-label"> {{tr.natpis}} :</label><br/> 
 				<div style="border: 1px solid #c0c0c0; width: 100%; height: 100%; margin: 0; padding: 10px; border-radius: 10px">
-					<span ng-if="!object.natpis">{{tr.nepoznato}}</span> <span>{{object.natpis}}</span>
+					<span ng-if="!object.natpis">{{tr.nepoznato}}</span> <span style="word-wrap:break-word;">{{object.natpis}}</span>
 				</div>
 			</div>
 			<div class="col-sm-6">

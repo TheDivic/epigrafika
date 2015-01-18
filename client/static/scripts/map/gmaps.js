@@ -85,7 +85,7 @@ function QueryResultNode(location, objects)
         for(var i = 0; i < objects.length; i++)
         {
             content +=  "<h4 style='margin:0'>"+objects[i].oznaka+"</h4>"+
-						"<p style='padding-left:5px;margin:0;font-style:italic;'>"+objects[i].tekstNatpisa.substring(0,50)+"</p>"+
+						"<p style='padding-left:5px;margin:0;font-style:italic;word-wrap:break-word;'>"+objects[i].tekstNatpisa.substring(0,50)+"</p>"+
 						"<a style='padding-left:5px' href='objekat.php?id="+objects[i].id+"' target='_blank'>Detaljnije</a>"+ //TODO: Lokalizuj
 						"<hr style='margin:5px'/>";
         }
