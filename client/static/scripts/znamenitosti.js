@@ -4,7 +4,7 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
 	$scope.greska=false;
 	$scope.single=null;
 
-	//trazi se lista svih natpis od servera
+	//trazi se lista svih znamenitosti od servera
     $http.get('../server/objekat.php?type=all', {responseType: 'JSON'}).
     success(function(data, status, headers, config){
         if(data!=="null")
@@ -13,7 +13,97 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
     }).
     error(function(data, status, headers, config){
     });
-		
+	
+	//dohvatanje plemena
+	$http.get('../server/pleme.php', {responseType: 'JSON'}).
+		success(function(data, status, headers, config){
+		if(data!=="null")
+			$scope.plemena=data.data;
+	}).
+	error(function(data, status, headers, config){
+
+	});
+	//dohvatanje gradova
+	$http.get('../server/gradovi.php', {responseType: 'JSON'}).
+	success(function(data, status, headers, config){
+		if(data!=="null")
+		  $scope.gradovi=data.data;
+	}).
+	error(function(data, status, headers, config){
+
+	});
+	//dohvatanje vrste natpisa
+	$http.get('../server/vrsta_natpisa.php', {responseType: 'JSON'}).
+	success(function(data, status, headers, config){
+		if(data!=="null")
+		  $scope.vrsteNatpisa=data.data;
+	}).
+	error(function(data, status, headers, config){
+
+	});
+	//dohvatanje provincija
+	$http.get('../server/provincije.php', {responseType: 'JSON'}).
+	success(function(data, status, headers, config){
+		if(data!=="null")
+		  $scope.provincije=data.data;
+	}).
+	error(function(data, status, headers, config){
+
+	});
+	//dohvatanje modernih drzava
+	$http.get('../server/moderna_drzava.php', {responseType: 'JSON'}).
+	success(function(data, status, headers, config){
+		if(data!=="null")
+		  $scope.drzave=data.data;
+	}).
+	error(function(data, status, headers, config){
+
+	});
+	//dohvatanje modernih mesta
+	$http.get('../server/moderno_mesto.php', {responseType: 'JSON'}).
+	success(function(data, status, headers, config){
+		if(data!=="null")
+			$scope.mesta=data.data;
+	}).
+	error(function(data, status, headers, config){
+
+	});
+
+	//brisanje pojedinacne fotografije
+	$scope.obrisiFoto= function($id){
+	console.log($id);
+	if($window.confirm('Da li ste sigurni?')) {
+		$http.delete('../server/obrisi_fotografiju.php/'+$id)
+                .success(function (data, status, headers, config)
+                {
+                    $window.alert(data.poruka);
+					$window.location.reload();
+                })
+                .error(function (data, status, headers, config)
+                {
+          
+                });
+        
+                } else { }
+    };
+	
+	$scope.obrisiBibl= function($id){
+	if($window.confirm('Da li ste sigurni?')) {
+		$http.delete('../server/bibliografskipodatak.php/'+$id)
+                .success(function (data, status, headers, config)
+                {
+                    $window.alert(data.poruka);
+					$window.location.reload();
+                })
+                .error(function (data, status, headers, config)
+                {
+          
+                });
+        
+                } else { }
+    };
+	
+	
 	//funkcija koja salje zahtev za brisanje natpisi iz baze, sa prosledjenim id-em natpisi
     $scope.obrisi=function($id){
 		if($window.confirm('Da li ste sigurni?')) {
@@ -34,8 +124,70 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
 
 	
 	//funkcija koja salje zahtev da azurira odgovarajuci red u bazi
-    $scope.sacuvaj=function($korisnickoIme, $ime,$prezime,$email,$institucija, $privilegije,$status)
+    $scope.sacuvaj=function()
     {
+	if($scope.single.lokalizovano==false){
+		$scope.single.mestoNalaska=null;
+		$scope.single.gradNalaska=null;
+		$scope.single.provincijaNalaska=null;
+ }
+
+	if($scope.single.nedatovano==0){
+     $scope.single.pocetakGodina=null;
+     $scope.single.pocetakVek=null;
+     $scope.single.pocetakOdrednica=null;
+     $scope.single.krajGodina=null;
+     $scope.single.krajVek=null;
+     $scope.single.krajOdrednica=null;
+ }
+ var formData = {
+     oznaka : $scope.single.oznaka,
+     jezikUpisa : $scope.single.jezik,
+     natpis : $scope.single.natpis,
+     vrstaNatpisa : $scope.single.vrstaNatpisa,
+     LokalizovanPodatak : $scope.single.lokalizovan,
+     provincija : $scope.single.provincijaNalaska,
+     grad : $scope.single.gradNalaska,
+     mestoNalaska : $scope.single.mestoNalaska,
+     modernoImeDrzave : $scope.single.modernoImeDrzave,
+     modernoMesto: $scope.single.modernoMesto,
+     trenutnaLokacijaZnamenitosti : $scope.single.trenutnaLokacijaZnamenitosti,
+     pleme : $scope.single.pleme,
+     vreme : $scope.single.datovano,
+     pocetakGodina : $scope.single.pocetakGodina,
+     pocetakVek: $scope.single.pocetakVek,
+	 pocetakOdrednica:$scope.single.pocetakOdrednica,
+	 krajGodina:$scope.single.krajGodina,
+	 krajVek:$scope.single.krajVek,
+	 krajOdrednica:$scope.single.krajOdrednica,
+     tipZnamenitosti : $scope.single.tip,
+     materijalZnamenitosti : $scope.single.materijal,
+     sirina : $scope.single.sirina,
+     visina : $scope.single.visina,
+     duzina : $scope.single.duzina,
+     bibliografskoPoreklo: $scope.single.bibliografskoPoreklo,
+     bibliografskoPorekloSkracenica: $scope.single.bibliografskoPorekloSkracenica,
+     bibliografskiPdfLinkovi : $scope.pdfLinkovi,
+     komentar: $scope.single.komentar,
+     fotografije: $scope.photoLinkovi,
+     fazaUnosa:$scope.single.fazaUnosa,
+     korisnickoIme: $scope.korisnik
+ };
+
+ var jsonData = angular.toJson(formData);
+ alert(jsonData);
+
+ $http.put('../server/objekat.php', jsonData,
+    {responseType:'JSON',headers: {'content-type': 'application/json'}
+}).
+ success(function(data, status, headers, config){
+    if(data!=="null")
+				$window.location="znamenitosti.php";
+            }).
+ error(function(data, status, headers, config){
+
+ });
+ 
 	} 
    
 	//funkcija koja cuva vrednosti polja pre izmene
@@ -57,11 +209,20 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
 								if(!data.data)
                                     $window.location.replace("greska.php");
                                 $scope.single=angular.copy(data.data);
-								console.log($scope.single);
-								$scope.lok=!(($scope.provincijaNalaska =="Nepoznata")&&($scope.gradNalaska=="Nepoznat")&&(mestoNalaska=="Nepoznato"));
-								console.log($scope.lok);
+								if($scope.single.lokalizovano == 0)
+									$scope.single.lokalizovano=false;
+								else
+									$scope.single.lokalizovano=true;
 								var tmp=$scope.single.dimenzije.split(':');
 								$scope.single.sirina=tmp[0];$scope.single.visina=tmp[1]; $scope.single.duzina=tmp[2];
+								if($scope.single.bibliografskiPodatci.length>0){
+									$scope.single.bibliografskoPoreklo=$scope.single.bibliografskiPodatci[0].naslov;
+									$scope.single.bibliografskoPorekloSkracenica=$scope.single.bibliografskiPodatci[0].skracenica;}
+								else{
+									$scope.single.bibliografskoPoreklo=null;
+									$scope.single.bibliografskoPorekloSkracenica=null;}
+								
+								
 								
                             }
                             else
@@ -145,51 +306,6 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
  else  return $scope.tr.prva_polovina;
 }
 
-$http.get('../server/provincije.php', {responseType: 'JSON'}).
-success(function(data, status, headers, config){
-    if(data!=="null")
-      $scope.provincije=data.data;
-}).
-error(function(data, status, headers, config){
-
-});
-
-$http.get('../server/moderna_drzava.php', {responseType: 'JSON'}).
-success(function(data, status, headers, config){
-    if(data!=="null")
-      $scope.drzave=data.data;
-}).
-error(function(data, status, headers, config){
-
-});
-
-$http.get('../server/moderno_mesto.php', {responseType: 'JSON'}).
-success(function(data, status, headers, config){
-    if(data!=="null")
-        $scope.mesta=data.data;
-}).
-error(function(data, status, headers, config){
-
-});
-
-$http.get('../server/gradovi.php', {responseType: 'JSON'}).
-success(function(data, status, headers, config){
-    if(data!=="null")
-      $scope.gradovi=data.data;
-}).
-error(function(data, status, headers, config){
-
-});
-
-$http.get('../server/vrsta_natpisa.php', {responseType: 'JSON'}).
-success(function(data, status, headers, config){
-    if(data!=="null")
-      $scope.vrsteNatpisa=data.data;
-}).
-error(function(data, status, headers, config){
-
-});
-
 
 $scope.unetaGodina = function(){
     if($scope.godinaPronalaska == "")
@@ -213,49 +329,104 @@ $scope.vekIzracunat =vek+ ".";
 };
 
 $scope.unetPocetakPerioda = function(){
-    if($scope.pocetakGodina == "")
-    {
-      $scope.pocetakPeriodaPoruka = "";
-      return;
-  }
-  var godina = parseInt($scope.pocetakGodina);
-  if(isNaN(godina))
-  {
-      $scope.pocetakPeriodaPoruka  = "";
-      return;
-  }
-  var periodVeka = izracunajPeriodVeka(godina);
-  var vek = izracunajVek(godina);
-  $scope.pocetakVek=vek;
-  $scope.pocetakPeriodVeka = periodVeka;
-  $scope.pocetakPeriodaPoruka =$scope.tr.pocetak_perioda + vek +". " + $scope.tr.vek +", "+ periodVeka + ".";
+	if($scope.single!=null)
+	{
+		if($scope.single.pocetakGodina == "")
+		{
+		  $scope.single.pocetakPeriodaPoruka = "";
+		  return;
+		}
+		var godina = parseInt($scope.single.pocetakGodina);
+		if(isNaN(godina))
+		{
+			$scope.single.pocetakPeriodaPoruka  = "";
+			return;
+		}
+		var periodVeka = izracunajPeriodVeka(godina);
+		var vek = izracunajVek(godina);
+		$scope.single.pocetakVek=vek;
+		$scope.single.pocetakOdrednica = periodVeka;
+		$scope.single.pocetakPeriodaPoruka =$scope.tr.pocetak_perioda + $scope.single.pocetakVek +". " + $scope.tr.vek +", "+ $scope.single.pocetakOdrednica + ".";
+	}
+	else
+	{
+		if($scope.pocetakGodina == "")
+		{
+		  $scope.pocetakPeriodaPoruka = "";
+		  return;
+		}
+		var godina = parseInt($scope.pocetakGodina);
+		if(isNaN(godina))
+		{
+			$scope.pocetakPeriodaPoruka  = "";
+			return;
+		}
+		var periodVeka = izracunajPeriodVeka(godina);
+		var vek = izracunajVek(godina);
+		$scope.pocetakVek=vek;
+		$scope.pocetakPeriodVeka = periodVeka;
+		$scope.pocetakPeriodaPoruka =$scope.tr.pocetak_perioda + vek +". " + $scope.tr.vek +", "+ periodVeka + ".";
+	}
 };
 
 $scope.unetKrajPerioda = function(){
-    if($scope.krajGodina === "")
-    {
-      $scope.krajPeriodaPoruka = "";
-      return;
-  }
-  var godina = parseInt($scope.krajGodina);
-  if(isNaN(godina))
-  {
-      $scope.krajPeriodaPoruka = "";
-      return;
-  }
-  var periodVeka = izracunajPeriodVeka(godina);
-  var vek = izracunajVek(godina);
-  $scope.krajVek=vek;
-  $scope.krajPeriodVeka = periodVeka;
-  var godina1 = parseInt($scope.pocetakGodina);
-  if(!isNaN(godina1)){
-      if(godina1>godina){
-         $scope.krajPeriodaPoruka = $scope.tr.greska_period;
-         return;
-     }
- }
+	if($scope.single!=null){
+	    if($scope.single.krajGodina === "")
+		{
+			$scope.single.krajPeriodaPoruka = "";
+			return;
+		}
+		var godina = parseInt($scope.single.krajGodina);
+		if(isNaN(godina))
+		{
+			$scope.single.krajPeriodaPoruka = "";
+			return;
+		}
+		var periodVeka = izracunajPeriodVeka(godina);
+		var vek = izracunajVek(godina);
+		$scope.single.krajVek=vek;
+		$scope.single.krajOdrednica = periodVeka;
+		var godina1 = parseInt($scope.pocetakGodina);
+		if(!isNaN(godina1))
+		{
+			if(godina1>godina)
+			{
+				$scope.single.krajPeriodaPoruka = $scope.tr.greska_period;
+				return;
+			}
+		}
 
- $scope.krajPeriodaPoruka =$scope.tr.kraj_perioda + vek +". " + $scope.tr.vek +", "+ periodVeka + ".";
+		$scope.single.krajPeriodaPoruka =$scope.tr.kraj_perioda + $scope.single.krajVek +". " + $scope.tr.vek +", "+ $scope.single.krajOdrednica + ".";
+	}
+	else
+	{
+		if($scope.krajGodina === "")
+		{
+		  $scope.krajPeriodaPoruka = "";
+		  return;
+		}
+		var godina = parseInt($scope.krajGodina);
+		if(isNaN(godina))
+		{
+			$scope.krajPeriodaPoruka = "";
+			return;
+		}
+		var periodVeka = izracunajPeriodVeka(godina);
+		var vek = izracunajVek(godina);
+		$scope.krajVek=vek;
+		$scope.krajPeriodVeka = periodVeka;
+		var godina1 = parseInt($scope.pocetakGodina);
+		if(!isNaN(godina1))
+		{
+			if(godina1>godina)
+			{
+				$scope.krajPeriodaPoruka = $scope.tr.greska_period;
+				return;
+			}
+		}
+
+		$scope.krajPeriodaPoruka =$scope.tr.kraj_perioda + vek +". " + $scope.tr.vek +", "+ periodVeka + ".";
+	}
 };
 
 $scope.submit=function(){
@@ -441,6 +612,13 @@ $scope.proveri_jedinstvenost = function(){
             $scope.pdfError = true;
             return;
         }
+		if($scope.single!=null){
+			var loaded=$scope.single.bibliografskiPodatci.length;
+			if(files.length + loaded > 10){
+            $scope.pdfError = true;
+            return;
+			}
+		}
 
         for(var i = 0; i < files.length; i++){
             if(!checkType(files[i].type, "pdf")){
@@ -464,6 +642,14 @@ $scope.proveri_jedinstvenost = function(){
             $scope.photoError = true;
             return;
         }
+		
+		if($scope.single!=null){
+			var loaded=$scope.single.fotografije.length;
+			if(files.length + loaded > 10){
+            $scope.photoError = true;
+            return;
+			}
+		}
 
         for(var i = 0; i < files.length; i++){
             if(!checkType(files[i].type, "image")){

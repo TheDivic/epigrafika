@@ -2,7 +2,7 @@ angular.module('epigrafikaModul').controller('adminChart', ['$scope', '$http','$
 $scope.colors=["#FF0F00","#F8FF01","#04D215","#0D8ECF","#2A0CD0","#8A0CCF","#754DEB"];
 $scope.chartData1=null;
 $scope.chartData2=null;
-$http.get('../server/korisnik.php?type=chart', {responseType: 'JSON'}).
+$http.get('../server/korisnik.php?type=chart', {responseType: 'JSON',cache: 'false'}).
 			success(function(data, status, headers, config){
 				if(data!=="null"){
 				$scope.chartData1=data.data;
@@ -58,10 +58,11 @@ $http.get('../server/korisnik.php?type=chart', {responseType: 'JSON'}).
 
                 // WRITE
                 chart.write("chartdiv1");
+				chart.validateData();
 				console.log("Korsnici chart");
             });
 			
-	$http.get('../server/objekat.php?type=chart', {responseType: 'JSON'}).
+	$http.get('../server/objekat.php?type=chart', {responseType: 'JSON',cache: 'false'}).
 			success(function(data, status, headers, config){
 				if(data!=="null"){
 				$scope.chartData2=data.data;
@@ -116,7 +117,10 @@ $http.get('../server/korisnik.php?type=chart', {responseType: 'JSON'}).
 
 
                 // WRITE
+				
                 chart.write("chartdiv2");
+				chart.validateNow();
+				
 				console.log("Objekat chart");
             });
 
