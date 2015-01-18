@@ -27,6 +27,7 @@ else
 				<label class="control-label">{{ tr.oznaka }} : </label> <span ng-if="!object.oznaka">{{tr.nepoznato}}</span> {{object.oznaka}} <br/>   
 				<label class="control-label">{{tr.vrsta_natpisa}} :</label> <span ng-if="!object.vrstaNatpisa">{{tr.nepoznato}}</span> {{object.vrstaNatpisa}} <br/> 
 				<label class="control-label">{{tr.jezik}} :</label> <span ng-if="!object.jezik">{{tr.nepoznato}}</span> {{object.jezik}} <br/>
+				<label class="control-label">{{tr.pleme}} :</label> <span ng-if="!object.pleme">{{tr.nepoznato}}</span> {{object.plemeNaziv}} <br/>
 				<br/> <label class="control-label ispis"> {{tr.tip_spomenika}} </label> <br/>
 				<label class="control-label">{{tr.tip}} :</label> <span ng-if="!object.tip">{{tr.nepoznato}}</span> {{object.tip}} <br/> 
 				<label class="control-label">{{tr.materijal}} :</label> <span ng-if="!object.materijali">{{tr.nepoznato}}</span> {{object.materijal}} <br/> 
