@@ -33,17 +33,10 @@ glavniModul.controller('rootController', ['$scope', 'getTranslation', '$cookies'
 		$http.get('../server/korisnik.php?type=login&user="'+$u+'"&pass="'+$p+'"', {responseType: 'JSON'}).
 		success(function(data, status, headers, config){
         if(data!=="null"){
-			if(data.isEmpty==false){
+			if(data.isEmpty==false)
 
-				if(data.data[0].privilegije=="admin"){
+                window.location.replace('index.php');
 
-                    window.location.replace('admin.php');
-
-                }
-				else
-                    window.location.replace('index.php');
-
-			}
 			else{
 				alert("Pogresno korisnicko ime ili sifra");}
 			

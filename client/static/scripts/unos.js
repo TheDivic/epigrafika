@@ -259,7 +259,7 @@ $scope.posalji_podatke=function(){
      komentar: $scope.komentar,
      fotografije: $scope.photoLinkovi,
      fazaUnosa:$scope.fazaUnosa,
-     korisnickoIme: "Mirko" //$scope.korisnik
+     korisnickoIme:$scope.korisnik
  };
 
  console.log($cookies.user);

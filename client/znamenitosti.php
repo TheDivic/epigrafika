@@ -359,9 +359,9 @@ else if($_SESSION['privilegije']!=="admin") {
 				<!-- paginacija -->
 			<div class="text-center">
 				<ul class="pagination pagination-sm">
-					<li class="disabled"><a href="#">«</a></li>
-					<li class="active"><a href="#">1</a></li>
-					<li><a href="#">»</a></li>
+					<li ng-class="{disabled: pageNumber <= 1}"><a href="#" ng-click="previousPage()">«</a></li>
+					<li class="active"><a href="#">{{pageNumber}}</a></li>
+					<li ng-class="{disabled: remainingResults <= 0}"><a ng-click="nextPage()" href="#">»</a></li>
 				</ul>
 			</div>
         </div>

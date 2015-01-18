@@ -98,20 +98,48 @@ angular.module('epigrafikaModul').controller('adminNatpisi', ['$scope', '$http',
 	{
           
 	});}
- 
-	//trazi se lista svih natpis od servera
-    $http.get('../server/vrsta_natpisa.php', {responseType: 'JSON'}).
-    success(function(data, status, headers, config){
-        if(data!=="null")
-        $scope.natpisi=data.data;
-		
-    }).
-    error(function(data, status, headers, config){
-    });
-	if( $scope.natpisi!=null){
-		foreach(n in natpisi)
-			$scope.izmeni[n.id]=false;
-		}
+
+    $scope.offset = 0;
+    var pageLimit = 10;
+    $scope.pageNumber = 1;
+    $scope.remaining = 0;
+
+    $scope.nextPage = function() {
+        if($scope.remaining > 0){
+            $scope.offset += pageLimit;
+            $scope.pageNumber += 1;
+            getNatpisi();
+        }
+    };
+
+    $scope.previousPage = function() {
+        if($scope.pageNumber > 1){
+            $scope.offset -= pageLimit;
+            $scope.pageNumber -= 1;
+            getNatpisi();
+        }
+    };
+
+    var getNatpisi = function() {
+        //trazi se lista svih natpis od servera
+        $http.get('../server/vrsta_natpisa.php?offset=' + $scope.offset, {responseType: 'JSON'}).
+        success(function(data, status, headers, config){
+            if(data!=="null") {
+                $scope.natpisi=data.data;
+                $scope.remaining = data.remaining;
+            }
+        }).
+        error(function(data, status, headers, config){
+            console.error(data);
+        });
+    };
+
+    getNatpisi();
+
+    if( $scope.natpisi!=null){
+      foreach(n in natpisi)
+      $scope.izmeni[n.id]=false;
+  }
 	
 
 }]);

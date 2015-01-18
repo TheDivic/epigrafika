@@ -4,6 +4,7 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
 	$scope.greska=false;
 	$scope.single=null;
 
+<<<<<<< HEAD
 	//trazi se lista svih znamenitosti od servera
     $http.get('../server/objekat.php?type=all', {responseType: 'JSON'}).
     success(function(data, status, headers, config){
@@ -104,6 +105,44 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
     };
 	
 	
+=======
+    $scope.offset = 0;
+    $scope.pageNumber = 1;
+    $scope.remainingResults = 0;
+
+    var getObjekat = function() {
+        $http.get('../server/objekat.php?type=all&offset=' + $scope.offset, {responseType: 'JSON'}).
+        success(function(data, status, headers, config){
+            if(data!=="null") {
+                $scope.znamenitosti=data.data;
+                $scope.remainingResults = data.remaining;
+            }
+        }).
+        error(function(data, status, headers, config){
+            console.error(data);
+        });
+    };
+
+	//trazi se lista svih natpis od servera
+    $scope.nextPage = function() {
+        if($scope.remainingResults > 0) {
+            $scope.offset += 10;
+            $scope.pageNumber += 1;
+            getObjekat();
+        }
+    };
+
+    $scope.previousPage = function() {
+        if($scope.pageNumber > 1) {
+            $scope.offset -= 10;
+            $scope.pageNumber -= 1;
+            getObjekat();
+        }
+    };
+
+    getObjekat();
+		
+>>>>>>> 4a31187985ed4bd21df256c6e6da35fbc0084a89
 	//funkcija koja salje zahtev za brisanje natpisi iz baze, sa prosledjenim id-em natpisi
     $scope.obrisi=function($id){
 		if($window.confirm('Da li ste sigurni?')) {
