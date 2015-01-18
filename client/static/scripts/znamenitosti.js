@@ -203,8 +203,7 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
      bibliografskiPdfLinkovi : $scope.pdfLinkovi,
      komentar: $scope.single.komentar,
      fotografije: $scope.photoLinkovi,
-     fazaUnosa:$scope.single.fazaUnosa,
-     korisnickoIme: $scope.korisnik
+     fazaUnosa:$scope.single.fazaUnosa
  };
 
  var jsonData = angular.toJson(formData);
@@ -313,7 +312,6 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
     $scope.gradovi=null;
     $scope.vrsteNatpisa=null;
     $scope.mesta=null;
-    $scope.korisnik=$cookies.user;
     $scope.pdfLinkovi = [];
     $scope.photoLinkovi = [];
     $scope.pdfError = false;
@@ -528,8 +526,7 @@ $scope.submit=function(){
      bibliografskiPdfLinkovi : $scope.pdfLinkovi,
      komentar: $scope.komentar,
      fotografije: $scope.photoLinkovi,
-     fazaUnosa:$scope.fazaUnosa,
-     korisnickoIme: $scope.korisnik
+     fazaUnosa:$scope.fazaUnosa
  };
 
  console.log($cookies.user);
