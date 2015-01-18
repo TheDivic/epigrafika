@@ -129,7 +129,7 @@ else if($_SESSION['privilegije']!=="admin") {
 				<label class="col-sm-2"> <input type="radio" name="vreme" ng-model="single.vreme" value="nedatovan" ng-click="single.datovano=0" ng-checked="single.datovano==0" /> {{tr.nedatovan_natpis}}: </label>
 			</div>
 			<div class="row">
-				<label class="col-sm-2"><input type="radio" name="vreme" ng-model="single.vreme" value="datovan" ng-checked="single.datovano!=0" ng-click="single.datovano=1"> Datovan natpis : </label> <br/>
+				<label class="col-sm-2"><input type="radio" name="vreme" ng-model="single.vreme" value="datovan" ng-checked="single.datovano==1" ng-click="single.datovano=1"> Datovan natpis : </label> <br/>
 			
 					<div class="col-sm-8" ng-show="single.datovano!=0">
 						<div class="row">
@@ -260,10 +260,11 @@ else if($_SESSION['privilegije']!=="admin") {
 			<div class="row form-group">
 				<label class="control-label col-sm-2" >{{ tr.bibliografski_podaci }}</label>
 				
-				<span ng-show="!single.bibliografskiPodatci.length">  {{tr.nema_podataka}} </span>
-				<ul class="col-sm-8 bibl-delete">
+				<div class="col-sm-8 bibl-delete"> <span style="color:white !important;" ng-show="!single.bibliografskiPodatci.length">  {{tr.nema_podataka}} </span>
+				<ul >
 				<li ng-repeat="bib in single.bibliografskiPodatci" style="color:white;"> {{bib['naslov']}} ({{bib['strana']}}) - <a href="{{bib['putanja']}}" target="_blank">(.PDF)</a> <span class="glyphicon glyphicon-remove" ng-click="obrisiBibl(bib.id)"></span></li>
 				</ul>
+                                </div>
 			</div>
 			<div class="row form-group">
 				<label for="komentar" class="col-sm-2 control-label">{{tr.komentar}}:</label>

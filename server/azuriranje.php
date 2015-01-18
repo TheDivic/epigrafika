@@ -236,7 +236,8 @@ function azuriraj($data, $db){
 //        radimo sa vremenom, dovrsiti
     $vreme = $data->vreme;
 
-    if(strcmp($vreme, "nedatovan")==0){
+    if($vreme ==0){
+
         $datovano = 0;
 
         $pocetakGodina = null;
@@ -249,35 +250,8 @@ function azuriraj($data, $db){
     }
     //velika mogucnost greske
 
-    else if(strcmp($vreme, "godina")==0){
-        $datovano = 1;
-        $pocetakGodina = $data->godinaPronalaska;
-        $pocetakVek = $data->vekGodine;
-        $pocetakOdrednica = $data->periodVekGodine;
-        $krajGodina = null;
-        $krajVek = null;
-        $krajOdrednica = null;
 
-        if(is_numeric($pocetakVek)==false || is_numeric($pocetakGodina)==false)
-            return false;
-
-    }
-
-    else if(strcmp($vreme, "unosVeka")==0){
-
-        $datovano = true;
-        $pocetakGodina = null;
-        $pocetakVek = $data->vekPronalaska;
-        $pocetakOdrednica = $data->periodVeka;
-        $krajGodina = null;
-        $krajVek = null;
-        $krajOdrednica = null;
-
-        if(is_numeric($pocetakVek)==false)
-            return false;
-    }
-
-    else if(strcmp($vreme, "unosPeriodaOdDo")==0){
+    else if($vreme==1){
         $datovano = true;
         $pocetakGodina = $data->pocetakGodina;
         $pocetakVek = $data->pocetakVek;
@@ -286,14 +260,11 @@ function azuriraj($data, $db){
         $krajVek = $data->krajVek;
         $krajOdrednica = $data->krajPeriodVeka;
 
-        if(is_numeric($pocetakVek)==false || is_numeric($pocetakGodina)==false
-            || is_numeric($krajVek)==false || is_numeric($krajGodina)==false)
-            return false;
+
     }
 
-// datum kreiranja, datum poslednje izmene
+//  datum poslednje izmene
 
-    $datumKreiranja=date("Y-m-d");
     $datumPoslednjeIzmene=date("Y-m-d");
 
 //       faza unosa
@@ -330,7 +301,7 @@ function azuriraj($data, $db){
     if($data->sirina!=null && !is_numeric($data->duzina))
         return false;
 
-    $korisnickoIme=trim($data->korisnickoIme);
+    $korisnickoIme=$_SESSION['korisnickoIme'];
 
     if(!preg_match("#^[a-zA-Z_0-9]+$#", $korisnickoIme))
         return false;

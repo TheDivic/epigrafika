@@ -51,6 +51,7 @@ try
                         $result->isEmpty = false;
                         $_SESSION['privilegije']= $data[0]['privilegije'];
                         $_SESSION['status']=$data[0]['status'];
+                        $_SESSION['korisnickoIme']=$data[0]['korisnickoIme'];
                     }
                     else {
                         $result->data = null;
