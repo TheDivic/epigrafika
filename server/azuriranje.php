@@ -493,11 +493,11 @@ try{
             try{
                 $db->beginTransaction();
                 $stmt = $db->prepare($query);
-                $returnValue1 = $stmt->exectute(array(':id' => $idBP, ':skracenica' => $bibliografskoPorekloSkracenica,
+                $returnValue1 = $stmt->execute(array(':id' => $idBP, ':skracenica' => $bibliografskoPorekloSkracenica,
                 ':naslov' => $bibliografskoPoreklo));
                 if(!$returnValue1)
                     return false;
-
+                $db->commit();
             }catch (Exception $e){
                 $db->rollback();
                 return false;
@@ -527,7 +527,7 @@ try{
                 //izracunavamo broj nove strane
                 $query = "SELECT MAX(strana) FROM IzvodBibliografskogPodatka
                           where objekat = :objekat and bibliografskiPodatak=:bibliografskiPodatak";
-                $stmt= $db->preprare($query);
+                $stmt= $db->prepare($query);
                 $stmt->execute(array(':objekat' => $id, ':bibliografskiPodatak' => $idBibliografskogPodatka));
                 $o = $stmt->fetchAll();
 
