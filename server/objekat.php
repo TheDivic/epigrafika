@@ -130,24 +130,43 @@ try
 			}
 		else if($_GET['type'] === 'all')
         {
-            
-            $query = $db->prepare(  "select o.id, o.oznaka, o.tekstNatpisa, 
-                                    vn.naziv as 'vrstaNatpisa', j.naziv as 'jezik', pr.naziv as 'provincija', g.naziv as 'grad', pl.naziv as 'pleme', 
-                                    md.naziv as 'modernaDrzava', mm.naziv as 'modernoMesto', u.naziv as 'ustanova', 
-                                    o.pocetakGodina, o.pocetakVek, o.pocetakOdrednica, o.krajGodina, o.krajVek, o.krajOdrednica, o.tip, 
-                                    o.materijal, o.dimenzije, o.komentar, o.faza, o.datumKreiranja, o.datumPoslednjeIzmene, o.datovano, o.lokalizovano
-                                    from objekat o join vrstanatpisa vn on o.vrstaNatpisa = vn.id
-                                    join jezik j on o.jezik = j.id
-                                    join provincija pr on o.provincija = pr.id
-                                    join grad g on o.grad = g.id
-                                    join mesto m on o.mesto = m.id
-                                    join pleme pl on o.pleme = pl.id
-                                    join modernadrzava md on o.modernaDrzava = md.id
-                                    join modernoMesto mm on o.modernoMesto = mm.id
-                                    join ustanova u on o.ustanova = u.id");
+            $query_string = "select o.id, o.oznaka, o.tekstNatpisa, 
+                            vn.naziv as 'vrstaNatpisa', j.naziv as 'jezik', pr.naziv as 'provincija', g.naziv as 'grad', pl.naziv as 'pleme', 
+                            md.naziv as 'modernaDrzava', mm.naziv as 'modernoMesto', u.naziv as 'ustanova', 
+                            o.pocetakGodina, o.pocetakVek, o.pocetakOdrednica, o.krajGodina, o.krajVek, o.krajOdrednica, o.tip, 
+                            o.materijal, o.dimenzije, o.komentar, o.faza, o.datumKreiranja, o.datumPoslednjeIzmene, o.datovano, o.lokalizovano
+                            from objekat o join vrstanatpisa vn on o.vrstaNatpisa = vn.id
+                            join jezik j on o.jezik = j.id
+                            join provincija pr on o.provincija = pr.id
+                            join grad g on o.grad = g.id
+                            join mesto m on o.mesto = m.id
+                            join pleme pl on o.pleme = pl.id
+                            join modernadrzava md on o.modernaDrzava = md.id
+                            join modernoMesto mm on o.modernoMesto = mm.id
+                            join ustanova u on o.ustanova = u.id";
+
+            $query = $db->prepare($query_string);
             $query->execute();
+
+            $query_result = $query->fetchAll(PDO::FETCH_OBJ);
+            $remaining = 0;
+            $limit = 10;
+            $result->data = [];
+
+            if(isset($_GET['offset'])) {
+                $offset = intval($_GET['offset']);
+            
+                for($i = $offset; $i < sizeof($query_result) && $i < $offset + 10; $i++){
+                    $result->data[] = $query_result[$i];
+                }
+                $remaining = sizeof($query_result) - $offset - 10;
+            }
+            else {
+                $result->data = $query_result;
+            }
+
+            $result->remaining = $remaining;
             $result->error_status = false;
-            $result->data = $query->fetchAll(PDO::FETCH_OBJ);
         }
     }
     else if ($method === 'POST')

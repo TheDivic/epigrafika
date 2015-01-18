@@ -4,15 +4,41 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
 	$scope.greska=false;
 	$scope.single=null;
 
+    $scope.offset = 0;
+    $scope.pageNumber = 1;
+    $scope.remainingResults = 0;
+
+    var getObjekat = function() {
+        $http.get('../server/objekat.php?type=all&offset=' + $scope.offset, {responseType: 'JSON'}).
+        success(function(data, status, headers, config){
+            if(data!=="null") {
+                $scope.znamenitosti=data.data;
+                $scope.remainingResults = data.remaining;
+            }
+        }).
+        error(function(data, status, headers, config){
+            console.error(data);
+        });
+    };
+
 	//trazi se lista svih natpis od servera
-    $http.get('../server/objekat.php?type=all', {responseType: 'JSON'}).
-    success(function(data, status, headers, config){
-        if(data!=="null")
-        $scope.znamenitosti=data.data;
-		
-    }).
-    error(function(data, status, headers, config){
-    });
+    $scope.nextPage = function() {
+        if($scope.remainingResults > 0) {
+            $scope.offset += 10;
+            $scope.pageNumber += 1;
+            getObjekat();
+        }
+    };
+
+    $scope.previousPage = function() {
+        if($scope.pageNumber > 1) {
+            $scope.offset -= 10;
+            $scope.pageNumber -= 1;
+            getObjekat();
+        }
+    };
+
+    getObjekat();
 		
 	//funkcija koja salje zahtev za brisanje natpisi iz baze, sa prosledjenim id-em natpisi
     $scope.obrisi=function($id){
