@@ -69,9 +69,7 @@ else
 		<div class="row">
 			<div class="col-sm-6">
 				<label class="control-label ispis" >{{ tr.vreme }}</label> <br/>
-				<label class="control-label">  {{tr.godina}}: </label> {{object.pocetakGodina}} - {{object.krajGodina}} <br/>
-				<label class="control-label">  {{tr.vek}}: </label> {{object.pocetakVek}} - {{object.krajVek}} <br/>
-				<label class="control-label">  {{tr.odrednica}}: </label> {{object.pocetakOdrednica}} - {{object.krajOdrednica}} <br/>
+				<label class="control-label">  {{tr.vreme}}: </label> {{object.vreme}} <br/>
 			</div>
 			<div class="col-sm-6">
 				<label class="control-label ispis" >{{ tr.dodatne_info }}</label> <br/>
