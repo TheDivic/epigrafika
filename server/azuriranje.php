@@ -48,6 +48,7 @@ function azuriraj($data, $db){
     $lokalizovanPodatak = $data->LokalizovanPodatak;
     //echo "<br>Lokalizovan: $lokalizovanPodatak";
     if($lokalizovanPodatak==true){
+        $lokalizovanPodatak=1;
         $provincija = $data->provincija;
         $grad = $data->grad;
 
@@ -116,7 +117,7 @@ function azuriraj($data, $db){
     }
     else{
 
-
+        $lokalizovanPodatak = 0;
         $provincija = -1;
         $grad = -1;
         $mestoNalaska = -1;
@@ -257,7 +258,7 @@ function azuriraj($data, $db){
 
 
     else if($vreme==1){
-        $datovano = true;
+        $datovano = 1;
         $pocetakGodina = $data->pocetakGodina;
         $pocetakVek = $data->pocetakVek;
         $pocetakOdrednica = $data->pocetakOdrednica;
@@ -357,6 +358,8 @@ try{
         ':krajGodina' => $krajGodina, ':krajVek' => $krajVek, ':krajOdrednica' => $krajOdrednica ));
     if($returnValue==false)
         return false;
+
+    $db->commit();
 
 }catch(Exception $e){
 
