@@ -260,10 +260,11 @@ else if($_SESSION['privilegije']!=="admin") {
 			<div class="row form-group">
 				<label class="control-label col-sm-2" >{{ tr.bibliografski_podaci }}</label>
 				
-				<span ng-show="!single.bibliografskiPodatci.length">  {{tr.nema_podataka}} </span>
-				<ul class="col-sm-8 bibl-delete">
+				<div class="col-sm-8 bibl-delete"> <span style="color:white !important;" ng-show="!single.bibliografskiPodatci.length">  {{tr.nema_podataka}} </span>
+				<ul >
 				<li ng-repeat="bib in single.bibliografskiPodatci" style="color:white;"> {{bib['naslov']}} ({{bib['strana']}}) - <a href="{{bib['putanja']}}" target="_blank">(.PDF)</a> <span class="glyphicon glyphicon-remove" ng-click="obrisiBibl(bib.id)"></span></li>
 				</ul>
+                                </div>
 			</div>
 			<div class="row form-group">
 				<label for="komentar" class="col-sm-2 control-label">{{tr.komentar}}:</label>
