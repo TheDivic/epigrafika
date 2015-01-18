@@ -107,7 +107,7 @@ else if($_SESSION['privilegije']!=="admin") {
 		<div class="row form-group">
 				<label for="trenutnaLokacijaZnamenitosti" class="col-sm-2 control-label">{{tr.trenutna_lokacija_znamenitosti}} <span style="color:red">*</span>:</label>
 				<div class="col-sm-4">
-					<input type="text" id="trenutnaLokacijaZnamenitosti" class="form-control" name="trenutnaLokacijaZnamenitosti" ng-model="single.trenutnaLokacijaZnamenitosti" ng-pattern="/^[a-zA-Z ]+$/" ng-required="true"/>
+					<input type="text" id="trenutnaLokacijaZnamenitosti" class="form-control" name="trenutnaLokacijaZnamenitosti" ng-model="single.ustanova" ng-pattern="/^[a-zA-Z ]+$/" ng-required="true"/>
 					<span class="text-transparent" ng-class="{textred:formUnos.trenutnaLokacijaZnamenitosti.$dirty && formUnos.trenutnaLokacijaZnamenitosti.$error.pattern}"> 
 						{{tr.format_error_slova}}
 					</span>
@@ -133,33 +133,33 @@ else if($_SESSION['privilegije']!=="admin") {
 			
 					<div class="col-sm-8" ng-show="single.datovano!=0">
 						<div class="row">
-						<label for="godinaPronalaska" class="col-sm-2 control-label">{{tr.godina}}*:</label>
+						<label for="godinaPronalaska" class="col-sm-2 control-label">{{tr.godina}}:</label>
 						<div class="col-sm-4">
-							<input ng-init="godinaPronalaska=single.pocetakGodina" id="godinaPronalaska" type="text" class="form-control" name="godinaPronalaska" ng-model="single.pocetakGodina" ng-required='single.datovano!=0' ng-pattern="/^\d+$/"/>
+							<input ng-init="godinaPronalaska=single.pocetakGodina" id="godinaPronalaska" type="text" class="form-control" name="godinaPronalaska" ng-model="single.pocetakGodina" ng-pattern="/^\d+$/"/>
 							<span class="text-transparent" ng-class="{textred: formUnos.godinaPronalaska.$error.pattern &&formUnos.godinaPronalaska.$dirty}">
 								{{tr.pattern_error_cifre}}
 							</span>
 						</div>
 						</div>
 						<div class="row">
-						<label for="vekPronalaska" class="col-sm-2 control-label">{{tr.vek}} *</label>
+						<label for="vekPronalaska" class="col-sm-2 control-label">{{tr.vek}} </label>
 						<div class="col-sm-4">
-							<input class="form-control" id="vekPronalaska" type="text" name="vekPronalaska" ng-model="single.pocetakVek" ng-required='single.datovano!=0' ng-pattern="/^\d+$/"/> 
+							<input class="form-control" id="vekPronalaska" type="text" name="vekPronalaska" ng-model="single.pocetakVek"  ng-pattern="/^\d+$/"/> 
 							<span class="text-transparent" ng-class="{textred: formUnos.vekPronalaska.$error.pattern &&formUnos.vekPronalaska.$dirty}">
 								{{tr.pattern_error_cifre}}
 							</span>
 						</div>
-						<label class="radio-inline col-sm-2"><input type="radio" name="periodVeka" ng-checked="single.pocetakOdrednica=='prva polovina' || single.pocetakOdrednica=='first half'" ng-model="single.pocetakOdrednica" value="prvaPolovinaVeka"/> {{tr.prva_polovina}} </label>
-						<label class="radio-inline col-sm-2"> <input type="radio" name="periodVeka" ng-model="single.pocetakOdrednica" value="drugaPolovinaVeka" ng-checked="single.pocetakOdrednica=='druga polovina' || single.pocetakOdrednica=='second half'"/>  {{tr.druga_polovina}} </label>
+						<label class="radio-inline col-sm-2"><input type="radio" name="periodVeka" ng-checked="single.pocetakOdrednica=='prvaPolovinaVeka' || single.pocetakOdrednica=='first half'" ng-model="single.pocetakOdrednica" value="prvaPolovinaVeka"/> {{tr.prva_polovina}} </label>
+						<label class="radio-inline col-sm-2"> <input type="radio" name="periodVeka" ng-model="single.pocetakOdrednica" value="drugaPolovinaVeka" ng-checked="single.pocetakOdrednica=='drugaPolovinaVeka' || single.pocetakOdrednica=='second half'"/>  {{tr.druga_polovina}} </label>
 						</div>
 						<div class="row">
-						<label for="pocetakGodina" class="col-sm-2 control-label">{{tr.od}} *:</label>
+						<label for="pocetakGodina" class="col-sm-2 control-label">{{tr.od}}:</label>
 						<div class="col-sm-4">
-							<input class="form-control" id="pocetakGodina" type="text" ng-model="single.pocetakGodina" name="pocetakGodina" ng-change="unetPocetakPerioda()" ng-required='single.datovano!=0' ng-pattern="/^\d+$/"/>
+							<input class="form-control" id="pocetakGodina" type="text" ng-model="single.pocetakGodina" name="pocetakGodina" ng-change="unetPocetakPerioda()"  ng-pattern="/^\d+$/"/>
 						</div>
-						<label for="krajGodina" class="col-sm-2 control-label">{{tr.do}} *:</label>
+						<label for="krajGodina" class="col-sm-2 control-label">{{tr.do}}:</label>
 						<div class="col-sm-4">
-							<input type="text" id="krajGodina" class="form-control" ng-model="single.krajGodina" name="krajGodina" ng-change="unetKrajPerioda()" ng-required='single.datovano!=0' ng-pattern="/^\d+$/"/> 
+							<input type="text" id="krajGodina" class="form-control" ng-model="single.krajGodina" name="krajGodina" ng-change="unetKrajPerioda()"  ng-pattern="/^\d+$/"/> 
 						</div>
 						</div>
 						<div class="row">
@@ -262,7 +262,7 @@ else if($_SESSION['privilegije']!=="admin") {
 				
 				<div class="col-sm-8 bibl-delete"> <span style="color:white !important;" ng-show="!single.bibliografskiPodatci.length">  {{tr.nema_podataka}} </span>
 				<ul >
-				<li ng-repeat="bib in single.bibliografskiPodatci" style="color:white;"> {{bib['naslov']}} ({{bib['strana']}}) - <a href="{{bib['putanja']}}" target="_blank">(.PDF)</a> <span class="glyphicon glyphicon-remove" ng-click="obrisiBibl(bib.id)"></span></li>
+				<li ng-repeat="bib in single.bibliografskiPodatci" style="color:white;"> {{bib['naslov']}} ({{bib['strana']}}) - <a href="{{bib['putanja']}}" target="_blank">(.PDF)</a> <span class="glyphicon glyphicon-remove" ng-click="obrisiBibl(bib.id, bib.strana)"></span></li>
 				</ul>
                                 </div>
 			</div>

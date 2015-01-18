@@ -86,9 +86,9 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
                 } else { }
     };
 	
-	$scope.obrisiBibl= function($id){
+	$scope.obrisiBibl= function($id,$str){
 	if($window.confirm('Da li ste sigurni?')) {
-		$http.delete('../server/bibliografskipodatak.php/'+$id)
+		$http.delete('../server/bibliografskipodatak.php/'+$id+'&'+$str)
                 .success(function (data, status, headers, config)
                 {
                     $window.alert(data.poruka);
@@ -184,7 +184,7 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
      mestoNalaska : $scope.single.mestoNalaska,
      modernoImeDrzave : $scope.single.modernoImeDrzave,
      modernoMesto: $scope.single.modernoMesto,
-     trenutnaLokacijaZnamenitosti : $scope.single.trenutnaLokacijaZnamenitosti,
+     trenutnaLokacijaZnamenitosti : $scope.single.ustanova,
      pleme : $scope.single.plemeNaziv,
      vreme : $scope.single.datovano,
      pocetakGodina : $scope.single.pocetakGodina,
@@ -214,7 +214,7 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
 }).
  success(function(data, status, headers, config){
     if(data!=="null")
-				$window.location="znamenitosti.php";
+				;//$window.location="znamenitosti.php";
             }).
  error(function(data, status, headers, config){
 
