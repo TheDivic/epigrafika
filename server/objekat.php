@@ -159,8 +159,10 @@ try
             $rezultat = unesi($data, $db);
             if($rezultat == true){
                 $result->error_status = false;
-
             }
+            else
+                $result->error_status = true;
+
         }catch (Exception $e){
             $result->error_status=true;
             $result->error_message = $e->getMessage();
@@ -178,6 +180,8 @@ try
             if($rezultat == true){
                 $result->error_status = false;
             }
+            else
+                $result->error_status = true;
 
         }catch (Exception $e){
             $result->error_status=true;
@@ -205,6 +209,8 @@ try
                 $rezultat = obrisi($id, $db);
                 if($rezultat==true)
                     $result->error_status = false;
+                else
+                    $result->error_status = true;
 
             } catch (Exception $e) {
                 $result->error_status=true;
