@@ -39,7 +39,6 @@ angular.module('epigrafikaModul').controller('unosController', ['$scope', '$http
     $scope.gradovi=null;
     $scope.vrsteNatpisa=null;
     $scope.mesta=null;
-    $scope.korisnik=$cookies.user;
 
     // upload fajlova
     $scope.pdfLinkovi = [];
@@ -259,10 +258,8 @@ $scope.posalji_podatke=function(){
      komentar: $scope.komentar,
      fotografije: $scope.photoLinkovi,
      fazaUnosa:$scope.fazaUnosa,
-     korisnickoIme:$scope.korisnik
  };
 
- console.log($cookies.user);
 
  var jsonData = angular.toJson(formData);
  alert(jsonData);
