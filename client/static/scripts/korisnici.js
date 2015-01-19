@@ -160,7 +160,7 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
 				$window.location.href="korisnici.php";
             }
 	    else
-                //console.log(data);
+                console.error(data);
 	})
 	.error(function (data, status, headers, config)
 	{
