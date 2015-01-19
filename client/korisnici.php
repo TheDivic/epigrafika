@@ -84,7 +84,7 @@ include "header-admin.php"; ?>
 			</div>
 			<div class="row">
 					<div class="col-sm-4">
-						<button type="submit" ng-click="sacuvaj(s.korisnickoIme, s.ime,s.prezime,s.email,s.institucija, s.privilegije,s.status)" class="btn btn-success btn-block" ng-class="{'disabled':!novakorisnik.$valid}" ng-enabled="novakorisnik.$valid"> Sacuvaj </button>
+						<button type="button" ng-click="sacuvaj(s.korisnickoIme, s.ime,s.prezime,s.email,s.institucija, s.privilegije,s.status)" class="btn btn-success btn-block" ng-class="{'disabled':!novakorisnik.$valid}" ng-enabled="novakorisnik.$valid"> Sacuvaj </button>
 					</div>
 					<div class="col-sm-4">
 						<button type="button" ng-click="ponisti()" class="btn btn-primary btn-block" > Ponisti </button>
@@ -248,7 +248,7 @@ include "header-admin.php"; ?>
 			
 			<div class="row">
 					<div class="col-sm-4">
-						<button type="submit" ng-click="submit()" class="btn btn-success btn-block" ng-class="{'disabled':(!novakorisnik.$valid || sameR)}" ng-enabled="!sameR && novakorisnik.$valid"> Unesi </button>
+						<button type="button" ng-click="submit()" class="btn btn-success btn-block" ng-class="{'disabled':(!novakorisnik.$valid || sameR)}" ng-enabled="!sameR && novakorisnik.$valid"> Unesi </button>
 					</div>
 					<div class="col-sm-4">
 						<button type="reset" class="btn btn-primary btn-block" > Ponisti </button>

@@ -99,7 +99,7 @@ include 'header-admin.php'; ?>
 				</div>
 				<div class="row">
 					<div class="col-sm-4">
-						<button type="submit" class="btn btn-success btn-block" ng-class="{'disabled':!novaProvincija.$valid}" ng-enabled="novaProvincija.$valid"> Unesi </button>
+						<button type="button" class="btn btn-success btn-block" ng-class="{'disabled':!novaProvincija.$valid}" ng-enabled="novaProvincija.$valid"> Unesi </button>
 					</div>
 					<div class="col-sm-4">
 						<button type="reset" class="btn btn-primary btn-block" > Ponisti </button>

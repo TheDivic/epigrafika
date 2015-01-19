@@ -305,7 +305,7 @@ else if($_SESSION['privilegije']!=="admin") {
 	</div> <br/><!-- fieldset end -->
 	<div class="row">
 		<div class="col-sm-4 col-sm-offset-2">
-			<button type="submit" class="btn btn-success btn-block" ng-class="{'disabled':!formUnos.$valid}" ng-click="sacuvaj()" ng-enabled='formUnos.$valid'> {{tr.unesi_podatke}}  </button>
+			<button type="button" class="btn btn-success btn-block" ng-class="{'disabled':!formUnos.$valid}" ng-click="sacuvaj()" ng-enabled='formUnos.$valid'> {{tr.unesi_podatke}}  </button>
 		</div>
 		<div class="col-sm-4 ">
 			<button type="reset" id="reset" ng-click="ponisti()" class="btn btn-primary btn-block">{{tr.resetuj_podatke}}</button>
@@ -648,7 +648,7 @@ else if($_SESSION['privilegije']!=="admin") {
 	</div> <br/><!-- fieldset end -->
 	<div class="row">
 		<div class="col-sm-4 col-sm-offset-2">
-			<button type="submit" class="btn btn-success btn-block" ng-class="{'disabled':!formUnos.$valid}" ng-click="submit()" ng-enabled='formUnos.$valid'> {{tr.unesi_podatke}}  </button>
+			<button type="button" class="btn btn-success btn-block" ng-class="{'disabled':!formUnos.$valid}" ng-click="submit()" ng-enabled='formUnos.$valid'> {{tr.unesi_podatke}}  </button>
 		</div>
 		<div class="col-sm-4 ">
 			<button type="reset" id="reset" class="btn btn-primary btn-block">{{tr.resetuj_podatke}}</button>

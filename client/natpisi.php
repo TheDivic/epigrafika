@@ -73,7 +73,7 @@ include 'header-admin.php'; ?>
 				</div>
 				<div class="row">
 					<div class="col-sm-4">
-						<button type="submit" ng-click="submit(nazivn)" class="btn btn-success btn-block" ng-class="{'disabled':!novanatpis.$valid}" ng-enabled="novanatpis.$valid"> Unesi </button>
+						<button type="button" ng-click="submit(nazivn)" class="btn btn-success btn-block" ng-class="{'disabled':!novanatpis.$valid}" ng-enabled="novanatpis.$valid"> Unesi </button>
 					</div>
 					<div class="col-sm-4">
 						<button type="reset" class="btn btn-primary btn-block" > Ponisti </button>

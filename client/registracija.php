@@ -93,7 +93,7 @@ include 'headerNijeUlogovan.php'; ?>
 			
 			<div class="row">
 				<div class="col-sm-8 col-sm-offset-2">
-                                    <button type="submit" ng-click="posaljiPodatke()" class="btn btn-primary btn-block" ng-class="{'disabled':(!registrationForm.$valid || sameR)}" ng-enabled="(!sameR && registrationForm.$valid)">{{tr.registruj_se}}</button>
+                                    <button type="button" ng-click="posaljiPodatke()" class="btn btn-primary btn-block" ng-class="{'disabled':(!registrationForm.$valid || sameR)}" ng-enabled="(!sameR && registrationForm.$valid)">{{tr.registruj_se}}</button>
 				</div>
 			</div>
 		</form>
