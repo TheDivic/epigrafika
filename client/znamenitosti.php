@@ -24,12 +24,12 @@ else if($_SESSION['privilegije']!=="admin") {
 				</div>
 				<div class="col-sm-3">
 					<label class="checkbox-inline">
-						<input type="radio" name="jezikUpisa" ng-model="single.jezik" value="latinski" checked /> {{tr.latinski}}
+						<input type="radio" name="jezikUpisa" ng-model="single.jezik" ng-checked="single.jezik='latinski'" value="latinski"/> {{tr.latinski}}
 					</label>
 				</div>
 				<div class="col-sm-3">
 					<label class="checkbox-inline" >
-						<input type="radio" name="jezikUpisa" ng-model="single.jezik" value="grcki"/>  {{tr.grcki}}
+						<input type="radio" name="jezikUpisa" ng-model="single.jezik" ng-checked="single.jezik='Grcki'" value="grcki"/>  {{tr.grcki}}
 					</label>
 				</div>
 			</div>
