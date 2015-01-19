@@ -538,4 +538,21 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
+ALTER TABLE `mydb`.`korisnik` CHANGE `mod` `privilegije` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+
+ALTER TABLE `mydb`.`korisnik` CHANGE `sifra` `sifra` CHAR(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

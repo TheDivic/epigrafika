@@ -185,19 +185,3 @@ INSERT INTO `mydb`.`recnik` VALUES ('a',2),('ac',3),('accumsan',1),('adipiscing'
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
