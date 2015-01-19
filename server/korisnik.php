@@ -97,26 +97,42 @@ try
         }
 
 
-			if($_GET['type'] === 'view'){
-				$user= $_GET['korisnickoIme'];
-				$query = $db->prepare("select * from mydb.korisnik where korisnickoIme='$user'" );
-				$query->execute();
-				$result->error_status = false;
-				$result->data = $query->fetchAll();
-				if(count($result->data) == 0)
-					$result->isEmpty = true;
-				else{
-					$result->isEmpty = false;
+        if($_GET['type'] === 'view'){
+            $user= $_GET['korisnickoIme'];
+            $query = $db->prepare("select * from mydb.korisnik where korisnickoIme='$user'" );
+            $query->execute();
+            $result->error_status = false;
+            $result->data = $query->fetchAll();
+            if(count($result->data) == 0)
+               $result->isEmpty = true;
+           else{
+               $result->isEmpty = false;
 
-				}
-		}
-		if ($_GET['type'] === 'all'){
-			$stmt = $db->prepare("select * from mydb.korisnik");
-			$stmt->execute();
-			$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			$result->error_status=false;
-			$result->data = $stmt->fetchAll();
-			}
+           }
+       }
+       
+       if ($_GET['type'] === 'all'){
+           $stmt = $db->prepare("select korisnickoIme, ime, prezime, privilegije, status, institucija, datumRegistrovanja from mydb.korisnik");
+           $stmt->execute();
+           $query_result = $stmt->fetchAll(PDO::FETCH_OBJ);
+           $remaining = 0;
+           $limit = 10;
+           $result->data = [];
+
+           if(isset($_GET['offset'])) {
+            $offset = intval($_GET['offset']);
+            
+            for($i = $offset; $i < sizeof($query_result) && $i < $offset + $limit; $i++){
+                $result->data[] = $query_result[$i];
+            }
+            $remaining = (sizeof($query_result) - $offset - $limit) > 0 ? (sizeof($query_result) - $offset - $limit) : 0;
+        }
+        else {
+            $result->data = $query_result;
+        }
+
+        $result->remaining = $remaining;
+    }
 		if ($_GET['type'] === 'chart'){
 			$stmt = $db->prepare("select * from (select count(*) as novi, datumRegistrovanja, '#0D52D1' as boja from mydb.korisnik group by datumRegistrovanja,boja order by datumRegistrovanja desc limit 7) tmp order by datumRegistrovanja asc");
 			$stmt->execute();

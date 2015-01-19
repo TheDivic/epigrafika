@@ -6,18 +6,44 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
 	$scope.single=null;
         $scope.info=null;
 
-	//trazi se lista svih natpis od servera
-    $http.get('../server/korisnik.php?type=all', {responseType: 'JSON'}).
-    success(function(data, status, headers, config){
-        if(data!=="null")
-        $scope.korisnici=data.data;
-		
-    }).
-    error(function(data, status, headers, config){
-    });
+
+    $scope.offset = 0;
+    var pageLimit = 10;
+    $scope.pageNumber = 1;
+    $scope.remainingResults = 0;
+
+    $scope.nextPage = function() {
+        if($scope.remainingResults > 0){
+            $scope.offset += pageLimit;
+            $scope.pageNumber += 1;
+            getKorisnici();
+        }
+    };
+
+    $scope.previousPage = function() {
+        if($scope.pageNumber > 1){
+            $scope.offset -= pageLimit;
+            $scope.pageNumber -= 1;
+            getKorisnici();
+        }
+    };
+
+    var getKorisnici = function() {
+        //trazi se lista svih natpis od servera
+        $http.get('../server/korisnik.php?type=all&offset=' + $scope.offset, {responseType: 'JSON'}).
+        success(function(data, status, headers, config){
+            if(data!=="null")
+                $scope.korisnici=data.data;
+                $scope.remainingResults = data.remaining;
+        }).
+        error(function(data, status, headers, config){
+            console.error(data);
+        });
+    };
+	
+    getKorisnici();
 		
 	//provera za iste sifre
-	
 	$scope.same= function($first,$second){
 		if($first!=$second)
 			$scope.sameR=true;
