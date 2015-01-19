@@ -73,7 +73,7 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
 		$http.delete('../server/korisnik.php?korisnickoIme="'+$korisnickoIme+'"')
                 .success(function (data, status, headers, config)
                 {	
-                    $window.alert(data.poruka);
+                    //$window.alert(data.poruka);
                     $window.location.reload();
                 })
                 .error(function (data, status, headers, config)
@@ -151,7 +151,7 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
 			
 		};
 		var data = angular.toJson(params);
-		console.log(data);
+		//console.log(data);
 	$http.put('../server/korisnik.php', data )
 	.success(function (data, status, headers, config)
 	{
@@ -160,7 +160,7 @@ angular.module('epigrafikaModul').controller('adminKorisnici', ['$scope', '$http
 				$window.location.href="korisnici.php";
             }
 	    else
-                console.log(data);
+                //console.log(data);
 	})
 	.error(function (data, status, headers, config)
 	{

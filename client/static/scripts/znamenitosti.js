@@ -70,12 +70,12 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
 
 	//brisanje pojedinacne fotografije
 	$scope.obrisiFoto= function($id){
-	console.log($id);
+	//console.log($id);
 	if($window.confirm('Da li ste sigurni?')) {
 		$http.delete('../server/obrisi_fotografiju.php/'+$id)
                 .success(function (data, status, headers, config)
                 {
-                    $window.alert(data.poruka);
+                    //$window.alert(data.poruka);
 					$window.location.reload();
                 })
                 .error(function (data, status, headers, config)
@@ -91,7 +91,7 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
 		$http.delete('../server/bibliografskipodatak.php/'+$id+'&'+$str)
                 .success(function (data, status, headers, config)
                 {
-                    $window.alert(data.poruka);
+                    //$window.alert(data.poruka);
 					$window.location.reload();
                 })
                 .error(function (data, status, headers, config)
@@ -143,8 +143,8 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
 		$http.delete('../server/objekat.php/'+$id)
                 .success(function (data, status, headers, config)
                 {	
-                    //$window.location.reload();
-                    $window.alert(data.poruka);
+                    $window.location.reload();
+                    //$window.alert(data.poruka);
                 })
                 .error(function (data, status, headers, config)
                 {
@@ -209,14 +209,14 @@ angular.module('epigrafikaModul').controller('adminZnamenitosti', ['$scope', '$h
  };
 
  var jsonData = angular.toJson(formData);
- alert(jsonData);
+// alert(jsonData);
 
  $http.put('../server/objekat.php', jsonData,
     {responseType:'JSON',headers: {'content-type': 'application/json'}
 }).
  success(function(data, status, headers, config){
     if(data!=="null")
-				;//$window.location="znamenitosti.php";
+		$window.location="znamenitosti.php";
             }).
  error(function(data, status, headers, config){
 
@@ -536,7 +536,7 @@ $scope.submit=function(){
  console.log($cookies.user);
 
  var jsonData = angular.toJson(formData);
- alert(jsonData);
+ //alert(jsonData);
 
  $http.post('../server/objekat.php', jsonData,
     {responseType:'JSON',headers: {'content-type': 'application/json'}

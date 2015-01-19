@@ -30,8 +30,8 @@ angular.module('epigrafikaModul').controller('registracijaController', ['$scope'
             error(function(data, status, headers, config){
 
             });
-            console.log("user "+user);
-            console.log("greska "+$scope.greska);
+           // console.log("user "+user);
+            //console.log("greska "+$scope.greska);
 	}
         
         $scope.posaljiPodatke=function()
@@ -49,7 +49,7 @@ angular.module('epigrafikaModul').controller('registracijaController', ['$scope'
             };
             
             var jsonData = angular.toJson(formData);
-            alert(jsonData);
+           // alert(jsonData);
             
             $http.post('../server/korisnik.php', jsonData, 
             {responseType:'JSON',headers: {'content-type': 'application/json'}

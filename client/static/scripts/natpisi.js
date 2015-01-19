@@ -12,7 +12,7 @@ angular.module('epigrafikaModul').controller('adminNatpisi', ['$scope', '$http',
         .success(function (data, status, headers, config)
         {	
 			$window.location.reload();
-            $window.alert(data.poruka);
+            //$window.alert(data.poruka);
 			
         })
         .error(function (data, status, headers, config)

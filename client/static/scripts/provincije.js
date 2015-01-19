@@ -11,7 +11,7 @@ angular.module('epigrafikaModul').controller('adminProvincije', ['$scope', '$htt
 		$http.delete('../server/provincije.php?id='+$pid)
         .success(function (data, status, headers, config)
         {	
-            $window.alert(data.poruka);
+            //$window.alert(data.poruka);
             $window.location.reload();
         })
         .error(function (data, status, headers, config)

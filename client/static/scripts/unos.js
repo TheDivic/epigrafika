@@ -262,7 +262,7 @@ $scope.posalji_podatke=function(){
 
 
  var jsonData = angular.toJson(formData);
- alert(jsonData);
+ //alert(jsonData);
 
  $http.post('../server/objekat.php', jsonData,
     {responseType:'JSON',headers: {'content-type': 'application/json'}
